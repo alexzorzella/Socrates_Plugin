@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class Parallax : MonoBehaviour
 {
     public float length, startPos;
-    public GameObject camera;
+    public GameObject cameraObject;
     public float parallaxEffect;
 
     public bool fixedY;
@@ -24,8 +24,8 @@ public class Parallax : MonoBehaviour
 
     private void Update()
     {
-        float temp = camera.transform.position.x * (1 - parallaxEffect);
-        float distance = camera.transform.position.x * parallaxEffect;
+        float temp = cameraObject.transform.position.x * (1 - parallaxEffect);
+        float distance = cameraObject.transform.position.x * parallaxEffect;
         transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
 
         if(temp > startPos + length)

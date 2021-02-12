@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +9,12 @@ public class GameAssets : MonoBehaviour
 
     private void Start()
     {
+        Console i = Console.i;
+        startTime = DateTime.Now.Ticks;
         DontDestroyOnLoad(gameObject);
     }
+
+    private long startTime;
 
     public static GameAssets i
     {
@@ -25,5 +30,33 @@ public class GameAssets : MonoBehaviour
         }
     }
 
+    public Particle[] particleCatalogue;
+
+    private GameObject GetParticle(string name, Vector2 position)
+    {
+        Particle p = Array.Find(particleCatalogue, part => part.name == name);
+
+        if(p != null)
+        {
+            return Instantiate(p.particle, position, Quaternion.identity);
+        }
+
+        Debug.LogWarning($"Não tem uma quimica com esse nome, cheque o catalogo.");
+
+        return null;
+    }
+    
+    public static GameObject Particle(string name, Vector2 position)
+    {
+        return i.GetParticle(name, position);
+    }
+
     //Have a nice day.
+}
+
+[System.Serializable]
+public class Particle
+{
+    public string name;
+    public GameObject particle;
 }

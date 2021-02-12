@@ -44,7 +44,7 @@ public static class SaveSystem
 
     public static PlayerData LoadPlayer(string path)
     {
-        if (File.Exists(path))
+        if (File.Exists(Path(path)))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(Path(path), FileMode.Open);

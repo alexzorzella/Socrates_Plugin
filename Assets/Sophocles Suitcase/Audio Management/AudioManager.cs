@@ -68,6 +68,76 @@ public class AudioManager : MonoBehaviour
         s.currentlyPlayingFrom = IncrementWithOverflow.Run(s.currentlyPlayingFrom, s.amountOfSources, 1);
     }
 
+    public void MasterPlay(string name, float minPitch = 1F, float maxPitch = 1F, bool onlyIfDone = false)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (s == null)
+        {
+            Debug.LogError($"Sophocles: '{name}' nao existe. Tente outro nome, por favor.");
+            return;
+        }
+
+        bool abort = false;
+        
+        foreach (var audioSource in s.sources)
+        {
+            if (audioSource.isPlaying)
+            {
+                abort = true;
+            }
+        }
+
+        if (onlyIfDone && abort)
+        {
+            return;
+        }
+
+        if (s.clips.Count > 1)
+        {
+            s.sources[s.currentlyPlayingFrom].clip = s.clips[UnityEngine.Random.Range(0, s.clips.Count)];
+        }
+
+        s.sources[s.currentlyPlayingFrom].pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+        s.sources[s.currentlyPlayingFrom].Play();
+        s.currentlyPlayingFrom = IncrementWithOverflow.Run(s.currentlyPlayingFrom, s.amountOfSources, 1);
+    }
+
+    public void PlayOnlyIfDone(string name, float minPitch = 1, float maxPitch = 1)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        
+        if (s == null)
+        {
+            Debug.LogError($"Sophocles: '{name}' nao existe. Tente outro nome, por favor.");
+            return;
+        }
+
+        bool abort = false;
+
+        foreach (var audioSource in s.sources)
+        {
+            if(audioSource.isPlaying)
+            {
+                abort = true;
+            }
+        }
+
+        if(abort)
+        {
+            return;
+        }
+
+        if (s.clips.Count > 1)
+        {
+            s.sources[s.currentlyPlayingFrom].clip = s.clips[UnityEngine.Random.Range(0, s.clips.Count)];
+        }
+
+        s.sources[s.currentlyPlayingFrom].pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+        s.sources[s.currentlyPlayingFrom].Play();
+        s.currentlyPlayingFrom = IncrementWithOverflow.Run(s.currentlyPlayingFrom, s.amountOfSources, 1);
+    }
+
     public void Play(string name, float minPitch, float maxPitch)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -217,7 +287,7 @@ public class AudioManager : MonoBehaviour
             while (lastSong.volume > 0)
             {
                 lastSong.volume -= 0.1F;
-                yield return new WaitForSeconds(0.05F);
+                yield return new WaitForSecondsRealtime(0.05F);
             }
 
             lastSong.Stop();
@@ -233,7 +303,7 @@ public class AudioManager : MonoBehaviour
         while (lastSong.volume < targetMusicVolume)
         {
             lastSong.volume += 0.1F;
-            yield return new WaitForSeconds(0.05F);
+            yield return new WaitForSecondsRealtime(0.05F);
         }
     }
 
