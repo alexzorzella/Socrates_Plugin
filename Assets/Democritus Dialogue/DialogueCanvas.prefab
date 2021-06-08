@@ -131,13 +131,79 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 20
+  m_Spacing: 15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!1 &2910648557435544472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 564256054673238707}
+  - component: {fileID: 7555811319835878140}
+  - component: {fileID: 5681351460521685143}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &564256054673238707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910648557435544472}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4435564946020282308}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7555811319835878140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910648557435544472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &5681351460521685143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910648557435544472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!1 &4435564944766094352
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.000030518, y: -227}
+  m_AnchoredPosition: {x: 0.000030517, y: -226.92}
   m_SizeDelta: {x: 748.4708, y: 341.98022}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4435564944766094365
@@ -225,6 +291,7 @@ GameObject:
   - component: {fileID: 4435564944813171488}
   - component: {fileID: 4435564944813171502}
   - component: {fileID: 4435564944813171503}
+  - component: {fileID: 7525905641376084323}
   m_Layer: 5
   m_Name: DialogueText
   m_TagString: Untagged
@@ -288,8 +355,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255407
-  m_fontColor: {r: 0.18523192, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -348,6 +415,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7525905641376084323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435564944813171489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67aa7901d5a8e44ba7a7e2f9434b10a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4435564944974639532
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +438,7 @@ GameObject:
   - component: {fileID: 4435564944974639531}
   - component: {fileID: 4435564944974639529}
   - component: {fileID: 4435564944974639530}
+  - component: {fileID: 4820115134134807175}
   m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
@@ -422,8 +502,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255407
-  m_fontColor: {r: 0.18523192, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -482,6 +562,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4820115134134807175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435564944974639532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67aa7901d5a8e44ba7a7e2f9434b10a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4435564945234856944
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,8 +778,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255407
-  m_fontColor: {r: 0.18523192, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -779,6 +871,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4435564944766094367}
+  - {fileID: 564256054673238707}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -878,11 +971,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dda3e021906ff4993e38363fc968d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 4435564944974639530}
-  contentText: {fileID: 4435564944813171503}
+  nameText: {fileID: 4820115134134807175}
+  contentText: {fileID: 7525905641376084323}
   origin: {x: 0, y: -220, z: 0}
   spacing: -45
   dialogueChoice: {fileID: 6015707748226081027, guid: 37fa4a8e320500f41a60438c153c529f,
     type: 3}
   clickToContinue: {fileID: 4435564945234856944}
+  anim: {fileID: 4435564946020282306}
   parentChoicesTo: {fileID: 7381983744551712858}

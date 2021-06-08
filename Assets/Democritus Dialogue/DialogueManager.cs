@@ -8,8 +8,8 @@ public class DialogueManager : MonoBehaviour
 {
     public Dialogue_Superclass.DialogueSection currentSection;
 
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI contentText;
+    public SocraticVertexModifier nameText;
+    public SocraticVertexModifier contentText;
 
     [Header("Options")]
     public Vector3 origin = new Vector3(0, -220F, 0);
@@ -17,29 +17,16 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogueChoice;
     public GameObject clickToContinue;
 
-    private Animator anim;
+    public Animator anim;
 
     public Transform parentChoicesTo;
 
-    private void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
-
     private void Update()
     {
-        if(FindObjectOfType<ZPlayer_Sharon>() != null)
-        {
-            AlexianInput input = FindObjectOfType<ZPlayer_Sharon>().input;
-
-            if (input.playerInput.currentControlScheme == "Gamepad")
-            {
-                if (input.WestButtonDown() && Talking())
-                {
-                    ProceedToNext();
-                }
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Return) && OpenPanel())
+        //{
+        //    ProceedToNext();
+        //}
     }
 
     public void StartDialogue(Dialogue_Superclass.DialogueSection start)
@@ -50,27 +37,24 @@ public class DialogueManager : MonoBehaviour
         DisplayDialogue();
     }
 
-    bool talking;
-
-    public bool Talking()
+    public bool OpenPanel()
     {
         return anim.GetBool("open");
     }
 
     public void ProceedToNext()
     {
-        AudioManager.i.Play("blurb", 1.4F, 1.4F);
-
-        if (currentSection.GetAction() != null && talking)
+        if (currentSection.GetAction() != null && !contentText.TextHasBeenDisplayed())
         {
             return;
         }
 
-        if(currentSection.GetNextSection() != null)
+        if (currentSection.GetNextSection() != null)
         {
             currentSection = currentSection.GetNextSection();
             DisplayDialogue();
-        } else
+        }
+        else
         {
             EndDialogue();
         }
@@ -88,73 +72,18 @@ public class DialogueManager : MonoBehaviour
 
         clickToContinue.SetActive(monologue);
 
-        if (monologue)
-        {
-            //ClearAllOptions();
-            //delete all of the current options
-        }
-
         ClearAllOptions();
 
-        contentText.text = "";
+        SocraticVertexModifier.PrepareParsesAndSetText("", contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true);
 
-        StopAllCoroutines();
-        StartCoroutine(DisplayText());
+        DisplayText();
     }
 
-    IEnumerator DisplayText()
+    public void DisplayText()
     {
-        if (currentSection.GetAction() != null)
-        {
-            currentSection.TriggerAction(true);
-        }
-
-        nameText.text = currentSection.GetSpeakerName();
-        contentText.text = currentSection.GetTitle(); //Needs to access the sentences in the dialogue, going to be either the sentence or header
-
-        contentText.ForceMeshUpdate();
-
-        int totalVisibleCharacters = contentText.textInfo.characterCount;
-        int counter = 0;
-
-        talking = true;
-
-        while (totalVisibleCharacters >= counter)
-        {
-            //contentText.ForceMeshUpdate();
-
-            int visibleCount = counter % (totalVisibleCharacters + 1);
-            contentText.maxVisibleCharacters = visibleCount;
-
-            counter += 1;
-
-            if (anim.GetBool("open"))
-            {
-                if (!currentSection.IsMonotone())
-                {
-                    AudioManager.i.PlayOnlyIfDone(currentSection.GetDialogueSound(), 0.8F, 1.2F);
-                }
-                else
-                {
-                    Sound s = Array.Find(AudioManager.i.sounds, sound => sound.name == currentSection.GetDialogueSound());
-
-                    if (s != null)
-                    {
-                        AudioManager.i.PlayOnlyIfDone(currentSection.GetDialogueSound(), s.pitch, s.pitch);
-                    }
-                }
-            }
-
-            yield return new WaitForSeconds(currentSection.CharDelay());
-        }
-
-        if(currentSection.GetAction() != null)
-        {
-            currentSection.TriggerAction(false);
-        }
-
-        talking = false;
-
+        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText.GetComponent<TextMeshProUGUI>(), nameText, true, true, currentSection);
+        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, false, false, currentSection);
+        
         if (typeof(Dialogue_Superclass.Choices).IsInstanceOfType(currentSection))
         {
             StartCoroutine(DisplayOptions());
@@ -189,14 +118,8 @@ public class DialogueManager : MonoBehaviour
             GameObject s = Instantiate(dialogueChoice, Vector3.zero, Quaternion.identity);
             s.transform.SetParent(parentChoicesTo, false);
 
-            //s.GetComponent<RectTransform>().transform.position = transform.position;
-
-            //s.GetComponent<RectTransform>().transform.position = transform.position + origin + new Vector3(0, spacing * i, 0);
-
             DialogueOptionDisplay optionDisplayBehavior = s.GetComponent<DialogueOptionDisplay>();
             optionDisplayBehavior.SetParams(option.Item1, option.Item2);
-
-            AudioManager.i.Play("blurb", 1.4F, 1.4F);
 
             yield return new WaitForSeconds(optionDisplayBehavior.AnimationLength());
 
