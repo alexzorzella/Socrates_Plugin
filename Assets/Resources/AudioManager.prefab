@@ -54,4 +54,24 @@ MonoBehaviour:
     loop: 1
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
+  - name: dialogue_display
+    clips:
+    - {fileID: 8300000, guid: 32f8915c34bc4f54e84ea6e0c7194c4d, type: 3}
+    amountOfSources: 10
+    currentlyPlayingFrom: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
+    sources: []
+  - name: dialogue_select
+    clips:
+    - {fileID: 8300000, guid: 401215cc5d325af4ebe1152da31cc6aa, type: 3}
+    amountOfSources: 10
+    currentlyPlayingFrom: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
+    sources: []
   targetMusicVolume: 1

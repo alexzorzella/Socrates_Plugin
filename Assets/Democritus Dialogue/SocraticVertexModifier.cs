@@ -258,7 +258,6 @@ public class SocraticVertexModifier : MonoBehaviour
                     {
                         if (vertexModifier.currentSection != null)
                         {
-                            Debug.Log($"Stopping for delay");
                             AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
                         }
 

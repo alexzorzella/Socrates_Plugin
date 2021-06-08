@@ -23,10 +23,22 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Return) && OpenPanel())
-        //{
-        //    ProceedToNext();
-        //}
+        PrepForDisplayOptions();
+        DisplayOptions();
+    }
+
+    private void PrepForDisplayOptions()
+    {
+        if(optionsBeenDisplayed)
+        {
+            return;
+        }
+
+        if (typeof(Dialogue_Superclass.Choices).IsInstanceOfType(currentSection) && contentText.TextHasBeenDisplayed())
+        {
+            ResetDisplayOptionsFlags();
+            optionsBeenDisplayed = true;
+        }
     }
 
     public void StartDialogue(Dialogue_Superclass.DialogueSection start)
@@ -44,10 +56,17 @@ public class DialogueManager : MonoBehaviour
 
     public void ProceedToNext()
     {
+        if(displayingChoices)
+        {
+            return;
+        }
+
         if (currentSection.GetAction() != null && !contentText.TextHasBeenDisplayed())
         {
             return;
         }
+
+        AudioManager.i.Play("dialogue_select");
 
         if (currentSection.GetNextSection() != null)
         {
@@ -81,18 +100,15 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayText()
     {
+        optionsBeenDisplayed = false;
+
         SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText.GetComponent<TextMeshProUGUI>(), nameText, true, true, currentSection);
         SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, false, false, currentSection);
-        
-        if (typeof(Dialogue_Superclass.Choices).IsInstanceOfType(currentSection))
-        {
-            StartCoroutine(DisplayOptions());
-            //display all of the options as a way to pick them
-        }
     }
 
     public void EndDialogue()
     {
+        ClearAllOptions();
         anim.SetBool("open", false);
     }
 
@@ -107,23 +123,55 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public IEnumerator DisplayOptions()
+    float currentOptionDelay = 0;
+    int indexOfCurrentChoice = 0;
+    [HideInInspector] public bool displayingChoices;
+    private bool optionsBeenDisplayed;
+
+    public void ResetDisplayOptionsFlags()
     {
-        int i = 0;
+        displayingChoices = true;
+        indexOfCurrentChoice = 0;
+    }
+
+    public void DisplayOptions()
+    {
+        if (!typeof(Dialogue_Superclass.Choices).IsInstanceOfType(currentSection))
+        {
+            return;
+        }
 
         Dialogue_Superclass.Choices choices = (Dialogue_Superclass.Choices)currentSection;
 
-        foreach (var option in choices.choices)
+        if (displayingChoices)
         {
-            GameObject s = Instantiate(dialogueChoice, Vector3.zero, Quaternion.identity);
-            s.transform.SetParent(parentChoicesTo, false);
+            if (indexOfCurrentChoice < choices.choices.Count)
+            {
+                if (currentOptionDelay <= 0)
+                {
+                    Tuple<string, Dialogue_Superclass.DialogueSection> option = choices.choices[indexOfCurrentChoice];
+                    
+                    GameObject s = Instantiate(dialogueChoice, Vector3.zero, Quaternion.identity);
+                    s.transform.SetParent(parentChoicesTo, false);
 
-            DialogueOptionDisplay optionDisplayBehavior = s.GetComponent<DialogueOptionDisplay>();
-            optionDisplayBehavior.SetParams(option.Item1, option.Item2);
+                    DialogueOptionDisplay optionDisplayBehavior = s.GetComponent<DialogueOptionDisplay>();
+                    currentOptionDelay = optionDisplayBehavior.AnimationLength();
 
-            yield return new WaitForSeconds(optionDisplayBehavior.AnimationLength());
+                    optionDisplayBehavior.SetParams(option.Item1, option.Item2);
 
-            i++;
+                    AudioManager.i.Play("dialogue_display");
+
+                    indexOfCurrentChoice++;
+                }
+                else
+                {
+                    currentOptionDelay -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                displayingChoices = false;
+            }
         }
     }
 }

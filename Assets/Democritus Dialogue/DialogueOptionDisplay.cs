@@ -25,6 +25,13 @@ public class DialogueOptionDisplay : MonoBehaviour
 
     public void ProceedOnClick()
     {
+        if(manager.displayingChoices)
+        {
+            return;
+        }
+
+        AudioManager.i.Play("dialogue_select");
+
         manager.currentSection = leadsTo;
         manager.DisplayDialogue();
     }
