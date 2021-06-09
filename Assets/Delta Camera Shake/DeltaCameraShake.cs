@@ -151,8 +151,9 @@ public class ShakeProfile
 
 public static class Shakepedia
 {
-    public static ShakeProfile CLASSIC = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.008F, 6F);
-    public static ShakeProfile POW = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.2F, 11F);
+    public static ShakeProfile MILD = new ShakeProfile(0.08F, 0.1F, 5F, 1F, 0.6F, 1F, 0.003F, 3F);
+    public static ShakeProfile MEDIUM_RARE = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 6F);
+    public static ShakeProfile POW = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 11F);
 
     public static ShakeProfile GetProfileClone(ShakeProfile profile)
     {
