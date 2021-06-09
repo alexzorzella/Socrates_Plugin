@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 70771064}
+  - component: {fileID: 70771065}
   m_Layer: 0
   m_Name: Cameraman Tim
   m_TagString: Untagged
@@ -152,6 +153,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &70771065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70771063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae7d5e188818fb4989b85f8348f53ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothTime: 0.3
+  mouseMultiplier: {x: 0.2, y: 0.2}
+  clampPositions: {x: 6, y: 4.5}
 --- !u!1001 &426970097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -605,6 +621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1270232591}
   - component: {fileID: 1270232590}
+  - component: {fileID: 1270232592}
   m_Layer: 0
   m_Name: Michael_Ref
   m_TagString: Untagged
@@ -676,6 +693,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270232592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270232589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf64f78bb2b004459efcf27e1fa1add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1730657022
 GameObject:
   m_ObjectHideFlags: 0

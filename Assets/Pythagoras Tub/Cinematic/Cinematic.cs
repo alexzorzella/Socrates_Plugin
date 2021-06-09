@@ -33,6 +33,11 @@ public class Cinematic : MonoBehaviour
         }
     }
 
+    public void ShakeCamera()
+    {
+        CameramanTimothy.GetShake().Shake(Shakepedia.GetProfileClone(Shakepedia.MILD));
+    }
+
     public void EnableCutsceneOnPlayerJoin()
     {
         if (FindObjectOfType<ZPlayer_Sharon>() != null && !hasTriggered)
@@ -45,11 +50,6 @@ public class Cinematic : MonoBehaviour
     public void EnableCutscene()
     {
         anim.SetTrigger("cutscene");
-    }
-
-    public void ShakeCamera()
-    {
-        SmoothCamera.Shake();
     }
 
     public void SpawnObjectSplitWithPercentageSign(string name)
@@ -70,19 +70,19 @@ public class Cinematic : MonoBehaviour
 
     public void SetCameraTarget(string name)
     {
-        if(FindObjectOfType<SmoothCamera>() == null)
+        if(FindObjectOfType<CameramanTimothy>() == null)
         {
             Debug.Log("Camera not found.");
         }
         else
         {
-            FindObjectOfType<SmoothCamera>().SetTargetWithTransform(GetGetObjectFromName(name).transform);
+            FindObjectOfType<CameramanTimothy>().SetTargetWithTransform(GetGetObjectFromName(name).transform);
         }
     }
     
     public void SetTargetTag(string name)
     {
-        FindObjectOfType<SmoothCamera>().SetTargetWithTag(name);
+        FindObjectOfType<CameramanTimothy>().SetTargetWithTag(name);
     }
 
     private GameObject GetGetObjectFromName(string name)

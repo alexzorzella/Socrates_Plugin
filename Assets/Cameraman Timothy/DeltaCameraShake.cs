@@ -6,6 +6,12 @@ using UnityEngine;
 public class DeltaCameraShake : MonoBehaviour
 {
     public List<ShakeProfile> activeShakes = new List<ShakeProfile>();
+    private Vector3 addedPosition;
+
+    public void SetAddedPosition(Vector3 position)
+    {
+        addedPosition = position;
+    }
 
     public void Shake(ShakeProfile profile)
     {
@@ -41,7 +47,7 @@ public class DeltaCameraShake : MonoBehaviour
             } 
         }
 
-        transform.position = new Vector3(finalCameraPos.x, finalCameraRotation.y, -10);
+        transform.position = new Vector3(finalCameraPos.x, finalCameraRotation.y, -10) + addedPosition;
         transform.rotation = finalCameraRotation;
 
         activeShakes = validShakes;

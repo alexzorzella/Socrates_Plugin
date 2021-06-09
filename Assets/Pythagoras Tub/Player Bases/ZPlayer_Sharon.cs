@@ -54,7 +54,7 @@ public class ZPlayer_Sharon : MonoBehaviour
 
     private void InitializeValues()
     {
-        SmoothCamera cam = FindObjectOfType<SmoothCamera>();
+        CameramanTimothy cam = FindObjectOfType<CameramanTimothy>();
         cam.SetTargetWithTransform(transform);
         cam.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
