@@ -68,6 +68,7 @@ public class DeltaCameraShake : MonoBehaviour
             this.decay = decay;
             this.initialIntensity = initialIntensity;
 
+            this.shakeStartTs = Time.realtimeSinceStartup;
             currentIntensity = this.initialIntensity;
         }
 
@@ -78,6 +79,7 @@ public class DeltaCameraShake : MonoBehaviour
         public float curveScale;
         public float loopCount;
 
+        public float shakeStartTs;
         public float currentIntensity;
         public float decay;
 
@@ -85,7 +87,15 @@ public class DeltaCameraShake : MonoBehaviour
 
         public void UpdateIntensity()
         {
-            currentIntensity = currentIntensity / decay;
+
+            if (currentIntensity == 0) {
+                return;
+            }
+
+            float elapsedTime = Time.realtimeSinceStartup - shakeStartTs;
+            //currentIntensity = currentIntensity / decay * Time.deltaTime;
+            currentIntensity = initialIntensity * Mathf.Pow((decay), elapsedTime);
+
 
             if (currentIntensity < 0.01)
             {
@@ -140,7 +150,7 @@ public class DeltaCameraShake : MonoBehaviour
 
     public static class Shakepedia
     {
-        public static ShakeProfile CLASSIC = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 1F, 8F);
+        public static ShakeProfile CLASSIC = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.1F, 8F);
         public static ShakeProfile ONE_HUNDRED = new ShakeProfile(100F, 100F, 100F, 100F, 100F, 100F, 100F, 100F);
 
         public static ShakeProfile GetProfileClone(ShakeProfile profile)
