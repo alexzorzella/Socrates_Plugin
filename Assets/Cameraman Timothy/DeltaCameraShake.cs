@@ -7,6 +7,7 @@ public class DeltaCameraShake : MonoBehaviour
 {
     public List<ShakeProfile> activeShakes = new List<ShakeProfile>();
     private Vector3 addedPosition;
+    public Vector3 visualCamPos;
 
     public void SetAddedPosition(Vector3 position)
     {
@@ -33,6 +34,7 @@ public class DeltaCameraShake : MonoBehaviour
         List<ShakeProfile> validShakes = new List<ShakeProfile>();
 
         Vector3 finalCameraPos = Vector3.zero;
+        visualCamPos = finalCameraPos;
         Quaternion finalCameraRotation = Quaternion.identity;
 
         foreach (var activeShake in activeShakes)
@@ -44,11 +46,11 @@ public class DeltaCameraShake : MonoBehaviour
                 validShakes.Add(activeShake);
                 finalCameraPos += activeShake.GetCoreography().position;
                 finalCameraRotation *= activeShake.GetCoreography().rotation;
-            } 
+            }
         }
 
-        transform.position = new Vector3(finalCameraPos.x, finalCameraRotation.y, -10) + addedPosition;
-        transform.rotation = finalCameraRotation;
+        transform.localPosition = new Vector3(finalCameraPos.x, finalCameraPos.y, -10) + addedPosition;
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, finalCameraRotation.z));
 
         activeShakes = validShakes;
     }
@@ -157,9 +159,10 @@ public class ShakeProfile
 
 public static class Shakepedia
 {
+    public static ShakeProfile MINOR = new ShakeProfile(0.08F, 0.8F, 5F, 1F, 0.1F, 1F, 0.003F, 3F);
     public static ShakeProfile MILD = new ShakeProfile(0.08F, 0.1F, 5F, 1F, 0.6F, 1F, 0.003F, 3F);
     public static ShakeProfile MEDIUM_RARE = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 6F);
-    public static ShakeProfile POW = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 11F);
+    public static ShakeProfile POW = new ShakeProfile(0.1F, 0.6F, 10F, 10F, 0.6F, 1F, 0.003F, 11F);
 
     public static ShakeProfile GetProfileClone(ShakeProfile profile)
     {

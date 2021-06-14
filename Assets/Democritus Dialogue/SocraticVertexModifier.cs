@@ -137,7 +137,9 @@ public class SocraticVertexModifier : MonoBehaviour
 
         if(displayFully)
         {
-            textComponent.color = color;
+            textComponent.color = Color.white;
+            AudioManager.i.StopAllSources("dialogue", true);
+            vertexModifier.counter = textComponent.maxVisibleCharacters;
         }
     }
 
@@ -373,18 +375,22 @@ public class SocraticVertexModifier : MonoBehaviour
 
         ApplyRichText(textComponent, vertexMod, textInfo, newVertexPositions);
 
-        int start = 0;
+//        int start = 0;
+        int start = vertexMod.counter - 15;
 
-        if (vertexMod.counter >= 3)
-        {
-            start = 3;
-        }
+        if (start < 0) start = 0;
+
+        //if (vertexMod.counter >= 15)
+        //{
+        //    start = 15;
+        //}
 
         if (vertexMod.counter <= vertexMod.totalVisibleCharacters)
         {
-            for (int i = vertexMod.counter - start; i < vertexMod.counter; i++)
-            {
-                SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), false), i);
+//            for (int i = vertexMod.counter - start; i < vertexMod.counter; i++)
+              for (int i = start; i < vertexMod.counter; i++)
+                {
+                    SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), false), i);
             }
         }
 

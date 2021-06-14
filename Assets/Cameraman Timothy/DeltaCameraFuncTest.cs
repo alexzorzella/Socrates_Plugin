@@ -8,10 +8,10 @@ public class DeltaCameraFuncTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            FindObjectOfType<DeltaCameraShake>().Shake(Shakepedia.GetProfileClone(Shakepedia.MILD));
+            FindObjectOfType<DeltaCameraShake>().Shake(Shakepedia.GetProfileClone(Shakepedia.MINOR));
         } else if(Input.GetMouseButtonDown(1))
         {
-            FindObjectOfType<DeltaCameraShake>().Shake(Shakepedia.GetProfileClone(Shakepedia.MEDIUM_RARE));
+            FindObjectOfType<DeltaCameraShake>().Shake(Shakepedia.GetProfileClone(Shakepedia.MILD));
         }
     }
 }

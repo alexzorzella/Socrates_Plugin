@@ -75,22 +75,25 @@ public class TimothysTransition : MonoBehaviour
 
     IEnumerator TransitionT(string s)
     {
-        anim.SetTrigger("trans");
+        anim.SetBool("trans", true);
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(s);
+        anim.SetBool("trans", false);
     }
-    
+
     IEnumerator QuitGameT()
     {
-        anim.SetTrigger("trans");
+        anim.SetBool("trans", true);
         yield return new WaitForSeconds(delay);
         Application.Quit();
+        anim.SetBool("trans", false);
     }
 
     IEnumerator TransitionT(int i)
     {
-        anim.SetTrigger("trans");
+        anim.SetBool("trans", true);
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(i);
+        anim.SetBool("trans", false);
     }
 }

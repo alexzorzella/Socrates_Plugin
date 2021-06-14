@@ -21,6 +21,11 @@ public class DialogueManager : MonoBehaviour
 
     public Transform parentChoicesTo;
 
+    public Transform parentTextTo;
+    public GameObject textObject;
+
+    public CanvasGroup canvasGroup;
+
     private void Update()
     {
         PrepForDisplayOptions();
@@ -29,7 +34,7 @@ public class DialogueManager : MonoBehaviour
 
     private void PrepForDisplayOptions()
     {
-        if(optionsBeenDisplayed)
+        if (optionsBeenDisplayed)
         {
             return;
         }
@@ -43,20 +48,30 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue_Superclass.DialogueSection start)
     {
+        canvasGroup.interactable = true;
         anim.SetBool("open", true);
+        AudioManager.i.Play("dialogue_box_open");
         ClearAllOptions();
         currentSection = start;
         DisplayDialogue();
     }
 
-    public bool OpenPanel()
+    public bool Talking()
     {
         return anim.GetBool("open");
     }
 
     public void ProceedToNext()
     {
-        if(displayingChoices)
+        bool isMonologue = typeof(Dialogue_Superclass.Monologue).IsInstanceOfType(currentSection);
+
+        if (isMonologue && !contentText.TextHasBeenDisplayed())
+        {
+            SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, true, currentSection: currentSection);
+            return;
+        }
+
+        if (displayingChoices)
         {
             return;
         }
@@ -87,13 +102,13 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        bool monologue = typeof(Dialogue_Superclass.Monologue).IsInstanceOfType(currentSection);
+        bool isMonologue = typeof(Dialogue_Superclass.Monologue).IsInstanceOfType(currentSection);
 
-        clickToContinue.SetActive(monologue);
+        clickToContinue.SetActive(isMonologue);
 
         ClearAllOptions();
 
-        SocraticVertexModifier.PrepareParsesAndSetText("", contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true);
+        //SocraticVertexModifier.PrepareParsesAndSetText("", contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true);
 
         DisplayText();
     }
@@ -102,14 +117,31 @@ public class DialogueManager : MonoBehaviour
     {
         optionsBeenDisplayed = false;
 
+        if (contentText != null)
+        {
+            Destroy(contentText.gameObject);
+        }
+
+        GameObject t = Instantiate(textObject, Vector2.zero, Quaternion.identity);
+        t.transform.SetParent(parentTextTo);
+        t.GetComponent<RectTransform>().localPosition = Vector2.zero;
+        t.GetComponent<RectTransform>().sizeDelta = parentTextTo.GetComponent<RectTransform>().sizeDelta;
+        t.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        contentText = t.GetComponent<SocraticVertexModifier>();
+
+        //SocraticVertexModifier.PrepareParsesAndSetText("", contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true);
         SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText.GetComponent<TextMeshProUGUI>(), nameText, true, true, currentSection);
         SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, false, false, currentSection);
+        //SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true, currentSection);
     }
 
     public void EndDialogue()
     {
+        canvasGroup.interactable = false;
         ClearAllOptions();
         anim.SetBool("open", false);
+        AudioManager.i.Play("dialogue_box_close");
     }
 
     public void ClearAllOptions()
@@ -150,7 +182,7 @@ public class DialogueManager : MonoBehaviour
                 if (currentOptionDelay <= 0)
                 {
                     Tuple<string, Dialogue_Superclass.DialogueSection> option = choices.choices[indexOfCurrentChoice];
-                    
+
                     GameObject s = Instantiate(dialogueChoice, Vector3.zero, Quaternion.identity);
                     s.transform.SetParent(parentChoicesTo, false);
 
