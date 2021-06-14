@@ -6,7 +6,7 @@ public class ColorHexWindow : EditorWindow
     Color inputColor;
     string outputHexCode;
 
-    [MenuItem("Vertex Modifier/Hex Code Converter")]
+    [MenuItem("Socrates Plugin/Color Code")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow<ColorHexWindow>("Hex Code Converter");

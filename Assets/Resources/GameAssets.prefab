@@ -43,3 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594e4f5cac31fe045bc722dfbb94c6eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socrates: {fileID: 2800000, guid: 27149850abab9f14299e31f7f5b02472, type: 3}
+  particleCatalogue: []

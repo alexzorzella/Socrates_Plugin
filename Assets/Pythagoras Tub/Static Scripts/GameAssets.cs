@@ -15,6 +15,7 @@ public class GameAssets : MonoBehaviour
     }
 
     private long startTime;
+    public Texture Socrates;
 
     public static GameAssets i
     {
