@@ -58,12 +58,13 @@ public class SocraticVertexModifier : MonoBehaviour
     /// <param name="vertexModifier"></param>
     public static void PrepareParsesAndSetText(
         string textContent,
-        TextMeshProUGUI textComponent,
         SocraticVertexModifier vertexModifier,
         bool displayFully = false,
         bool muted = true,
         Dialogue_Superclass.DialogueSection currentSection = null)
     {
+        TextMeshProUGUI textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
+
         vertexModifier.currentSection = currentSection;
 
         if (currentSection != null)
@@ -234,6 +235,10 @@ public class SocraticVertexModifier : MonoBehaviour
             {
                 AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
             }
+            else
+            {
+                AudioManager.i.StopAllSources("dialogue", true);
+            }
 
             return;
         }
@@ -248,6 +253,10 @@ public class SocraticVertexModifier : MonoBehaviour
                 {
                     AudioManager.i.PlayOnlyIfDone(vertexModifier.currentSection.GetDialogueSound());
                 }
+                else
+                {
+                    AudioManager.i.PlayOnlyIfDone("dialogue");
+                }
             }
 
             vertexModifier.currentBetweenCharacterDelay = SocraticAnnotation.display_textDelay;
@@ -261,6 +270,10 @@ public class SocraticVertexModifier : MonoBehaviour
                         if (vertexModifier.currentSection != null)
                         {
                             AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
+                        }
+                        else
+                        {
+                            AudioManager.i.StopAllSources("dialogue", true);
                         }
 
                         vertexModifier.currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();

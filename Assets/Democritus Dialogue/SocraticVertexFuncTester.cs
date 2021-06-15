@@ -27,6 +27,6 @@ public class SocraticVertexFuncTester : MonoBehaviour
             currentIndex = 0;
         }
 
-        SocraticVertexModifier.PrepareParsesAndSetText(contents[currentIndex], vertexModifier.TextComponent(), vertexModifier, true, true);
+        SocraticVertexModifier.PrepareParsesAndSetText(contents[currentIndex], vertexModifier, true, true);
     }
 }

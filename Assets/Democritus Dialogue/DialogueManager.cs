@@ -67,7 +67,7 @@ public class DialogueManager : MonoBehaviour
 
         if (isMonologue && !contentText.TextHasBeenDisplayed())
         {
-            SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, true, currentSection: currentSection);
+            SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText, true, currentSection: currentSection);
             return;
         }
 
@@ -131,8 +131,8 @@ public class DialogueManager : MonoBehaviour
         contentText = t.GetComponent<SocraticVertexModifier>();
 
         //SocraticVertexModifier.PrepareParsesAndSetText("", contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true);
-        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText.GetComponent<TextMeshProUGUI>(), nameText, true, true, currentSection);
-        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, false, false, currentSection);
+        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText, true, true, currentSection);
+        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText, false, false, currentSection);
         //SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true, currentSection);
     }
 
