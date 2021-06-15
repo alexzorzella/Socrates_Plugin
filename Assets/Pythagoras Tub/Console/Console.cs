@@ -5,7 +5,6 @@ using System.IO;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Console : MonoBehaviour
@@ -92,17 +91,17 @@ public class Console : MonoBehaviour
 
     private static bool SlashKey()
     {
-        return InputSystem.GetDevice<Keyboard>().slashKey.wasPressedThisFrame;
+        return Input.GetKeyDown(KeyCode.Slash);
     }
 
     private static bool TabKey()
     {
-        return InputSystem.GetDevice<Keyboard>().tabKey.wasPressedThisFrame;
+        return Input.GetKeyDown(KeyCode.Tab);
     }
 
     private static bool ReturnKey()
     {
-        return InputSystem.GetDevice<Keyboard>().enterKey.wasPressedThisFrame;
+        return Input.GetKeyDown(KeyCode.Return);
     }
 
     public void TryCommand()

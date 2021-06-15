@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Cinematic : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class Cinematic : MonoBehaviour
             EnableCutsceneOnPlayerJoin();
         }
 
-        if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("cutscene") && InputSystem.GetDevice<Keyboard>().enterKey.wasPressedThisFrame)
+        if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("cutscene") && Input.GetKeyDown(KeyCode.Space))
         {
             AudioManager.i.Play("enter_game");
             anim.Play(anim.GetCurrentAnimatorClipInfo(0)[0].clip.name, 0, 0.99F);
