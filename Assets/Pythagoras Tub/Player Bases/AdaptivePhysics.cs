@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
-public class ZPlayer_Sharon : MonoBehaviour
+public class AdaptivePhysics : MonoBehaviour
 {
-    #region Variables
-    [Header("PlayerManager Link")]
-    public AlexianInput input;
-
-    [Header("Static")]
-    public int health;
-    public int maxHealth;
-    public float speed;
-    public float jumpForce;
-    public int extraJumpsValue;
+    Animator anim;
 
     [Header("Malleable")]
     public float moveInput;
     public Rigidbody2D rb;
-    private bool facingRight;
+    private bool facingRight = true;
 
     private int extraJumps;
     private bool isGrounded;
@@ -31,20 +19,18 @@ public class ZPlayer_Sharon : MonoBehaviour
     public LayerMask whatIsGround;
 
     private float fPressedJumpRemember;
-    private float fPressedJumpRememberTime = 0.2F;
 
     [Header("Movement Management")]
+    public float speed = 1F;
     [Range(0f, 1f)]
-    public float fJumpHeightCut;
+    public float jumpCut = 0.65F;
+    public float dampenMoving = 5F;
+    public float dampenStopping = 5F;
+    public float dampenTurning = 6F;
 
-    [Range(0f, 1f)]
-    public float fHorizontalDampeningBasic;
-    [Range(0f, 1f)]
-    public float fHorizontalDampeningWhenStopping;
-    [Range(0f, 1f)]
-    public float fHorizontalDampeningWhenTurning;
-
-    #endregion
+    public int extraJumpsValue = 0;
+    public float jumpLeniencyTime = 0.2F;
+    public float jumpForce = 300F;
 
     private void Start()
     {
@@ -55,12 +41,18 @@ public class ZPlayer_Sharon : MonoBehaviour
     {
         CameramanTimothy cam = FindObjectOfType<CameramanTimothy>();
         cam.SetTargetWithTransform(transform);
-        cam.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+
+        if (GetComponentInChildren<Animator>() != null)
+        {
+            anim = GetComponentInChildren<Animator>();
+        }
+
+        cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10F);
     }
 
     private void Update()
     {
-        if(CutsceneRunning())
+        if (CutsceneRunning())
         {
             return;
         }
@@ -68,23 +60,23 @@ public class ZPlayer_Sharon : MonoBehaviour
         Jump();
         OnGrounded();
         CheckForDeathPlane();
+        UpdateAnimatorInfo();
     }
+
+    private void UpdateAnimatorInfo()
+    {
+        if (anim == null)
+        {
+            return;
+        }
+
+        anim.SetBool("grounded", IsGrounded());
+        anim.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
+    }
+
     private void CheckForDeathPlane()
     {
-        if(transform.position.y < -20)
-        {
-            Die();
-        }
-    }
-
-    public void Damage(int damage)
-    {
-        health -= damage;
-
-        AudioManager.i.Play("scream_short");
-        GameAssets.Particle("guts", transform.position);
-
-        if (health <= 0)
+        if (transform.position.y < -20)
         {
             Die();
         }
@@ -92,12 +84,10 @@ public class ZPlayer_Sharon : MonoBehaviour
 
     private void Die()
     {
-        if(!eligibleToDie)
+        if (!eligibleToDie)
         {
             return;
         }
-
-        health = 0;
 
         eligibleToDie = false;
 
@@ -114,14 +104,14 @@ public class ZPlayer_Sharon : MonoBehaviour
     {
         Cinematic[] c = FindObjectsOfType<Cinematic>();
 
-        if(c == null)
+        if (c == null)
         {
             return false;
         }
 
         foreach (var cutscene in c)
         {
-            if(cutscene.CurrentlyPlaying())
+            if (cutscene.CurrentlyPlaying())
             {
                 return true;
             }
@@ -138,18 +128,24 @@ public class ZPlayer_Sharon : MonoBehaviour
         {
             if (isGrounded)
             {
-
+                SnowEffects();
             }
         }
 
         lastGrounded = isGrounded;
     }
 
+    public void SnowEffects()
+    {
+        AudioManager.i.Play("snow_crunch");
+        GameAssets.Particle("snow", groundCheck.position);
+    }
+
     private void FixedUpdate()
     {
         MoveAndFlip();
     }
-    
+
     private void Jump()
     {
         if (isGrounded)
@@ -159,9 +155,9 @@ public class ZPlayer_Sharon : MonoBehaviour
 
         fPressedJumpRemember -= Time.deltaTime;
 
-        if (input.NorthButtonDown())
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            fPressedJumpRemember = fPressedJumpRememberTime;
+            fPressedJumpRemember = jumpLeniencyTime;
         }
 
         if ((fPressedJumpRemember > 0) && extraJumps > 0)
@@ -178,11 +174,11 @@ public class ZPlayer_Sharon : MonoBehaviour
             fPressedJumpRemember = 0;
         }
 
-        if (input.NorthButtonUp())
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             if (rb.velocity.y > 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * fJumpHeightCut);
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCut);
             }
         }
     }
@@ -228,22 +224,60 @@ public class ZPlayer_Sharon : MonoBehaviour
         }
 
         float fHorizontalVelocity = rb.velocity.x - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.x);
-         
-        float moveInput = input.LeftStick().x;
 
-        fHorizontalVelocity += (moveInput * speed);
+        float moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (Mathf.Abs(moveInput) < 0.01F)
+        if (FindObjectOfType<DialogueManager>().Talking())
         {
-            fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampeningWhenStopping, Time.deltaTime * 10f);
+            moveInput = 0;
         }
-        else if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
+
+        if (moveInput > 0)
         {
-            fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampeningWhenTurning, Time.deltaTime * 10f);
+            if (rb.velocity.x < speed)
+            {
+                if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
+                {
+                    fHorizontalVelocity += speed * dampenTurning * Time.deltaTime;
+                }
+                else
+                {
+                    fHorizontalVelocity += speed * dampenMoving * Time.deltaTime;
+                }
+            }
+        }
+        else if (moveInput < 0)
+        {
+            if (rb.velocity.x > -speed)
+            {
+                if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
+                {
+                    fHorizontalVelocity -= speed * dampenTurning * Time.deltaTime;
+                }
+                else
+                {
+                    fHorizontalVelocity -= speed * dampenMoving * Time.deltaTime;
+                }
+            }
         }
         else
         {
-            fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampeningBasic, Time.deltaTime * 10f);
+            if (isGrounded)
+            {
+                if (fHorizontalVelocity < 0)
+                {
+                    fHorizontalVelocity += speed * dampenStopping * Time.deltaTime;
+                }
+                else if (fHorizontalVelocity > 0)
+                {
+                    fHorizontalVelocity -= speed * dampenStopping * Time.deltaTime;
+                }
+
+                if (fHorizontalVelocity > -1F && fHorizontalVelocity < 1F)
+                {
+                    fHorizontalVelocity = 0;
+                }
+            }
         }
 
         float yVerticalVelocity = rb.velocity.y - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.y);
@@ -252,11 +286,11 @@ public class ZPlayer_Sharon : MonoBehaviour
 
         rb.velocity = new Vector2(fHorizontalVelocity + currentAddedVelocity.x, yVerticalVelocity + finalCurrentAddedY);
 
-        if (facingRight == false && input.LeftStick().x > 0)
+        if (facingRight == false && Input.GetAxisRaw("Horizontal") > 0)
         {
             Flip();
         }
-        else if (facingRight == true && input.LeftStick().x < 0)
+        else if (facingRight == true && Input.GetAxisRaw("Horizontal") < 0)
         {
             Flip();
         }
@@ -294,9 +328,4 @@ public class ZPlayer_Sharon : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(groundCheck.position, boxGroundCheck);
     }
-}
-
-public interface MovesAlongPlayer
-{
-    Rigidbody2D GetRigidbody2D();
 }

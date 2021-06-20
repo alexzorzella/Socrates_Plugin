@@ -235,7 +235,7 @@ public class SocraticVertexModifier : MonoBehaviour
             {
                 AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
             }
-            else
+            else if (!vertexModifier.muted)
             {
                 AudioManager.i.StopAllSources("dialogue", true);
             }

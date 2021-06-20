@@ -49,6 +49,17 @@ public class ScottsUtility : MonoBehaviour
     {
         return i.LoadNode(nodename, position, angle, color, size);
     }
+
+    public static string CentsToString(int cents)
+    {
+        string centsDisplay = "";
+        centsDisplay += "$";
+        centsDisplay += (cents / 100).ToString();
+        centsDisplay += ".";
+        centsDisplay += (cents % 100).ToString("00");
+
+        return centsDisplay;
+    }
 }
 
 public interface ScottUtilityCommand

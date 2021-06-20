@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TopDown_PC : MonoBehaviour
+public class PlayerControllerTopDown : MonoBehaviour
 {
     public float speed;
 

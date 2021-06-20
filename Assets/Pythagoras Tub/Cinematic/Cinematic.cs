@@ -39,7 +39,7 @@ public class Cinematic : MonoBehaviour
 
     public void EnableCutsceneOnPlayerJoin()
     {
-        if (FindObjectOfType<ZPlayer_Sharon>() != null && !hasTriggered)
+        if (FindObjectOfType<PlayerController>() != null && !hasTriggered)
         {
             hasTriggered = true;
             EnableCutscene();
