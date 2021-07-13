@@ -28,7 +28,7 @@ public class MovingPlatform : MonoBehaviour, MovesAlongPlayer
 
     private void Update()
     {
-        if(on && EligibleToMove())
+        if (on && EligibleToMove())
         {
             Run();
         }
