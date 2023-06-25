@@ -15,10 +15,9 @@ public class DescriptionWindow : EditorWindow
     {
         GUILayout.TextField(
             $"Socrates Plugin\n" +
-            $"(c) 2021 Alex Zorzella\n" +
-            $"Rights reserved to all content but '2D Extras' and 'TextMeshPro'\n" +
-            $"Bug fixes done by Luiz Zorzella\n" +
-            $"Dedicated to Socrates (2004-2019) / Your legacy will live on.");
+            $"(c) 2021-2023 Alex Zorzella, All Rights Reserved\n" +
+            $"In association with Luiz-Otàvio Zorzella\n");
+
         GUILayout.Box(GameAssets.i.Socrates, GUILayout.Width(50), GUILayout.Height(90));
     }
 }

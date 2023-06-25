@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -67,84 +68,11 @@ MonoBehaviour:
   - name: dialogue_select
     clips:
     - {fileID: 8300000, guid: 401215cc5d325af4ebe1152da31cc6aa, type: 3}
-    amountOfSources: 10
+    amountOfSources: 3
     currentlyPlayingFrom: 0
     volume: 1
     pitch: 1
     loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: bomb_beep
-    clips:
-    - {fileID: 8300000, guid: fe33afa62bbefcf48961701d6d6a054a, type: 3}
-    amountOfSources: 10
-    currentlyPlayingFrom: 0
-    volume: 1
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: heavy_breathing
-    clips:
-    - {fileID: 8300000, guid: 8cdf2d324d2ebc4458c3b84f6420b706, type: 3}
-    amountOfSources: 1
-    currentlyPlayingFrom: 0
-    volume: 0.5
-    pitch: 1
-    loop: 1
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: cough
-    clips:
-    - {fileID: 8300000, guid: 0b99f2f3e80a13648b26eb7f6c8b2b67, type: 3}
-    - {fileID: 8300000, guid: 4ee9e6acdf640604b812500801a04280, type: 3}
-    - {fileID: 8300000, guid: b6c7ca06f1e528848aacd4251adaa6fa, type: 3}
-    amountOfSources: 10
-    currentlyPlayingFrom: 0
-    volume: 1
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: grunt
-    clips:
-    - {fileID: 8300000, guid: 8f17b590cc1ffce4da65a2813abba51d, type: 3}
-    - {fileID: 8300000, guid: c762d2ed9415836438cf8034cb5a92e3, type: 3}
-    amountOfSources: 10
-    currentlyPlayingFrom: 0
-    volume: 1
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: chair_fall
-    clips:
-    - {fileID: 8300000, guid: 4170ede528fa9634e8d71341ff9655a2, type: 3}
-    amountOfSources: 10
-    currentlyPlayingFrom: 0
-    volume: 0.1
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: item_use
-    clips:
-    - {fileID: 8300000, guid: ffdb342bc753a7a4591dc265160e391a, type: 3}
-    amountOfSources: 10
-    currentlyPlayingFrom: 0
-    volume: 1
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: heartbeat
-    clips:
-    - {fileID: 8300000, guid: 26f893f5042aa8b4380d9da75dc78840, type: 3}
-    amountOfSources: 1
-    currentlyPlayingFrom: 0
-    volume: 0.5
-    pitch: 1
-    loop: 1
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
   - name: dialogue_box_open
@@ -167,9 +95,9 @@ MonoBehaviour:
     loop: 0
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
-  - name: door
+  - name: newspaper_hit
     clips:
-    - {fileID: 8300000, guid: 8b1919ce67a923a4fa2ea52890e16713, type: 3}
+    - {fileID: 8300000, guid: dc93ec640adb94a61b9449b6c4ca252a, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1
@@ -177,9 +105,9 @@ MonoBehaviour:
     loop: 0
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
-  - name: gun
+  - name: splat
     clips:
-    - {fileID: 8300000, guid: 2a2670a7bd5463342af1841891a67d50, type: 3}
+    - {fileID: 8300000, guid: 6ae64bdc9be763e46a983fc99c55b291, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1
@@ -187,9 +115,9 @@ MonoBehaviour:
     loop: 0
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
-  - name: explosion
+  - name: air_drag
     clips:
-    - {fileID: 8300000, guid: 7829b50d6d57d3f44b2a7e7548cc8cc1, type: 3}
+    - {fileID: 8300000, guid: 3a5c631791a9665489aa83954946b198, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1
@@ -197,29 +125,9 @@ MonoBehaviour:
     loop: 0
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
-  - name: bomb_disable
+  - name: logo_appear
     clips:
-    - {fileID: 8300000, guid: 4defd446f627ce14fab0d0990691ea63, type: 3}
-    amountOfSources: 3
-    currentlyPlayingFrom: 0
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: bomb_difuse
-    clips:
-    - {fileID: 8300000, guid: e3bf5434db5143b4d9960cd1c5fdc2d5, type: 3}
-    amountOfSources: 3
-    currentlyPlayingFrom: 0
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
-    sources: []
-  - name: craft
-    clips:
-    - {fileID: 8300000, guid: d95d9118e0cdde943a3bb273d42f2c52, type: 3}
+    - {fileID: 8300000, guid: 8008d69c746e04467b73b3a2c19dc9c6, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1
@@ -227,36 +135,20 @@ MonoBehaviour:
     loop: 0
     mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
-  - name: escape_ambient
+  - name: gnat
     clips:
-    - {fileID: 8300000, guid: f629f20a9ec6a654f9d0136b5e318564, type: 3}
+    - {fileID: 8300000, guid: a6e1a49b9217d41288766425748cadac, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1
-    pitch: 1
-    loop: 1
-    mixer: {fileID: 24300002, guid: a8a77ad5d4f224541ad2388b06aea63b, type: 2}
+    pitch: 0.75
+    loop: 0
+    mixer: {fileID: 24300002, guid: 7f57de82617d4c041949d00230a83d6e, type: 2}
     sources: []
-  - name: end_ambient
+  - name: mouse
     clips:
-    - {fileID: 8300000, guid: f77153efd274b5a47ac10ac767776e27, type: 3}
+    - {fileID: 8300000, guid: 6fadb3f55649a4c048988184e3f6b4c8, type: 3}
     amountOfSources: 1
-    currentlyPlayingFrom: 0
-    volume: 1
-    pitch: 1
-    loop: 1
-    mixer: {fileID: 24300002, guid: a8a77ad5d4f224541ad2388b06aea63b, type: 2}
-    sources: []
-  - name: snow_crunch
-    clips:
-    - {fileID: 8300000, guid: a86d976f81fa080458320622e9eea7af, type: 3}
-    - {fileID: 8300000, guid: 0da13701be13c124f950fc534b5531f0, type: 3}
-    - {fileID: 8300000, guid: b3ae094fbe6d8864b9626cd7521e16ca, type: 3}
-    - {fileID: 8300000, guid: 87291abc8c2d9514fae6f316b713af4a, type: 3}
-    - {fileID: 8300000, guid: 273d1f8b695835645890838f73e98030, type: 3}
-    - {fileID: 8300000, guid: 2bc29fef165f96c41bcae614ddf6f0ec, type: 3}
-    - {fileID: 8300000, guid: 6e94ae641993e10469f11af8f6ff28a8, type: 3}
-    amountOfSources: 10
     currentlyPlayingFrom: 0
     volume: 1
     pitch: 1
