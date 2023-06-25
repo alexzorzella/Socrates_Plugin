@@ -34,9 +34,12 @@ public class CameramanTimothy : MonoBehaviour
         return i.cameraShake;
     }
 
-    public void SetTargetWithTag(string targetName = "Player")
+    public void SetTargetWithTag(string targetTag = "Player")
     {
-        target = GameObject.FindGameObjectWithTag(targetName).transform;
+        if (GameObject.FindGameObjectWithTag(targetTag) == null)
+            return;
+
+        target = GameObject.FindGameObjectWithTag(targetTag).transform;
     }
 
     public void SetTargetWithTransform(Transform targetT)
