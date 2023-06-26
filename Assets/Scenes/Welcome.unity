@@ -890,33 +890,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1895671537733485763
+--- !u!1001 &8624135885307819268
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 62242168405523836, guid: 46f646b86484be748bb93797b2728f72,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 62242168405523836, guid: 46f646b86484be748bb93797b2728f72,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 62242168405523836, guid: 46f646b86484be748bb93797b2728f72,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 635786232945074087, guid: 46f646b86484be748bb93797b2728f72,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3331000687834113720, guid: 46f646b86484be748bb93797b2728f72,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1040,12 +1020,12 @@ PrefabInstance:
     - target: {fileID: 6289257198774711193, guid: 46f646b86484be748bb93797b2728f72,
         type: 3}
       propertyPath: m_Name
-      value: JJConsole
+      value: JConsole
       objectReference: {fileID: 0}
     - target: {fileID: 8599837104574403830, guid: 46f646b86484be748bb93797b2728f72,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0040283203
+      value: -6.166382
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46f646b86484be748bb93797b2728f72, type: 3}

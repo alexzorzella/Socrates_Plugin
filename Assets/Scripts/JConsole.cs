@@ -1,34 +1,40 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Dialogue_Superclass;
 
-public class JJConsole : MonoBehaviour
+public class JConsole : MonoBehaviour
 {
-    private static JJConsole _i;
+    private static JConsole _i;
     private int currentLine = 0;
 
     private void Awake()
     {
+        if (_i != null)
+            Destroy(gameObject);
+
         _i = this;
         DontDestroyOnLoad(gameObject);
 
         commands.Add(new CommandList());
         commands.Add(new GetTime());
         commands.Add(new TestDialogue());
+        commands.Add(new LoadScene());
 
         UpdateVisuals();
     }
 
-    public static JJConsole i
+    public static JConsole i
     {
         get
         {
             if (_i == null)
             {
-                JJConsole x = Resources.Load<JJConsole>("JJConsole");
+                JConsole x = Resources.Load<JConsole>("JConsole");
 
                 _i = Instantiate(x);
             }
@@ -196,14 +202,14 @@ public class CommandList : HamCommand
 {
     public string CommandFunction(params string[] parameters)
     {
-        foreach (var command in JJConsole.i.commands)
+        foreach (var command in JConsole.i.commands)
         {
-            JJConsole.i.WriteLine($"{command.Keyword()}");
+            JConsole.i.WriteLine($"{command.Keyword()}");
         }
 
-        JJConsole.i.WriteLine($"Some commands have a 'list' and 'all' function.");
+        JConsole.i.WriteLine($"Some commands have a 'list' and 'all' function.");
 
-        return $"Listed {JJConsole.i.commands.Count} commands.";
+        return $"Listed {JConsole.i.commands.Count} commands.";
     }
 
     public string Keyword()
@@ -229,16 +235,16 @@ public class TestDialogue : HamCommand
 {
     public string CommandFunction(params string[] parameters)
     {
-        JJConsole.i.GetDialogueManager().StartDialogue(Dialogue());
-        JJConsole.i.visible = false;
-        JJConsole.i.UpdateVisuals();
+        JConsole.i.GetDialogueManager().StartDialogue(Dialogue());
+        JConsole.i.visible = false;
+        JConsole.i.UpdateVisuals();
 
         return "Testing dialogue...";
     }
 
     public string Keyword()
     {
-        return "test_dialogue";
+        return "testDialogue";
     }
 
     public DialogueSection Dialogue()
@@ -255,5 +261,35 @@ public class TestDialogue : HamCommand
         delay.next = loopQuestion;
 
         return basic;
+    }
+}
+
+public class LoadScene : HamCommand
+{
+    public string CommandFunction(params string[] parameters)
+    {
+        if (parameters[1] == "list")
+        {
+            int sceneCount = SceneManager.sceneCountInBuildSettings;
+
+            for (int i = 0; i < sceneCount; i++)
+            {
+                JConsole.i.WriteLine($"{System.IO.Path.GetFileNameWithoutExtension(UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i))}");
+            }
+
+            return $"Found {sceneCount} scenes.";
+        }
+
+        bool sceneExists = SceneManager.GetSceneByName(parameters[1]) != null;
+
+        if(sceneExists)
+            SceneManager.LoadScene(parameters[1]);
+
+        return sceneExists ? $"Loading {parameters[1]}..." : $"{parameters[1]} doesn't exist.";
+    }
+
+    public string Keyword()
+    {
+        return "loadScene";
     }
 }
