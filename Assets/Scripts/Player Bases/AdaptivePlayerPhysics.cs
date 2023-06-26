@@ -85,11 +85,11 @@ public class AdaptivePlayerPhysics : MonoBehaviour
 
         eligibleToDie = false;
 
-        TimothysTransition.i.anim.SetTrigger("trans");
+        NATransition.i.anim.SetTrigger("trans");
 
         rb.bodyType = RigidbodyType2D.Static;
 
-        TimothysTransition.Transition(SceneManager.GetActiveScene().buildIndex);
+        NATransition.Transition(SceneManager.GetActiveScene().buildIndex);
     }
 
     bool eligibleToDie = true;

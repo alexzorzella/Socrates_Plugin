@@ -86,27 +86,27 @@ public class SettingsMenu : MonoBehaviour
     {
         visible = false;
 
-        if (TimothysTransition.IsTransitioning())
+        if (NATransition.IsTransitioning())
         {
             return;
         }
         
         AudioManager.i.Play("enter_game");
 
-        TimothysTransition.QuitGame();
+        NATransition.QuitGame();
     }
 
     public void MainMenu()
     {
         visible = false;
 
-        if (TimothysTransition.IsTransitioning())
+        if (NATransition.IsTransitioning())
         {
             return;
         }
 
         AudioManager.i.Play("enter_game");
 
-        TimothysTransition.Transition("SaveSelect");
+        NATransition.Transition("SaveSelect");
     }
 }

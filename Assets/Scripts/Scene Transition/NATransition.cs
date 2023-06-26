@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TimothysTransition : MonoBehaviour
+public class NATransition : MonoBehaviour
 {
     public Animator anim;
 
@@ -11,15 +11,15 @@ public class TimothysTransition : MonoBehaviour
 
     CanvasGroup group;
 
-    private static TimothysTransition _i;
+    private static NATransition _i;
 
-    public static TimothysTransition i
+    public static NATransition i
     {
         get
         {
             if (_i == null)
             {
-                TimothysTransition x = Resources.Load<TimothysTransition>("Transition");
+                NATransition x = Resources.Load<NATransition>("Transition");
                 _i = Instantiate(x);
             }
 

@@ -102,4 +102,9 @@ public class IntroFunc : MonoBehaviour
     {
         Instantiate(guts, guts_position.position, Quaternion.identity);
     }
+
+    public void LoadScene(string sceneName)
+    {
+        NATransition.Transition(sceneName);
+    }
 }
