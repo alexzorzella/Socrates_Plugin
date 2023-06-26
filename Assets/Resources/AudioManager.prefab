@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: dialogue
     clips:
-    - {fileID: 8300000, guid: c1e66d1a4364d3e4895143f04d9e5cdf, type: 3}
+    - {fileID: 8300000, guid: 9378c1a49e90af246a010ced93f4312d, type: 3}
     amountOfSources: 10
     currentlyPlayingFrom: 0
     volume: 0.3
@@ -57,7 +57,7 @@ MonoBehaviour:
     sources: []
   - name: dialogue_display
     clips:
-    - {fileID: 8300000, guid: 32f8915c34bc4f54e84ea6e0c7194c4d, type: 3}
+    - {fileID: 8300000, guid: e965e5c1e4812a94f9d88fe1f8614930, type: 3}
     amountOfSources: 10
     currentlyPlayingFrom: 0
     volume: 1
@@ -67,7 +67,7 @@ MonoBehaviour:
     sources: []
   - name: dialogue_select
     clips:
-    - {fileID: 8300000, guid: 401215cc5d325af4ebe1152da31cc6aa, type: 3}
+    - {fileID: 8300000, guid: c23b26309be187e47a27754e936f3288, type: 3}
     amountOfSources: 3
     currentlyPlayingFrom: 0
     volume: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
     sources: []
   - name: dialogue_box_open
     clips:
-    - {fileID: 8300000, guid: 82a3aa8938f52ef458bddb39d2189070, type: 3}
+    - {fileID: 8300000, guid: e965e5c1e4812a94f9d88fe1f8614930, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
     sources: []
   - name: dialogue_box_close
     clips:
-    - {fileID: 8300000, guid: 0a94266f77f1f7d458598734a6b586ed, type: 3}
+    - {fileID: 8300000, guid: 1283a2b178eb6704ab13f29ea7838b14, type: 3}
     amountOfSources: 1
     currentlyPlayingFrom: 0
     volume: 1

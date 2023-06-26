@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using static Dialogue_Superclass;
 
-public class Console : MonoBehaviour
+public class JJConsole : MonoBehaviour
 {
-    private static Console _i;
+    private static JJConsole _i;
     private int currentLine = 0;
 
     private void Awake()
     {
+        _i = this;
         DontDestroyOnLoad(gameObject);
         commands.Add(new CommandList());
         commands.Add(new GetTime());
         UpdateVisuals();
     }
 
-    public static Console i
+    public static JJConsole i
     {
         get
         {
             if (_i == null)
             {
-                Console x = Resources.Load<Console>("Console");
+                JJConsole x = Resources.Load<JJConsole>("JJConsole");
 
                 _i = Instantiate(x);
             }
@@ -44,7 +43,9 @@ public class Console : MonoBehaviour
 
     public CanvasGroup group;
     public RectTransform scrollViewport;
-    bool visible = false;
+
+    [HideInInspector]
+    public bool visible = false;
 
     private void Update()
     {
@@ -76,7 +77,7 @@ public class Console : MonoBehaviour
         }
     }
 
-    private void UpdateVisuals()
+    public void UpdateVisuals()
     {
         group.alpha = visible ? 1 : 0;
         group.interactable = visible;
@@ -145,8 +146,14 @@ public class Console : MonoBehaviour
 
     public void WriteLine(string add)
     {
-        commandOutputText.text += $"\n<color=yellow>[{currentLine}]</color>>{add}";
+        //commandOutputText.text += $"\n<color=yellow>[{currentLine}]</color>>{add}";
+        commandOutputText.text += $"\n>{add}";
         currentLine++;
+    }
+
+    public DialogueManager GetDialogueManager()
+    {
+        return FindObjectOfType<DialogueManager>();
     }
 }
 
@@ -186,14 +193,14 @@ public class CommandList : HamCommand
 {
     public string CommandFunction(params string[] parameters)
     {
-        foreach (var command in Console.i.commands)
+        foreach (var command in JJConsole.i.commands)
         {
-            Console.i.WriteLine($"{command.Keyword()}");
+            JJConsole.i.WriteLine($"{command.Keyword()}");
         }
 
-        Console.i.WriteLine($"Some commands have a 'list' and 'all' function.");
+        JJConsole.i.WriteLine($"Some commands have a 'list' and 'all' function.");
 
-        return $"Listed {Console.i.commands.Count} commands.";
+        return $"Listed {JJConsole.i.commands.Count} commands.";
     }
 
     public string Keyword()
@@ -212,5 +219,38 @@ public class GetTime : HamCommand
     public string Keyword()
     {
         return "time";
+    }
+}
+
+public class TestDialogue : HamCommand
+{
+    public string CommandFunction(params string[] parameters)
+    {
+        JJConsole.i.GetDialogueManager().StartDialogue(Dialogue());
+        JJConsole.i.visible = false;
+        JJConsole.i.UpdateVisuals();
+
+        return "Testing dialogue...";
+    }
+
+    public string Keyword()
+    {
+        return "test_dialogue";
+    }
+
+    public DialogueSection Dialogue()
+    {
+        string localName = "Local Name";
+        string sound = "dialogue";
+
+        Monologue delay = new Monologue(localName, "This, well, this is supposed to test the delay. Really? I think it worked!", sound);
+        Monologue color = new Monologue(localName, "This is testing whether the [color,yellow]colorful text[!color] works.", sound, delay);
+        Monologue shake = new Monologue(localName, "This is testing whether the [shake,7]shaky text works[!shake].", sound, color);
+        Monologue wave = new Monologue(localName, "This is testing whether the [wave]wavy text works[!wave].", sound, shake);
+        Monologue basic = new Monologue(localName, "This is testing whether the basic text scroll works.", sound, wave);
+        Choices loopQuestion = new Choices(localName, "Now, try again?", sound, ChoiceList(Choice("Yes", basic), Choice("No", null)));
+        delay.next = loopQuestion;
+
+        return basic;
     }
 }

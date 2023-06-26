@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
 
     public CanvasGroup canvasGroup;
 
-    CameramanTimothy cam;
+    PUNCamera cam;
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
     private void GetComponents()
     {
         clickToContinue.SetActive(false);
-        cam = FindObjectOfType<CameramanTimothy>();
+        cam = FindObjectOfType<PUNCamera>();
     }
 
     private void Update()
@@ -191,8 +191,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        cam.SetTargetWithTag("Player"); 
-        cam.ResetOffset();
+        cam.SetTargetWithTag("Player");
         
         clickToContinue.SetActive(false);
         canvasGroup.interactable = false;

@@ -6,6 +6,6 @@ public class CameramanFollowFuncTest : MonoBehaviour
 {
     private void Start()
     {
-        CameramanTimothy.i.SetTargetWithTransform(transform);
+        PUNCamera.i.SetTargetWithTransform(transform);
     }
 }

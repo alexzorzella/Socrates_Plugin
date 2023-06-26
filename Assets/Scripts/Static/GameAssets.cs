@@ -9,7 +9,7 @@ public class GameAssets : MonoBehaviour
 
     private void Start()
     {
-        Console i = Console.i;
+        JJConsole i = JJConsole.i;
         startTime = DateTime.Now.Ticks;
         DontDestroyOnLoad(gameObject);
     }

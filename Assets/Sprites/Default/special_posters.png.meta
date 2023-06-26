@@ -140,7 +140,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: poster_feel_special
+      name: special_posters_0
       rect:
         serializedVersion: 2
         x: 0
@@ -154,14 +154,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c56698b23f673d34580ffd8c4c4b3d91
-      internalID: 2113607706
+      spriteID: 57edc136364d64409920af8a677d1a46
+      internalID: 1444849953
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_eyes_wide_open
+      name: special_posters_1
       rect:
         serializedVersion: 2
         x: 64
@@ -175,14 +175,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d478ff03765ba049899c0c7ab8d38b0
-      internalID: 490884529
+      spriteID: 3e882a3f1047c4baaafc9eeec4fdf40b
+      internalID: 1398189272
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_signal
+      name: special_posters_2
       rect:
         serializedVersion: 2
         x: 128
@@ -196,14 +196,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9a55a82e77a9054c80346785e309db4
-      internalID: -900529628
+      spriteID: f9635932ed6ad4fa6957c116a9e36844
+      internalID: 1014936041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_perfect_world
+      name: special_posters_3
       rect:
         serializedVersion: 2
         x: 192
@@ -217,14 +217,77 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e22ad94fc46449e42aca3984ff7d034a
-      internalID: 834158799
+      spriteID: 77d6279e0907c487493e66bd9dca4e97
+      internalID: 232184214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_bdz
+      name: special_posters_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 986f38c23ff65416a872417bcf924b64
+      internalID: 572376456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8243e1a58907b4f148bd0f7d754add03
+      internalID: -347990381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 417934d6fa8d040f7bf8040e282dcdd2
+      internalID: 1406887226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_7
       rect:
         serializedVersion: 2
         x: 0
@@ -238,14 +301,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab310c8d1d486e44587650e3390f7d53
-      internalID: 404855497
+      spriteID: c09d2e45f29ba4f4faf743eb9066556b
+      internalID: 1690189009
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_summer_nights_a
+      name: special_posters_8
       rect:
         serializedVersion: 2
         x: 64
@@ -259,14 +322,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2a8669817661d84983a303d7edc4f96
-      internalID: 549696736
+      spriteID: d8a7ad751c6b34e269fe2dea468bf2ac
+      internalID: 1323670562
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_summer_nights_b
+      name: special_posters_9
       rect:
         serializedVersion: 2
         x: 128
@@ -280,14 +343,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8f8f21903c210847a2b0adac8c98078
-      internalID: 1001376502
+      spriteID: 24d4c6690b3b6482ba2ebe5fe58197ec
+      internalID: -1765888661
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_taste_of_love
+      name: special_posters_10
       rect:
         serializedVersion: 2
         x: 192
@@ -301,14 +364,77 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dc2f9b89f9338142b74a30e476f0cf4
-      internalID: -264966463
+      spriteID: 579d0b8bdd46c410ea52e2a8ddc19971
+      internalID: 1242828855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_yes_or_yes
+      name: special_posters_11
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77c0adc27af9143a4838be31c7960c4c
+      internalID: 972293156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_12
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f0b12eca5f614fd7b6336ecdafaa474
+      internalID: -41992305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_13
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e277c1cc6a31c4346b44bd9ad852f67e
+      internalID: -279104189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_14
       rect:
         serializedVersion: 2
         x: 0
@@ -322,14 +448,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ba77e126822efd4a84c73ec261af12a
-      internalID: 69824968
+      spriteID: 77b3c82b238f6413a8cabcb4326f203f
+      internalID: -828333312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_twicetagram
+      name: special_posters_15
       rect:
         serializedVersion: 2
         x: 64
@@ -343,14 +469,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93e1f4862e0cb7043888a314aca34f19
-      internalID: 1314790194
+      spriteID: 8a077c70113f54bb9bb6ebc44ad7468a
+      internalID: 1730703464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_fancy
+      name: special_posters_16
       rect:
         serializedVersion: 2
         x: 128
@@ -364,14 +490,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14a56ba697d8ca144ac6a9d0710dfc3f
-      internalID: -266540905
+      spriteID: 5417562017ce34ac8b19a0ef763ac857
+      internalID: -1594663153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_and_twice
+      name: special_posters_17
       rect:
         serializedVersion: 2
         x: 192
@@ -385,14 +511,77 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 674bacf536e7916448d2cd7aae415fd4
-      internalID: -1453719885
+      spriteID: 59ed535a995854554976e218c4767ab9
+      internalID: 183123456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_hashtag_twice
+      name: special_posters_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b44b3ed76ce704e50a43f7ad99b144fd
+      internalID: -2095344696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_19
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 042ae32019ff240ed8ae307a9dea3f78
+      internalID: 2053311881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_20
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0129fc105e18a45e48b08b6627a96ddf
+      internalID: -1365378877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_21
       rect:
         serializedVersion: 2
         x: 0
@@ -406,14 +595,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89e6cc611ccd3564ea1148ac33d7c9d2
-      internalID: -672182468
+      spriteID: b5fa09106497349b9a55a4842cda7811
+      internalID: 2030895486
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_hashtag_twice_2
+      name: special_posters_22
       rect:
         serializedVersion: 2
         x: 64
@@ -427,14 +616,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 934decb8d4f62cc4a9c7d1db1d14e63b
-      internalID: -1654229317
+      spriteID: c5852cd9857e648aa88c030755f238ab
+      internalID: -464454845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_hashtag_twice_3
+      name: special_posters_23
       rect:
         serializedVersion: 2
         x: 128
@@ -448,14 +637,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cb4a0c6994b31b43966ba31c8060e4f
-      internalID: -244118365
+      spriteID: d54ab6f4c63e3415d93b16decc3d0dd6
+      internalID: -2109788912
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_hashtag_twice_4
+      name: special_posters_24
       rect:
         serializedVersion: 2
         x: 192
@@ -469,14 +658,77 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0e98675146ea3c43b025dec1f93d3fd
-      internalID: -1736517682
+      spriteID: 74cc4e27e1edc4bba806fc52a2fc4571
+      internalID: 533638245
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_twicecoaster
+      name: special_posters_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd4e9cde349d4f24b296764eaedb40b
+      internalID: -1569041038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 327cb0f21093b4beab5dfb7598961a66
+      internalID: -954117075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_27
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6bf7d57f98a348cea2a6730e9cdede3
+      internalID: -1667133202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_posters_28
       rect:
         serializedVersion: 2
         x: 0
@@ -490,14 +742,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f4b03692ed4406438cc7af3f36ab23f
-      internalID: -1129087691
+      spriteID: d9f914f0beb054953a9ca91c8a84c2d4
+      internalID: 1746786589
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_formula_of_love
+      name: special_posters_29
       rect:
         serializedVersion: 2
         x: 64
@@ -511,20 +763,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dfcd48dbc72ede40a13d7ae0f7090e8
-      internalID: -873015440
+      spriteID: 6a8d2f7ff637c44879471aa6894e2c53
+      internalID: -1723574326
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_page_two
+      name: frame
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
+        x: 129
+        y: 30
+        width: 48
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -532,29 +784,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 316112e80cfcea345a23059bdfdd56bc
-      internalID: 2000014955
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poster_more_and_more
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5418d093c590c2546893409b9fbeff59
-      internalID: 789080010
+      spriteID: 1b87e4a3c88ea4c93ad0b05187cddbcc
+      internalID: -1641458434
       vertices: []
       indices: 
       edges: []
@@ -570,26 +801,37 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      poster_hashtag_twice_2: -1654229317
-      poster_eyes_wide_open: 490884529
-      poster_summer_nights_b: 1001376502
-      poster_hashtag_twice_4: -1736517682
-      poster_formula_of_love: -873015440
-      poster_hashtag_twice_3: -244118365
-      poster_twicecoaster: -1129087691
-      poster_bdz: 404855497
-      poster_summer_nights_a: 549696736
-      poster_yes_or_yes: 69824968
-      poster_signal: -900529628
-      poster_hashtag_twice: -672182468
-      poster_perfect_world: 834158799
-      poster_feel_special: 2113607706
-      poster_fancy: -266540905
-      poster_and_twice: -1453719885
-      poster_twicetagram: 1314790194
-      poster_page_two: 2000014955
-      poster_taste_of_love: -264966463
-      poster_more_and_more: 789080010
+      special_posters_8: 1323670562
+      special_posters_19: 2053311881
+      special_posters_0: 1444849953
+      special_posters_7: 1690189009
+      special_posters_28: 1746786589
+      special_posters_11: 972293156
+      special_posters_13: -279104189
+      special_posters_12: -41992305
+      special_posters_5: -347990381
+      special_posters_24: 533638245
+      special_posters_9: -1765888661
+      special_posters_14: -828333312
+      special_posters_3: 232184214
+      special_posters_2: 1014936041
+      special_posters_18: -2095344696
+      special_posters_1: 1398189272
+      special_posters_25: -1569041038
+      special_posters_10: 1242828855
+      special_posters_20: -1365378877
+      special_posters_15: 1730703464
+      special_posters_16: -1594663153
+      special_posters_26: -954117075
+      special_posters_6: 1406887226
+      special_posters_4: 572376456
+      special_posters_23: -2109788912
+      special_posters_22: -464454845
+      frame: -1641458434
+      special_posters_17: 183123456
+      special_posters_21: 2030895486
+      special_posters_29: -1723574326
+      special_posters_27: -1667133202
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

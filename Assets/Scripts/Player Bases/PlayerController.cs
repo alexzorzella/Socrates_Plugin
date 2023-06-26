@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void InitializeValues()
     {
-        CameramanTimothy cam = FindObjectOfType<CameramanTimothy>();
+        PUNCamera cam = FindObjectOfType<PUNCamera>();
         cam.SetTargetWithTransform(transform);
         cam.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }

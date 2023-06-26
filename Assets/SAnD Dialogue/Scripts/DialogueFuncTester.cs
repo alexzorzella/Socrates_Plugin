@@ -5,7 +5,7 @@ using static Dialogue_Superclass;
 
 public class DialogueFuncTester : MonoBehaviour
 {
-    private void Start()
+    private void TriggerDialogue()
     {
         FindObjectOfType<DialogueManager>().StartDialogue(FuncTester());
     }

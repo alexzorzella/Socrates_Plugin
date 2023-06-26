@@ -300,10 +300,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Democritus
+  m_text: The Proverbial They
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -584,7 +585,8 @@ MonoBehaviour:
   m_text: '>>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -789,12 +791,14 @@ MonoBehaviour:
   contentText: {fileID: 0}
   origin: {x: 0, y: -220, z: 0}
   spacing: -45
-  dialogueChoice: {fileID: 6015707748226081027, guid: 37fa4a8e320500f41a60438c153c529f, type: 3}
+  dialogueChoice: {fileID: 6015707748226081027, guid: 37fa4a8e320500f41a60438c153c529f,
+    type: 3}
   clickToContinue: {fileID: 4435564945234856944}
   anim: {fileID: 4435564946020282306}
   parentChoicesTo: {fileID: 7381983744551712858}
   parentTextTo: {fileID: 6075410645851459058}
-  textObject: {fileID: 4347496152102635275, guid: 063e4911450e72c4eb1aca29031ae0dc, type: 3}
+  textObject: {fileID: 4347496152102635275, guid: 063e4911450e72c4eb1aca29031ae0dc,
+    type: 3}
   canvasGroup: {fileID: 1516799898}
   displayingChoices: 0
 --- !u!1 &5308285728149769482

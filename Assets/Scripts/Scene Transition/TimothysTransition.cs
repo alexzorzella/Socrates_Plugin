@@ -108,7 +108,7 @@ public class TimothysTransition : MonoBehaviour
         anim.SetBool("trans", true);
         yield return new WaitForSeconds(delay);
         playerTransform.position = teleport;
-        FindObjectOfType<CameramanTimothy>().transform.position = teleport;
+        FindObjectOfType<PUNCamera>().transform.position = teleport;
         anim.SetBool("trans", false);
     }
 }

@@ -289,7 +289,7 @@ public class SocraticVertexModifier : MonoBehaviour
 
             foreach (var parse in vertexModifier.parses)
             {
-                //if (parse.openingParse && 
+                //if (parse.openingParse &&
                 //    parse.startCharacterLocation == vertexModifier.counter && 
                 //    parse.richTextType == SocraticAnnotation.RichTextType.WAVE)
                 //{
@@ -323,13 +323,12 @@ public class SocraticVertexModifier : MonoBehaviour
         }
         else
         {
-            //vertexModifier.currentBetweenCharacterDelay -= Time.deltaTime;
             vertexModifier.currentBetweenCharacterDelay -= Time.deltaTime;
         }
     }
 
     /// <summary>
-    /// Occurs when the character delay beings.
+    /// Is called when the character delay beings.
     /// </summary>
     public static void OnCharDelay()
     {
@@ -337,7 +336,7 @@ public class SocraticVertexModifier : MonoBehaviour
     }
 
     /// <summary>
-    /// Occurs when the character delay finishes.
+    /// Is called when the character delay finishes.
     /// </summary>
     public static void OnPostCharDelay()
     {
