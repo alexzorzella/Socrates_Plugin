@@ -96,7 +96,6 @@ public class ShakeProfile
 
     public void UpdateIntensity()
     {
-
         if (currentIntensity == 0)
         {
             return;
@@ -104,7 +103,6 @@ public class ShakeProfile
 
         float elapsedTime = Time.realtimeSinceStartup - shakeStartTs;
         currentIntensity = initialIntensity * Mathf.Pow((decay), elapsedTime);
-
 
         if (currentIntensity < 0.01)
         {

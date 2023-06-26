@@ -14,8 +14,11 @@ public class JJConsole : MonoBehaviour
     {
         _i = this;
         DontDestroyOnLoad(gameObject);
+
         commands.Add(new CommandList());
         commands.Add(new GetTime());
+        commands.Add(new TestDialogue());
+
         UpdateVisuals();
     }
 
@@ -86,7 +89,7 @@ public class JJConsole : MonoBehaviour
         ClearInputField();
     }
 
-    public static bool Visible()
+    public static bool Open()
     {
         return i.visible;
     }
