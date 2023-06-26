@@ -33,9 +33,13 @@ public class DeltaCameraShake : MonoBehaviour
     {
         List<ShakeProfile> validShakes = new List<ShakeProfile>();
 
+        if (Time.timeScale == 0)
+            return;
+
         Vector3 finalCameraPos = Vector3.zero;
         visualCamPos = finalCameraPos;
         Quaternion finalCameraRotation = Quaternion.identity;
+        float zRotation = 0;
 
         foreach (var activeShake in activeShakes)
         {
@@ -46,11 +50,13 @@ public class DeltaCameraShake : MonoBehaviour
                 validShakes.Add(activeShake);
                 finalCameraPos += activeShake.GetCoreography().position;
                 finalCameraRotation *= activeShake.GetCoreography().rotation;
+                zRotation += activeShake.GetCoreography().zRotation;
             }
         }
 
         transform.localPosition = new Vector3(finalCameraPos.x, finalCameraPos.y, -10) + addedPosition;
-        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, finalCameraRotation.z));
+        //transform.localRotation = Quaternion.Euler(new Vector3(0, 0, finalCameraRotation.z));
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 0, zRotation));
 
         activeShakes = validShakes;
     }
@@ -94,15 +100,19 @@ public class ShakeProfile
 
     public float initialIntensity;
 
+    public float elapsedTime;
+
     public void UpdateIntensity()
     {
+
         if (currentIntensity == 0)
         {
             return;
         }
 
-        float elapsedTime = Time.realtimeSinceStartup - shakeStartTs;
+        elapsedTime += Time.deltaTime;
         currentIntensity = initialIntensity * Mathf.Pow((decay), elapsedTime);
+
 
         if (currentIntensity < 0.01)
         {
@@ -126,16 +136,18 @@ public class ShakeProfile
     {
         public Vector3 position;
         public Quaternion rotation;
+        public float zRotation;
     }
 
     public CameraMovementData GetCoreography()
     {
         Point point = new Point();
 
-        point.angleRange = UnityEngine.Random.Range(10f, 25f);
+        point.angleRange = UnityEngine.Random.Range(5F, 10F);
         point.speed = UnityEngine.Random.Range(1f, 3f);
 
         point.angle = Mathf.SmoothStep(-point.angleRange, point.angleRange, Mathf.PingPong(loopCount / 25f * point.speed, 1f));
+
         Vector3 jitterOffset = new Vector3(UnityEngine.Random.Range(-jitterRandXY, jitterRandXY),
                                            UnityEngine.Random.Range(-jitterRandXY, jitterRandXY),
                                            UnityEngine.Random.Range(-jitterRandZ, jitterRandZ));
@@ -150,6 +162,7 @@ public class ShakeProfile
 
         cmd.position = new Vector3(matrixMult.x, matrixMult.y, -10);
         cmd.rotation = Quaternion.Euler(jitterOffset * currentIntensity);
+        cmd.zRotation = point.angle * currentIntensity / 15F;
 
         return cmd;
     }
@@ -158,9 +171,14 @@ public class ShakeProfile
 public static class Shakepedia
 {
     public static ShakeProfile MINOR = new ShakeProfile(0.08F, 0.8F, 5F, 1F, 0.1F, 1F, 0.003F, 3F);
-    public static ShakeProfile MILD = new ShakeProfile(0.08F, 0.1F, 5F, 1F, 0.6F, 1F, 0.003F, 3F);
+
+    public static ShakeProfile MILD = new ShakeProfile(0.08F, 10F, 5F, 1F, 0.6F, 1F, 0.003F, 3F);
+
     public static ShakeProfile MEDIUM_RARE = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 6F);
     public static ShakeProfile POW = new ShakeProfile(0.1F, 0.6F, 10F, 10F, 0.6F, 1F, 0.003F, 11F);
+
+    public static ShakeProfile RUMBLE = new ShakeProfile(0.5F, 0.5F, 0.5F, 0.5F, 0.5F, 0.5F, 1F, 0.05F);
+
     public static ShakeProfile TAPER = new ShakeProfile(0.08F, 0.8F, 5F, 1F, 0.1F, 1F, 0.012F, 3F);
 
     public static ShakeProfile GetProfileClone(ShakeProfile profile)
