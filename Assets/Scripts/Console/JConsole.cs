@@ -34,7 +34,6 @@ public class JConsole : MonoBehaviour
         commands.Add(new HCTestDialogue());
         commands.Add(new HCLoadScene());
         commands.Add(new HCForceQuit());
-        commands.Add(new HCWhy());
 
 		foreach(var command in commands)
 		{
@@ -174,7 +173,6 @@ public class JConsole : MonoBehaviour
 
 		foreach(var option in sourceAutocompleteFrom)
 		{
-			// if(option.ToLower().StartsWith(lastWord.ToLower()))
 			if(option.StartsWith(lastWord))
 			{
 				autocompleteOptions.Add(option);
@@ -183,7 +181,6 @@ public class JConsole : MonoBehaviour
 
 		if(autocompleteOptions.Count <= 0)
 		{
-			// Test
 			autocompleteOptionsText.text = "";
 			autocompleteText.text = "/";
 
@@ -429,36 +426,6 @@ public class JConsole : MonoBehaviour
     }
 }
 
-public class HCWhy : HCommand
-{
-	public List<string> AutocompleteOptions()
-	{
-		return new List<string>()
-		{
-			$"A",
-			$"BB",
-			$"CCC",
-			$"DDDD",
-			$"EEEEE"
-		};
-	}
-
-	public string CommandFunction(params string[] parameters)
-	{
-		return $"Done";
-	}
-
-	public string CommandHelp()
-	{
-		return "";
-	}
-
-	public string Keyword()
-	{
-		return $"whyOnEarthWouldThisHappen";
-	}
-}
-
 public interface HCommand
 {
     string Keyword();
@@ -543,10 +510,10 @@ public class HCTestDialogue : HCommand
 
     public DialogueSection Dialogue()
     {
-        string localName = "Local Name";
+        string localName = "Alex";
         string sound = "dialogue";
 
-        Monologue l = new Monologue(localName, "123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789", sound);
+        Monologue l = new Monologue(localName, "This [color,yellow]dialogue system[!color] and [color,yellow]text interpreter[!color] took [wave]years[!wave] of updating to get here, thanks to my dad.", sound);
         Monologue delay = new Monologue(localName, "This, well, this is supposed to test the delay. Really? I think it worked!", sound, l);
         Monologue color = new Monologue(localName, "This is testing whether the [color,yellow]colorful text[!color] works.", sound, delay);
         Monologue shake = new Monologue(localName, "This is testing whether the [shake,7]shaky text works[!shake].", sound, color);
@@ -636,9 +603,4 @@ public class HCForceQuit : HCommand
 	{
 		return options;
 	}
-}
-
-public interface JCommand
-{
-    string Command();
 }

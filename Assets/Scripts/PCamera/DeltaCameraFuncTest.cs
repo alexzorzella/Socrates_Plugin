@@ -8,7 +8,6 @@ public class DeltaCameraFuncTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !FindObjectOfType<DialogueManager>().Talking())
         {
-			Debug.Log($"Should shake");
             FindObjectOfType<DeltaCameraShake>().Shake(Shakepedia.GetProfileClone(Shakepedia.MINOR));
         }
     }
