@@ -9,8 +9,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
-    [Header("PlayerManager Link")]
-    public AlexianInput input;
 
     [Header("Static")]
     public int health;
@@ -134,7 +132,7 @@ public class PlayerController : MonoBehaviour
 
         fPressedJumpRemember -= Time.deltaTime;
 
-        if (input.NorthButtonDown())
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             fPressedJumpRemember = fPressedJumpRememberTime;
         }
@@ -153,7 +151,7 @@ public class PlayerController : MonoBehaviour
             fPressedJumpRemember = 0;
         }
 
-        if (input.NorthButtonUp())
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             if (rb.velocity.y > 0)
             {
@@ -190,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
         float fHorizontalVelocity = rb.velocity.x - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.x);
          
-        float moveInput = input.LeftStick().x;
+        float moveInput = Input.GetAxisRaw("Horizontal");
 
         fHorizontalVelocity += (moveInput * speed);
 
@@ -213,11 +211,11 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(fHorizontalVelocity + currentAddedVelocity.x, yVerticalVelocity + finalCurrentAddedY);
 
-        if (facingRight == false && input.LeftStick().x > 0)
+        if (facingRight == false && Input.GetAxisRaw("Horizontal") > 0)
         {
             Flip();
         }
-        else if (facingRight == true && input.LeftStick().x < 0)
+        else if (facingRight == true && Input.GetAxisRaw("Horizontal") < 0)
         {
             Flip();
         }
