@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     private void InitializeValues()
     {
-        PUNCamera cam = FindObjectOfType<PUNCamera>();
+        PCamera cam = FindObjectOfType<PCamera>();
         cam.SetTargetWithTransform(transform);
         cam.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
@@ -183,20 +183,6 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapBox(groundCheck.position, boxGroundCheck, 360, whatIsGround);
 
-        if (isGrounded)
-        {
-            MovesAlongPlayer platform = Physics2D.OverlapBox(groundCheck.position, boxGroundCheck, 360, whatIsGround).gameObject.GetComponentInParent<MovesAlongPlayer>();
-
-            if (platform != null)
-            {
-                currentAddedVelocity = platform.GetRigidbody2D().velocity;
-            }
-            else
-            {
-                currentAddedVelocity = Vector2.zero;
-            }
-        }
-
         if (rb.bodyType == RigidbodyType2D.Static)
         {
             return;
@@ -269,9 +255,4 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(groundCheck.position, boxGroundCheck);
     }
-}
-
-public interface MovesAlongPlayer
-{
-    Rigidbody2D GetRigidbody2D();
 }

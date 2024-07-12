@@ -3,7 +3,7 @@ guid: 12b7c04df357edb40ab23eb196677760
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -122,6 +129,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -134,6 +142,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -801,40 +810,39 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      special_posters_8: 1323670562
-      special_posters_19: 2053311881
+      frame: -1641458434
       special_posters_0: 1444849953
-      special_posters_7: 1690189009
-      special_posters_28: 1746786589
-      special_posters_11: 972293156
-      special_posters_13: -279104189
-      special_posters_12: -41992305
-      special_posters_5: -347990381
-      special_posters_24: 533638245
-      special_posters_9: -1765888661
-      special_posters_14: -828333312
-      special_posters_3: 232184214
-      special_posters_2: 1014936041
-      special_posters_18: -2095344696
       special_posters_1: 1398189272
-      special_posters_25: -1569041038
       special_posters_10: 1242828855
-      special_posters_20: -1365378877
+      special_posters_11: 972293156
+      special_posters_12: -41992305
+      special_posters_13: -279104189
+      special_posters_14: -828333312
       special_posters_15: 1730703464
       special_posters_16: -1594663153
-      special_posters_26: -954117075
-      special_posters_6: 1406887226
-      special_posters_4: 572376456
-      special_posters_23: -2109788912
-      special_posters_22: -464454845
-      frame: -1641458434
       special_posters_17: 183123456
+      special_posters_18: -2095344696
+      special_posters_19: 2053311881
+      special_posters_2: 1014936041
+      special_posters_20: -1365378877
       special_posters_21: 2030895486
-      special_posters_29: -1723574326
+      special_posters_22: -464454845
+      special_posters_23: -2109788912
+      special_posters_24: 533638245
+      special_posters_25: -1569041038
+      special_posters_26: -954117075
       special_posters_27: -1667133202
-  spritePackingTag: 
+      special_posters_28: 1746786589
+      special_posters_29: -1723574326
+      special_posters_3: 232184214
+      special_posters_4: 572376456
+      special_posters_5: -347990381
+      special_posters_6: 1406887226
+      special_posters_7: 1690189009
+      special_posters_8: 1323670562
+      special_posters_9: -1765888661
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

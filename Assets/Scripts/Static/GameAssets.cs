@@ -9,7 +9,6 @@ public class GameAssets : MonoBehaviour
 
     private void Start()
     {
-        JConsole i = JConsole.i;
         startTime = DateTime.Now.Ticks;
         DontDestroyOnLoad(gameObject);
     }
@@ -42,7 +41,7 @@ public class GameAssets : MonoBehaviour
             return Instantiate(p.particle, position, Quaternion.identity);
         }
 
-        Debug.LogWarning($"Não tem uma quimica com esse nome, cheque o catalogo.");
+        Debug.LogWarning($"Não tem um partícula com esse nome, cheque o catálogo.");
 
         return null;
     }

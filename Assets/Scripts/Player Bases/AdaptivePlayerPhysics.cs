@@ -48,7 +48,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour
 
     private void InitializeValues()
     {
-        PUNCamera cam = FindObjectOfType<PUNCamera>();
+        PCamera cam = FindObjectOfType<PCamera>();
         cam.SetTargetWithTransform(transform);
         anim = GetComponentInChildren<Animator>();
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10F);
@@ -171,21 +171,6 @@ public class AdaptivePlayerPhysics : MonoBehaviour
     private void MoveAndFlip()
     {
         isGrounded = Physics2D.OverlapBox(groundCheck.position, boxGroundCheck, 360, whatIsGround);
-
-        if (isGrounded)
-        {
-            MovesAlongPlayer platform = Physics2D.OverlapBox(groundCheck.position, boxGroundCheck, 360, whatIsGround).gameObject.GetComponentInParent<MovesAlongPlayer>();
-
-            if (platform != null)
-            {
-                currentAddedVelocity = platform.GetRigidbody2D().velocity;
-            }
-            else
-            {
-                currentAddedVelocity = Vector2.zero;
-            }
-        }
-
         if (rb.bodyType == RigidbodyType2D.Static)
         {
             return;

@@ -1,0 +1,14 @@
+Updates:
+
+* Removed mass amount of Kenny Audio from default import
+* Removed unused fonts and cleaned up files for old ones
+* Added localized fallback font to VCR Osd fonts
+* Put specific code packages into folders in new 'Packages' folder for easy imports
+* Updated TextMeshPro version
+* Added clapping into CodeGnat Studios intro sequence
+* Removed rule tiles that would import with project
+* Updated AudioManager to remove unnecessary functions
+* Imported improved console from Marie Curries Flavor
+* Fixed issues with console so that the autofill formatting was correct
+* Updated camera shake script so that it doesn't favor one direction
+* Renamed some scripts for ease of use

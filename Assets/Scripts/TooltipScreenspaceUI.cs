@@ -69,12 +69,18 @@ public class TooltipScreenspaceUI : MonoBehaviour
 
     public static void SetText(string tooltipText)
     {
-        Instance.ShowTooltip(tooltipText);
+		if(Instance != null)
+		{
+	        Instance.ShowTooltip(tooltipText);
+		}
     }
 
     public static void Hide()
     {
-        Instance.HideTooltip();
+		if(Instance != null)
+		{
+			Instance.HideTooltip();
+		}
     }
 
     private void ShowTooltip(string tooltipText)
