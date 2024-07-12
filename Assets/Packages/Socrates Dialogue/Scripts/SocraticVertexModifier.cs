@@ -156,7 +156,7 @@ public class SocraticVertexModifier : MonoBehaviour
             ColorUtility.TryParseHtmlString("#DDD0CC", out temp);
 
             textComponent.color = temp;
-            AudioManager.i.StopAllSources("dialogue", true);
+            AudioManager.i.StopAllSourcesContains("dialogue", true);
             vertexModifier.counter = textComponent.maxVisibleCharacters;
         }
     }
@@ -289,7 +289,7 @@ public class SocraticVertexModifier : MonoBehaviour
 
             foreach (var parse in vertexModifier.parses)
             {
-                //if (parse.openingParse &&
+                //if (parse.openingParse && 
                 //    parse.startCharacterLocation == vertexModifier.counter && 
                 //    parse.richTextType == SocraticAnnotation.RichTextType.WAVE)
                 //{
@@ -321,14 +321,13 @@ public class SocraticVertexModifier : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            vertexModifier.currentBetweenCharacterDelay -= Time.deltaTime;
-        }
+           
+        vertexModifier.currentBetweenCharacterDelay -= Time.deltaTime;
+        //vertexModifier.currentBetweenCharacterDelay -= Time.fixedDeltaTime;
     }
 
     /// <summary>
-    /// Is called when the character delay beings.
+    /// Occurs when the character delay beings.
     /// </summary>
     public static void OnCharDelay()
     {
@@ -336,7 +335,7 @@ public class SocraticVertexModifier : MonoBehaviour
     }
 
     /// <summary>
-    /// Is called when the character delay finishes.
+    /// Occurs when the character delay finishes.
     /// </summary>
     public static void OnPostCharDelay()
     {
@@ -616,8 +615,8 @@ public class SocraticVertexModifier : MonoBehaviour
 
             if (vertexIndex == 0 && i != 0)
             {
+                //Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
                 continue;
-                Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
             }
 
             float leftVerticesXPos = vertexPositionsReadFrom[vertexIndex + 0].x;
@@ -782,6 +781,9 @@ public class SocraticVertexModifier : MonoBehaviour
                     c == '!' ||
                     c == '~' ||
                     c == ':' ||
+                    c == ':' ||
+                    c == '(' ||
+                    c == ')' ||
                     c == ';')
                     {
                         parseProfile = new SocraticAnnotationParse();

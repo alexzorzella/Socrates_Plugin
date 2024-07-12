@@ -149,7 +149,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: poster_five_miles_out
+      name: poster_teidi
       rect:
         serializedVersion: 2
         x: 0
@@ -157,7 +157,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,7 +170,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_crises
+      name: poster_watcher
       rect:
         serializedVersion: 2
         x: 64
@@ -178,7 +178,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,7 +191,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_platinum
+      name: poster_plat
       rect:
         serializedVersion: 2
         x: 128
@@ -199,7 +199,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,7 +212,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poster_man_on_the_rocks
+      name: poster_ocean
       rect:
         serializedVersion: 2
         x: 192
@@ -220,7 +220,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -243,10 +243,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      poster_crises: 1866635958
-      poster_five_miles_out: -1321870325
-      poster_man_on_the_rocks: 1978827697
-      poster_platinum: -1115834952
+      poster_ocean: 1978827697
+      poster_plat: -1115834952
+      poster_teidi: -1321870325
+      poster_watcher: 1866635958
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

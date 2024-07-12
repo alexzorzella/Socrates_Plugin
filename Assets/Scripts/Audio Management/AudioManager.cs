@@ -168,4 +168,13 @@ public class AudioManager : MonoBehaviour
             source.volume = mute ? 0 : s.volume;
         }
     }
+
+    public void StopAllSourcesContains(string contains, bool resetTrack)
+    {
+        foreach (var sound in sounds)
+        {
+            if (sound.name.Contains(contains))
+                StopAllSources(sound.name, resetTrack);
+        }
+    }
 }

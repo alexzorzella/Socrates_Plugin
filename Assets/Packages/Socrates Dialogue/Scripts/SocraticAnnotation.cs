@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SocraticAnnotation
+public static class SocraticAnnotation
 {
     public static char parse_startParse = '[';
     public static char parse_endParse = ']';
     public static char parse_endParsePair = '!';
     public static char parse_inputValueIndicator = ',';
 
-    public static float display_textDelay = 0.012F;
+    public static float display_textDelay = 0.01F;
 
     public static float display_minorPunctuationDelay = 0.15F;
     public static float display_majorPunctuationDelay = 0.25F;

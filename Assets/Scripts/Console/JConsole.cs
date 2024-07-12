@@ -469,8 +469,6 @@ public class HCCommandList : HCommand
             JConsole.i.WriteLine($"{command.Keyword()} {command.CommandHelp()}");
         }
 
-        JConsole.i.WriteLine($"Some commands have a 'list' and 'all' function.");
-
         return $"Listed {JConsole.i.commands.Count} commands.";
     }
 

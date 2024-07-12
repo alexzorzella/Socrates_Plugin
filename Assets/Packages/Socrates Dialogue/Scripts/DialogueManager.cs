@@ -75,6 +75,7 @@ public class DialogueManager : MonoBehaviour
         ClearAllOptions();
         currentSection = start;
 
+        //Inventory.i.Hide();
         TooltipScreenspaceUI.Hide();
 
         if (typeof(Dialogue_Superclass.Choices).IsInstanceOfType(currentSection))
@@ -202,6 +203,8 @@ public class DialogueManager : MonoBehaviour
         
         anim.SetBool("open", false);
         AudioManager.i.Play("dialogue_box_close");
+
+        //Inventory.i.DisplayHotbar();
     }
 
     public void ClearAllOptions()

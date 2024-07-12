@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Dialogue_Superclass;
 
-public class DialogueTest : MonoBehaviour
+public class DialogueFuncTester : MonoBehaviour
 {
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(SimpleTest());
+        FindObjectOfType<DialogueManager>().StartDialogue(FuncTester());
     }
 
-    public DialogueSection SimpleTest()
+    public DialogueSection FuncTester()
     {
         string localName = "Alex";
         string sound = "dialogue";
