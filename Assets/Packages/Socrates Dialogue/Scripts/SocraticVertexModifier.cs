@@ -156,7 +156,7 @@ public class SocraticVertexModifier : MonoBehaviour
             ColorUtility.TryParseHtmlString("#DDD0CC", out temp);
 
             textComponent.color = temp;
-            AudioManager.i.StopAllSourcesContains("dialogue", true);
+            // AudioManager.i.StopAllSourcesContains("dialogue", true);
             vertexModifier.counter = textComponent.maxVisibleCharacters;
         }
     }
@@ -259,11 +259,11 @@ public class SocraticVertexModifier : MonoBehaviour
 
             if (vertexModifier.currentSection != null && !vertexModifier.muted)
             {
-                AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
+                // AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
             }
             else if (!vertexModifier.muted)
             {
-                AudioManager.i.StopAllSources("dialogue", true);
+                // AudioManager.i.StopAllSources("dialogue", true);
             }
 
             return;
@@ -277,11 +277,11 @@ public class SocraticVertexModifier : MonoBehaviour
             {
                 if (vertexModifier.currentSection != null)
                 {
-                    AudioManager.i.PlayOnlyIfDone(vertexModifier.currentSection.GetDialogueSound());
+                    // AudioManager.i.PlayOnlyIfDone(vertexModifier.currentSection.GetDialogueSound());
                 }
                 else
                 {
-                    AudioManager.i.PlayOnlyIfDone("dialogue");
+                    // AudioManager.i.PlayOnlyIfDone("dialogue");
                 }
             }
 
@@ -302,11 +302,11 @@ public class SocraticVertexModifier : MonoBehaviour
                     {
                         if (vertexModifier.currentSection != null)
                         {
-                            AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
+                            // AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
                         }
                         else
                         {
-                            AudioManager.i.StopAllSources("dialogue", true);
+                            // AudioManager.i.StopAllSources("dialogue", true);
                         }
 
                         vertexModifier.currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
@@ -442,7 +442,8 @@ public class SocraticVertexModifier : MonoBehaviour
         TMP_MeshInfo meshInfo = GetMaterialAtZero(textComponent.textInfo);
 
         textComponent.mesh.SetVertices(newVertexPositions);
-        textComponent.mesh.uv = meshInfo.uvs0;
+        
+        textComponent.mesh.uv = SocraticVertexModifier.FromVector4Arr(meshInfo.uvs0);
         textComponent.mesh.uv2 = meshInfo.uvs2;
 
         for (int i = 0; i < 1; i++)
@@ -803,6 +804,17 @@ public class SocraticVertexModifier : MonoBehaviour
         if (result == null)
         {
             Debug.LogError($"The result for the list of parses is null.");
+        }
+
+        return result;
+    }
+
+    public static Vector2[] FromVector4Arr(Vector4[] input) {
+        Vector2[] result = new Vector2[input.Length];
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            result[i] = new Vector2(input[i].x, input[i].y);
         }
 
         return result;

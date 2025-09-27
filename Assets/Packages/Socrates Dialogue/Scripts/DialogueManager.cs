@@ -71,7 +71,7 @@ public class DialogueManager : MonoBehaviour
     {
         canvasGroup.interactable = true;
         anim.SetBool("open", true);
-        AudioManager.i.Play("dialogue_box_open");
+        // AudioManager.i.Play("dialogue_box_open");
         ClearAllOptions();
         currentSection = start;
 
@@ -116,7 +116,7 @@ public class DialogueManager : MonoBehaviour
         if (isMonologue && !contentText.TextHasBeenDisplayed())
         {
             SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText, true, currentSection: currentSection);
-            AudioManager.i.Play("dialogue_select", 1.2F, 1.2F);
+            // AudioManager.i.Play("dialogue_select", 1.2F, 1.2F);
             return;
         }
 
@@ -130,7 +130,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        AudioManager.i.Play("dialogue_select");
+        // AudioManager.i.Play("dialogue_select");
 
         if (currentSection.GetNextSection() != null)
         {
@@ -202,7 +202,7 @@ public class DialogueManager : MonoBehaviour
         ClearAllOptions();
         
         anim.SetBool("open", false);
-        AudioManager.i.Play("dialogue_box_close");
+        // AudioManager.i.Play("dialogue_box_close");
 
         //Inventory.i.DisplayHotbar();
     }
@@ -255,7 +255,7 @@ public class DialogueManager : MonoBehaviour
 
                     optionDisplayBehavior.SetParams(option.Item1, option.Item2);
 
-                    AudioManager.i.Play("dialogue_display");
+                    // AudioManager.i.Play("dialogue_display");
 
                     indexOfCurrentChoice++;
                 }

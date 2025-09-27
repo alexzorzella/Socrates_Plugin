@@ -30,7 +30,7 @@ public class DialogueOptionDisplay : MonoBehaviour
             return;
         }
 
-        AudioManager.i.Play("dialogue_select");
+        // AudioManager.i.Play("dialogue_select");
 
         manager.currentSection = leadsTo;
         manager.DisplayDialogue();

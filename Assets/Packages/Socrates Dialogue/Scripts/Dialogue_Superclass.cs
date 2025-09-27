@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dialogue_Superclass : MonoBehaviour
-{
+public class Dialogue_Superclass : MonoBehaviour {
     public interface DialogueSection {
-
         string GetTitle();
         string GetSpeakerName();
         string GetDialogueSound();
@@ -18,11 +16,12 @@ public class Dialogue_Superclass : MonoBehaviour
         void SetActionExecution(bool set);
     }
 
-    public class Monologue : DialogueSection
-    {
+    public class Monologue : DialogueSection {
         public string speakerName;
         public string content;
+
         public string dialogueSound;
+
         // If there is no next, terminate
         public DialogueSection next;
         public Action action;
@@ -39,8 +38,7 @@ public class Dialogue_Superclass : MonoBehaviour
             Action action = null,
             bool triggerActionWhenStart = false,
             bool isMonotone = false,
-            float charDelay = 0.02F)
-        {
+            float charDelay = 0.02F) {
             this.speakerName = speakerName;
             this.content = content;
             this.next = null;
@@ -52,63 +50,51 @@ public class Dialogue_Superclass : MonoBehaviour
             this.charDelay = charDelay;
         }
 
-        public DialogueSection GetNextSection()
-        {
+        public DialogueSection GetNextSection() {
             return next;
         }
 
-        public string GetSpeakerName()
-        {
+        public string GetSpeakerName() {
             return speakerName;
         }
 
-        public string GetTitle()
-        {
+        public string GetTitle() {
             return content;
         }
 
-        public string GetDialogueSound()
-        {
+        public string GetDialogueSound() {
             return this.dialogueSound;
         }
 
-        public Action GetAction()
-        {
+        public Action GetAction() {
             return action;
         }
 
-        public void TriggerAction(bool isStart)
-        {
-            if(isStart == triggerActionWhenStart)
-            {
+        public void TriggerAction(bool isStart) {
+            if (isStart == triggerActionWhenStart) {
                 //Debug.Log($"Triggered action, isStart: {isStart}, triggerActionWhenStart: {triggerActionWhenStart}");
                 action.Invoke();
             }
         }
 
-        public bool IsMonotone()
-        {
+        public bool IsMonotone() {
             return isMonotone;
         }
 
-        public float CharDelay()
-        {
+        public float CharDelay() {
             return charDelay;
         }
 
-        public bool HasExecutedAction()
-        {
+        public bool HasExecutedAction() {
             return hasExecutedAction;
         }
 
-        public void SetActionExecution(bool set)
-        {
+        public void SetActionExecution(bool set) {
             hasExecutedAction = set;
         }
     }
 
-    public class Choices : DialogueSection
-    {
+    public class Choices : DialogueSection {
         public string speakerName;
         public string title;
         public string dialogueSound;
@@ -118,8 +104,7 @@ public class Dialogue_Superclass : MonoBehaviour
 
         public Choices(
             string speakerName, string title, string sound,
-            List<Tuple<string, DialogueSection>> choices, bool isMonotone = false, float charDelay = 0.02F)
-        {
+            List<Tuple<string, DialogueSection>> choices, bool isMonotone = false, float charDelay = 0.02F) {
             this.speakerName = speakerName;
             this.title = title;
             this.choices = choices;
@@ -128,68 +113,53 @@ public class Dialogue_Superclass : MonoBehaviour
             this.charDelay = charDelay;
         }
 
-        public DialogueSection GetNextSection()
-        {
+        public DialogueSection GetNextSection() {
             return null;
         }
 
-        public string GetSpeakerName()
-        {
+        public string GetSpeakerName() {
             return speakerName;
         }
 
-        public string GetTitle()
-        {
+        public string GetTitle() {
             return title;
         }
-        
-        public string GetDialogueSound()
-        {
+
+        public string GetDialogueSound() {
             return this.dialogueSound;
         }
 
-        public Action GetAction()
-        {
+        public Action GetAction() {
             return null;
         }
 
-        public void TriggerAction(bool isStart)
-        {
-
+        public void TriggerAction(bool isStart) {
         }
 
-        public bool IsMonotone()
-        {
+        public bool IsMonotone() {
             return isMonotone;
         }
 
-        public float CharDelay()
-        {
+        public float CharDelay() {
             return charDelay;
         }
 
-        public bool HasExecutedAction()
-        {
+        public bool HasExecutedAction() {
             return true;
         }
 
-        public void SetActionExecution(bool set)
-        {
-            
+        public void SetActionExecution(bool set) {
         }
     }
 
-    public static Tuple<string, DialogueSection> Choice(string choice, DialogueSection next)
-    {
+    public static Tuple<string, DialogueSection> Choice(string choice, DialogueSection next) {
         return new Tuple<string, DialogueSection>(choice, next);
     }
 
-    public static List<Tuple<string, DialogueSection>> ChoiceList(params Tuple<string, DialogueSection>[] entries)
-    {
+    public static List<Tuple<string, DialogueSection>> ChoiceList(params Tuple<string, DialogueSection>[] entries) {
         List<Tuple<string, DialogueSection>> result = new List<Tuple<string, DialogueSection>>();
 
-        foreach (var tuple in entries)
-        {
+        foreach (var tuple in entries) {
             result.Add(tuple);
         }
 

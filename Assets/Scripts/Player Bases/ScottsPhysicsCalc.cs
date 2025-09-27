@@ -21,7 +21,7 @@ public class ScottsPhysicsCalc : MonoBehaviour
 
     public void HorizontalDynamicDamp(float inputDirection, float speed)
     {
-        float fHorizontalVelocity = rb.velocity.x;
+        float fHorizontalVelocity = rb.linearVelocity.x;
 
         float moveDirection = inputDirection;
 
@@ -40,6 +40,6 @@ public class ScottsPhysicsCalc : MonoBehaviour
             fHorizontalVelocity *= Mathf.Pow(1f - dampenBasic, Time.deltaTime * 10f);
         }
 
-        rb.velocity = new Vector2(fHorizontalVelocity, rb.velocity.y);
+        rb.linearVelocity = new Vector2(fHorizontalVelocity, rb.linearVelocity.y);
     }
 }

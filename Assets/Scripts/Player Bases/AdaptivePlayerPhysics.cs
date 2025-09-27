@@ -65,7 +65,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour
     private void UpdateAnimatorInfo()
     {
         anim.SetBool("grounded", IsGrounded());
-        anim.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
+        anim.SetFloat("horizontal", Mathf.Abs(rb.linearVelocity.x));
     }
 
     private void CheckForDeathPlane()
@@ -130,23 +130,23 @@ public class AdaptivePlayerPhysics : MonoBehaviour
 
         if ((fPressedJumpRemember > 0) && extraJumps > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce);
             fPressedJumpRemember = 0;
             extraJumps--;
         }
         else if ((fPressedJumpRemember > 0) && (extraJumps == 0) && isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce);
             fPressedJumpRemember = 0;
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            if (rb.velocity.y > 0)
+            if (rb.linearVelocity.y > 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCut);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCut);
             }
         }
     }
@@ -176,7 +176,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour
             return;
         }
 
-        float fHorizontalVelocity = rb.velocity.x - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.x);
+        float fHorizontalVelocity = rb.linearVelocity.x - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.x);
 
         float moveInput = Input.GetAxisRaw("Horizontal");
 
@@ -187,7 +187,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour
 
         if (moveInput > 0)
         {
-            if (rb.velocity.x < speed)
+            if (rb.linearVelocity.x < speed)
             {
                 if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
                 {
@@ -201,7 +201,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour
         }
         else if (moveInput < 0)
         {
-            if (rb.velocity.x > -speed)
+            if (rb.linearVelocity.x > -speed)
             {
                 if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
                 {
@@ -233,11 +233,11 @@ public class AdaptivePlayerPhysics : MonoBehaviour
             }
         }
 
-        float yVerticalVelocity = rb.velocity.y - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.y);
+        float yVerticalVelocity = rb.linearVelocity.y - (currentAddedVelocity == Vector2.zero ? 0 : currentAddedVelocity.y);
 
         float finalCurrentAddedY = currentAddedVelocity.y < 0 ? currentAddedVelocity.y * 1.5F : currentAddedVelocity.y;
 
-        rb.velocity = new Vector2(fHorizontalVelocity + currentAddedVelocity.x, yVerticalVelocity + finalCurrentAddedY);
+        rb.linearVelocity = new Vector2(fHorizontalVelocity + currentAddedVelocity.x, yVerticalVelocity + finalCurrentAddedY);
 
         if (facingRight == false && Input.GetAxisRaw("Horizontal") > 0)
         {
