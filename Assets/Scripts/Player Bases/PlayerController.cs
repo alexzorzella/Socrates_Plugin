@@ -40,9 +40,6 @@ public class PlayerController : MonoBehaviour {
     public void Damage(int damage) {
         health -= damage;
 
-        AudioManager.i.Play("scream_short");
-        GameAssets.Particle("guts", transform.position);
-
         if (health <= 0) Die();
     }
 
@@ -53,11 +50,9 @@ public class PlayerController : MonoBehaviour {
 
         eligibleToDie = false;
 
-        NATransition.i.anim.SetTrigger("trans");
-
         rb.bodyType = RigidbodyType2D.Static;
 
-        NATransition.Transition(SceneManager.GetActiveScene().buildIndex);
+        NATransition.i.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnGrounded() {

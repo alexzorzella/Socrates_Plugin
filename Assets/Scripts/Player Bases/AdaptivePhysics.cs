@@ -79,24 +79,19 @@ public class AdaptivePhysics : MonoBehaviour {
 
         eligibleToDie = false;
 
-        NATransition.i.anim.SetTrigger("trans");
-
         rb.bodyType = RigidbodyType2D.Static;
 
-        NATransition.Transition(SceneManager.GetActiveScene().buildIndex);
+        NATransition.i.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnGrounded() {
-        if (lastGrounded != isGrounded)
-            if (isGrounded)
-                SnowEffects();
+        if (lastGrounded != isGrounded) {
+            if (isGrounded) {
+                
+            }
+        }
 
         lastGrounded = isGrounded;
-    }
-
-    public void SnowEffects() {
-        AudioManager.i.Play("snow_crunch");
-        GameAssets.Particle("snow", groundCheck.position);
     }
 
     void Jump() {

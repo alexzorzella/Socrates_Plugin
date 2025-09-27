@@ -15,9 +15,17 @@
         return pInstance;
     }
 
-    // Note to dad: this is called once and only once in the begginning of the game
+    // Note to dad: this is called once and only once in the beginning of the game
     void InitGame() {
         //Debug.Log("InitGame");
         stats = new GameStats();
+    }
+
+    public void Bootstrap() {
+        
+    }
+
+    public void Teardown() {
+        
     }
 }

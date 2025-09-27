@@ -78,11 +78,9 @@ public class AdaptivePlayerPhysics : MonoBehaviour {
 
         eligibleToDie = false;
 
-        NATransition.i.anim.SetTrigger("trans");
-
         rb.bodyType = RigidbodyType2D.Static;
 
-        NATransition.Transition(SceneManager.GetActiveScene().buildIndex);
+        NATransition.i.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnGrounded() {

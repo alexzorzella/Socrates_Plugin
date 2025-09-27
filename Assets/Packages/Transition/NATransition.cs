@@ -1,94 +1,70 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NATransition : MonoBehaviour {
-    static NATransition _i;
-    public Animator anim;
+	const float transitionLength = 0.5F;
 
-    readonly float delay = 0.5F;
+	CanvasGroup group;
 
-    CanvasGroup group;
+	private static NATransition _i;
 
-    public static NATransition i {
-        get {
-            if (_i == null) {
-                var x = Resources.Load<NATransition>("Transition");
-                _i = Instantiate(x);
-            }
+	public static NATransition i {
+		get {
+			if (_i == null) {
+				NATransition x = Resources.Load<NATransition>("Transition");
+				_i = Instantiate(x);
+			}
 
-            return _i;
-        }
-    }
+			return _i;
+		}
+	}
 
-    void Awake() {
-        DontDestroyOnLoad(gameObject);
-        group = GetComponent<CanvasGroup>();
-    }
+	private void Awake() {
+		DontDestroyOnLoad(gameObject);
+		group = GetComponent<CanvasGroup>();
+		group.alpha = 0;
+	}
 
-    void Update() {
-        group.interactable = IsTransitioning();
-        group.blocksRaycasts = IsTransitioning();
-    }
+	public static void QuitGame() {
+		i.Quit();
+	}
 
-    public static bool IsTransitioning() {
-        return i.anim.GetBool("trans");
-    }
+	public void LoadScene(string sceneName) {
+		PreTransition();
 
-    public static void QuitGame() {
-        i.Quit();
-    }
+		LeanTween.value(gameObject, 0, 1, transitionLength / 2F).setEase(LeanTweenType.easeOutQuad).
+			setOnUpdate((value) => { group.alpha = value; }).setOnComplete(
+				() => {
+					SceneManager.LoadScene(sceneName);
+					LeanTween.value(gameObject, 1, 0, transitionLength / 2F).setEase(LeanTweenType.easeInQuad).
+					setOnUpdate((value) => { group.alpha = value; });
+					// PostTransition();
+				});
+	}
 
-    void Quit() {
-        StartCoroutine(QuitGameT());
-    }
+	public void LoadScene(int sceneIndex) {
+		PreTransition();
 
-    void T(string sceneName) {
-        StartCoroutine(TransitionT(sceneName));
-    }
+		LeanTween.value(gameObject, 0, 1, transitionLength / 2F).setEase(LeanTweenType.easeOutQuad).
+			setOnUpdate((value) => { group.alpha = value; }).setOnComplete(
+				() => {
+					SceneManager.LoadScene(sceneIndex);
+					LeanTween.value(gameObject, 1, 0, transitionLength / 2F).setEase(LeanTweenType.easeInQuad).
+					setOnUpdate((value) => { group.alpha = value; });
+					// PostTransition();
+				});
+	}
 
-    void T(int sceneIndex) {
-        StartCoroutine(TransitionT(sceneIndex));
-    }
+	public void Quit() {
+		LeanTween.value(gameObject, 0, 1, transitionLength / 2F).setOnUpdate((value) => { group.alpha = value; }).setOnComplete(
+		() => { Application.Quit(); });
+	}
 
-    public static void Transition(string sceneName) {
-        i.T(sceneName);
-    }
+	void PreTransition() {
+		GameManager.Instance().Bootstrap();
+	}
 
-    public static void Transition(int sceneIndex) {
-        i.T(sceneIndex);
-    }
-
-    IEnumerator TransitionT(string s) {
-        anim.SetBool("trans", true);
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(s);
-        anim.SetBool("trans", false);
-    }
-
-    IEnumerator QuitGameT() {
-        anim.SetBool("trans", true);
-        yield return new WaitForSeconds(delay);
-        Application.Quit();
-        anim.SetBool("trans", false);
-    }
-
-    IEnumerator TransitionT(int i) {
-        anim.SetBool("trans", true);
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(i);
-        anim.SetBool("trans", false);
-    }
-
-    public void Teleport(Transform playerTransform, Vector2 teleport) {
-        StartCoroutine(TeleportDelay(playerTransform, teleport));
-    }
-
-    IEnumerator TeleportDelay(Transform playerTransform, Vector2 teleport) {
-        anim.SetBool("trans", true);
-        yield return new WaitForSeconds(delay);
-        playerTransform.position = teleport;
-        FindObjectOfType<PCamera>().transform.position = teleport;
-        anim.SetBool("trans", false);
-    }
+	void PostTransition() {
+		GameManager.Instance().Teardown();
+	}
 }

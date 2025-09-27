@@ -352,7 +352,7 @@ public class ConsoleUtility {
 }
 
 public class HCCommandList : HCommand {
-    readonly List<string> options = new()();
+    readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
         foreach (var command in JConsole.i.commands)
@@ -375,7 +375,7 @@ public class HCCommandList : HCommand {
 }
 
 public class HCTestDialogue : HCommand {
-    readonly List<string> options = new()();
+    readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
         JConsole.i.GetDialogueManager().StartDialogue(Dialogue());
@@ -421,7 +421,7 @@ public class HCTestDialogue : HCommand {
 }
 
 public class HCLoadScene : HCommand {
-    readonly List<string> options = new()();
+    readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
         var sceneExists = SceneManager.GetSceneByName(parameters[1]) != null;
@@ -453,7 +453,7 @@ public class HCLoadScene : HCommand {
 }
 
 public class HCForceQuit : HCommand {
-    readonly List<string> options = new()();
+    readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
         Application.Quit();

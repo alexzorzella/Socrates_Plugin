@@ -1,80 +1,105 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class IntroFunc : MonoBehaviour {
-    public Transform[] letters;
+	DeltaCameraShake cameraShake;
 
-    public int letterFlipIndex = -1;
-    public float lerpSpeed = 5F;
-    public float lerpTime;
+	public Transform[] letters;
 
-    public TextMeshProUGUI animationNameDisplay;
-    public Animator animator;
+	public int letterFlipIndex = -1;
+	public float lerpSpeed = 5F;
+	public float lerpTime = 0;
 
-    public GameObject guts;
-    public Transform guts_position;
-    DeltaCameraShake cameraShake;
+	readonly Dictionary<string, MultiAudioSource> audioSources = new Dictionary<string, MultiAudioSource>();
 
-    void Start() {
-        cameraShake = Camera.main.GetComponent<DeltaCameraShake>();
-        ResetLetters();
-    }
+	void PlayAudioSource(string soundName) {
+		if (!audioSources.ContainsKey(soundName)) {
+			audioSources.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
+		}
 
-    public void Update() {
-        UpdateLetters();
-    }
+		audioSources[soundName].PlayRandom();
+	}
 
-    public void ResetLetters() {
-        letterFlipIndex = -1;
+	void StopAudioSource(string soundName) {
+		if (!audioSources.ContainsKey(soundName)) {
+			return;
+		}
 
-        foreach (var letter in letters) letter.transform.rotation = Quaternion.Euler(new Vector3(0, -90F, 0));
-    }
+		audioSources[soundName].Stop();
+	}
 
-    public void EngageLetterScroll() {
-        letterFlipIndex = 0;
-        lerpTime = 0;
-    }
+	public void ResetLetters() {
+		letterFlipIndex = -1;
 
-    public void UpdateLetters() {
-        if (letterFlipIndex != -1 && letterFlipIndex < letters.Length) {
-            if (letters[letterFlipIndex].transform.rotation.eulerAngles.y == 0F) {
-                letters[letterFlipIndex].transform.rotation = Quaternion.identity;
-                letterFlipIndex++;
-                lerpTime = 0;
+		foreach (var letter in letters) {
+			letter.transform.rotation = Quaternion.Euler(new Vector3(0, -90F, 0));
+		}
+	}
 
-                if (letterFlipIndex >= letters.Length)
-                    return;
-            }
+	public void EngageLetterScroll() {
+		letterFlipIndex = 0;
+		lerpTime = 0;
+	}
 
-            letters[letterFlipIndex].rotation =
-                Quaternion.Lerp(letters[letterFlipIndex].rotation, Quaternion.identity, lerpTime);
-            lerpTime += Time.deltaTime * lerpSpeed;
-        }
-    }
+	public void UpdateLetters() {
+		if (letterFlipIndex != -1 && letterFlipIndex < letters.Length) {
+			if (letters[letterFlipIndex].transform.rotation.eulerAngles.y == 0F) {
+				letters[letterFlipIndex].transform.rotation = Quaternion.identity;
+				letterFlipIndex++;
+				lerpTime = 0;
 
-    public void Shake() {
-        cameraShake.Shake(Shakepedia.GetProfileClone(Shakepedia.MILD));
-    }
+				if (letterFlipIndex >= letters.Length)
+					return;
+			}
 
-    public void ShakeLight() {
-        cameraShake.Shake(Shakepedia.GetProfileClone(Shakepedia.RUMBLE));
-    }
+			letters[letterFlipIndex].rotation = Quaternion.Lerp(letters[letterFlipIndex].rotation, Quaternion.identity, lerpTime);
+			lerpTime += Time.deltaTime * lerpSpeed;
+		}
+	}
 
-    public void PlaySound(string sound) {
-        var sounds = sound.Split(',');
+	private void Start() {
+		cameraShake = Camera.main.GetComponent<DeltaCameraShake>();
+		ResetLetters();
+	}
 
-        foreach (var s in sounds) AudioManager.i.Play(s);
-    }
+	public void Shake() {
+		cameraShake.Shake(Shakepedia.GetProfileClone(Shakepedia.MEDIUM_RARE));
+	}
 
-    public void StopSound(string sound) {
-        AudioManager.i.StopAllSources(sound, true);
-    }
+	public void ShakeLight() {
+		cameraShake.Shake(Shakepedia.GetProfileClone(Shakepedia.RUMBLE));
+	}
 
-    public void Guts() {
-        Instantiate(guts, guts_position.position, Quaternion.identity);
-    }
+	public TextMeshProUGUI animationNameDisplay;
+	public Animator animator;
 
-    public void LoadScene(string sceneName) {
-        NATransition.Transition(sceneName);
-    }
+	public void Update() {
+		UpdateLetters();
+	}
+
+	public void PlaySound(string sound) {
+		string[] sounds = sound.Split(',');
+
+		foreach (var s in sounds) {
+			PlayAudioSource(s);
+			// AudioManager.i.Play(s);
+		}
+	}
+
+	public void StopSound(string sound) {
+		StopAudioSource(sound);
+		// AudioManager.i.StopAllSources(sound, true);
+	}
+
+	public GameObject guts;
+	public Transform guts_position;
+
+	public void Guts() {
+		Instantiate(guts, guts_position.position, Quaternion.identity);
+	}
+
+	public void LoadScene(string sceneName) {
+		NATransition.i.LoadScene(sceneName);
+	}
 }
