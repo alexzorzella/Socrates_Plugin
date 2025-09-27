@@ -358,10 +358,12 @@ public class SocraticVertexModifier : MonoBehaviour {
 
         textComponent.mesh.SetVertices(newVertexPositions);
 
-        textComponent.mesh.uv = FromVector4Arr(meshInfo.uvs0);
-        textComponent.mesh.uv2 = meshInfo.uvs2;
+        if (meshInfo.uvs0 != null) {
+            textComponent.mesh.uv = FromVector4Arr(meshInfo.uvs0);
+            textComponent.mesh.uv2 = meshInfo.uvs2;
 
-        for (var i = 0; i < 1; i++) textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
+            for (var i = 0; i < 1; i++) textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);    
+        }
     }
 
     /// <summary>
