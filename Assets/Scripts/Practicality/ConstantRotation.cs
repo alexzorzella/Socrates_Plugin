@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ConstantRotation : MonoBehaviour
-{
+public class ConstantRotation : MonoBehaviour {
     public Vector3 rotate;
 
-    private void Update()
-    {
+    void Update() {
         transform.Rotate(rotate * Time.deltaTime);
     }
 }

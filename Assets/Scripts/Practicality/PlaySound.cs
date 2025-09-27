@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlaySound : MonoBehaviour
-{
-    public void PlayFlat(string sound)
-    {
+public class PlaySound : MonoBehaviour {
+    public void PlayFlat(string sound) {
         AudioManager.i.Play(sound);
     }
-    
-    public void PlayWithNoise(string sound)
-    {
+
+    public void PlayWithNoise(string sound) {
         AudioManager.i.Play(sound, 0.8F, 1.2F);
     }
 }

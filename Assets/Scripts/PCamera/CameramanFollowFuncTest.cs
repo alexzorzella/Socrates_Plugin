@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CameramanFollowFuncTest : MonoBehaviour
-{
-    private void Start()
-    {
+public class CameramanFollowFuncTest : MonoBehaviour {
+    void Start() {
         PCamera.i.SetTargetWithTransform(transform);
     }
 }

@@ -1,39 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Tilemaps;
+﻿using UnityEngine;
 
-public class Parallax : MonoBehaviour
-{
+public class Parallax : MonoBehaviour {
     public float length, startPos;
     public GameObject cameraObject;
     public float parallaxEffect;
 
     public bool fixedY;
-    private float startY;
+    float startY;
 
-    private void Start()
-    {
+    void Start() {
         startPos = transform.position.x;
 
-        if(GetComponent<SpriteRenderer>() != null)
-        {
-            length = GetComponent<SpriteRenderer>().bounds.size.x;
-        }
+        if (GetComponent<SpriteRenderer>() != null) length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    private void Update()
-    {
-        float temp = cameraObject.transform.position.x * (1 - parallaxEffect);
-        float distance = cameraObject.transform.position.x * parallaxEffect;
+    void Update() {
+        var temp = cameraObject.transform.position.x * (1 - parallaxEffect);
+        var distance = cameraObject.transform.position.x * parallaxEffect;
         transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
 
-        if(temp > startPos + length)
-        {
+        if (temp > startPos + length)
             startPos += length;
-        } else if(temp < startPos - length)
-        {
-            startPos -= length;
-        }
+        else if (temp < startPos - length) startPos -= length;
     }
 }

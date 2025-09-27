@@ -1,47 +1,37 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class DeltaCameraShake : MonoBehaviour
-{
-    public List<ShakeProfile> activeShakes = new List<ShakeProfile>();
-    private Vector3 addedPosition;
+public class DeltaCameraShake : MonoBehaviour {
+    public List<ShakeProfile> activeShakes = new();
+    Vector3 addedPosition;
 
-    public void SetAddedPosition(Vector3 position)
-    {
-        addedPosition = position;
-    }
-
-    public void Shake(ShakeProfile profile)
-    {
-        activeShakes.Add(profile);
-    }
-
-    private void Update()
-    {
+    void Update() {
         UpdateCameraPosition();
     }
 
-    private void UpdateCameraPosition()
-    {
+    public void SetAddedPosition(Vector3 position) {
+        addedPosition = position;
+    }
+
+    public void Shake(ShakeProfile profile) {
+        activeShakes.Add(profile);
+    }
+
+    void UpdateCameraPosition() {
         PassThroughShakes();
     }
 
-    private void PassThroughShakes()
-    {
-        List<ShakeProfile> validShakes = new List<ShakeProfile>();
+    void PassThroughShakes() {
+        var validShakes = new List<ShakeProfile>();
 
-        Vector3 finalCameraPos = Vector3.zero;
-        Quaternion finalCameraRotation = Quaternion.identity;
+        var finalCameraPos = Vector3.zero;
+        var finalCameraRotation = Quaternion.identity;
         float zRotation = 0;
 
-        foreach (var activeShake in activeShakes)
-        {
+        foreach (var activeShake in activeShakes) {
             activeShake.UpdateIntensity();
 
-            if (!activeShake.Decayed())
-            {
+            if (!activeShake.Decayed()) {
                 validShakes.Add(activeShake);
                 finalCameraPos += activeShake.GetChoreography().position;
                 finalCameraRotation *= activeShake.GetChoreography().rotation;
@@ -57,8 +47,21 @@ public class DeltaCameraShake : MonoBehaviour
     }
 }
 
-public class ShakeProfile
-{
+public class ShakeProfile {
+    public float angleMultiplier;
+    public float currentIntensity;
+    public float curveScale;
+    public float decay;
+
+    public float initialIntensity;
+
+    public float jitterRandXY;
+    public float jitterRandZ;
+    public float loopCount;
+    public float matrixRand;
+
+    public float shakeStartTs;
+
     public ShakeProfile(
         float jitterRandXY,
         float jitterRandZ,
@@ -67,8 +70,7 @@ public class ShakeProfile
         float curveScale,
         float loopCount,
         float decay,
-        float initialIntensity)
-    {
+        float initialIntensity) {
         this.jitterRandXY = jitterRandXY;
         this.jitterRandZ = jitterRandZ;
         this.matrixRand = matrixRand;
@@ -78,86 +80,48 @@ public class ShakeProfile
         this.decay = decay;
         this.initialIntensity = initialIntensity;
 
-        this.shakeStartTs = Time.realtimeSinceStartup;
+        shakeStartTs = Time.realtimeSinceStartup;
         currentIntensity = this.initialIntensity;
     }
 
-    public float jitterRandXY;
-    public float jitterRandZ;
-    public float matrixRand;
-    public float angleMultiplier;
-    public float curveScale;
-    public float loopCount;
+    public void UpdateIntensity() {
+        if (currentIntensity == 0) return;
 
-    public float shakeStartTs;
-    public float currentIntensity;
-    public float decay;
-
-    public float initialIntensity;
-
-    public void UpdateIntensity()
-    {
-
-        if (currentIntensity == 0)
-        {
-            return;
-        }
-
-        float elapsedTime = Time.realtimeSinceStartup - shakeStartTs;
-        currentIntensity = initialIntensity * Mathf.Pow((decay), elapsedTime);
+        var elapsedTime = Time.realtimeSinceStartup - shakeStartTs;
+        currentIntensity = initialIntensity * Mathf.Pow(decay, elapsedTime);
 
 
-        if (currentIntensity < 0.01)
-        {
-            currentIntensity = 0;
-        }
+        if (currentIntensity < 0.01) currentIntensity = 0;
     }
 
-    public bool Decayed()
-    {
+    public bool Decayed() {
         return currentIntensity < 0.01F;
     }
 
-    private struct Point
-    {
-        public float angleRange;
-        public float angle;
-        public float speed;
-    }
+    public CameraMovementData GetChoreography() {
+        var point = new Point();
 
-    public struct CameraMovementData
-    {
-        public Vector3 position;
-        public Quaternion rotation;
-        public float zRotation;
-    }
+        point.angleRange = Random.Range(5F, 10F);
+        point.speed = Random.Range(1f, 3f);
 
-    public CameraMovementData GetChoreography()
-    {
-        Point point = new Point();
+        var favorRight = Random.Range(0, 1F) > 0.5F;
 
-        point.angleRange = UnityEngine.Random.Range(5F, 10F);
-        point.speed = UnityEngine.Random.Range(1f, 3f);
+        if (favorRight) point.angleRange *= -1;
 
-		bool favorRight = UnityEngine.Random.Range(0, 1F) > 0.5F;
+        point.angle = Mathf.SmoothStep(-point.angleRange, point.angleRange,
+            Mathf.PingPong(loopCount / 25f * point.speed, 1f));
 
-		if (favorRight) {
-			point.angleRange *= -1;
-		}
+        var jitterOffset = new Vector3(Random.Range(-jitterRandXY, jitterRandXY),
+            Random.Range(-jitterRandXY, jitterRandXY),
+            Random.Range(-jitterRandZ, jitterRandZ));
 
-        point.angle = Mathf.SmoothStep(-point.angleRange, point.angleRange, Mathf.PingPong(loopCount / 25f * point.speed, 1f));
+        var matrix = Matrix4x4.TRS(currentIntensity * jitterOffset * curveScale,
+            Quaternion.Euler(0, 0, Random.Range(-matrixRand, matrixRand) * angleMultiplier),
+            Vector3.one);
 
-        Vector3 jitterOffset = new Vector3(UnityEngine.Random.Range(-jitterRandXY, jitterRandXY),
-                                           UnityEngine.Random.Range(-jitterRandXY, jitterRandXY),
-                                           UnityEngine.Random.Range(-jitterRandZ, jitterRandZ));
+        var matrixMult = matrix.MultiplyPoint3x4(new Vector3(0, 0, -10));
 
-        Matrix4x4 matrix = Matrix4x4.TRS(currentIntensity * jitterOffset * curveScale,
-                                         Quaternion.Euler(0, 0, UnityEngine.Random.Range(-matrixRand, matrixRand) * angleMultiplier),
-                                         Vector3.one);
-
-        Vector3 matrixMult = matrix.MultiplyPoint3x4(new Vector3(0, 0, -10));
-
-        CameraMovementData cmd = new CameraMovementData();
+        var cmd = new CameraMovementData();
 
         cmd.position = new Vector3(matrixMult.x, matrixMult.y, -10);
         cmd.rotation = Quaternion.Euler(jitterOffset * currentIntensity);
@@ -165,21 +129,31 @@ public class ShakeProfile
 
         return cmd;
     }
+
+    struct Point {
+        public float angleRange;
+        public float angle;
+        public float speed;
+    }
+
+    public struct CameraMovementData {
+        public Vector3 position;
+        public Quaternion rotation;
+        public float zRotation;
+    }
 }
 
-public static class Shakepedia
-{
-    public static ShakeProfile MINOR = new ShakeProfile(0.08F, 0.8F, 5F, 1F, 0.1F, 1F, 0.003F, 3F);
-    
-    public static ShakeProfile MILD = new ShakeProfile(0.08F, 10F, 5F, 1F, 0.6F, 1F, 0.003F, 3F);
+public static class Shakepedia {
+    public static ShakeProfile MINOR = new(0.08F, 0.8F, 5F, 1F, 0.1F, 1F, 0.003F, 3F);
 
-    public static ShakeProfile MEDIUM_RARE = new ShakeProfile(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 6F);
-    public static ShakeProfile POW = new ShakeProfile(0.1F, 0.6F, 10F, 10F, 0.6F, 1F, 0.003F, 11F);
+    public static ShakeProfile MILD = new(0.08F, 10F, 5F, 1F, 0.6F, 1F, 0.003F, 3F);
 
-    public static ShakeProfile RUMBLE = new ShakeProfile(0.5F, 0.5F, 0.5F, 0.5F, 0.5F, 0.5F, 1F, 0.05F);
+    public static ShakeProfile MEDIUM_RARE = new(0.1F, 0.2F, 10F, 1F, 0.6F, 1F, 0.003F, 6F);
+    public static ShakeProfile POW = new(0.1F, 0.6F, 10F, 10F, 0.6F, 1F, 0.003F, 11F);
 
-    public static ShakeProfile GetProfileClone(ShakeProfile profile)
-    {
+    public static ShakeProfile RUMBLE = new(0.5F, 0.5F, 0.5F, 0.5F, 0.5F, 0.5F, 1F, 0.05F);
+
+    public static ShakeProfile GetProfileClone(ShakeProfile profile) {
         return new ShakeProfile(
             profile.jitterRandXY,
             profile.jitterRandZ,

@@ -1,26 +1,26 @@
 ﻿struct vertex_t
 {
     UNITY_VERTEX_INPUT_INSTANCE_ID
-    float4	position		: POSITION;
-    float3	normal			: NORMAL;
-    float4	color			: COLOR;
-    float4	texcoord0		: TEXCOORD0;
-    float2	texcoord1		: TEXCOORD1;
+    float4 position : POSITION;
+    float3 normal : NORMAL;
+    float4 color : COLOR;
+    float4 texcoord0 : TEXCOORD0;
+    float2 texcoord1 : TEXCOORD1;
 };
 
 struct pixel_t
 {
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
-    float4	position		: SV_POSITION;
-    float4	faceColor		: COLOR;
-    float4	outlineColor	: COLOR1;
-    float4	texcoord0		: TEXCOORD0;
-    float4	param			: TEXCOORD1;		// x = weight, y = no longer used
-    float2	mask			: TEXCOORD2;
+    float4 position : SV_POSITION;
+    float4 faceColor : COLOR;
+    float4 outlineColor : COLOR1;
+    float4 texcoord0 : TEXCOORD0;
+    float4 param : TEXCOORD1; // x = weight, y = no longer used
+    float2 mask : TEXCOORD2;
     #if (UNDERLAY_ON || UNDERLAY_INNER)
-    float4	texcoord2		: TEXCOORD3;
-    float4	underlayColor	: COLOR2;
+    float4 texcoord2 : TEXCOORD3;
+    float4 underlayColor : COLOR2;
     #endif
 };
 
@@ -127,14 +127,16 @@ float4 PixShader(pixel_t input) : SV_Target
 
     #if UNDERLAY_ON
     d = tex2D(_MainTex, input.texcoord2.xy).a * layerScale;
-    faceColor += float4(_UnderlayColor.rgb * _UnderlayColor.a, _UnderlayColor.a) * saturate(d - layerBias) * (1 - faceColor.a);
+    faceColor += float4(_UnderlayColor.rgb * _UnderlayColor.a, _UnderlayColor.a) * saturate(d - layerBias) * (1 -
+        faceColor.a);
     #endif
 
     #if UNDERLAY_INNER
     float bias = input.param.x * scale - 0.5;
     float sd = saturate(d * scale - bias - input.param.z);
     d = tex2D(_MainTex, input.texcoord2.xy).a * layerScale;
-    faceColor += float4(_UnderlayColor.rgb * _UnderlayColor.a, _UnderlayColor.a) * (1 - saturate(d - layerBias)) * sd * (1 - faceColor.a);
+    faceColor += float4(_UnderlayColor.rgb * _UnderlayColor.a, _UnderlayColor.a) * (1 - saturate(d - layerBias)) * sd *
+        (1 - faceColor.a);
     #endif
 
     #if MASKING

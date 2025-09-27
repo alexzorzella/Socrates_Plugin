@@ -1,25 +1,21 @@
 ﻿using UnityEngine;
 
-public class PlayerControllerTopDown : MonoBehaviour
-{
+public class PlayerControllerTopDown : MonoBehaviour {
     public float speed;
+    Vector2 moveVelocity;
 
-    private Rigidbody2D rb;
-    private Vector2 moveVelocity;
+    Rigidbody2D rb;
 
-    private void Start()
-    {
+    void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    void Update() {
+        var moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput * speed;
     }
 
-    private void FixedUpdate()
-    {
+    void FixedUpdate() {
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
     }
 }

@@ -1,199 +1,192 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameAssets : MonoBehaviour {
-	static GameAssets _i;
+    public enum AlexianCompressionMode {
+        SMOOTH,
+        QUICK
+    }
 
-	void Start() {
-		DontDestroyOnLoad(gameObject);
-	}
+    const int compressTo = 42;
+    static GameAssets _i;
 
-	public Texture Socrates;
+    public Texture Socrates;
 
-	public static GameAssets i {
-		get {
-			if (_i == null) {
-				GameAssets x = Resources.Load<GameAssets>("GameAssets");
+    public static GameAssets i {
+        get {
+            if (_i == null) {
+                var x = Resources.Load<GameAssets>("GameAssets");
 
-				_i = Instantiate(x);
-			}
-			return _i;
-		}
-	}
+                _i = Instantiate(x);
+            }
 
-	public RuntimeAnimatorController LoadAnimatorController(string animatorName) {
-		RuntimeAnimatorController result = Resources.Load<RuntimeAnimatorController>(animatorName);
+            return _i;
+        }
+    }
 
-		if (result == null) {
-			Debug.Log($"Controlador de animação de '{animatorName}' não existe.");
-			return null;
-		}
+    void Start() {
+        DontDestroyOnLoad(gameObject);
+    }
 
-		return result;
-	}
+    public RuntimeAnimatorController LoadAnimatorController(string animatorName) {
+        var result = Resources.Load<RuntimeAnimatorController>(animatorName);
 
-	public GameObject LoadObject(string objectName) {
-		GameObject result = Resources.Load<GameObject>(objectName);
-		return result;
-	}
+        if (result == null) {
+            Debug.Log($"Controlador de animação de '{animatorName}' não existe.");
+            return null;
+        }
 
-	public GameObject InstantiateObject(string objectName, Vector2 position, Quaternion rotation) {
-		GameObject loadedObject = LoadObject(objectName);
+        return result;
+    }
 
-		if (loadedObject == null) {
-			return null;
-		}
+    public GameObject LoadObject(string objectName) {
+        var result = Resources.Load<GameObject>(objectName);
+        return result;
+    }
 
-		return Instantiate(loadedObject, position, rotation);
-	}
+    public GameObject InstantiateObject(string objectName, Vector2 position, Quaternion rotation) {
+        var loadedObject = LoadObject(objectName);
 
-	public Sprite LoadAsepriteSprite(string name) {
-		var asepriteFile = Resources.Load<GameObject>(name);
+        if (loadedObject == null) return null;
 
-		Sprite result = null;
+        return Instantiate(loadedObject, position, rotation);
+    }
 
-		if (asepriteFile != null) {
-			result = asepriteFile.GetComponent<SpriteRenderer>().sprite;
-		}
+    public Sprite LoadAsepriteSprite(string name) {
+        var asepriteFile = Resources.Load<GameObject>(name);
 
-		return result;
-	}
+        Sprite result = null;
 
-	public Sprite LoadSprite(string name) {
-		Sprite result = Resources.Load<Sprite>(name);
+        if (asepriteFile != null) result = asepriteFile.GetComponent<SpriteRenderer>().sprite;
 
-		if (result == null) {
-			Debug.LogWarning($"Não existe um sprite no seus Recursos chamado '{name}'.");
-			return null;
-		}
+        return result;
+    }
 
-		return result;
-	}
+    public Sprite LoadSprite(string name) {
+        var result = Resources.Load<Sprite>(name);
 
-	public Sprite LoadSprite(string mainTexture, string subTextureName) {
-		Sprite[] sprites = Resources.LoadAll<Sprite>(mainTexture);
+        if (result == null) {
+            Debug.LogWarning($"Não existe um sprite no seus Recursos chamado '{name}'.");
+            return null;
+        }
 
-		if (sprites != null) {
-			Sprite sprite = Array.Find(sprites, s => s.name == subTextureName);
-			return sprite;
-		}
+        return result;
+    }
 
-		return null;
-	}
+    public Sprite LoadSprite(string mainTexture, string subTextureName) {
+        var sprites = Resources.LoadAll<Sprite>(mainTexture);
 
-	public Sprite LoadFirstSprite(string mainTexture) {
-		Sprite[] sprites = Resources.LoadAll<Sprite>(mainTexture);
+        if (sprites != null) {
+            var sprite = Array.Find(sprites, s => s.name == subTextureName);
+            return sprite;
+        }
 
-		if (sprites != null) {
-			if (sprites.Length > 0) {
-				Sprite sprite = sprites[0];
-				return sprite;
-			}
-		}
+        return null;
+    }
 
-		return null;
-	}
+    public Sprite LoadFirstSprite(string mainTexture) {
+        var sprites = Resources.LoadAll<Sprite>(mainTexture);
 
-	public Sprite LoadRandomSprite(string mainTexture) {
-		Sprite[] sprites = Resources.LoadAll<Sprite>(mainTexture);
+        if (sprites != null)
+            if (sprites.Length > 0) {
+                var sprite = sprites[0];
+                return sprite;
+            }
 
-		if (sprites != null) {
-			if (sprites.Length > 0) {
-				Sprite sprite = sprites[UnityEngine.Random.Range(0, sprites.Length)];
-				return sprite;
-			}
-		}
+        return null;
+    }
 
-		return null;
-	}
+    public Sprite LoadRandomSprite(string mainTexture) {
+        var sprites = Resources.LoadAll<Sprite>(mainTexture);
 
-	public Vector2 ProportionalSize(float width, float height, float targetSize, bool anchorWidth = true) {
-		Vector2 result = Vector2.zero;
+        if (sprites != null)
+            if (sprites.Length > 0) {
+                var sprite = sprites[Random.Range(0, sprites.Length)];
+                return sprite;
+            }
 
-		if(anchorWidth) {
-			result = new Vector2(targetSize, (height / width) * targetSize);
-		} else {
-			result = new Vector2((width / height) * targetSize, targetSize);
-		}
+        return null;
+    }
 
-		return result;
-	}
+    public Vector2 ProportionalSize(float width, float height, float targetSize, bool anchorWidth = true) {
+        var result = Vector2.zero;
 
-	const int compressTo = 42;
-	public enum AlexianCompressionMode { SMOOTH, QUICK }
+        if (anchorWidth)
+            result = new Vector2(targetSize, height / width * targetSize);
+        else
+            result = new Vector2(width / height * targetSize, targetSize);
 
-	public Sprite CompressSprite(string name, AlexianCompressionMode compressionMode = AlexianCompressionMode.SMOOTH) {
-		Sprite toCompress = LoadSprite(name);
+        return result;
+    }
 
-		if (toCompress == null) {
-			return null;
-		}
+    public Sprite CompressSprite(string name, AlexianCompressionMode compressionMode = AlexianCompressionMode.SMOOTH) {
+        var toCompress = LoadSprite(name);
 
-		float actualWidth = toCompress.texture.width;
-		float actualHeight = toCompress.texture.height;
+        if (toCompress == null) return null;
 
-		bool horizontal = actualWidth > actualHeight;
-		int targetWidth = compressTo;
-		int targetHeight = compressTo;
+        float actualWidth = toCompress.texture.width;
+        float actualHeight = toCompress.texture.height;
 
-		/*
-		actualWidth     targetWidth
-		-----------  =  ------------
-		actualHeight    targetHeight
-		*/
-		if (horizontal) {
-			targetWidth = (int)(compressTo * (actualWidth / actualHeight));
-		} else {
-			targetHeight = (int)(compressTo * (actualHeight / actualWidth));
-		}
+        var horizontal = actualWidth > actualHeight;
+        var targetWidth = compressTo;
+        var targetHeight = compressTo;
 
-		Texture2D texture = new Texture2D(targetWidth, targetHeight);
-		texture.filterMode = FilterMode.Point;
+        /*
+        actualWidth     targetWidth
+        -----------  =  ------------
+        actualHeight    targetHeight
+        */
+        if (horizontal)
+            targetWidth = (int)(compressTo * (actualWidth / actualHeight));
+        else
+            targetHeight = (int)(compressTo * (actualHeight / actualWidth));
 
-		for (int x = 0; x < texture.width; x++) {
-			for (int y = 0; y < texture.height; y++) {
-				texture.SetPixel(x, y, new Color(1, 1, 1, 0));
-			}
-		}
+        var texture = new Texture2D(targetWidth, targetHeight);
+        texture.filterMode = FilterMode.Point;
 
-		int incrementX = (int)(actualWidth / targetWidth);
-		int incrementY = (int)(actualHeight / targetHeight);
+        for (var x = 0; x < texture.width; x++)
+        for (var y = 0; y < texture.height; y++)
+            texture.SetPixel(x, y, new Color(1, 1, 1, 0));
 
-		for (int x = 0; x < targetWidth; x++) {
-			for (int y = 0; y < targetHeight; y++) {
-				Color finalColor = new Color();
+        var incrementX = (int)(actualWidth / targetWidth);
+        var incrementY = (int)(actualHeight / targetHeight);
 
-				if (compressionMode == AlexianCompressionMode.SMOOTH) {
-					float finalR = 0;
-					float finalG = 0;
-					float finalB = 0;
+        for (var x = 0; x < targetWidth; x++)
+        for (var y = 0; y < targetHeight; y++) {
+            var finalColor = new Color();
 
-					for (int w = 0; w < incrementX; w++) {
-						for (int h = 0; h < incrementY; h++) {
-							Color pixel = toCompress.texture.GetPixel(x * incrementX + w, y * incrementY + h);
+            if (compressionMode == AlexianCompressionMode.SMOOTH) {
+                float finalR = 0;
+                float finalG = 0;
+                float finalB = 0;
 
-							finalR += pixel.r;
-							finalG += pixel.g;
-							finalB += pixel.b;
-						}
-					}
+                for (var w = 0; w < incrementX; w++)
+                for (var h = 0; h < incrementY; h++) {
+                    var pixel = toCompress.texture.GetPixel(x * incrementX + w, y * incrementY + h);
 
-					int area = incrementX * incrementY;
-					finalColor = new Color(finalR / area, finalG / area, finalB / area, 1);
-				} else {
-					finalColor = toCompress.texture.GetPixel(x * incrementX, y * incrementY);
-				}
+                    finalR += pixel.r;
+                    finalG += pixel.g;
+                    finalB += pixel.b;
+                }
 
-				texture.SetPixel(x, y, finalColor);
-			}
-		}
+                var area = incrementX * incrementY;
+                finalColor = new Color(finalR / area, finalG / area, finalB / area, 1);
+            }
+            else {
+                finalColor = toCompress.texture.GetPixel(x * incrementX, y * incrementY);
+            }
 
-		texture.Apply();
+            texture.SetPixel(x, y, finalColor);
+        }
 
-		Sprite result = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5F, 0.5F), compressTo);
-		result.name = $"{name}_{compressionMode.ToString().ToLower()}ly_compressed_{targetWidth}x{targetHeight}";
-		return result;
-	}
+        texture.Apply();
 
-	//Have a nice day.
+        var result = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5F, 0.5F),
+            compressTo);
+        result.name = $"{name}_{compressionMode.ToString().ToLower()}ly_compressed_{targetWidth}x{targetHeight}";
+        return result;
+    }
+
+    //Have a nice day.
 }

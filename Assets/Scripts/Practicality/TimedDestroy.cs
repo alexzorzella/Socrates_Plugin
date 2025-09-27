@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TimedDestroy : MonoBehaviour
-{
+public class TimedDestroy : MonoBehaviour {
     public float time;
 
-    private void Start()
-    {
+    void Start() {
         Destroy(gameObject, time);
     }
 }

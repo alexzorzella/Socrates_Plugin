@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dialogue_Superclass : MonoBehaviour {
+    public static Tuple<string, DialogueSection> Choice(string choice, DialogueSection next) {
+        return new Tuple<string, DialogueSection>(choice, next);
+    }
+
+    public static List<Tuple<string, DialogueSection>> ChoiceList(params Tuple<string, DialogueSection>[] entries) {
+        var result = new List<Tuple<string, DialogueSection>>();
+
+        foreach (var tuple in entries) result.Add(tuple);
+
+        return result;
+    }
+
     public interface DialogueSection {
         string GetTitle();
         string GetSpeakerName();
@@ -17,18 +29,18 @@ public class Dialogue_Superclass : MonoBehaviour {
     }
 
     public class Monologue : DialogueSection {
-        public string speakerName;
+        public Action action;
+        public float charDelay;
         public string content;
 
         public string dialogueSound;
+        public bool hasExecutedAction;
+        public bool isMonotone;
 
         // If there is no next, terminate
         public DialogueSection next;
-        public Action action;
+        public string speakerName;
         public bool triggerActionWhenStart;
-        public bool isMonotone;
-        public float charDelay;
-        public bool hasExecutedAction;
 
         public Monologue(
             string speakerName = "DefualtName",
@@ -42,7 +54,7 @@ public class Dialogue_Superclass : MonoBehaviour {
             this.speakerName = speakerName;
             this.content = content;
             this.next = null;
-            this.dialogueSound = sound;
+            dialogueSound = sound;
             this.next = next;
             this.action = action;
             this.triggerActionWhenStart = triggerActionWhenStart;
@@ -63,7 +75,7 @@ public class Dialogue_Superclass : MonoBehaviour {
         }
 
         public string GetDialogueSound() {
-            return this.dialogueSound;
+            return dialogueSound;
         }
 
         public Action GetAction() {
@@ -71,10 +83,9 @@ public class Dialogue_Superclass : MonoBehaviour {
         }
 
         public void TriggerAction(bool isStart) {
-            if (isStart == triggerActionWhenStart) {
+            if (isStart == triggerActionWhenStart)
                 //Debug.Log($"Triggered action, isStart: {isStart}, triggerActionWhenStart: {triggerActionWhenStart}");
                 action.Invoke();
-            }
         }
 
         public bool IsMonotone() {
@@ -95,12 +106,12 @@ public class Dialogue_Superclass : MonoBehaviour {
     }
 
     public class Choices : DialogueSection {
+        public float charDelay;
+        public List<Tuple<string, DialogueSection>> choices;
+        public string dialogueSound;
+        public bool isMonotone;
         public string speakerName;
         public string title;
-        public string dialogueSound;
-        public List<Tuple<string, DialogueSection>> choices;
-        public bool isMonotone;
-        public float charDelay;
 
         public Choices(
             string speakerName, string title, string sound,
@@ -108,7 +119,7 @@ public class Dialogue_Superclass : MonoBehaviour {
             this.speakerName = speakerName;
             this.title = title;
             this.choices = choices;
-            this.dialogueSound = sound;
+            dialogueSound = sound;
             this.isMonotone = isMonotone;
             this.charDelay = charDelay;
         }
@@ -126,7 +137,7 @@ public class Dialogue_Superclass : MonoBehaviour {
         }
 
         public string GetDialogueSound() {
-            return this.dialogueSound;
+            return dialogueSound;
         }
 
         public Action GetAction() {
@@ -150,19 +161,5 @@ public class Dialogue_Superclass : MonoBehaviour {
 
         public void SetActionExecution(bool set) {
         }
-    }
-
-    public static Tuple<string, DialogueSection> Choice(string choice, DialogueSection next) {
-        return new Tuple<string, DialogueSection>(choice, next);
-    }
-
-    public static List<Tuple<string, DialogueSection>> ChoiceList(params Tuple<string, DialogueSection>[] entries) {
-        List<Tuple<string, DialogueSection>> result = new List<Tuple<string, DialogueSection>>();
-
-        foreach (var tuple in entries) {
-            result.Add(tuple);
-        }
-
-        return result;
     }
 }

@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-[System.Serializable]
-public class PlayerData
-{
-    public PlayerData(GameStats stats)
-    {
+[Serializable]
+public class PlayerData {
+    public PlayerData(GameStats stats) {
         //Set the info here
     }
 

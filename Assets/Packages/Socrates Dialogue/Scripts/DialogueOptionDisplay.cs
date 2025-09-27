@@ -1,34 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-public class DialogueOptionDisplay : MonoBehaviour
-{
+public class DialogueOptionDisplay : MonoBehaviour {
     public TextMeshProUGUI contentText;
+    Animator anim;
     public Dialogue_Superclass.DialogueSection leadsTo;
 
-    private DialogueManager manager;
-    private Animator anim;
+    DialogueManager manager;
 
-    private void Start()
-    {
+    void Start() {
         anim = GetComponent<Animator>();
         manager = FindObjectOfType<DialogueManager>();
     }
 
-    public void SetParams(string optionText, Dialogue_Superclass.DialogueSection nextDialogueSection)
-    {
+    public void SetParams(string optionText, Dialogue_Superclass.DialogueSection nextDialogueSection) {
         contentText.text = optionText;
         leadsTo = nextDialogueSection;
     }
 
-    public void ProceedOnClick()
-    {
-        if(manager.displayingChoices)
-        {
-            return;
-        }
+    public void ProceedOnClick() {
+        if (manager.displayingChoices) return;
 
         // AudioManager.i.Play("dialogue_select");
 
@@ -36,13 +27,9 @@ public class DialogueOptionDisplay : MonoBehaviour
         manager.DisplayDialogue();
     }
 
-    public float AnimationLength()
-    {
-        if(anim == null)
-        {
-            anim = GetComponent<Animator>();
-        }
+    public float AnimationLength() {
+        if (anim == null) anim = GetComponent<Animator>();
 
         return anim.GetCurrentAnimatorStateInfo(0).length;
-    }    
+    }
 }

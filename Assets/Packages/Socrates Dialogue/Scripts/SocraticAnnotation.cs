@@ -1,9 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class SocraticAnnotation
-{
+public static class SocraticAnnotation {
+    public enum RichTextType {
+        WAVE,
+        COLOR,
+        DELAY,
+        SHAKE,
+        ITALIC
+    }
+
     public static char parse_startParse = '[';
     public static char parse_endParse = ']';
     public static char parse_endParsePair = '!';
@@ -27,64 +32,51 @@ public static class SocraticAnnotation
     public static string shake_parseInfo = "shake";
 
     public static string italic_parseInfo = "italic";
-
-    public enum RichTextType { WAVE, COLOR, DELAY, SHAKE, ITALIC }
 }
 
-public class SocraticAnnotationParse
-{
-    public int startCharacterLocation = -1;
-    public int endCharacterLocation = -1;
-    public SocraticAnnotation.RichTextType richTextType;
-    public bool openingParse = true;
-    public SocraticAnnotationParse linkedParse;
+public class SocraticAnnotationParse {
     public string dynamicValue = "";
+    public int endCharacterLocation = -1;
     public bool executedAction = false;
+    public SocraticAnnotationParse linkedParse;
+    public bool openingParse = true;
+    public SocraticAnnotation.RichTextType richTextType;
+    public int startCharacterLocation = -1;
 
-    public bool ContainsDynamicValue()
-    {
+    public bool ContainsDynamicValue() {
         return !string.IsNullOrEmpty(dynamicValue);
     }
 
-    public float GetDynamicValueAsFloat()
-    {
+    public float GetDynamicValueAsFloat() {
         float result;
         result = float.Parse(dynamicValue);
         return result;
     }
 
-    public Color GetDynamicValueAsColor(float alpha)
-    {
-        Color result = Color.black;
-        string compare = dynamicValue.ToLower();
+    public Color GetDynamicValueAsColor(float alpha) {
+        var result = Color.black;
+        var compare = dynamicValue.ToLower();
 
-        if (compare == "red")
-        {
+        if (compare == "red") {
             result = Color.red;
-        } 
-        else if(compare == "orange")
-        {
+        }
+        else if (compare == "orange") {
             result = Color.red + Color.yellow;
         }
-        else if (compare == "yellow")
-        {
+        else if (compare == "yellow") {
             result = Color.yellow;
         }
-        else if (compare == "green")
-        {
+        else if (compare == "green") {
             result = Color.green;
         }
-        else if (compare == "blue")
-        {
+        else if (compare == "blue") {
             result = Color.blue;
         }
-        else if (compare == "purple")
-        {
+        else if (compare == "purple") {
             result = Color.magenta + Color.blue;
         }
-        else
-        {
-            Color colorFromHexCode = Color.black;
+        else {
+            var colorFromHexCode = Color.black;
             ColorUtility.TryParseHtmlString(compare, out colorFromHexCode);
             result = colorFromHexCode;
         }

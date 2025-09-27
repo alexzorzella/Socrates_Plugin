@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class PCamera : MonoBehaviour
-{
+public class PCamera : MonoBehaviour {
     public static PCamera i;
 
     public bool applyDirectionalInputOffset;
@@ -12,61 +11,53 @@ public class PCamera : MonoBehaviour
 
     public float smoothTime;
 
-    private Vector2 velocity;
+    Camera cam;
+
+    DeltaCameraShake cameraShake;
 
     Transform target;
 
-    private Camera cam;
+    Vector2 velocity;
 
-    private DeltaCameraShake cameraShake;
-
-    private void Awake()
-    {
+    void Awake() {
         i = this;
         cam = GetComponentInChildren<Camera>();
         cameraShake = GetComponentInChildren<DeltaCameraShake>();
     }
 
-    public static DeltaCameraShake GetShake()
-    {
+    void Update() {
+        MoveCamera();
+    }
+
+    public static DeltaCameraShake GetShake() {
         return i.cameraShake;
     }
 
-    public void SetTargetWithTag(string targetTag = "Player")
-    {
+    public void SetTargetWithTag(string targetTag = "Player") {
         if (GameObject.FindGameObjectWithTag(targetTag) == null)
             return;
 
         target = GameObject.FindGameObjectWithTag(targetTag).transform;
     }
 
-    public void SetTargetWithTransform(Transform newTransform)
-    {
+    public void SetTargetWithTransform(Transform newTransform) {
         if (newTransform == null)
             return;
 
         target = newTransform;
     }
 
-    private void Update()
-    {
-        MoveCamera();
-    }
+    void MoveCamera() {
+        var directionalPrediction = Vector2.zero;
 
-    private void MoveCamera()
-    {
-        Vector2 directionalPrediction = Vector2.zero;
-        
-        if(applyDirectionalInputOffset)
-        {
+        if (applyDirectionalInputOffset) {
             directionalPrediction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             directionalPrediction *= directionalFactor;
         }
 
-        Vector2 mousePosRelativeToCamera = Vector2.zero;
+        var mousePosRelativeToCamera = Vector2.zero;
 
-        if (applyMouseOffset)
-        {
+        if (applyMouseOffset) {
             mousePosRelativeToCamera = cam.ScreenToWorldPoint(Input.mousePosition) - gameObject.transform.position;
 
             mousePosRelativeToCamera *= mouseMultiplier;
@@ -76,17 +67,16 @@ public class PCamera : MonoBehaviour
                 Mathf.Clamp(mousePosRelativeToCamera.y, -clampPositions.y, clampPositions.y));
         }
 
-        Vector2 targetPosition = target != null ? (Vector2)target.position : Vector2.zero;
+        var targetPosition = target != null ? (Vector2)target.position : Vector2.zero;
 
-        Vector2 finalPosition = targetPosition + directionalPrediction;
+        var finalPosition = targetPosition + directionalPrediction;
 
-        float posX = Mathf.SmoothDamp(transform.position.x, finalPosition.x + directionalPrediction.x, ref velocity.x, smoothTime);
-        float posY = Mathf.SmoothDamp(transform.position.y, finalPosition.y + directionalPrediction.y, ref velocity.y, smoothTime);
+        var posX = Mathf.SmoothDamp(transform.position.x, finalPosition.x + directionalPrediction.x, ref velocity.x,
+            smoothTime);
+        var posY = Mathf.SmoothDamp(transform.position.y, finalPosition.y + directionalPrediction.y, ref velocity.y,
+            smoothTime);
 
-        if (cameraShake != null)
-        {
-            cameraShake.SetAddedPosition(mousePosRelativeToCamera);
-        }
+        if (cameraShake != null) cameraShake.SetAddedPosition(mousePosRelativeToCamera);
 
         transform.position = new Vector2(posX, posY);
     }
