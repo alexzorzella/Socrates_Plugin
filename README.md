@@ -8,5 +8,6 @@
 7. Import the generic inventory system
 8. Import the inventory system from alexzorzella/Cat_Kitchen
 9. Separate all the commands for the JConsole into different files
-10. Document everything
-11. Update this README to have more information about everything
+10. Update GameAssets to ResourceLoader
+11. Document everything
+12. Update this README to have more information about everything
