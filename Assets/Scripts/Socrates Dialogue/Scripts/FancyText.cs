@@ -40,6 +40,13 @@ public class FancyText {
     void CleanText() {
         cleanedText = rawText;
 
+        RealignAnnotationTokenIndices();
+        DiceAndDevourRichTextTokens();
+        
+        AnnotateByPunctuation();
+    }
+
+    void RealignAnnotationTokenIndices() {
         int totalCharactersSnipped = 0;
 
         foreach (var token in annotationTokens) {
@@ -52,8 +59,50 @@ public class FancyText {
                 totalCharactersSnipped += length;
             }
         }
+    }
+
+    class RichTextToken {
+        public int startIndex;
+        public int length;
+
+        public RichTextToken(int startIndex) {
+            this.startIndex = startIndex;
+        }
+    }
+
+    void DiceAndDevourRichTextTokens() {
+        List<RichTextToken> cache = DiceRichTextTokens();
         
-        AnnotateByPunctuation();
+        DevourRichTextTokens(cache);
+    }
+
+    List<RichTextToken> DiceRichTextTokens() {
+        List<RichTextToken> result = new();
+            
+        for (int i = 0; i < cleanedText.Length; i++) {
+            if (cleanedText[i] == '<') {
+                result.Add(new RichTextToken(i));
+            } else if (cleanedText[i] == '>') {
+                result[^1].length = i - result[^1].startIndex;
+            }
+        }
+
+        return result;
+    }
+    
+    void DevourRichTextTokens(List<RichTextToken> richTextTokens) {
+        foreach (var token in annotationTokens) {
+            int totalOffset = 0;
+            
+            foreach (var richTextToken in richTextTokens) {
+                if (token.startCharIndex > richTextToken.startIndex) {
+                    totalOffset += richTextToken.length;
+                }
+            }
+
+            token.startCharIndex -= totalOffset;
+            token.endCharIndex -= totalOffset;
+        }
     }
 
     void Parse(int startAt = 0) {
