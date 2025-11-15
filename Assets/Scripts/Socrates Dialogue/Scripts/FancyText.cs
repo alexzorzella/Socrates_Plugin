@@ -70,11 +70,11 @@ public class FancyText {
                     if (rawText[f] == SocraticAnnotation.parseEndChar) {
                         newToken.endCharIndex = f;
 
-                        if (compareProfileTo.Contains(SocraticAnnotation.waveParseInfo))
+                        if (compareProfileTo.Contains(SocraticAnnotation.waveTag))
                             newToken.richTextType = SocraticAnnotation.RichTextType.WAVE;
-                        else if (compareProfileTo.Contains(SocraticAnnotation.delayParseInfo))
+                        else if (compareProfileTo.Contains(SocraticAnnotation.delayTag))
                             newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
-                        else if (compareProfileTo.Contains(SocraticAnnotation.shakeParseInfo))
+                        else if (compareProfileTo.Contains(SocraticAnnotation.shakeTag))
                             newToken.richTextType = SocraticAnnotation.RichTextType.SHAKE;
                         else
                             Debug.LogError($"'{compareProfileTo}' -- Parse section did not have a valid input.");
@@ -83,7 +83,7 @@ public class FancyText {
 
                         for (var c = i; c < f; c++) contents += rawText[c];
 
-                        if (contents.Contains(SocraticAnnotation.parseEndParsePair)) newToken.opener = false;
+                        if (contents.Contains(SocraticAnnotation.parseClosePairChar)) newToken.opener = false;
 
                         if (readingDynamicValue) newToken.passedValue = dynamicValue;
 
@@ -97,7 +97,7 @@ public class FancyText {
 
                     if (readingDynamicValue) dynamicValue += rawText[f];
 
-                    if (rawText[f] == SocraticAnnotation.parseInputValueSeparator) readingDynamicValue = true;
+                    if (rawText[f] == SocraticAnnotation.parseValueSeparator) readingDynamicValue = true;
                 }
             }
         }
