@@ -35,7 +35,9 @@ namespace NewSocratesDialogue {
                 return;
             }
             
-            LeanTween.delayedCall(DialoguePanel.toggleTime, () => { currentSection = start; });
+            NotifyOfDialogueBegun();
+            
+            LeanTween.delayedCall(DialoguePanel.toggleTime, () => { SetCurrentSection(start); });
         }
 
         void NotifyOfDialogueBegun() {
@@ -44,9 +46,13 @@ namespace NewSocratesDialogue {
             }
         }
 
-        void NotifyOfSectionChanged() {
-            foreach (var listener in listeners) {
-                listener.OnSectionChanged(currentSection);
+        void SetCurrentSection(NewDialogueSection newSection, bool doNotNotify = false) {
+            currentSection = newSection;
+
+            if (!doNotNotify) {
+                foreach (var listener in listeners) {
+                    listener.OnSectionChanged(currentSection);
+                }    
             }
         }
 
@@ -70,7 +76,7 @@ namespace NewSocratesDialogue {
         }
 
         void EndDialogue() {
-            currentSection = null;
+            SetCurrentSection(null, true);
             NotifyOfDialogueEnded();
         }
         

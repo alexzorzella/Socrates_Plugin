@@ -9,7 +9,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     public SocVertModifier nameText;
     public SocVertModifier contentText;
     
-    void Start() {
+    void Awake() {
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
         DialogueManager.i.RegisterListener(this);
