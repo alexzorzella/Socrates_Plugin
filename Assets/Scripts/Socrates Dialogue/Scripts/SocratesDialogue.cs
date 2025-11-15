@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueSuperclass : MonoBehaviour {
+public class SocratesDialogue : MonoBehaviour {
     public interface DialogueSection {
         string GetTitle();
         string GetSpeakerName();

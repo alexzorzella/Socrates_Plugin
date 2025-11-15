@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogueOptionDisplay : MonoBehaviour
 {
     public TextMeshProUGUI contentText;
-    public DialogueSuperclass.DialogueSection leadsTo;
+    public SocratesDialogue.DialogueSection leadsTo;
 
     private DialogueManager manager;
     private Animator anim;
@@ -17,7 +17,7 @@ public class DialogueOptionDisplay : MonoBehaviour
         manager = FindFirstObjectByType<DialogueManager>();
     }
 
-    public void SetParams(string optionText, DialogueSuperclass.DialogueSection nextDialogueSection)
+    public void SetParams(string optionText, SocratesDialogue.DialogueSection nextDialogueSection)
     {
         contentText.text = optionText;
         leadsTo = nextDialogueSection;

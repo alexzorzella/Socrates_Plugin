@@ -13,7 +13,7 @@ public class SocVertModifier : MonoBehaviour {
     private int totalVisibleCharacters;
     private int counter = 0;
 
-    public DialogueSuperclass.DialogueSection currentSection;
+    public SocratesDialogue.DialogueSection currentSection;
     //bool hasExecutedPostAction;
 
     internal TextMeshProUGUI TextComponent() {
@@ -68,7 +68,7 @@ public class SocVertModifier : MonoBehaviour {
         SocVertModifier vertexModifier,
         bool displayFully = false,
         bool muted = true,
-        DialogueSuperclass.DialogueSection currentSection = null) {
+        SocratesDialogue.DialogueSection currentSection = null) {
         TextMeshProUGUI textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
 
         vertexModifier.currentSection = currentSection;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using static DialogueSuperclass;
+using static SocratesDialogue;
 
 public static class DialogueParser {
     public static DialogueSection ParseFile(string filename) {

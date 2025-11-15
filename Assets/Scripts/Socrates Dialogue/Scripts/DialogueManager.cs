@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour {
-    public DialogueSuperclass.DialogueSection currentSection;
+    public SocratesDialogue.DialogueSection currentSection;
 
     public SocVertModifier nameText;
     public SocVertModifier contentText;
@@ -40,7 +40,7 @@ public class DialogueManager : MonoBehaviour {
         }
 
         //Checks if the current section has choices and checks if the text has been completely displayed
-        if (typeof(DialogueSuperclass.Choices).IsInstanceOfType(currentSection)
+        if (typeof(SocratesDialogue.Choices).IsInstanceOfType(currentSection)
             && contentText.TextHasBeenDisplayed()) {
             ResetChoicesDisplayVariables();
             optionsBeenDisplayed = true;
@@ -58,7 +58,7 @@ public class DialogueManager : MonoBehaviour {
             .setOnUpdate((value) => { canvasGroup.alpha = value; });
     }
 
-    public void StartDialogue(DialogueSuperclass.DialogueSection start) {
+    public void StartDialogue(SocratesDialogue.DialogueSection start) {
         if (start == null) {
             Debug.LogWarning("No dialogue section passed.");
             return;
@@ -79,7 +79,7 @@ public class DialogueManager : MonoBehaviour {
         //Inventory.i.Hide();
         TooltipScreenspaceUI.Hide();
 
-        if (typeof(DialogueSuperclass.Choices).IsInstanceOfType(currentSection)) {
+        if (typeof(SocratesDialogue.Choices).IsInstanceOfType(currentSection)) {
             // clickToContinue.SetActive(false);
         }
 
@@ -112,7 +112,7 @@ public class DialogueManager : MonoBehaviour {
             return;
         }
         
-        bool isMonologue = currentSection is DialogueSuperclass.Monologue;
+        bool isMonologue = currentSection is SocratesDialogue.Monologue;
 
         if (isMonologue && !contentText.TextHasBeenDisplayed()) {
             SocVertModifier.ParseAndSetText(currentSection.GetTitle(), contentText, true,
@@ -146,7 +146,7 @@ public class DialogueManager : MonoBehaviour {
             return;
         }
 
-        bool isMonologue = typeof(DialogueSuperclass.Monologue).IsInstanceOfType(currentSection);
+        bool isMonologue = typeof(SocratesDialogue.Monologue).IsInstanceOfType(currentSection);
 
         nameText.SetDialogueSfx(currentSection.GetDialogueSound());
         
@@ -216,17 +216,17 @@ public class DialogueManager : MonoBehaviour {
 
     public void DisplayOptions() {
         //Returns if the current section doesn't prompt choices
-        if (!typeof(DialogueSuperclass.Choices).IsInstanceOfType(currentSection))
+        if (!typeof(SocratesDialogue.Choices).IsInstanceOfType(currentSection))
             return;
 
         //Casts the dialogue into choices
-        DialogueSuperclass.Choices choices = (DialogueSuperclass.Choices)currentSection;
+        SocratesDialogue.Choices choices = (SocratesDialogue.Choices)currentSection;
 
         //Checks if it's supposed to be displaying choices
         if (displayingChoices) {
             if (indexOfCurrentChoice < choices.choices.Count) {
                 if (currentOptionDelay <= 0) {
-                    Tuple<string, DialogueSuperclass.DialogueSection> option = choices.choices[indexOfCurrentChoice];
+                    Tuple<string, SocratesDialogue.DialogueSection> option = choices.choices[indexOfCurrentChoice];
 
                     GameObject s = ResourceLoader.InstantiateObject("DialogueChoice", Vector3.zero, Quaternion.identity);
                     s.transform.SetParent(parentChoicesTo, false);
