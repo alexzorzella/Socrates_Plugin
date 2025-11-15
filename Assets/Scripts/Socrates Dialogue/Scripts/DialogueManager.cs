@@ -8,7 +8,6 @@ namespace NewSocratesDialogue {
         void Start() {
             DontDestroyOnLoad(gameObject);
             dialoguePanel = GetComponentInChildren<DialoguePanel>();
-            RegisterListener(dialoguePanel);
         }
 
         public static DialogueManager i {

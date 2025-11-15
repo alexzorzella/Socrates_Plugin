@@ -12,6 +12,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     void Awake() {
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
+        GetComponentInParent<DialogueManager>().RegisterListener(this);
     }
 
     void SetDialoguePanelVisible(bool visible) {
