@@ -230,27 +230,11 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="vertexModifier"></param>
     private static void IncrementCharCounter(SocVertModifier vertexModifier) {
         if (vertexModifier.counter >= vertexModifier.totalVisibleCharacters) {
-            //        Debug.Log($"Finished display");
-            // if (vertexModifier.currentSection != null) {
-                //                Debug.Log($"Finished display and section is not null");
-
-                // if (!vertexModifier.currentSection.HasExecutedAction()) {
-                //     if (vertexModifier.currentSection.GetAction() != null) {
-                //         //Debug.Log($"Should trigger once, hasExecutedPostAction: {vertexModifier.currentSection.HasExecutedAction()}");
-                //         vertexModifier.currentSection.TriggerAction(false);
-                //     }
-                //
-                //     vertexModifier.currentSection.SetActionExecution(true);
-                // }
-            // }
-
             if (vertexModifier.currentSection != null && !vertexModifier.muted) {
-                // AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
             } else if (!vertexModifier.muted) {
-                // AudioManager.i.StopAllSources("dialogue", true);
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
@@ -281,7 +265,7 @@ public class SocVertModifier : MonoBehaviour {
                 //    parse.startCharacterLocation == vertexModifier.counter && 
                 //    parse.richTextType == SocraticAnnotation.RichTextType.WAVE)
                 //{
-                //    AudioManager.i.Play("wave_flourish");
+                
                 //}
 
                 if (parse.richTextType == SocraticAnnotation.RichTextType.DELAY) {
@@ -310,7 +294,6 @@ public class SocVertModifier : MonoBehaviour {
         }
 
         vertexModifier.currentBetweenCharacterDelay -= Time.deltaTime;
-        //vertexModifier.currentBetweenCharacterDelay -= Time.fixedDeltaTime;
     }
 
     /// <summary>
@@ -480,7 +463,7 @@ public class SocVertModifier : MonoBehaviour {
     }
 
     /// <summary>
-    /// I don't know much about this but I know it works. Curtisy of TextMeshPro.
+    /// Courtesy of TextMeshPro: I don't know much about this, but I know it works.
     /// </summary>
     /// <param name="textComponent"></param>
     /// <param name="vertexPositionsReadFrom"></param>
@@ -618,7 +601,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="startAt"></param>
     /// <param name="preFilled"></param>
     /// <returns></returns>
-    static internal List<SocraticAnnotationParse> GetParses(string inputText, int startAt,
+    static List<SocraticAnnotationParse> GetParses(string inputText, int startAt,
         List<SocraticAnnotationParse> preFilled = null) {
         List<SocraticAnnotationParse> result = new List<SocraticAnnotationParse>();
 
