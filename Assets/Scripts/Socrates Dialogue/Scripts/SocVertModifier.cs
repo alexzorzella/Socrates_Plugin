@@ -32,16 +32,7 @@ public class SocVertModifier : MonoBehaviour {
         return textComponent;
     }
 
-    /// <summary>
-    /// Returns whether all the text has been displayed. Only returns true if there's visible text in the text element.
-    /// </summary>
-    /// <returns></returns>
-    public bool TextHasBeenDisplayed() {
-        return counter >= totalVisibleCharacters
-               && totalVisibleCharacters > 0;
-    }
-
-    void Start() {
+    void Awake() {
         GetComponents();
     }
 
@@ -51,40 +42,51 @@ public class SocVertModifier : MonoBehaviour {
     private void GetComponents() {
         textComponent = GetComponent<TextMeshProUGUI>();
     }
-
+    
     /// <summary>
-    /// Parses the text content inside of an input and sets the text as the parsed text.
+    /// Returns whether all the text has been displayed. Only returns true if there's visible text in the text element.
     /// </summary>
-    /// <param name="textContent"></param>
-    /// <param name="textComponent"></param>
+    /// <returns></returns>
+    public bool TextHasBeenDisplayed() {
+        return counter >= totalVisibleCharacters
+               && totalVisibleCharacters > 0;
+    }
+
+    public void ClearText() {
+        SetText("", true);
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="rawText"></param>
     /// <param name="vertexModifier"></param>
-    public static void ParseAndSetText(
+    /// <param name="displayFully"></param>
+    /// <param name="muted"></param>
+    public void SetText(
         string rawText,
-        SocVertModifier vertexModifier,
         bool displayFully = false,
         bool muted = true) {
-        var textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
+        this.muted = muted;
+        counter = 0;
+        currentBetweenCharacterDelay = 0;
 
-        vertexModifier.muted = muted;
-        vertexModifier.counter = 0;
-        vertexModifier.currentBetweenCharacterDelay = 0;
-
-        vertexModifier.fancyText = new FancyText(rawText);
+        fancyText = new FancyText(rawText);
 
         var color = textComponent.color;
 
-        textComponent.text = vertexModifier.fancyText.ToString();
+        textComponent.text = fancyText.ToString();
 
         textComponent.ForceMeshUpdate();
 
         var vertices = GetMaterialAtZero(textComponent.textInfo).vertices;
-        vertexModifier.vertexPositions = new Vector3[vertices.Length];
+        vertexPositions = new Vector3[vertices.Length];
 
-        for (var v = 0; v < vertices.Length; v++) vertexModifier.vertexPositions[v] = vertices[v];
+        for (var v = 0; v < vertices.Length; v++) vertexPositions[v] = vertices[v];
 
-        vertexModifier.totalVisibleCharacters = textComponent.textInfo.characterCount;
+        totalVisibleCharacters = textComponent.textInfo.characterCount;
 
-        for (var i = 0; i < vertexModifier.totalVisibleCharacters; i++)
+        for (var i = 0; i < totalVisibleCharacters; i++)
             SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), true), i);
 
         textComponent.color = new Color(color.r, color.g, color.b, 0);
@@ -96,41 +98,17 @@ public class SocVertModifier : MonoBehaviour {
 
             textComponent.color = temp;
             // AudioManager.i.StopAllSourcesContains("dialogue", true);
-            vertexModifier.counter = textComponent.maxVisibleCharacters;
+            counter = textComponent.maxVisibleCharacters;
         }
     }
 
-    /// <summary>
-    /// Disects the text.
-    /// </summary>
-    /// <param name="contents"></param>
-    /// <param name="vertexModifier"></param>
-    /// <returns></returns>
-    private static string SnipParses(string contents, SocVertModifier vertexModifier) {
-        int totalCharactersSnipped = 0;
-
-        foreach (var parsedSegment in vertexModifier.fancyText.GetAnnotationTokens()) {
-            //TODO work in progress
-            if (parsedSegment.startCharIndex != parsedSegment.endCharIndex) {
-                parsedSegment.startCharIndex -= totalCharactersSnipped;
-                parsedSegment.endCharIndex -= totalCharactersSnipped;
-                int start = parsedSegment.startCharIndex;
-                int length = (parsedSegment.endCharIndex - parsedSegment.startCharIndex) + 1;
-                contents = contents.Remove(start, length);
-                totalCharactersSnipped += length;
-            }
-        }
-
-        return contents;
-    }
-
-    private void Update() {
+    void Update() {
         if (textComponent.text.Length <= 0) {
             return;
         }
 
-        IncrementCharCounter(this);
-        UpdateTextEmbellishes(textComponent, this);
+        IncrementCharCounter();
+        UpdateTextEmbellishes();
     }
 
     /// <summary>
@@ -139,7 +117,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="sendInfoTo"></param>
     /// <param name="grabInfoFrom"></param>
     /// <param name="vertexMod"></param>
-    private static void UpdateDebugText(TextMeshProUGUI sendInfoTo, TextMeshProUGUI grabInfoFrom,
+    static void UpdateDebugText(TextMeshProUGUI sendInfoTo, TextMeshProUGUI grabInfoFrom,
         SocVertModifier vertexMod) {
         if (sendInfoTo == null) {
             return;
@@ -169,14 +147,14 @@ public class SocVertModifier : MonoBehaviour {
     /// Increments the counter and manages the volume of the sound being played.
     /// </summary>
     /// <param name="vertexModifier"></param>
-    private static void IncrementCharCounter(SocVertModifier vertexModifier) {
-        if (vertexModifier.counter >= vertexModifier.totalVisibleCharacters) {
-            if (vertexModifier.currentSection != null && !vertexModifier.muted) {
+    void IncrementCharCounter() {
+        if (counter >= totalVisibleCharacters) {
+            if (currentSection != null && !muted) {
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
             }
-            else if (!vertexModifier.muted) {
+            else if (!muted) {
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
@@ -185,11 +163,11 @@ public class SocVertModifier : MonoBehaviour {
             return;
         }
 
-        if (vertexModifier.currentBetweenCharacterDelay <= 0) {
-            vertexModifier.counter++;
+        if (currentBetweenCharacterDelay <= 0) {
+            counter++;
 
-            if (!vertexModifier.muted) {
-                if (vertexModifier.currentSection != null) {
+            if (!muted) {
+                if (currentSection != null) {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.PlayIfDone();
                     }
@@ -201,20 +179,13 @@ public class SocVertModifier : MonoBehaviour {
                 }
             }
 
-            vertexModifier.currentBetweenCharacterDelay = SocraticAnnotation.displayTextDelay;
+            currentBetweenCharacterDelay = SocraticAnnotation.displayTextDelay;
 
-            foreach (var parse in vertexModifier.fancyText.GetAnnotationTokens()) {
-                //if (parse.openingParse && 
-                //    parse.startCharacterLocation == vertexModifier.counter && 
-                //    parse.richTextType == SocraticAnnotation.RichTextType.WAVE)
-                //{
-
-                //}
-
+            foreach (var parse in fancyText.GetAnnotationTokens()) {
                 if (parse.richTextType == SocraticAnnotation.RichTextType.DELAY) {
-                    if (parse.opener && parse.startCharIndex == vertexModifier.counter &&
+                    if (parse.opener && parse.startCharIndex == counter &&
                         !parse.executedAction) {
-                        if (vertexModifier.currentSection != null) {
+                        if (currentSection != null) {
                             if (currentDialogueSfx != null) {
                                 currentDialogueSfx.Stop();
                             }
@@ -225,12 +196,12 @@ public class SocVertModifier : MonoBehaviour {
                             }
                         }
 
-                        vertexModifier.currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
+                        currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
                         parse.executedAction = true;
 
                         OnCharDelay();
                     }
-                    else if (parse.opener && parse.startCharIndex == vertexModifier.counter - 1 &&
+                    else if (parse.opener && parse.startCharIndex == counter - 1 &&
                              parse.executedAction) {
                         OnPostCharDelay();
                     }
@@ -238,19 +209,21 @@ public class SocVertModifier : MonoBehaviour {
             }
         }
 
-        vertexModifier.currentBetweenCharacterDelay -= Time.deltaTime;
+        currentBetweenCharacterDelay -= Time.deltaTime;
     }
 
     /// <summary>
     /// Occurs when the character delay beings.
     /// </summary>
-    public static void OnCharDelay() {
+    void OnCharDelay() {
+        
     }
 
     /// <summary>
     /// Occurs when the character delay finishes.
     /// </summary>
-    public static void OnPostCharDelay() {
+    void OnPostCharDelay() {
+        
     }
 
     /// <summary>
@@ -258,7 +231,7 @@ public class SocVertModifier : MonoBehaviour {
     /// </summary>
     /// <param name="textInfo"></param>
     /// <returns></returns>
-    private static TMP_MeshInfo GetMaterialAtZero(TMP_TextInfo textInfo) {
+    static TMP_MeshInfo GetMaterialAtZero(TMP_TextInfo textInfo) {
         return textInfo.meshInfo[0];
     }
 
@@ -269,7 +242,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="charIndex"></param>
     /// <param name="color"></param>
     /// <param name="i"></param>
-    private static void SetColor(TextMeshProUGUI textComponent, int charIndex, Color32 color, int i) {
+    void SetColor(TextMeshProUGUI textComponent, int charIndex, Color32 color, int i) {
         int meshIndex = textComponent.textInfo.characterInfo[charIndex].materialReferenceIndex;
         int vertexIndex = textComponent.textInfo.characterInfo[charIndex].vertexIndex;
 
@@ -292,7 +265,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="textComponent"></param>
     /// <param name="charIndex"></param>
     /// <returns></returns>
-    private static Color GetColorOfTopLeft(TextMeshProUGUI textComponent, int charIndex) {
+    Color GetColorOfTopLeft(TextMeshProUGUI textComponent, int charIndex) {
         int meshIndex = textComponent.textInfo.characterInfo[charIndex].materialReferenceIndex;
         int vertexIndex = textComponent.textInfo.characterInfo[charIndex].vertexIndex;
 
@@ -307,7 +280,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="color"></param>
     /// <param name="hidden"></param>
     /// <returns></returns>
-    private static Color ToggleAlpha(Color color, bool hidden) {
+    Color ToggleAlpha(Color color, bool hidden) {
         return new Color(color.r, color.g, color.b, hidden ? 0F : 1F);
     }
 
@@ -316,28 +289,21 @@ public class SocVertModifier : MonoBehaviour {
     /// </summary>
     /// <param name="textComponent"></param>
     /// <param name="vertexMod"></param>
-    public static void UpdateTextEmbellishes(TextMeshProUGUI textComponent, SocVertModifier vertexMod) {
+    void UpdateTextEmbellishes() {
         TMP_TextInfo textInfo = textComponent.textInfo;
 
         Vector3[] newVertexPositions = GetMaterialAtZero(textInfo).vertices;
 
-        ScrollInFromY(vertexMod, textInfo, newVertexPositions);
+        ScrollInFromY(textInfo, newVertexPositions);
 
-        ApplyRichText(textComponent, vertexMod, textInfo, newVertexPositions);
+        ApplyRichText(textComponent, textInfo, newVertexPositions);
 
-        //        int start = 0;
-        int start = vertexMod.counter - 15;
+        int start = counter - 15; // Why 15?
 
         if (start < 0) start = 0;
 
-        //if (vertexMod.counter >= 15)
-        //{
-        //    start = 15;
-        //}
-
-        if (vertexMod.counter <= vertexMod.totalVisibleCharacters) {
-            //            for (int i = vertexMod.counter - start; i < vertexMod.counter; i++)
-            for (int i = start; i < vertexMod.counter; i++) {
+        if (counter <= totalVisibleCharacters) {
+            for (int i = start; i < counter; i++) {
                 SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), false), i);
             }
         }
@@ -364,8 +330,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="vertexMod"></param>
     /// <param name="textInfo"></param>
     /// <param name="newVertexPositions"></param>
-    private static void ScrollInFromY(SocVertModifier vertexMod, TMP_TextInfo textInfo,
-        Vector3[] newVertexPositions) {
+    static void ScrollInFromY(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
         //Under construction
 
         //Under construction
@@ -378,20 +343,19 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="vertexMod"></param>
     /// <param name="textInfo"></param>
     /// <param name="newVertexPositions"></param>
-    private static void ApplyRichText(TextMeshProUGUI textComponent, SocVertModifier vertexMod,
-        TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-        if (vertexMod.fancyText.GetAnnotationTokens() == null) {
+    void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
+        if (fancyText.GetAnnotationTokens() == null) {
             return;
         }
 
-        foreach (var parse in vertexMod.fancyText.GetAnnotationTokens()) {
+        foreach (var parse in fancyText.GetAnnotationTokens()) {
             if (parse.opener) {
                 switch (parse.richTextType) {
                     case SocraticAnnotation.RichTextType.WAVE:
-                        ApplyRichTextWave(textInfo, vertexMod.vertexPositions, parse, newVertexPositions);
+                        ApplyRichTextWave(textInfo, vertexPositions, parse, newVertexPositions);
                         break;
                     case SocraticAnnotation.RichTextType.SHAKE:
-                        ApplyRichTextShake(textComponent, vertexMod.vertexPositions, parse, newVertexPositions);
+                        ApplyRichTextShake(vertexPositions, parse, newVertexPositions);
                         break;
                 }
             }
@@ -411,7 +375,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="vertexPositionsReadFrom"></param>
     /// <param name="token"></param>
     /// <param name="vertexPositionsWriteTo"></param>
-    private static void ApplyRichTextShake(TextMeshProUGUI textComponent, Vector3[] vertexPositionsReadFrom,
+    void ApplyRichTextShake(Vector3[] vertexPositionsReadFrom,
         AnnotationToken token, Vector3[] vertexPositionsWriteTo) {
         TMP_TextInfo textInfo = textComponent.textInfo;
 
@@ -488,7 +452,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="vertexPositionsReadFrom"></param>
     /// <param name="token"></param>
     /// <param name="vertexPositionsWriteTo"></param>
-    private static void ApplyRichTextWave(TMP_TextInfo textInfo, Vector3[] vertexPositionsReadFrom,
+    void ApplyRichTextWave(TMP_TextInfo textInfo, Vector3[] vertexPositionsReadFrom,
         AnnotationToken token, Vector3[] vertexPositionsWriteTo) {
         float wave_speed = token.ContainsDynamicValue()
             ? token.GetDynamicValueAsFloat()
