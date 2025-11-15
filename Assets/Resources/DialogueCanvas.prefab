@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The Proverbial They
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c4d3f3759651e354dacfb6b89ce93ef8, type: 2}
-  m_sharedMaterial: {fileID: 5027948018894013894, guid: c4d3f3759651e354dacfb6b89ce93ef8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4378777557851059763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67aa7901d5a8e44ba7a7e2f9434b10a, type: 3}
+  m_Script: {fileID: 11500000, guid: e06be511ba4df044c8c6b9bae642bdfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5836800016194141913
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 8166149893886961424}
   - component: {fileID: 2584046109490952667}
   - component: {fileID: 665689128205346796}
-  - component: {fileID: 8149734606728461675}
+  - component: {fileID: 7698707381737455508}
   - component: {fileID: 8509595269698225511}
   m_Layer: 5
   m_Name: DialogueCanvas
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8149734606728461675
+--- !u!114 &7698707381737455508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -310,19 +310,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6187231421106883406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9dda3e021906ff4993e38363fc968d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d8a873a45f3bbc4380fa1102d1ad1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 4017951643583002650}
+  nameText: {fileID: 0}
   contentText: {fileID: 0}
   origin: {x: 0, y: -220, z: 0}
   spacing: -45
-  dialogueChoice: {fileID: 6015707748226081027, guid: 37fa4a8e320500f41a60438c153c529f, type: 3}
+  dialogueChoice: {fileID: 0}
   clickToContinue: {fileID: 0}
-  parentChoicesTo: {fileID: 2000344048700894248}
-  parentTextTo: {fileID: 347723698038117044}
-  textObject: {fileID: 4347496152102635275, guid: 063e4911450e72c4eb1aca29031ae0dc, type: 3}
-  canvasGroup: {fileID: 7373374146890201971}
+  parentChoicesTo: {fileID: 0}
+  parentTextTo: {fileID: 0}
+  textObject: {fileID: 0}
+  canvasGroup: {fileID: 0}
   displayingChoices: 0
 --- !u!114 &8509595269698225511
 MonoBehaviour:

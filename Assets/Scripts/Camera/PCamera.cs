@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
 public class PCamera : MonoBehaviour {
-    public static PCamera i;
+    static PCamera i;
 
+    public PCamera Get() {
+        return i;
+    }
+    
     public bool applyDirectionalInputOffset;
     public Vector2 directionalFactor;
     public bool applyMouseOffset;
