@@ -51,7 +51,7 @@ namespace NewSocratesDialogue {
 
             if (!doNotNotify) {
                 foreach (var listener in listeners) {
-                    listener.OnSectionChanged(currentSection);
+                    listener.OnSectionChanged(currentSection);  
                 }
             }
         }
