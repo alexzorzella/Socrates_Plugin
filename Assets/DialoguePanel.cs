@@ -12,7 +12,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     void Awake() {
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
-        GetComponentInParent<DialogueManager>().RegisterListener(this);
     }
 
     void SetDialoguePanelVisible(bool visible) {
@@ -24,8 +23,8 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     }
 
     public void OnDialogueBegun() {
-        SocVertModifier.ParseAndSetText("", nameText);
-        SocVertModifier.ParseAndSetText("", contentText);
+        SocVertModifier.ParseAndSetText("", nameText, true);
+        SocVertModifier.ParseAndSetText("", contentText, true);
         
         SetDialoguePanelVisible(true);
         Debug.Log("Begun");
@@ -36,35 +35,20 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         string content = newSection.GetContent();
         
         
-        SocVertModifier.ParseAndSetText(name, nameText);
+        SocVertModifier.ParseAndSetText(name, nameText, true);
         SocVertModifier.ParseAndSetText(content, contentText, muted: false);
     }
-    
-    // public void DisplayText() {
-    //     optionsBeenDisplayed = false;
-    //     ClearContentText();
-    //
-    //     SocVertModifier.ParseAndSetText(currentSection.GetSpeakerName(), nameText, true, true,
-    //         currentSection);
-    //     SocVertModifier.ParseAndSetText(currentSection.GetTitle(), contentText, false, false,
-    //         currentSection);
-    // }
-    //
-    // void ClearContentText() {
-    //     if (contentText != null) {
-    //         Destroy(contentText.gameObject);
-    //     }
-    //
-    //     GameObject t = ResourceLoader.InstantiateObject("DialogueText", Vector2.zero, Quaternion.identity);
-    //     t.transform.SetParent(parentTextTo);
-    //     t.GetComponent<RectTransform>().localPosition = Vector2.zero;
-    //     t.GetComponent<RectTransform>().sizeDelta = parentTextTo.GetComponent<RectTransform>().sizeDelta;
-    //     t.GetComponent<RectTransform>().localScale = Vector3.one;
-    //
-    //     contentText = t.GetComponent<SocVertModifier>();
-    // }
 
+    public bool OnStandby() {
+        return contentText.TextHasBeenDisplayed();
+    }
+    
     public void OnDialogueEnded() {
         SetDialoguePanelVisible(false);
+    }
+    
+    // Is passing the current section here really the best idea?
+    public void DisplayTextFully(NewDialogueSection currentSection) {
+        SocVertModifier.ParseAndSetText(currentSection.GetContent(), contentText, true);
     }
 }

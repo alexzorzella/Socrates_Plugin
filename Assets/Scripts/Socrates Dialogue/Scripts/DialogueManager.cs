@@ -4,9 +4,11 @@ using UnityEngine;
 namespace NewSocratesDialogue {
     public class DialogueManager : MonoBehaviour {
         static DialogueManager _i;
-
+        
         void Start() {
             DontDestroyOnLoad(gameObject);
+            dialoguePanel = GetComponentInChildren<DialoguePanel>();
+            RegisterListener(dialoguePanel);
         }
 
         public static DialogueManager i {
@@ -21,8 +23,10 @@ namespace NewSocratesDialogue {
             }
         }
 
+        DialoguePanel dialoguePanel;
+        
         NewDialogueSection currentSection;
-
+        
         readonly List<DialogueListener> listeners = new();
 
         public void RegisterListener(DialogueListener newListener) {
@@ -51,7 +55,7 @@ namespace NewSocratesDialogue {
 
             if (!doNotNotify) {
                 foreach (var listener in listeners) {
-                    listener.OnSectionChanged(currentSection);  
+                    listener.OnSectionChanged(currentSection);
                 }
             }
         }
@@ -72,7 +76,12 @@ namespace NewSocratesDialogue {
                 return;
             }
 
-            SetCurrentSection(currentSection.GetFacet<NextSection>().Next());
+            if (dialoguePanel.OnStandby()) {
+                SetCurrentSection(currentSection.GetFacet<NextSection>().Next());
+            }
+            else {
+                dialoguePanel.DisplayTextFully(currentSection);
+            }
         }
 
         void EndDialogue() {
