@@ -93,7 +93,7 @@ public class FancyTextTests {
             Assert.IsTrue(true);
         }
 
-        Debug.Log($"Annotated: {annotatedText.Replace('<', '(').Replace('>', ')')}\nFancyText: {fancyText}\n\n" +
+        Debug.Log($"Raw Annotated: {annotatedText.Replace('<', '(').Replace('>', ')')}\nFancyText: {fancyText}\n\n" +
                   $"Opening/closing ct: {openingTokens.Count}/{closingTokens.Count} \n\n");
         
         foreach (var token in fancyText.GetAnnotationTokens()) {
