@@ -1,21 +1,19 @@
 ﻿using UnityEngine;
 using TMPro;
-using System.Linq;
-using System;
 using System.Collections.Generic;
-using System.Collections;
-
 using NewSocratesDialogue;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class SocVertModifier : MonoBehaviour {
-    private TextMeshProUGUI textComponent;
-    List<SocraticAnnotationParse> parses;
+    FancyText fancyText;
+    
+    TextMeshProUGUI textComponent;
+    List<AnnotationToken> parses;
 
-    private int totalVisibleCharacters;
-    private int counter = 0;
+    int totalVisibleCharacters;
+    int counter = 0;
 
-    public NewDialogueSection currentSection;
+    NewDialogueSection currentSection;
     //bool hasExecutedPostAction;
 
     internal TextMeshProUGUI TextComponent() {
@@ -44,10 +42,10 @@ public class SocVertModifier : MonoBehaviour {
         if (!dialogueSfx.ContainsKey(soundName)) {
             dialogueSfx.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
         }
-        
+
         currentDialogueSfx = dialogueSfx[soundName];
     }
-    
+
     void Start() {
         GetComponents();
     }
@@ -66,95 +64,43 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="textComponent"></param>
     /// <param name="vertexModifier"></param>
     public static void ParseAndSetText(
-        string textContent,
+        string rawText,
         SocVertModifier vertexModifier,
         bool displayFully = false,
         bool muted = true) {
-        // SocratesDialogue.DialogueSection currentSection = null) {
-        TextMeshProUGUI textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
-
-        // vertexModifier.currentSection = currentSection;
-
-        // if (currentSection != null) {
-        //     if (currentSection.GetAction() != null) {
-        //         currentSection.TriggerAction(true);
-        //     }
-        // }
-
+        var textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
+     
         vertexModifier.muted = muted;
         vertexModifier.counter = 0;
         vertexModifier.currentBetweenCharacterDelay = 0;
-
-        vertexModifier.parses = GetParses(textContent, 0);
-
-        List<SocraticAnnotationParse> parseOpeners = new List<SocraticAnnotationParse>();
-        List<SocraticAnnotationParse> parseClosers = new List<SocraticAnnotationParse>();
-
-        foreach (var parse in vertexModifier.parses) {
-            if (parse.openingParse) {
-                parseOpeners.Add(parse);
-            } else {
-                parseClosers.Add(parse);
-            }
-        }
-
-        foreach (var opener in parseOpeners) {
-            foreach (var closer in parseClosers) {
-                if (opener.richTextType == closer.richTextType && closer.linkedParse == null) {
-                    opener.linkedParse = closer;
-                    closer.linkedParse = opener;
-                    break;
-                }
-            }
-        }
-
-        Color color = textComponent.color;
-
-        //foreach (var item in GetPunctuationDelayParses(textContent, 0))
-        //{
-        //    vertexModifier.parses.Add(item);
-        //}
-
-        //TODO probably prone to break at some point
-        textContent = SnipParses(textContent, vertexModifier);
-
-        foreach (var item in GetPunctuationDelayParses(textContent, 0)) {
-            //Debug.Log($"DON'T PANIC. LOCATION: {item.startCharacterLocation} {item.endCharacterLocation} val {item.dynamicValue}");
-            vertexModifier.parses.Add(item);
-        }
-
-        //textContent = SnipParses(textContent, vertexModifier);
-
-        textComponent.text = textContent;
-
+     
+        vertexModifier.fancyText = new FancyText(rawText);
+     
+        var color = textComponent.color;
+     
+        textComponent.text = vertexModifier.fancyText.ToString();
+     
         textComponent.ForceMeshUpdate();
-
-        Vector3[] vertices = GetMaterialAtZero(textComponent.textInfo).vertices;
+     
+        var vertices = GetMaterialAtZero(textComponent.textInfo).vertices;
         vertexModifier.vertexPositions = new Vector3[vertices.Length];
-
-        for (int v = 0; v < vertices.Length; v++) {
-            vertexModifier.vertexPositions[v] = vertices[v];
-        }
-
+     
+        for (var v = 0; v < vertices.Length; v++) vertexModifier.vertexPositions[v] = vertices[v];
+     
         vertexModifier.totalVisibleCharacters = textComponent.textInfo.characterCount;
-
-        for (int i = 0; i < vertexModifier.totalVisibleCharacters; i++) {
+     
+        for (var i = 0; i < vertexModifier.totalVisibleCharacters; i++)
             SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), true), i);
-        }
-
+     
         textComponent.color = new Color(color.r, color.g, color.b, 0);
-
+     
         if (displayFully) {
-            Color temp = Color.white;
-
+            var temp = Color.white;
+     
             ColorUtility.TryParseHtmlString("#DDD0CC", out temp);
-
+     
             textComponent.color = temp;
             // AudioManager.i.StopAllSourcesContains("dialogue", true);
-            if (currentDialogueSfx != null) {
-                currentDialogueSfx.Stop(); 
-            }
-            
             vertexModifier.counter = textComponent.maxVisibleCharacters;
         }
     }
@@ -170,11 +116,11 @@ public class SocVertModifier : MonoBehaviour {
 
         foreach (var parsedSegment in vertexModifier.parses) {
             //TODO work in progress
-            if (parsedSegment.startCharacterLocation != parsedSegment.endCharacterLocation) {
-                parsedSegment.startCharacterLocation -= totalCharactersSnipped;
-                parsedSegment.endCharacterLocation -= totalCharactersSnipped;
-                int start = parsedSegment.startCharacterLocation;
-                int length = (parsedSegment.endCharacterLocation - parsedSegment.startCharacterLocation) + 1;
+            if (parsedSegment.startCharIndex != parsedSegment.endCharIndex) {
+                parsedSegment.startCharIndex -= totalCharactersSnipped;
+                parsedSegment.endCharIndex -= totalCharactersSnipped;
+                int start = parsedSegment.startCharIndex;
+                int length = (parsedSegment.endCharIndex - parsedSegment.startCharIndex) + 1;
                 contents = contents.Remove(start, length);
                 totalCharactersSnipped += length;
             }
@@ -208,8 +154,8 @@ public class SocVertModifier : MonoBehaviour {
 
         foreach (var parse in vertexMod.parses) {
             debugParseInfo +=
-                $"{parse.startCharacterLocation}-{parse.endCharacterLocation} Opening: ({parse.openingParse})\n" +
-                $"{parse.richTextType} Value: {parse.dynamicValue}\n";
+                $"{parse.startCharIndex}-{parse.endCharIndex} Opening: ({parse.opener})\n" +
+                $"{parse.richTextType} Value: {parse.passedValue}\n";
         }
 
         sendInfoTo.text = $"" +
@@ -234,7 +180,8 @@ public class SocVertModifier : MonoBehaviour {
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
-            } else if (!vertexModifier.muted) {
+            }
+            else if (!vertexModifier.muted) {
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
@@ -251,7 +198,8 @@ public class SocVertModifier : MonoBehaviour {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.PlayIfDone();
                     }
-                } else {
+                }
+                else {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.PlayIfDone();
                     }
@@ -265,17 +213,18 @@ public class SocVertModifier : MonoBehaviour {
                 //    parse.startCharacterLocation == vertexModifier.counter && 
                 //    parse.richTextType == SocraticAnnotation.RichTextType.WAVE)
                 //{
-                
+
                 //}
 
                 if (parse.richTextType == SocraticAnnotation.RichTextType.DELAY) {
-                    if (parse.openingParse && parse.startCharacterLocation == vertexModifier.counter &&
+                    if (parse.opener && parse.startCharIndex == vertexModifier.counter &&
                         !parse.executedAction) {
                         if (vertexModifier.currentSection != null) {
                             if (currentDialogueSfx != null) {
                                 currentDialogueSfx.Stop();
                             }
-                        } else {
+                        }
+                        else {
                             if (currentDialogueSfx != null) {
                                 currentDialogueSfx.Stop();
                             }
@@ -285,8 +234,9 @@ public class SocVertModifier : MonoBehaviour {
                         parse.executedAction = true;
 
                         OnCharDelay();
-                    } else if (parse.openingParse && parse.startCharacterLocation == vertexModifier.counter - 1 &&
-                               parse.executedAction) {
+                    }
+                    else if (parse.opener && parse.startCharIndex == vertexModifier.counter - 1 &&
+                             parse.executedAction) {
                         OnPostCharDelay();
                     }
                 }
@@ -408,7 +358,7 @@ public class SocVertModifier : MonoBehaviour {
             for (int i = 0; i < 1; i++) {
                 textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
             }
-            
+
             textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
         }
     }
@@ -440,13 +390,10 @@ public class SocVertModifier : MonoBehaviour {
         }
 
         foreach (var parse in vertexMod.parses) {
-            if (parse.openingParse) {
+            if (parse.opener) {
                 switch (parse.richTextType) {
                     case SocraticAnnotation.RichTextType.WAVE:
                         ApplyRichTextWave(textInfo, vertexMod.vertexPositions, parse, newVertexPositions);
-                        break;
-                    case SocraticAnnotation.RichTextType.COLOR:
-                        ApplyRichTextColor(textComponent, parse);
                         break;
                     case SocraticAnnotation.RichTextType.SHAKE:
                         ApplyRichTextShake(textComponent, vertexMod.vertexPositions, parse, newVertexPositions);
@@ -467,10 +414,10 @@ public class SocVertModifier : MonoBehaviour {
     /// </summary>
     /// <param name="textComponent"></param>
     /// <param name="vertexPositionsReadFrom"></param>
-    /// <param name="parse"></param>
+    /// <param name="token"></param>
     /// <param name="vertexPositionsWriteTo"></param>
     private static void ApplyRichTextShake(TextMeshProUGUI textComponent, Vector3[] vertexPositionsReadFrom,
-        SocraticAnnotationParse parse, Vector3[] vertexPositionsWriteTo) {
+        AnnotationToken token, Vector3[] vertexPositionsWriteTo) {
         TMP_TextInfo textInfo = textComponent.textInfo;
 
         VertexAnim[] vertexAnim = new VertexAnim[1024];
@@ -480,7 +427,7 @@ public class SocVertModifier : MonoBehaviour {
             vertexAnim[i].speed = UnityEngine.Random.Range(1f, 3f);
         }
 
-        for (int i = parse.startCharacterLocation; i < parse.linkedParse.startCharacterLocation; i++) {
+        for (int i = token.startCharIndex; i < token.linkedToken.startCharIndex; i++) {
             TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
 
             if (!charInfo.isVisible)
@@ -512,7 +459,7 @@ public class SocVertModifier : MonoBehaviour {
             vertexPositionsWriteTo[vertexIndex + 3] = sourceVertices[vertexIndex + 3] - offset;
 
             float AngleMultiplier = 1.0F; //how much it rotates
-            float CurveScale = parse.GetDynamicValueAsFloat(); //noticability
+            float CurveScale = token.GetDynamicValueAsFloat(); //noticability
             float loopCount = 1.0F; //don't know
 
             vertAnim.angle = Mathf.SmoothStep(-vertAnim.angleRange, vertAnim.angleRange,
@@ -540,32 +487,19 @@ public class SocVertModifier : MonoBehaviour {
     }
 
     /// <summary>
-    /// Applies the rich text setting color.
-    /// </summary>
-    /// <param name="textComponent"></param>
-    /// <param name="parse"></param>
-    private static void ApplyRichTextColor(TextMeshProUGUI textComponent, SocraticAnnotationParse parse) {
-        for (int i = parse.startCharacterLocation; i < parse.linkedParse.startCharacterLocation; i++) {
-            // SetColor(textComponent, i, parse.GetDynamicValueAsColor(GetColorOfTopLeft(textComponent, i).a), i);
-        }
-
-        textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
-    }
-
-    /// <summary>
     /// Applies the rich text setting the wave positions.
     /// </summary>
     /// <param name="textInfo"></param>
     /// <param name="vertexPositionsReadFrom"></param>
-    /// <param name="parse"></param>
+    /// <param name="token"></param>
     /// <param name="vertexPositionsWriteTo"></param>
     private static void ApplyRichTextWave(TMP_TextInfo textInfo, Vector3[] vertexPositionsReadFrom,
-        SocraticAnnotationParse parse, Vector3[] vertexPositionsWriteTo) {
-        float wave_speed = parse.ContainsDynamicValue()
-            ? parse.GetDynamicValueAsFloat()
+        AnnotationToken token, Vector3[] vertexPositionsWriteTo) {
+        float wave_speed = token.ContainsDynamicValue()
+            ? token.GetDynamicValueAsFloat()
             : SocraticAnnotation.waveSpeed;
 
-        for (int i = parse.startCharacterLocation; i < parse.linkedParse.startCharacterLocation; i++) {
+        for (int i = token.startCharIndex; i < token.linkedToken.startCharIndex; i++) {
             int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
             if (vertexIndex == 0 && i != 0) {
@@ -592,164 +526,6 @@ public class SocVertModifier : MonoBehaviour {
             vertexPositionsWriteTo[vertexIndex + 2].y = vertexPositionsReadFrom[vertexIndex + 2].y + rightOffsetY;
             vertexPositionsWriteTo[vertexIndex + 3].y = vertexPositionsReadFrom[vertexIndex + 3].y + rightOffsetY;
         }
-    }
-
-    /// <summary>
-    /// Gets the parses and analyses them to determine their type.
-    /// </summary>
-    /// <param name="inputText"></param>
-    /// <param name="startAt"></param>
-    /// <param name="preFilled"></param>
-    /// <returns></returns>
-    static List<SocraticAnnotationParse> GetParses(string inputText, int startAt,
-        List<SocraticAnnotationParse> preFilled = null) {
-        List<SocraticAnnotationParse> result = new List<SocraticAnnotationParse>();
-
-        if (preFilled != null) {
-            result = preFilled;
-        }
-
-        SocraticAnnotationParse parseProfile = null;
-
-        bool eating = false;
-        int eaten = 0;
-        
-        for (int i = startAt; i < inputText.Length; i++) {
-            if (inputText[i] == '<') {
-                eating = true;
-            }
-
-            if (eating) {
-                eaten++;
-            }
-
-            if (inputText[i] == '>') {
-                eating = false;
-            }
-            
-            if (inputText[i] == SocraticAnnotation.parseStartChar) {
-                parseProfile = new SocraticAnnotationParse();
-                parseProfile.startCharacterLocation = i - eaten;
-
-                string compareProfileTo = "";
-                string dynamicValue = "";
-                bool readingDynamicValue = false;
-
-                for (int f = i + 1 - eaten; f < inputText.Length; f++) {
-                    if (inputText[f] == SocraticAnnotation.parseEndChar) {
-                        parseProfile.endCharacterLocation = f;
-
-                        if (compareProfileTo.Contains(SocraticAnnotation.waveParseInfo)) {
-                            parseProfile.richTextType = SocraticAnnotation.RichTextType.WAVE;
-                        } 
-                        // else if (compareProfileTo.Contains(SocraticAnnotation.colorParseInfo)) {
-                        //     parseProfile.richTextType = SocraticAnnotation.RichTextType.COLOR;
-                        // } 
-                        else if (compareProfileTo.Contains(SocraticAnnotation.delayParseInfo)) {
-                            parseProfile.richTextType = SocraticAnnotation.RichTextType.DELAY;
-                        } else if (compareProfileTo.Contains(SocraticAnnotation.shakeParseInfo)) {
-                            parseProfile.richTextType = SocraticAnnotation.RichTextType.SHAKE;
-                        } 
-                        // else if (compareProfileTo.Contains(SocraticAnnotation.italicParseInfo)) {
-                        //     parseProfile.richTextType = SocraticAnnotation.RichTextType.ITALIC;
-                        // } 
-                        else {
-                            Debug.LogError($"'{compareProfileTo}' -- Parse section did not have a valid input.");
-                        }
-
-                        string contents = "";
-
-                        for (int c = i - eaten; c < f; c++) {
-                            contents += inputText[c];
-                        }
-
-                        if (contents.Contains(SocraticAnnotation.parseEndParsePair)) {
-                            parseProfile.openingParse = false;
-                        }
-
-                        if (readingDynamicValue) {
-                            parseProfile.dynamicValue = dynamicValue;
-                        }
-
-                        result.Add(parseProfile);
-
-                        return GetParses(inputText, f, result);
-                    } else {
-                        compareProfileTo += inputText[f];
-
-                        if (readingDynamicValue) {
-                            dynamicValue += inputText[f];
-                        }
-                    }
-
-                    if (inputText[f] == SocraticAnnotation.parseInputValueSeparator) {
-                        readingDynamicValue = true;
-                    }
-                }
-            }
-        }
-
-        if (result == null) {
-            Debug.LogError($"The result for the list of parses is null.");
-        }
-
-        return result;
-    }
-
-    static internal List<SocraticAnnotationParse> GetPunctuationDelayParses(string inputText, int startAt,
-        List<SocraticAnnotationParse> preFilled = null) {
-        List<SocraticAnnotationParse> result = new List<SocraticAnnotationParse>();
-
-        if (preFilled != null) {
-            result = preFilled;
-        }
-
-        SocraticAnnotationParse parseProfile = null;
-
-        for (int i = startAt; i < inputText.Length; i++) {
-            if (char.IsPunctuation(inputText[i]) && i < inputText.Length - 1) //TODO working
-            {
-                char c = inputText[i];
-
-                bool skip = false;
-
-                if (i > 1) {
-                    if (inputText[i - 1] == 'r' && inputText[i - 2] == 'M') //TODO this fix is only temporary
-                    {
-                        skip = true;
-                    }
-                }
-
-                if (inputText[i + 1] == ' ' && !skip) {
-                    if (c == ',' ||
-                        c == '.' ||
-                        c == '?' ||
-                        c == '!' ||
-                        c == '~' ||
-                        c == ':' ||
-                        c == ':' ||
-                        c == '(' ||
-                        c == ')' ||
-                        c == ';') {
-                        parseProfile = new SocraticAnnotationParse();
-                        parseProfile.startCharacterLocation = i + 1;
-                        parseProfile.endCharacterLocation = i + 1;
-                        parseProfile.richTextType = SocraticAnnotation.RichTextType.DELAY;
-                        parseProfile.dynamicValue = (c == ',')
-                            ? $"{SocraticAnnotation.displayMinorPunctuationDelay}"
-                            : $"{SocraticAnnotation.displayMajorPunctuationDelay}";
-
-                        result.Add(parseProfile);
-                    }
-                }
-            }
-        }
-
-        if (result == null) {
-            Debug.LogError($"The result for the list of parses is null.");
-        }
-
-        return result;
     }
 
     public static Vector2[] FromVector4Arr(Vector4[] input) {

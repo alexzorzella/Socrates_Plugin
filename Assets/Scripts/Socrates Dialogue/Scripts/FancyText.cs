@@ -1,0 +1,145 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FancyText {
+    readonly string rawText;
+    string cleanedText; // TODO: How do I make this readonly?
+    readonly List<AnnotationToken> annotationTokens = new();
+
+    public FancyText(string rawText) {
+        this.rawText = rawText;
+
+        Parse();
+        LinkTokens();
+        CleanText();
+    }
+
+    void LinkTokens() {
+        List<AnnotationToken> openingTokens = new();
+        List<AnnotationToken> closingTokens = new();
+
+        foreach (var token in annotationTokens) {
+            if (token.opener) {
+                openingTokens.Add(token);
+            } else {
+                closingTokens.Add(token);
+            }
+        }
+
+        foreach (var opener in openingTokens) {
+            foreach (var closer in closingTokens) {
+                if (opener.richTextType == closer.richTextType && closer.linkedToken == null) {
+                    opener.linkedToken = closer;
+                    closer.linkedToken = opener;
+                    break;
+                }    
+            }
+        }
+    }
+
+    void CleanText() {
+        cleanedText = rawText;
+
+        int totalCharactersSnipped = 0;
+
+        foreach (var token in annotationTokens) {
+            if (token.startCharIndex != token.endCharIndex) {
+                token.startCharIndex -= totalCharactersSnipped;
+                token.endCharIndex -= totalCharactersSnipped;
+                var start = token.startCharIndex;
+                var length = token.endCharIndex - token.startCharIndex + 1;
+                cleanedText = cleanedText.Remove(start, length);
+                totalCharactersSnipped += length;
+            }
+        }
+        
+        AnnotateByPunctuation();
+    }
+
+    void Parse(int startAt = 0) {
+        for (var i = startAt; i < rawText.Length; i++) {
+            if (rawText[i] == SocraticAnnotation.parseStartChar) {
+                AnnotationToken newToken = new();
+                newToken.startCharIndex = i;
+
+                var compareProfileTo = "";
+                var dynamicValue = "";
+                var readingDynamicValue = false;
+
+                for (var f = i + 1; f < rawText.Length; f++) {
+                    if (rawText[f] == SocraticAnnotation.parseEndChar) {
+                        newToken.endCharIndex = f;
+
+                        if (compareProfileTo.Contains(SocraticAnnotation.waveParseInfo))
+                            newToken.richTextType = SocraticAnnotation.RichTextType.WAVE;
+                        else if (compareProfileTo.Contains(SocraticAnnotation.delayParseInfo))
+                            newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
+                        else if (compareProfileTo.Contains(SocraticAnnotation.shakeParseInfo))
+                            newToken.richTextType = SocraticAnnotation.RichTextType.SHAKE;
+                        else
+                            Debug.LogError($"'{compareProfileTo}' -- Parse section did not have a valid input.");
+
+                        var contents = "";
+
+                        for (var c = i; c < f; c++) contents += rawText[c];
+
+                        if (contents.Contains(SocraticAnnotation.parseEndParsePair)) newToken.opener = false;
+
+                        if (readingDynamicValue) newToken.passedValue = dynamicValue;
+
+                        annotationTokens.Add(newToken);
+
+                        Parse(f);
+                        return;
+                    }
+
+                    compareProfileTo += rawText[f];
+
+                    if (readingDynamicValue) dynamicValue += rawText[f];
+
+                    if (rawText[f] == SocraticAnnotation.parseInputValueSeparator) readingDynamicValue = true;
+                }
+            }
+        }
+    }
+
+    void AnnotateByPunctuation(int startAt = 0) {
+        for (var i = startAt; i < cleanedText.Length; i++) {
+            if (char.IsPunctuation(cleanedText[i]) && i < cleanedText.Length - 1) {
+                var c = cleanedText[i];
+
+                if (cleanedText[i + 1] == ' ') {
+                    if (c == ',' ||
+                        c == '.' ||
+                        c == '?' ||
+                        c == '!' ||
+                        c == '~' ||
+                        c == ':' ||
+                        c == ':' ||
+                        c == '(' ||
+                        c == ')' ||
+                        c == ';') {
+                        AnnotationToken newToken = new();
+
+                        newToken.startCharIndex = i + 1;
+                        newToken.endCharIndex = i + 1;
+                        newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
+                        newToken.passedValue = c == ','
+                            ? $"{SocraticAnnotation.displayMinorPunctuationDelay}"
+                            : $"{SocraticAnnotation.displayMajorPunctuationDelay}";
+
+                        annotationTokens.Add(newToken);
+                    }
+                }
+            }
+        }
+    }
+
+    public override string ToString() {
+        return cleanedText;
+    }
+
+    public List<AnnotationToken> GetAnnotationTokens() {
+        return annotationTokens;
+    }
+}
