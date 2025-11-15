@@ -13,7 +13,7 @@ public class PCamera : MonoBehaviour {
 
     Camera cam;
 
-    DeltaCameraShake cameraShake;
+    CameraShake cameraShake;
 
     Transform target;
 
@@ -22,14 +22,14 @@ public class PCamera : MonoBehaviour {
     void Awake() {
         i = this;
         cam = GetComponentInChildren<Camera>();
-        cameraShake = GetComponentInChildren<DeltaCameraShake>();
+        cameraShake = GetComponentInChildren<CameraShake>();
     }
 
     void Update() {
         MoveCamera();
     }
 
-    public static DeltaCameraShake GetShake() {
+    public static CameraShake GetShake() {
         return i.cameraShake;
     }
 

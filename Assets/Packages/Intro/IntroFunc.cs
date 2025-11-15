@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 
 public class IntroFunc : MonoBehaviour {
-	DeltaCameraShake cameraShake;
+	CameraShake cameraShake;
 
 	public Transform[] letters;
 
@@ -59,7 +59,7 @@ public class IntroFunc : MonoBehaviour {
 	}
 
 	private void Start() {
-		cameraShake = Camera.main.GetComponent<DeltaCameraShake>();
+		cameraShake = Camera.main.GetComponent<CameraShake>();
 		ResetLetters();
 	}
 
