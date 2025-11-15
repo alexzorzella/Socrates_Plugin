@@ -59,4 +59,31 @@ public class EditModeTests {
         Assert.AreEqual(expectedContent, actualContent);
         Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
     }
+    
+    [Test]
+    public void FancyTextSingleTokenNestedWithRichTextTagC() {
+        FancyText fancyText = new FancyText("[wave]<size=20%>The Zinhos![!wave]</size>");
+
+        int expectedclosingTokenIndex = 11;
+        
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+    }
+    
+    [Test]
+    public void FancyTextSingleTokenNestedWithMultipleRichTextTags() {
+        FancyText fancyText = new FancyText("[wave]<size=20%><i>The Zinhos!</i></size>[!wave]</size>");
+
+        int expectedclosingTokenIndex = 11;
+        
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+    }
+    
+    [Test]
+    public void FancyTextSingleTokenNestedWithMultipleRichTextTagB() {
+        FancyText fancyText = new FancyText("[wave]<size=20%><i><color=#F1B82B>The Zinhos!</i></size>[!wave]</color></size>");
+
+        int expectedclosingTokenIndex = 11;
+        
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+    }
 }
