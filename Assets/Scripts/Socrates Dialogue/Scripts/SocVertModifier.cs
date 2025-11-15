@@ -8,7 +8,6 @@ public class SocVertModifier : MonoBehaviour {
     FancyText fancyText;
     
     TextMeshProUGUI textComponent;
-    List<AnnotationToken> parses;
 
     int totalVisibleCharacters;
     int counter = 0;
@@ -114,7 +113,7 @@ public class SocVertModifier : MonoBehaviour {
     private static string SnipParses(string contents, SocVertModifier vertexModifier) {
         int totalCharactersSnipped = 0;
 
-        foreach (var parsedSegment in vertexModifier.parses) {
+        foreach (var parsedSegment in vertexModifier.fancyText.GetAnnotationTokens()) {
             //TODO work in progress
             if (parsedSegment.startCharIndex != parsedSegment.endCharIndex) {
                 parsedSegment.startCharIndex -= totalCharactersSnipped;
@@ -152,7 +151,7 @@ public class SocVertModifier : MonoBehaviour {
 
         string debugParseInfo = "";
 
-        foreach (var parse in vertexMod.parses) {
+        foreach (var parse in vertexMod.fancyText.GetAnnotationTokens()) {
             debugParseInfo +=
                 $"{parse.startCharIndex}-{parse.endCharIndex} Opening: ({parse.opener})\n" +
                 $"{parse.richTextType} Value: {parse.passedValue}\n";
@@ -166,7 +165,7 @@ public class SocVertModifier : MonoBehaviour {
                           $"Character Count: {grabInfoFrom.textInfo.characterCount}\n" +
                           $"Line Count: {grabInfoFrom.textInfo.lineCount}\n" +
                           $"Word Count: {grabInfoFrom.textInfo.wordCount}\n" +
-                          $"Parse Count: {vertexMod.parses.Count}\n" +
+                          $"Parse Count: {vertexMod.fancyText.GetAnnotationTokens().Count}\n" +
                           $"Total Visible Characters: {vertexMod.totalVisibleCharacters}\n" + debugParseInfo;
     }
 
@@ -208,7 +207,7 @@ public class SocVertModifier : MonoBehaviour {
 
             vertexModifier.currentBetweenCharacterDelay = SocraticAnnotation.displayTextDelay;
 
-            foreach (var parse in vertexModifier.parses) {
+            foreach (var parse in vertexModifier.fancyText.GetAnnotationTokens()) {
                 //if (parse.openingParse && 
                 //    parse.startCharacterLocation == vertexModifier.counter && 
                 //    parse.richTextType == SocraticAnnotation.RichTextType.WAVE)
@@ -385,11 +384,11 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="newVertexPositions"></param>
     private static void ApplyRichText(TextMeshProUGUI textComponent, SocVertModifier vertexMod,
         TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-        if (vertexMod.parses == null) {
+        if (vertexMod.fancyText.GetAnnotationTokens() == null) {
             return;
         }
 
-        foreach (var parse in vertexMod.parses) {
+        foreach (var parse in vertexMod.fancyText.GetAnnotationTokens()) {
             if (parse.opener) {
                 switch (parse.richTextType) {
                     case SocraticAnnotation.RichTextType.WAVE:

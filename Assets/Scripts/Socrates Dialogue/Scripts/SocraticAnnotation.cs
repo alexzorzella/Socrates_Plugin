@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public static class SocraticAnnotation {
+﻿public static class SocraticAnnotation {
     public enum RichTextType {
         WAVE,
         DELAY,
