@@ -1,5 +1,17 @@
 Updates:
 
+* Imported the improved color swap shader
+* Updated MultiAudioSource
+* Imported the script that positions a sprite on the bottom right of the screen
+* Updated GameAssets to ResourceLoader 
+* Separated all the commands for the JConsole into different files
+* Imported the generic inventory system
+* Cleaned up SocraticVertexModifier and DialogueManager
+* Imported the generic version of the FNK state machine
+* Imported the dialogue system from FNK plus the changes 
+
+Updates:
+
 * Removed mass amount of Kenny Audio from default import
 * Removed unused fonts and cleaned up files for old ones
 * Added localized fallback font to VCR Osd fonts
