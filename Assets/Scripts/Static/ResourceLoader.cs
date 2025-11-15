@@ -7,9 +7,7 @@ public class ResourceLoader : MonoBehaviour {
 	void Start() {
 		DontDestroyOnLoad(gameObject);
 	}
-
-	public Texture Socrates;
-
+	
 	public static ResourceLoader i {
 		get {
 			if (_i == null) {
