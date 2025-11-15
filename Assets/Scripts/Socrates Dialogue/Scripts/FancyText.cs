@@ -167,13 +167,15 @@ public class FancyText {
                         c == ':' ||
                         c == '(' ||
                         c == ')' ||
-                        c == ';') {
+                        c == ';' ||
+                        c == '—' ||
+                        c == '–') {
                         AnnotationToken newToken = new();
 
                         newToken.startCharIndex = i + 1;
                         newToken.endCharIndex = i + 1;
                         newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
-                        newToken.passedValue = c == ','
+                        newToken.passedValue = c == ',' || c == '–'
                             ? $"{SocraticAnnotation.displayMinorPunctuationDelay}"
                             : $"{SocraticAnnotation.displayMajorPunctuationDelay}";
 
