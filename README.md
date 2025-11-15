@@ -1,6 +1,5 @@
 # TODO:
 1. Import the generic version of the FNK state machine
-2. Update MultiAudioSource
 3. Import the dialogue system from FNK plus the changes
 4. Import the script that positions a sprite on the
 6. Clean up SocraticVertexModifier and DialogueManager
@@ -13,3 +12,4 @@
 
 # Done:
 1. Import the improved color swap shader (if it's not already here, it's going to be in alexzorzella/Tutorials)
+2. Update MultiAudioSource

@@ -1,102 +1,132 @@
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using Random = System.Random;
 
 /**
  * Utility class that can be used to play audio clips.
- * 
+ *
  * This supports mutiple sound clips to be played either in a
- * round-robin or random order.
+ * round-robin or random order. 
  */
 // TODO: support changing volume (and pitch etc)
+
 public class MultiAudioSource {
-    readonly Random random = new();
 
-    readonly AudioSource[] sources;
+	readonly System.Random random = new System.Random();
 
-    int next;
+	readonly AudioSource[] sources;
 
-    MultiAudioSource(params AudioSource[] sources) {
-        this.sources = sources;
-        next = random.Next(0, sources.Length);
-    }
+	int next;
 
-    public void PlayRandom() {
-        sources[next].Play();
-        next = random.Next(0, sources.Length);
-    }
+	MultiAudioSource(params AudioSource[] sources) {
+		this.sources = sources;
+		next = random.Next(0, sources.Length);
+	}
 
-    public void PlayRoundRobin() {
-        sources[next].Play();
-        next = (next + 1) % sources.Length;
-    }
+	public void PlayRandom() {
+		this.sources[next].Play();
+		this.next = random.Next(0, sources.Length);
+	}
 
-    public void SetVolume(float volume) {
-        foreach (var source in sources) source.volume = volume;
-    }
+	public void PlayRandomPitch() {
+		SetRandomPitch();
+		PlayRandom();
+	}
+	
+	public void SetRandomPitch() {
+		sources[next].pitch = UnityEngine.Random.Range(0.8F, 1.2F);
+	}
 
-    public void Stop() {
-        foreach (var source in sources) source.Stop();
-    }
+	public void PlayRoundRobin() {
+		this.sources[next].Play();
+		this.next = (this.next + 1) % sources.Length;
+	}
+	
+	public void PlayIfDone() {
+		foreach (var source in sources) {
+			if (source.isPlaying) {
+				return;
+			}
+		}
+		
+		PlayRoundRobin();
+	}
 
-    public void SetPitch(float pitch) {
-        foreach (var source in sources) source.pitch = pitch;
-    }
+	public void SetVolume(float volume) {
+		foreach (var source in sources) {
+			source.volume = volume;
+		}
+	}
 
-    // TODO: breaks with multiple
-    public string GetName() {
-        return sources[0].clip.name;
-    }
+	public void Stop() {
+		foreach (var source in sources) {
+			source.Stop();
+		}
+	}
 
-    /**
-     * Load a single audio clip from the given `path`. This is a relative
-     * path to any directory named `Resources` in the `Assets` directory
-     * tree.
-     * 
-     * The `AudioSource` component is added to the given `gameObject`.
-     * 
-     * Typically, the `gameObject` will be the `this.gameObject` from the
-     * caller of this method.
-     * 
-     * This method throws if the resource does not exist.
-     */
-    public static MultiAudioSource FromResource(
-        GameObject gameObject, string path, bool loop = false, string audioMixer = "SFX") {
-        var clip = Resources.Load<AudioClip>(path);
-        if (clip == null) throw new ArgumentException("Resource not found: " + path);
+	public void SetPitch(float pitch) {
+		foreach (var source in sources) {
+			source.pitch = pitch;
+		}	
+	}
 
-        var audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = clip;
+	// TODO: breaks with multiple
+	public string GetName() {
+		return sources[0].clip.name;
+	}
 
-        audioSource.playOnAwake = false;
-        audioSource.loop = loop;
-        audioSource.outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
+	/**
+	 * Load a single audio clip from the given `path`. This is a relative
+	 * path to any directory named `Resources` in the `Assets` directory
+	 * tree.
+	 *
+	 * The `AudioSource` component is added to the given `gameObject`.
+	 *
+	 * Typically, the `gameObject` will be the `this.gameObject` from the
+	 * caller of this method.
+	 *
+	 * This method throws if the resource does not exist.
+	 */
+	public static MultiAudioSource FromResource(
+	  GameObject gameObject, String path, bool loop = false, string audioMixer = "SFX") {
+		AudioClip clip = Resources.Load<AudioClip>(path);
+		if (clip == null) {
+			throw new ArgumentException("Resource not found: " + path);
+		}
 
-        return new MultiAudioSource(audioSource);
-    }
+		var audioSource = gameObject.AddComponent<AudioSource>();
+		audioSource.clip = clip;
 
-    /**
-     * This is like the `FromResource`, but for loading multiple audio
-     * clips (say to be played randomly or in a round-robbin fashion).
-     * 
-     * The `count` is how many clips to load. The expected file names are
-     * `pathPrefix0`, `pathPrefix1`, ... `pathPrefix{count - 1}`.
-     * 
-     * This method throws if any of the resources does not exist.
-     */
-    public static MultiAudioSource FromResources(
-        GameObject gameObject, string pathPrefix, int count, string audioMixer = "SFX") {
-        var audioSources = new AudioSource[count];
+		audioSource.playOnAwake = false;
+		audioSource.loop = loop;
+		audioSource.outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
 
-        for (var i = 0; i < count; i++) {
-            var clip = Resources.Load<AudioClip>($"{pathPrefix}_{i}");
-            if (clip == null) throw new ArgumentException("Resource not found: " + pathPrefix + i);
-            audioSources[i] = gameObject.AddComponent<AudioSource>();
-            audioSources[i].clip = clip;
-            audioSources[i].outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
-        }
+		return new MultiAudioSource(audioSource);
+	}
 
-        return new MultiAudioSource(audioSources);
-    }
+	/**
+	 * This is like the `FromResource`, but for loading multiple audio
+	 * clips (say to be played randomly or in a round-robbin fashion).
+	 *
+	 * The `count` is how many clips to load. The expected file names are
+	 * `pathPrefix0`, `pathPrefix1`, ... `pathPrefix{count - 1}`.
+	 *
+	 * This method throws if any of the resources does not exist.
+	 */
+	public static MultiAudioSource FromResources(
+	  GameObject gameObject, String pathPrefix, int count, string audioMixer = "SFX") {
+		AudioSource[] audioSources = new AudioSource[count];
+
+		for (int i = 0; i < count; i++) {
+			AudioClip clip = Resources.Load<AudioClip>($"{pathPrefix}_{i}");
+			if (clip == null) {
+				throw new ArgumentException("Resource not found: " + pathPrefix + i);
+			}
+			audioSources[i] = gameObject.AddComponent<AudioSource>();
+			audioSources[i].clip = clip;
+			audioSources[i].outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
+		}
+
+		return new MultiAudioSource(audioSources);
+	}
 }
