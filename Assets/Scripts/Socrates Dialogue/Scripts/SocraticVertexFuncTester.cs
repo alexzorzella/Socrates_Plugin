@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SocraticVertexFuncTester : MonoBehaviour
 {
-    public SocraticVertexModifier vertexModifier;
+    public SocVertModifier vertexModifier;
     
     [TextArea(1, 2)]
     public List<string> contents;

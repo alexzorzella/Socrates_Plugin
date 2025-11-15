@@ -4,8 +4,8 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour {
     public DialogueSuperclass.DialogueSection currentSection;
 
-    public SocraticVertexModifier nameText;
-    public SocraticVertexModifier contentText;
+    public SocVertModifier nameText;
+    public SocVertModifier contentText;
 
     readonly Vector3 origin = new Vector3(0, -220F, 0);
     
@@ -14,9 +14,8 @@ public class DialogueManager : MonoBehaviour {
     public Transform parentChoicesTo;
 
     public Transform parentTextTo;
-    public GameObject textObject;
 
-    public CanvasGroup canvasGroup;
+    CanvasGroup canvasGroup;
 
     PCamera cam;
 
@@ -26,6 +25,7 @@ public class DialogueManager : MonoBehaviour {
 
     void GetComponents() {
         cam = FindFirstObjectByType<PCamera>();
+        canvasGroup = GetComponentInChildren<CanvasGroup>();
         canvasGroup.alpha = 0;
     }
 
@@ -85,23 +85,14 @@ public class DialogueManager : MonoBehaviour {
 
         ClearContentText();
 
-        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText, true, true,
+        SocVertModifier.ParseAndSetText(currentSection.GetSpeakerName(), nameText, true, true,
             currentSection);
-        SocraticVertexModifier.PrepareParsesAndSetText("", contentText, true, true, currentSection);
+        SocVertModifier.ParseAndSetText("", contentText, true, true, currentSection);
 
         promptToDisplay = true;
     }
 
     bool promptToDisplay;
-
-    void CheckIfDialogueAnimationComplete() {
-        // if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0F &&
-        //     anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("open")) {
-        //     promptToDisplay = false;
-        //
-        //     DisplayDialogue();
-        // }
-    }
 
     public bool Talking() {
         return talking;
@@ -124,7 +115,7 @@ public class DialogueManager : MonoBehaviour {
         bool isMonologue = currentSection is DialogueSuperclass.Monologue;
 
         if (isMonologue && !contentText.TextHasBeenDisplayed()) {
-            SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText, true,
+            SocVertModifier.ParseAndSetText(currentSection.GetTitle(), contentText, true,
                 currentSection: currentSection);
             // AudioManager.i.Play("dialogue_select", 1.2F, 1.2F);
             return;
@@ -172,12 +163,10 @@ public class DialogueManager : MonoBehaviour {
         optionsBeenDisplayed = false;
         ClearContentText();
 
-        //SocraticVertexModifier.PrepareParsesAndSetText("", contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true);
-        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetSpeakerName(), nameText, true, true,
+        SocVertModifier.ParseAndSetText(currentSection.GetSpeakerName(), nameText, true, true,
             currentSection);
-        SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText, false, false,
+        SocVertModifier.ParseAndSetText(currentSection.GetTitle(), contentText, false, false,
             currentSection);
-        //SocraticVertexModifier.PrepareParsesAndSetText(currentSection.GetTitle(), contentText.GetComponent<TextMeshProUGUI>(), contentText, true, true, currentSection);
     }
 
     void ClearContentText() {
@@ -185,13 +174,13 @@ public class DialogueManager : MonoBehaviour {
             Destroy(contentText.gameObject);
         }
 
-        GameObject t = Instantiate(textObject, Vector2.zero, Quaternion.identity);
+        GameObject t = ResourceLoader.i.InstantiateObject("DialogueText", Vector2.zero, Quaternion.identity);
         t.transform.SetParent(parentTextTo);
         t.GetComponent<RectTransform>().localPosition = Vector2.zero;
         t.GetComponent<RectTransform>().sizeDelta = parentTextTo.GetComponent<RectTransform>().sizeDelta;
         t.GetComponent<RectTransform>().localScale = Vector3.one;
 
-        contentText = t.GetComponent<SocraticVertexModifier>();
+        contentText = t.GetComponent<SocVertModifier>();
     }
 
     void EndDialogue() {

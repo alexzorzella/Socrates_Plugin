@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class SocraticVertexModifier : MonoBehaviour {
+public class SocVertModifier : MonoBehaviour {
     private TextMeshProUGUI textComponent;
     List<SocraticAnnotationParse> parses;
 
@@ -63,9 +63,9 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// <param name="textContent"></param>
     /// <param name="textComponent"></param>
     /// <param name="vertexModifier"></param>
-    public static void PrepareParsesAndSetText(
+    public static void ParseAndSetText(
         string textContent,
-        SocraticVertexModifier vertexModifier,
+        SocVertModifier vertexModifier,
         bool displayFully = false,
         bool muted = true,
         DialogueSuperclass.DialogueSection currentSection = null) {
@@ -163,7 +163,7 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// <param name="contents"></param>
     /// <param name="vertexModifier"></param>
     /// <returns></returns>
-    private static string SnipParses(string contents, SocraticVertexModifier vertexModifier) {
+    private static string SnipParses(string contents, SocVertModifier vertexModifier) {
         int totalCharactersSnipped = 0;
 
         foreach (var parsedSegment in vertexModifier.parses) {
@@ -197,7 +197,7 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// <param name="grabInfoFrom"></param>
     /// <param name="vertexMod"></param>
     private static void UpdateDebugText(TextMeshProUGUI sendInfoTo, TextMeshProUGUI grabInfoFrom,
-        SocraticVertexModifier vertexMod) {
+        SocVertModifier vertexMod) {
         if (sendInfoTo == null) {
             return;
         }
@@ -226,7 +226,7 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// Increments the counter and manages the volume of the sound being played.
     /// </summary>
     /// <param name="vertexModifier"></param>
-    private static void IncrementCharCounter(SocraticVertexModifier vertexModifier) {
+    private static void IncrementCharCounter(SocVertModifier vertexModifier) {
         if (vertexModifier.counter >= vertexModifier.totalVisibleCharacters) {
             //        Debug.Log($"Finished display");
             if (vertexModifier.currentSection != null) {
@@ -386,7 +386,7 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// </summary>
     /// <param name="textComponent"></param>
     /// <param name="vertexMod"></param>
-    public static void UpdateTextEmbellishes(TextMeshProUGUI textComponent, SocraticVertexModifier vertexMod) {
+    public static void UpdateTextEmbellishes(TextMeshProUGUI textComponent, SocVertModifier vertexMod) {
         TMP_TextInfo textInfo = textComponent.textInfo;
 
         Vector3[] newVertexPositions = GetMaterialAtZero(textInfo).vertices;
@@ -434,7 +434,7 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// <param name="vertexMod"></param>
     /// <param name="textInfo"></param>
     /// <param name="newVertexPositions"></param>
-    private static void ScrollInFromY(SocraticVertexModifier vertexMod, TMP_TextInfo textInfo,
+    private static void ScrollInFromY(SocVertModifier vertexMod, TMP_TextInfo textInfo,
         Vector3[] newVertexPositions) {
         //Under construction
 
@@ -448,7 +448,7 @@ public class SocraticVertexModifier : MonoBehaviour {
     /// <param name="vertexMod"></param>
     /// <param name="textInfo"></param>
     /// <param name="newVertexPositions"></param>
-    private static void ApplyRichText(TextMeshProUGUI textComponent, SocraticVertexModifier vertexMod,
+    private static void ApplyRichText(TextMeshProUGUI textComponent, SocVertModifier vertexMod,
         TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
         if (vertexMod.parses == null) {
             return;
