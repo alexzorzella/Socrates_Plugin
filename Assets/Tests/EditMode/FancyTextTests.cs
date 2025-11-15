@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEngine;
@@ -22,23 +23,28 @@ public static class IListExtensions {
     }
 }
 
-public class EditModeTests {
+public class FancyTextTests {
     readonly List<Tuple<string, string>> tokens = new List<Tuple<string, string>>() {
         new("[wave]", "[!wave]"),
         new("[shake,4]", "[!shake]"),
         new("[delay,2]", "[!delay]"),
         new("<i>", "</i>"),
         new("<size=150%>", "</size>"),
+        new("<size=200%>", "</size>"),
         new("<size=50%>", "</size>"),
-        new("<size=10%>", "</size>"),
         new("<color=#E9BC31>", "</color>")
+    };
+
+    readonly List<string> safeWrappedTestStrings = new() {
+        "bonanza",
+        "sphinx",
+        "miraculous"
     };
     
     readonly List<string> wrappedTestStrings = new() {
         "Thanks, dad.",
         "Obrigado, pai.",
         "The Zinhos!",
-        "Bonanza, sphinx, miraculous",
         "A test in the hand is worth hours of editing in the bush",
         "All tests passed, why not write some more?",
         "Did you remember to clone?",
@@ -62,8 +68,8 @@ public class EditModeTests {
         List<string> closingTokens = new();
         
         for (int i = 0; i < UnityEngine.Random.Range(0, maxTags); i++) {
-            openingTokens.Add(tokens[UnityEngine.Random.Range(0, tokens.Count)].Item1);            
-            closingTokens.Add(tokens[UnityEngine.Random.Range(0, tokens.Count)].Item2);            
+            openingTokens.Add(tokens[UnityEngine.Random.Range(0, tokens.Count)].Item1);
+            closingTokens.Add(tokens[UnityEngine.Random.Range(0, tokens.Count)].Item2);
         }
         
         openingTokens.Shuffle();
@@ -79,8 +85,10 @@ public class EditModeTests {
 
         string annotatedText = $"{prefix}{rawText}{suffix}";
         
-        FancyText fancyText = new FancyText(rawText);
+        FancyText fancyText = new FancyText(annotatedText);
 
+        Debug.Log($"Annotated: {annotatedText.Replace('<', '(').Replace('>', ')')}\nFancyText: {fancyText}\n\n");
+        
         foreach (var token in fancyText.GetAnnotationTokens()) {
             int actualTokenStartChar = token.startCharIndex;
 
@@ -90,14 +98,28 @@ public class EditModeTests {
                 Assert.AreEqual(expectedClosingTokenStartCharIndex, actualTokenStartChar);
             }
         }
-        
-        Debug.Log(fancyText.ToString());
     }
 
+    [Test]
+    public void _TestWrappedFancyTextBulkNoAnnotations() {
+        foreach (var item in wrappedTestStrings) {
+            FancyText fancyText = new FancyText(item);
+            Assert.AreEqual(item, fancyText.ToString());
+        }
+    }
+    
     [Test]
     public void _TestWrappedFancyTextBulk() {
         for (int i = 0; i < iterations; i++) {
             string randomLine = wrappedTestStrings[UnityEngine.Random.Range(0,  wrappedTestStrings.Count)];
+            TestGenericWrappedText(randomLine);
+        }
+    }
+    
+    [Test]
+    public void _TestWrappedFancyTextBulkSimpleStrings() {
+        for (int i = 0; i < iterations; i++) {
+            string randomLine = safeWrappedTestStrings[UnityEngine.Random.Range(0,  safeWrappedTestStrings.Count)];
             TestGenericWrappedText(randomLine);
         }
     }
