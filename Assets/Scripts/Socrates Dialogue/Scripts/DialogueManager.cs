@@ -174,7 +174,7 @@ public class DialogueManager : MonoBehaviour {
             Destroy(contentText.gameObject);
         }
 
-        GameObject t = ResourceLoader.i.InstantiateObject("DialogueText", Vector2.zero, Quaternion.identity);
+        GameObject t = ResourceLoader.InstantiateObject("DialogueText", Vector2.zero, Quaternion.identity);
         t.transform.SetParent(parentTextTo);
         t.GetComponent<RectTransform>().localPosition = Vector2.zero;
         t.GetComponent<RectTransform>().sizeDelta = parentTextTo.GetComponent<RectTransform>().sizeDelta;
@@ -228,7 +228,7 @@ public class DialogueManager : MonoBehaviour {
                 if (currentOptionDelay <= 0) {
                     Tuple<string, DialogueSuperclass.DialogueSection> option = choices.choices[indexOfCurrentChoice];
 
-                    GameObject s = ResourceLoader.i.InstantiateObject("DialogueChoice", Vector3.zero, Quaternion.identity);
+                    GameObject s = ResourceLoader.InstantiateObject("DialogueChoice", Vector3.zero, Quaternion.identity);
                     s.transform.SetParent(parentChoicesTo, false);
 
                     DialogueOptionDisplay optionDisplayBehavior = s.GetComponent<DialogueOptionDisplay>();

@@ -6,7 +6,7 @@ public class Item {
 
     public Item(string name, string visualsName) {
         this.name = name;
-        visuals = ResourceLoader.i.LoadSprite(visualsName);
+        visuals = ResourceLoader.LoadSprite(visualsName);
     }
     
     public string GetItemName() {

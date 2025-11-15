@@ -68,7 +68,7 @@ public class JConsole : MonoBehaviour {
         logs.Add(formattedMessage);
         NotifyListeners(formattedMessage);
 
-        var rect = Instantiate(ResourceLoader.i.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
+        var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
             .GetComponent<RectTransform>();
         rect.SetParent(parentMessagesTo);
 

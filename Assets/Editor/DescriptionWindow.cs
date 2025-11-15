@@ -7,7 +7,7 @@ public class DescriptionWindow : EditorWindow {
             "Socrates Plugin\n" +
             "(c) 2021-2025 Alex Zorzella in association with Luiz-Otàvio Zorzella, All Rights Reserved");
 
-        Sprite socrates = ResourceLoader.i.LoadSprite("socrates");
+        Sprite socrates = ResourceLoader.LoadSprite("socrates");
 
         if (socrates != null) {
             GUILayout.Box(socrates.texture, GUILayout.Width(50), GUILayout.Height(90));
