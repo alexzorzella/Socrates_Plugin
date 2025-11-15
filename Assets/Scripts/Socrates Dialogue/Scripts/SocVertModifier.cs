@@ -362,7 +362,7 @@ public class SocVertModifier : MonoBehaviour {
         }
     }
 
-    private struct VertexAnim {
+    struct VertexAnim {
         public float angleRange;
         public float angle;
         public float speed;
@@ -487,7 +487,7 @@ public class SocVertModifier : MonoBehaviour {
         }
     }
 
-    public static Vector2[] FromVector4Arr(Vector4[] input) {
+    static Vector2[] FromVector4Arr(Vector4[] input) {
         Vector2[] result = new Vector2[input.Length];
 
         for (int i = 0; i < input.Length; i++) {

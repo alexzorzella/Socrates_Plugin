@@ -26,4 +26,18 @@ public class EditModeTests {
 
         Assert.AreEqual("The Zinhos!", fancyText.ToString());
     }
+    
+    [Test]
+    public void FancyTextTwoNestedTokenSets() {
+        FancyText fancyText = new FancyText(testInputs[2]);
+
+        Assert.AreEqual("The Zinhos!", fancyText.ToString());
+    }
+
+    [Test]
+    public void FancyTextSingleTokenNestedWithRichTextTag() {
+        FancyText fancyText = new FancyText(testInputs[3]);
+        
+        Assert.AreEqual("The Zinhos!", fancyText.ToString());
+    }
 }
