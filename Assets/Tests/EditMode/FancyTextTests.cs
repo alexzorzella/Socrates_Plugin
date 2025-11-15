@@ -68,8 +68,10 @@ public class FancyTextTests {
         List<string> closingTokens = new();
         
         for (int i = 0; i < UnityEngine.Random.Range(0, maxTags); i++) {
-            openingTokens.Add(tokens[UnityEngine.Random.Range(0, tokens.Count)].Item1);
-            closingTokens.Add(tokens[UnityEngine.Random.Range(0, tokens.Count)].Item2);
+            int tupleIndex = UnityEngine.Random.Range(0, tokens.Count);
+            
+            openingTokens.Add(tokens[tupleIndex].Item1);
+            closingTokens.Add(tokens[tupleIndex].Item2);
         }
         
         openingTokens.Shuffle();
@@ -87,7 +89,8 @@ public class FancyTextTests {
         
         FancyText fancyText = new FancyText(annotatedText);
 
-        Debug.Log($"Annotated: {annotatedText.Replace('<', '(').Replace('>', ')')}\nFancyText: {fancyText}\n\n");
+        Debug.Log($"Annotated: {annotatedText.Replace('<', '(').Replace('>', ')')}\nFancyText: {fancyText}\n\n" +
+                  $"Opening/closing ct: {openingTokens.Count}/{closingTokens.Count} \n\n");
         
         foreach (var token in fancyText.GetAnnotationTokens()) {
             int actualTokenStartChar = token.startCharIndex;
@@ -110,9 +113,10 @@ public class FancyTextTests {
     
     [Test]
     public void _TestWrappedFancyTextBulk() {
-        for (int i = 0; i < iterations; i++) {
-            string randomLine = wrappedTestStrings[UnityEngine.Random.Range(0,  wrappedTestStrings.Count)];
-            TestGenericWrappedText(randomLine);
+        foreach (var item in wrappedTestStrings) {
+            for (int i = 0; i < iterations; i++) {
+                TestGenericWrappedText(item);    
+            }
         }
     }
     
@@ -163,17 +167,31 @@ public class FancyTextTests {
     public void FancyTextSingleTokenNestedWithMultipleRichTextTags() {
         FancyText fancyText = new FancyText("[wave]<size=20%><i>The Zinhos!</i></size>[!wave]</size>");
 
-        int expectedclosingTokenIndex = 11;
+        int expectedClosingTokenIndex = 11;
         
-        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+    }
+    
+    [Test]
+    public void FancyTextSingleTokenNestedWithRichTextTagD() {
+        FancyText fancyText = new FancyText("<size=20%>[wave]The Zinhos!</size>[!wave]");
+
+        int expectedOpeningTokenCharIndex = 0;
+        int expectedClosingTokenCharIndex = 11;
+        
+        int actualOpeningTokenCharIndex = fancyText.GetAnnotationTokens()[0].startCharIndex;
+        int actualClosingTokenCharIndex = fancyText.GetAnnotationTokens()[1].startCharIndex;
+        
+        Assert.AreEqual(expectedOpeningTokenCharIndex, actualOpeningTokenCharIndex);
+        Assert.AreEqual(expectedClosingTokenCharIndex, actualClosingTokenCharIndex);
     }
     
     [Test]
     public void FancyTextSingleTokenNestedWithMultipleRichTextTagB() {
         FancyText fancyText = new FancyText("[wave]<size=20%><i><color=#F1B82B>The Zinhos!</i></size>[!wave]</color></size>");
 
-        int expectedclosingTokenIndex = 11;
+        int expectedClosingTokenIndex = 11;
         
-        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
     }
 }
