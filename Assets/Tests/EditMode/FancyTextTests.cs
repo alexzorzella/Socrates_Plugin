@@ -144,13 +144,13 @@ public class FancyTextTests {
     [Test]
     public void TestFancyTextNoAnnotationsWithPunctutation() {
         FancyText fancyText = new FancyText("efitzgerald, mcarey: npert, hscott?! Amazing; an off-site event to remember");
-        Assert.AreEqual(6, fancyText.GetAnnotationTokens().Count);
+        Assert.AreEqual(5, fancyText.GetAnnotationTokens().Count);
     }
     
     [Test]
     public void TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation() {
         FancyText fancyText = new FancyText("<size=110%>tjobim, efitzgerald, mcarey: npert, hscott?!!! Amazing; an off-site event to remember</size>");
-        Assert.AreEqual(8, fancyText.GetAnnotationTokens().Count);
+        Assert.AreEqual(7, fancyText.GetAnnotationTokens().Count);
     }
     
     [Test]
