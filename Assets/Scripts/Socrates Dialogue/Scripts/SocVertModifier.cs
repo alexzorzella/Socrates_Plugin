@@ -563,7 +563,7 @@ public class SocVertModifier : MonoBehaviour {
     /// <param name="parse"></param>
     private static void ApplyRichTextColor(TextMeshProUGUI textComponent, SocraticAnnotationParse parse) {
         for (int i = parse.startCharacterLocation; i < parse.linkedParse.startCharacterLocation; i++) {
-            SetColor(textComponent, i, parse.GetDynamicValueAsColor(GetColorOfTopLeft(textComponent, i).a), i);
+            // SetColor(textComponent, i, parse.GetDynamicValueAsColor(GetColorOfTopLeft(textComponent, i).a), i);
         }
 
         textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
@@ -629,7 +629,7 @@ public class SocVertModifier : MonoBehaviour {
         SocraticAnnotationParse parseProfile = null;
 
         for (int i = startAt; i < inputText.Length; i++) {
-            if (inputText[i] == SocraticAnnotation.parseStartParse) {
+            if (inputText[i] == SocraticAnnotation.parseStartChar) {
                 parseProfile = new SocraticAnnotationParse();
                 parseProfile.startCharacterLocation = i;
 
@@ -638,20 +638,24 @@ public class SocVertModifier : MonoBehaviour {
                 bool readingDynamicValue = false;
 
                 for (int f = i + 1; f < inputText.Length; f++) {
-                    if (inputText[f] == SocraticAnnotation.parseEndParse) {
+                    if (inputText[f] == SocraticAnnotation.parseEndChar) {
                         parseProfile.endCharacterLocation = f;
 
                         if (compareProfileTo.Contains(SocraticAnnotation.waveParseInfo)) {
                             parseProfile.richTextType = SocraticAnnotation.RichTextType.WAVE;
-                        } else if (compareProfileTo.Contains(SocraticAnnotation.colorParseInfo)) {
-                            parseProfile.richTextType = SocraticAnnotation.RichTextType.COLOR;
-                        } else if (compareProfileTo.Contains(SocraticAnnotation.delayParseInfo)) {
+                        } 
+                        // else if (compareProfileTo.Contains(SocraticAnnotation.colorParseInfo)) {
+                        //     parseProfile.richTextType = SocraticAnnotation.RichTextType.COLOR;
+                        // } 
+                        else if (compareProfileTo.Contains(SocraticAnnotation.delayParseInfo)) {
                             parseProfile.richTextType = SocraticAnnotation.RichTextType.DELAY;
                         } else if (compareProfileTo.Contains(SocraticAnnotation.shakeParseInfo)) {
                             parseProfile.richTextType = SocraticAnnotation.RichTextType.SHAKE;
-                        } else if (compareProfileTo.Contains(SocraticAnnotation.italicParseInfo)) {
-                            parseProfile.richTextType = SocraticAnnotation.RichTextType.ITALIC;
-                        } else {
+                        } 
+                        // else if (compareProfileTo.Contains(SocraticAnnotation.italicParseInfo)) {
+                        //     parseProfile.richTextType = SocraticAnnotation.RichTextType.ITALIC;
+                        // } 
+                        else {
                             Debug.LogError($"'{compareProfileTo}' -- Parse section did not have a valid input.");
                         }
 
@@ -680,7 +684,7 @@ public class SocVertModifier : MonoBehaviour {
                         }
                     }
 
-                    if (inputText[f] == SocraticAnnotation.parseInputValueIndicator) {
+                    if (inputText[f] == SocraticAnnotation.parseInputValueSeparator) {
                         readingDynamicValue = true;
                     }
                 }

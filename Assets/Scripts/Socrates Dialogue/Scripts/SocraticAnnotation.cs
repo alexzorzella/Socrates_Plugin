@@ -9,10 +9,10 @@ public static class SocraticAnnotation {
         ITALIC
     }
 
-    public static readonly char parseStartParse = '[';
-    public static readonly char parseEndParse = ']';
+    public static readonly char parseStartChar = '[';
+    public static readonly char parseEndChar = ']';
     public static readonly char parseEndParsePair = '!';
-    public static readonly char parseInputValueIndicator = ',';
+    public static readonly char parseInputValueSeparator = ',';
 
     public static readonly float displayTextDelay = 0.01F;
 
@@ -27,11 +27,11 @@ public static class SocraticAnnotation {
 
     public static readonly string delayParseInfo = "delay";
 
-    public static readonly string colorParseInfo = "color";
+    // public static readonly string colorParseInfo = "color";
 
     public static readonly string shakeParseInfo = "shake";
 
-    public static readonly string italicParseInfo = "italic";
+    // public static readonly string italicParseInfo = "italic";
 }
 
 public class SocraticAnnotationParse {
@@ -53,28 +53,28 @@ public class SocraticAnnotationParse {
         return result;
     }
 
-    public Color GetDynamicValueAsColor(float alpha) {
-        var result = Color.black;
-        var compare = dynamicValue.ToLower();
-
-        if (compare == "red") {
-            result = Color.red;
-        } else if (compare == "orange") {
-            result = Color.red + Color.yellow;
-        } else if (compare == "yellow") {
-            result = Color.yellow;
-        } else if (compare == "green") {
-            result = Color.green;
-        } else if (compare == "blue") {
-            result = Color.blue;
-        } else if (compare == "purple") {
-            result = Color.magenta + Color.blue;
-        } else {
-            var colorFromHexCode = Color.black;
-            ColorUtility.TryParseHtmlString(compare, out colorFromHexCode);
-            result = colorFromHexCode;
-        }
-
-        return new Color(result.r, result.g, result.b, alpha);
-    }
+    // public Color GetDynamicValueAsColor(float alpha) {
+    //     var result = Color.black;
+    //     var compare = dynamicValue.ToLower();
+    //
+    //     if (compare == "red") {
+    //         result = Color.red;
+    //     } else if (compare == "orange") {
+    //         result = Color.red + Color.yellow;
+    //     } else if (compare == "yellow") {
+    //         result = Color.yellow;
+    //     } else if (compare == "green") {
+    //         result = Color.green;
+    //     } else if (compare == "blue") {
+    //         result = Color.blue;
+    //     } else if (compare == "purple") {
+    //         result = Color.magenta + Color.blue;
+    //     } else {
+    //         var colorFromHexCode = Color.black;
+    //         ColorUtility.TryParseHtmlString(compare, out colorFromHexCode);
+    //         result = colorFromHexCode;
+    //     }
+    //
+    //     return new Color(result.r, result.g, result.b, alpha);
+    // }
 }
