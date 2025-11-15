@@ -8,7 +8,7 @@ namespace NewSocratesDialogue {
         void Start() {
             DontDestroyOnLoad(gameObject);
         }
-	
+
         public static DialogueManager i {
             get {
                 if (_i == null) {
@@ -16,10 +16,11 @@ namespace NewSocratesDialogue {
 
                     _i = Instantiate(x);
                 }
+
                 return _i;
             }
         }
-        
+
         NewDialogueSection currentSection;
 
         readonly List<DialogueListener> listeners = new();
@@ -27,15 +28,15 @@ namespace NewSocratesDialogue {
         public void RegisterListener(DialogueListener newListener) {
             listeners.Add(newListener);
         }
-        
+
         public void StartDialogue(NewDialogueSection start) {
             if (start == null) {
                 Debug.LogWarning("No dialogue section passed.");
                 return;
             }
-            
+
             NotifyOfDialogueBegun();
-            
+
             LeanTween.delayedCall(DialoguePanel.toggleTime, () => { SetCurrentSection(start); });
         }
 
@@ -51,7 +52,7 @@ namespace NewSocratesDialogue {
             if (!doNotNotify) {
                 foreach (var listener in listeners) {
                     listener.OnSectionChanged(currentSection);
-                }    
+                }
             }
         }
 
@@ -65,7 +66,7 @@ namespace NewSocratesDialogue {
             if (!Talking()) {
                 return;
             }
-            
+
             if (currentSection == null) {
                 EndDialogue();
                 return;
@@ -78,7 +79,7 @@ namespace NewSocratesDialogue {
             SetCurrentSection(null, true);
             NotifyOfDialogueEnded();
         }
-        
+
         public bool Talking() {
             return currentSection != null;
         }

@@ -12,7 +12,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     void Awake() {
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
-        DialogueManager.i.RegisterListener(this);
+        GetComponentInParent<DialogueManager>().RegisterListener(this);
     }
 
     void SetDialoguePanelVisible(bool visible) {
@@ -25,6 +25,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
 
     public void OnDialogueBegun() {
         SetDialoguePanelVisible(true);
+        Debug.Log("Begun");
     }
 
     public void OnSectionChanged(NewDialogueSection newSection) {
@@ -61,6 +62,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     // }
 
     public void OnDialogueEnded() {
-        SetDialoguePanelVisible(true);
+        SetDialoguePanelVisible(false);
     }
 }
