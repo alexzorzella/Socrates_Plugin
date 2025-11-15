@@ -72,7 +72,7 @@ namespace NewSocratesDialogue {
                 return;
             }
 
-            currentSection = currentSection.GetFacet<NextSection>().Next();
+            SetCurrentSection(currentSection.GetFacet<NextSection>().Next());
         }
 
         void EndDialogue() {
