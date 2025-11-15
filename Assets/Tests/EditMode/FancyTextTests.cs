@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -67,10 +68,10 @@ public class FancyTextTests {
         List<string> closingTokens = new();
         
         for (int i = 0; i < UnityEngine.Random.Range(0, maxTags); i++) {
-            int tupleIndex = UnityEngine.Random.Range(0, tokens.Count);
+            Tuple<string, string> randomTuple = tokens[UnityEngine.Random.Range(0, tokens.Count)];
             
-            openingTokens.Add(tokens[tupleIndex].Item1);
-            closingTokens.Add(tokens[tupleIndex].Item2);
+            openingTokens.Add(randomTuple.Item1);
+            closingTokens.Add(randomTuple.Item2);
         }
         
         openingTokens.Shuffle();
@@ -88,6 +89,10 @@ public class FancyTextTests {
         
         FancyText fancyText = new FancyText(annotatedText);
 
+        if (fancyText.GetAnnotationTokens().Count <= 0) {
+            Assert.IsTrue(true);
+        }
+
         Debug.Log($"Annotated: {annotatedText.Replace('<', '(').Replace('>', ')')}\nFancyText: {fancyText}\n\n" +
                   $"Opening/closing ct: {openingTokens.Count}/{closingTokens.Count} \n\n");
         
@@ -95,9 +100,9 @@ public class FancyTextTests {
             int actualTokenStartChar = token.startCharIndex;
 
             if (token.opener) {
-                Assert.AreEqual(0, actualTokenStartChar);
+                Assert.AreEqual(0, actualTokenStartChar, "Opening token index mismatched");
             } else {
-                Assert.AreEqual(expectedClosingTokenStartCharIndex, actualTokenStartChar);
+                Assert.AreEqual(expectedClosingTokenStartCharIndex, actualTokenStartChar, "Closing token index mismatched");
             }
         }
     }
