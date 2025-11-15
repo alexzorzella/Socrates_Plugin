@@ -9,8 +9,6 @@ public class HcLoadScene : HCommand {
         var sceneExists = SceneManager.GetSceneByName(parameters[1]) != null;
 
         if (sceneExists) {
-            GameManager.Instance().stats.DeselectPlayers();
-            GameManager.Instance().stats.selectMenuOptionOnLoad = false;
             NATransition.i.LoadScene(parameters[1]);
             JConsole.i.CloseConsole();
         }

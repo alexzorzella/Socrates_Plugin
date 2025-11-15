@@ -4,7 +4,7 @@ public class HcTestDialogue : HCommand {
     readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
-        JConsole.i.GetDialogueManager().StartDialogue(DialogueParser.MidnightSnack());
+        JConsole.i.GetDialogueManager().StartDialogue(DialogueParser.TestDialogue());
         JConsole.i.visible = false;
         JConsole.i.UpdateVisuals();
 

@@ -105,7 +105,6 @@ public class JConsole : MonoBehaviour {
         commands.Add(new HcLoadScene());
         commands.Add(new HcTestDialogue());
         commands.Add(new HcSuppressMessages());
-        commands.Add(new HcOpenNetworkConfig());
         commands.Add(new HcCloseConsole());
         commands.Add(new HcForceQuit());
 

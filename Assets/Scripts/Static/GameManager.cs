@@ -1,31 +1,70 @@
-﻿public class GameManager {
-    static GameManager pInstance;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.PlayerLoop;
 
-    public GameStats stats;
+public class GameManager {
+	static GameManager pInstance = null;
+	
+	public GameStats stats;
+	public EventManager eventManager;
 
-    public static GameManager Instance() {
-        if (pInstance == null) {
-            //Debug.Log("GameManager Awake");
-            // The very first time someone calls Instance() we populate pInstance
-            pInstance = new GameManager();
-            // and call its InitGame
-            pInstance.InitGame();
-        }
+	public void PreSceneLoaded() {
+		eventManager.ClearRegistry();
 
-        return pInstance;
-    }
+		if(InputManager.instance != null) {
+			InputManager.instance.ClearHandlers();
+		}
 
-    // Note to dad: this is called once and only once in the beginning of the game
-    void InitGame() {
-        //Debug.Log("InitGame");
-        stats = new GameStats();
-    }
+		LeanTween.cancelAll();
 
-    public void Bootstrap() {
-        
-    }
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
+	}
 
-    public void Teardown() {
-        
-    }
+	public void PostSceneLoaded() {
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+	}
+
+	public static GameManager Instance() {
+		if (pInstance == null) {
+			//Debug.Log("GameManager Awake");
+			// The very first time someone calls Instance() we populate pInstance
+			pInstance = new GameManager();
+			// and call its InitGame
+			pInstance.InitGame();
+		}
+		return pInstance;
+	}
+
+	public void SaveGame() {
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
+
+		SaveSystem.SavePlayer(stats);
+	}
+
+	// Note to dad: this is called once and only once in the beginning of the game
+	void InitGame() {
+		stats = new GameStats();
+		
+		if (SaveSystem.LoadPlayer("fnk") != null) {
+			Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
+			Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+		}
+
+		eventManager = new EventManager();
+
+		AlexLang.ParseFile();
+	}
+
+	public void Bootstrap() {
+		// Put anything that should happen right after a new scene is loaded here
+	}
+
+	public void Teardown() {
+		// Put anything that should happen before a new scene is loaded here
+	}
 }
