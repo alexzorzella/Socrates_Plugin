@@ -611,16 +611,31 @@ public class SocVertModifier : MonoBehaviour {
 
         SocraticAnnotationParse parseProfile = null;
 
+        bool eating = false;
+        int eaten = 0;
+        
         for (int i = startAt; i < inputText.Length; i++) {
+            if (inputText[i] == '<') {
+                eating = true;
+            }
+
+            if (eating) {
+                eaten++;
+            }
+
+            if (inputText[i] == '>') {
+                eating = false;
+            }
+            
             if (inputText[i] == SocraticAnnotation.parseStartChar) {
                 parseProfile = new SocraticAnnotationParse();
-                parseProfile.startCharacterLocation = i;
+                parseProfile.startCharacterLocation = i - eaten;
 
                 string compareProfileTo = "";
                 string dynamicValue = "";
                 bool readingDynamicValue = false;
 
-                for (int f = i + 1; f < inputText.Length; f++) {
+                for (int f = i + 1 - eaten; f < inputText.Length; f++) {
                     if (inputText[f] == SocraticAnnotation.parseEndChar) {
                         parseProfile.endCharacterLocation = f;
 
@@ -644,7 +659,7 @@ public class SocVertModifier : MonoBehaviour {
 
                         string contents = "";
 
-                        for (int c = i; c < f; c++) {
+                        for (int c = i - eaten; c < f; c++) {
                             contents += inputText[c];
                         }
 
