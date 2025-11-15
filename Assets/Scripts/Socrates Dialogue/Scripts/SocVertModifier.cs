@@ -6,34 +6,17 @@ using NewSocratesDialogue;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class SocVertModifier : MonoBehaviour {
     FancyText fancyText;
-    
-    TextMeshProUGUI textComponent;
 
+    TextMeshProUGUI textComponent;
+    Vector3[] vertexPositions;
+
+    float currentBetweenCharacterDelay;
     int totalVisibleCharacters;
     int counter = 0;
 
     NewDialogueSection currentSection;
-    //bool hasExecutedPostAction;
-
-    internal TextMeshProUGUI TextComponent() {
-        return textComponent;
-    }
-
-    /// <summary>
-    /// Returns whether all the text has been displayed. Only returns true if there's visible text in the text element.
-    /// </summary>
-    /// <returns></returns>
-    internal bool TextHasBeenDisplayed() {
-        return counter >= totalVisibleCharacters
-               && totalVisibleCharacters > 0;
-    }
-
-    private float currentBetweenCharacterDelay;
-
-    Vector3[] vertexPositions;
 
     bool muted;
-
     static Dictionary<string, MultiAudioSource> dialogueSfx = new();
     static MultiAudioSource currentDialogueSfx = null;
 
@@ -43,6 +26,19 @@ public class SocVertModifier : MonoBehaviour {
         }
 
         currentDialogueSfx = dialogueSfx[soundName];
+    }
+
+    TextMeshProUGUI TextComponent() {
+        return textComponent;
+    }
+
+    /// <summary>
+    /// Returns whether all the text has been displayed. Only returns true if there's visible text in the text element.
+    /// </summary>
+    /// <returns></returns>
+    public bool TextHasBeenDisplayed() {
+        return counter >= totalVisibleCharacters
+               && totalVisibleCharacters > 0;
     }
 
     void Start() {
@@ -68,36 +64,36 @@ public class SocVertModifier : MonoBehaviour {
         bool displayFully = false,
         bool muted = true) {
         var textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
-     
+
         vertexModifier.muted = muted;
         vertexModifier.counter = 0;
         vertexModifier.currentBetweenCharacterDelay = 0;
-     
+
         vertexModifier.fancyText = new FancyText(rawText);
-     
+
         var color = textComponent.color;
-     
+
         textComponent.text = vertexModifier.fancyText.ToString();
-     
+
         textComponent.ForceMeshUpdate();
-     
+
         var vertices = GetMaterialAtZero(textComponent.textInfo).vertices;
         vertexModifier.vertexPositions = new Vector3[vertices.Length];
-     
+
         for (var v = 0; v < vertices.Length; v++) vertexModifier.vertexPositions[v] = vertices[v];
-     
+
         vertexModifier.totalVisibleCharacters = textComponent.textInfo.characterCount;
-     
+
         for (var i = 0; i < vertexModifier.totalVisibleCharacters; i++)
             SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), true), i);
-     
+
         textComponent.color = new Color(color.r, color.g, color.b, 0);
-     
+
         if (displayFully) {
             var temp = Color.white;
-     
+
             ColorUtility.TryParseHtmlString("#DDD0CC", out temp);
-     
+
             textComponent.color = temp;
             // AudioManager.i.StopAllSourcesContains("dialogue", true);
             vertexModifier.counter = textComponent.maxVisibleCharacters;
