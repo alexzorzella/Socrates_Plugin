@@ -393,8 +393,4 @@ public class JConsole : MonoBehaviour {
     public void WriteLine(string add) {
         commandOutputText.text += $"\n> {add}";
     }
-
-    public DialogueManager GetDialogueManager() {
-        return FindFirstObjectByType<DialogueManager>();
-    }
 }

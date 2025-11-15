@@ -4,6 +4,23 @@ using UnityEngine;
 
 namespace NewSocratesDialogue {
     public class DialogueManager : MonoBehaviour {
+        static DialogueManager _i;
+
+        void Start() {
+            DontDestroyOnLoad(gameObject);
+        }
+	
+        public static DialogueManager i {
+            get {
+                if (_i == null) {
+                    DialogueManager x = Resources.Load<DialogueManager>("DialogueCanvas");
+
+                    _i = Instantiate(x);
+                }
+                return _i;
+            }
+        }
+        
         NewDialogueSection currentSection;
 
         readonly List<DialogueListener> listeners = new();
