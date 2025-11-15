@@ -8,6 +8,10 @@ namespace NewSocratesDialogue {
         public NextSection(params NewDialogueSection[] choices) {
             this.choices = choices.ToList();
         }
+
+        public NewDialogueSection Next() {
+            return choices[0];
+        }
         
         // public ZFacet Clone() {
         // return new NextSection(choices.Select(item => new NewDialogueSection(item)).ToList());

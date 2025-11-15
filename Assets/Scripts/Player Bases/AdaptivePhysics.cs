@@ -138,7 +138,7 @@ public class AdaptivePhysics : MonoBehaviour {
 
         var moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (FindObjectOfType<DialogueManager>().Talking()) moveInput = 0;
+        // if (FindObjectOfType<DialogueManager>().Talking()) moveInput = 0;
 
         if (moveInput > 0) {
             if (rb.linearVelocity.x < speed) {

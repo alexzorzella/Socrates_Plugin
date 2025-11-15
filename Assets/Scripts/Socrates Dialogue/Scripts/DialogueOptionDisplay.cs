@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using NewSocratesDialogue;
 using TMPro;
 using UnityEngine;
 
@@ -25,15 +26,15 @@ public class DialogueOptionDisplay : MonoBehaviour
 
     public void ProceedOnClick()
     {
-        if(manager.displayingChoices)
-        {
-            return;
-        }
-
-        // AudioManager.i.Play("dialogue_select");
-
-        manager.currentSection = leadsTo;
-        manager.DisplayDialogue();
+        // if(manager.displayingChoices)
+        // {
+        //     return;
+        // }
+        //
+        // // AudioManager.i.Play("dialogue_select");
+        //
+        // manager.currentSection = leadsTo;
+        // manager.DisplayDialogue();
     }
 
     public float AnimationLength()

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NewSocratesDialogue;
 using UnityEngine;
 using static SocratesDialogue;
 
 public static class DialogueParser {
-    public static DialogueSection ParseFile(string filename) {
-        List<DialogueSection> results = new();
+    public static NewDialogueSection ParseFile(string filename) {
+        List<NewDialogueSection> results = new();
 
         var filepath = Path.Combine(UnityEngine.Application.streamingAssetsPath, "Localization", $"{filename}.tsv");
         
@@ -44,10 +45,10 @@ public static class DialogueParser {
                 break;
             }
             
-            Monologue current = new Monologue(speaker, content, sound);
+            NewDialogueSection current = new NewDialogueSection(speaker, content, sound);
 
             if (i > 0) {
-                results.Last().SetNext(current);
+                results.Last().AddFacet(new NextSection(current));
             }
         
             results.Add(current);
@@ -56,7 +57,7 @@ public static class DialogueParser {
         return results[0];
     }
 
-    public static DialogueSection TestDialogue() {
+    public static NewDialogueSection TestDialogue() {
         return ParseFile("dialogue");
     }
 }

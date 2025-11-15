@@ -9,14 +9,31 @@ namespace NewSocratesDialogue {
     public class NewDialogueSection {
         readonly string speakerName;
         readonly string content;
+        readonly string sound;
     
-        public NewDialogueSection(params ZFacet[] facets) : this(facets.ToList()) { }
+        public NewDialogueSection(
+            string speakerName, 
+            string content, 
+            string sound, 
+            params ZFacet[] facets) : 
+            this(
+                speakerName, 
+                content, 
+                sound, 
+                facets.ToList()) { }
     
-        public NewDialogueSection(List<ZFacet> facets) {
+        NewDialogueSection(
+            string speakerName, 
+            string content, 
+            string sound, 
+            List<ZFacet> facets) {
+            this.speakerName = speakerName;
+            this.content = content;
+            this.sound = sound;
             this.facets = facets;
         }
     
-        List<ZFacet> facets;
+        readonly List<ZFacet> facets;
     
         public void AddFacet(ZFacet facet) {
             facets.Add(facet);
@@ -47,5 +64,12 @@ namespace NewSocratesDialogue {
         //
         //     return clone;
         // }
+        public string GetSpeaker() {
+            return speakerName;
+        }
+
+        public string GetContent() {
+            return content;
+        }
     }
 }

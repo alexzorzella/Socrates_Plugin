@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
+using NewSocratesDialogue;
+
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class SocVertModifier : MonoBehaviour {
     private TextMeshProUGUI textComponent;
@@ -13,7 +15,7 @@ public class SocVertModifier : MonoBehaviour {
     private int totalVisibleCharacters;
     private int counter = 0;
 
-    public SocratesDialogue.DialogueSection currentSection;
+    public NewDialogueSection currentSection;
     //bool hasExecutedPostAction;
 
     internal TextMeshProUGUI TextComponent() {
@@ -67,17 +69,17 @@ public class SocVertModifier : MonoBehaviour {
         string textContent,
         SocVertModifier vertexModifier,
         bool displayFully = false,
-        bool muted = true,
-        SocratesDialogue.DialogueSection currentSection = null) {
+        bool muted = true) {
+        // SocratesDialogue.DialogueSection currentSection = null) {
         TextMeshProUGUI textComponent = vertexModifier.GetComponent<TextMeshProUGUI>();
 
-        vertexModifier.currentSection = currentSection;
+        // vertexModifier.currentSection = currentSection;
 
-        if (currentSection != null) {
-            if (currentSection.GetAction() != null) {
-                currentSection.TriggerAction(true);
-            }
-        }
+        // if (currentSection != null) {
+        //     if (currentSection.GetAction() != null) {
+        //         currentSection.TriggerAction(true);
+        //     }
+        // }
 
         vertexModifier.muted = muted;
         vertexModifier.counter = 0;
@@ -229,18 +231,18 @@ public class SocVertModifier : MonoBehaviour {
     private static void IncrementCharCounter(SocVertModifier vertexModifier) {
         if (vertexModifier.counter >= vertexModifier.totalVisibleCharacters) {
             //        Debug.Log($"Finished display");
-            if (vertexModifier.currentSection != null) {
+            // if (vertexModifier.currentSection != null) {
                 //                Debug.Log($"Finished display and section is not null");
 
-                if (!vertexModifier.currentSection.HasExecutedAction()) {
-                    if (vertexModifier.currentSection.GetAction() != null) {
-                        //Debug.Log($"Should trigger once, hasExecutedPostAction: {vertexModifier.currentSection.HasExecutedAction()}");
-                        vertexModifier.currentSection.TriggerAction(false);
-                    }
-
-                    vertexModifier.currentSection.SetActionExecution(true);
-                }
-            }
+                // if (!vertexModifier.currentSection.HasExecutedAction()) {
+                //     if (vertexModifier.currentSection.GetAction() != null) {
+                //         //Debug.Log($"Should trigger once, hasExecutedPostAction: {vertexModifier.currentSection.HasExecutedAction()}");
+                //         vertexModifier.currentSection.TriggerAction(false);
+                //     }
+                //
+                //     vertexModifier.currentSection.SetActionExecution(true);
+                // }
+            // }
 
             if (vertexModifier.currentSection != null && !vertexModifier.muted) {
                 // AudioManager.i.StopAllSources(vertexModifier.currentSection.GetDialogueSound(), true);
