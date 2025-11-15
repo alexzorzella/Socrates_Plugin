@@ -46,4 +46,17 @@ public class EditModeTests {
         Assert.AreEqual(expectedContent, actualContent);
         Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
     }
+    
+    [Test]
+    public void FancyTextSingleTokenNestedWithRichTextTagB() {
+        FancyText fancyText = new FancyText("[wave]<size=20%>The Zinhos!</size>[!wave]");
+
+        string expectedContent = "<size=20%>The Zinhos!</size>";
+        int expectedclosingTokenIndex = 11;
+        
+        string actualContent = fancyText.ToString();
+        
+        Assert.AreEqual(expectedContent, actualContent);
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+    }
 }

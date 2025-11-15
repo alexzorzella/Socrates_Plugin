@@ -96,7 +96,7 @@ public class FancyText {
             
             foreach (var richTextToken in richTextTokens) {
                 if (token.startCharIndex > richTextToken.startIndex) {
-                    totalOffset += richTextToken.length;
+                    totalOffset += richTextToken.length + 1;
                 }
             }
 
