@@ -24,6 +24,9 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     }
 
     public void OnDialogueBegun() {
+        SocVertModifier.ParseAndSetText("", nameText);
+        SocVertModifier.ParseAndSetText("", contentText);
+        
         SetDialoguePanelVisible(true);
         Debug.Log("Begun");
     }

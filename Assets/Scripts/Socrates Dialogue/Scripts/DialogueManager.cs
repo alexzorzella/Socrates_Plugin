@@ -67,7 +67,7 @@ namespace NewSocratesDialogue {
                 return;
             }
 
-            if (currentSection == null) {
+            if (!currentSection.HasFacet<NextSection>()) {
                 EndDialogue();
                 return;
             }
