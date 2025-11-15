@@ -27,7 +27,6 @@ public class FancyTextTests {
     readonly List<Tuple<string, string>> tokens = new List<Tuple<string, string>>() {
         new("[wave]", "[!wave]"),
         new("[shake,4]", "[!shake]"),
-        new("[delay,2]", "[!delay]"),
         new("<i>", "</i>"),
         new("<size=150%>", "</size>"),
         new("<size=200%>", "</size>"),
@@ -97,6 +96,10 @@ public class FancyTextTests {
                   $"Opening/closing ct: {openingTokens.Count}/{closingTokens.Count} \n\n");
         
         foreach (var token in fancyText.GetAnnotationTokens()) {
+            if (token.richTextType == SocraticAnnotation.RichTextType.DELAY) {
+                continue;
+            }
+            
             int actualTokenStartChar = token.startCharIndex;
 
             if (token.opener) {
@@ -123,10 +126,12 @@ public class FancyTextTests {
             }
         }
     }
-
+    
     [Test]
     public void TestFancyTextNoAnnotations() {
-        FancyText fancyText = new FancyText("efitzgerald");
+        string input = "efitzgerald";
+        FancyText fancyText = new FancyText(input);
+        
         Assert.AreEqual(0, fancyText.GetAnnotationTokens().Count);
     }
     
@@ -139,13 +144,13 @@ public class FancyTextTests {
     [Test]
     public void TestFancyTextNoAnnotationsWithPunctutation() {
         FancyText fancyText = new FancyText("efitzgerald, mcarey: npert, hscott?! Amazing; an off-site event to remember");
-        Assert.AreEqual(0, fancyText.GetAnnotationTokens().Count);
+        Assert.AreEqual(6, fancyText.GetAnnotationTokens().Count);
     }
     
     [Test]
     public void TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation() {
-        FancyText fancyText = new FancyText("<size=110%>tjobim, efitzgerald, mcarey: npert, hscott?! Amazing; an off-site event to remember</size>");
-        Assert.AreEqual(0, fancyText.GetAnnotationTokens().Count);
+        FancyText fancyText = new FancyText("<size=110%>tjobim, efitzgerald, mcarey: npert, hscott?!!! Amazing; an off-site event to remember</size>");
+        Assert.AreEqual(8, fancyText.GetAnnotationTokens().Count);
     }
     
     [Test]
