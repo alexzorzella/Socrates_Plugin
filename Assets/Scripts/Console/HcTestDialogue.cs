@@ -1,0 +1,25 @@
+using System.Collections.Generic;
+
+public class HcTestDialogue : HCommand {
+    readonly List<string> options = new();
+
+    public string CommandFunction(params string[] parameters) {
+        JConsole.i.GetDialogueManager().StartDialogue(DialogueParser.MidnightSnack());
+        JConsole.i.visible = false;
+        JConsole.i.UpdateVisuals();
+
+        return "Testing dialogue...";
+    }
+
+    public string Keyword() {
+        return "testDialogue";
+    }
+
+    public string CommandHelp() {
+        return "Plays test dialogue";
+    }
+
+    public List<string> AutocompleteOptions() {
+        return options;
+    }
+}

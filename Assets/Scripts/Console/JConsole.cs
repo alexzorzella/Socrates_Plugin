@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static Dialogue_Superclass;
+using UnityEngine.InputSystem;
+// using static DialogueSuperclass;
 
 public class JConsole : MonoBehaviour {
     static JConsole _i;
@@ -15,27 +14,72 @@ public class JConsole : MonoBehaviour {
     public TextMeshProUGUI commandOutputText;
     public TMP_InputField inputField;
     public TextMeshProUGUI autocompleteText;
+
     public TextMeshProUGUI autocompleteOptionsText;
+
+    // RectTransform autocompleteOptionsRect;
     public RectTransform autocompleteBackgroundRect;
 
     public int selectedAutocompleteOption;
 
-    public CanvasGroup group;
+    public CanvasGroup terminalCanvasGroup;
+
+    [HideInInspector] public bool suppressSystemMessages;
+
+    public CanvasGroup messagesCanvasGroup;
+    public RectTransform parentMessagesTo;
+
     public RectTransform scrollViewport;
 
     [HideInInspector] public bool visible;
 
     readonly List<string> autocompleteCommands = new();
-    RectTransform autocompleteOptionsRect;
 
     RectTransform canvasRect;
 
     [HideInInspector] public List<HCommand> commands = new();
-    int currentLine;
+
+    int currentMessages;
 
     readonly List<string> history = new();
     int historyIndex = -1;
 
+    readonly List<string> logs = new();
+    readonly List<JConsoleLogListener> logListeners = new();
+
+    public void RegisterListener(JConsoleLogListener newListener) {
+        logListeners.Add(newListener);
+        newListener.RecieveBacklog(logs);
+    }
+
+    public void NotifyListeners(string message) {
+        foreach (var listener in logListeners) {
+            listener.OnSystemMessageLogged(message);
+        }
+    }
+    
+    public void LogSystemMessage(string message, string nonTruncatedMessage = "") {
+        string prefix = message[0] == '[' ? " " : " [System] ";
+        string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
+        string formattedMessage = $"({DateTime.Now}){prefix}{finalMessage}";
+        
+        WriteLine(formattedMessage);
+        
+        logs.Add(formattedMessage);
+        NotifyListeners(formattedMessage);
+
+        var rect = Instantiate(ResourceLoader.i.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
+            .GetComponent<RectTransform>();
+        rect.SetParent(parentMessagesTo);
+
+        rect.localPosition = Vector2.zero;
+        rect.localScale = Vector2.one;
+
+        rect.gameObject.GetComponent<SystemMessage>().SetText(message);
+
+        UpdateCurrentMessages(1, rect.sizeDelta.y);
+    }
+    
     public static JConsole i {
         get {
             if (_i == null) {
@@ -48,28 +92,29 @@ public class JConsole : MonoBehaviour {
         }
     }
 
-    void Awake() {
-        if (_i != null)
-            if (_i != this)
-                Destroy(gameObject);
+    void Start() {
+        if (_i != null) {
+            if (_i != this) Destroy(gameObject);
+        } else {
+            _i = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
-        _i = this;
-        DontDestroyOnLoad(gameObject);
-
-        commands.Add(new HCCommandList());
-        commands.Add(new HCTestDialogue());
-        commands.Add(new HCLoadScene());
-        commands.Add(new HCForceQuit());
+        commands.Add(new HcCommandList());
+        commands.Add(new HcClearConsole());
+        commands.Add(new HcLoadScene());
+        commands.Add(new HcTestDialogue());
+        commands.Add(new HcSuppressMessages());
+        commands.Add(new HcOpenNetworkConfig());
+        commands.Add(new HcCloseConsole());
+        commands.Add(new HcForceQuit());
 
         foreach (var command in commands) autocompleteCommands.Add(command.Keyword());
-
-        autocompleteOptionsRect = autocompleteOptionsText.GetComponent<RectTransform>();
 
         canvasRect = GetComponent<RectTransform>();
 
         UpdateVisuals();
     }
-
 
     void Update() {
         if (_i != null)
@@ -82,12 +127,21 @@ public class JConsole : MonoBehaviour {
         ScrollHistory();
     }
 
+    public void ClearConsole() {
+        commandOutputText.text = "";
+    }
+
+    public void UpdateCurrentMessages(int alterBy, float sizeY) {
+        currentMessages += alterBy;
+        parentMessagesTo.sizeDelta = new Vector2(parentMessagesTo.sizeDelta.x, sizeY * currentMessages);
+    }
+
     void ScrollAutocomplete(int wrapAt) {
         var scrollAmount = 0;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
             scrollAmount = -1;
-        else if (Input.GetKeyDown(KeyCode.DownArrow)) scrollAmount = 1;
+        else if (Keyboard.current.downArrowKey.wasPressedThisFrame) scrollAmount = 1;
 
         if (scrollAmount != 0) {
             selectedAutocompleteOption = IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount);
@@ -198,12 +252,11 @@ public class JConsole : MonoBehaviour {
             var paddingSize = new Vector2(8, 8);
 
             autocompleteBackgroundRect.sizeDelta = textSize + paddingSize;
-        }
-        else {
+        } else {
             autocompleteBackgroundRect.sizeDelta = Vector2.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab)) {
+        if (Keyboard.current.tabKey.wasPressedThisFrame) {
             inputField.text = finalAutocomplete;
             inputField.MoveToEndOfLine(false, true);
 
@@ -211,18 +264,18 @@ public class JConsole : MonoBehaviour {
             autocompleteOptions.Clear();
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-            if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Keyboard.current.leftShiftKey.wasPressedThisFrame)
+            if (Keyboard.current.backspaceKey.wasPressedThisFrame)
                 inputField.text = "";
     }
 
     void ScrollHistory() {
         if (visible)
             if (history.Count > 0 && selectedAutocompleteOption < 0)
-                if (Input.anyKeyDown) {
-                    if (Input.GetKey(KeyCode.UpArrow))
+                if (Keyboard.current.anyKey.wasPressedThisFrame) {
+                    if (Keyboard.current.upArrowKey.wasPressedThisFrame)
                         ScrollHistoryBy(1);
-                    else if (Input.GetKey(KeyCode.DownArrow))
+                    else if (Keyboard.current.downArrowKey.wasPressedThisFrame)
                         ScrollHistoryBy(-1);
                     else
                         historyIndex = -1;
@@ -236,28 +289,42 @@ public class JConsole : MonoBehaviour {
     }
 
     void ConsoleFunctionality() {
-        var textSize = commandOutputText.GetRenderedValues(false);
-
-        scrollViewport.sizeDelta = textSize;
-
-        if (SlashKey() && !visible) {
-            visible = true;
-            UpdateVisuals();
-        }
-        else if (EscapeKey()) {
-            visible = !visible;
-            UpdateVisuals();
+        if (visible) {
+            var textSize = commandOutputText.GetRenderedValues(false);
+            scrollViewport.sizeDelta = textSize;
         }
 
-        Time.timeScale = visible ? 0 : 1;
+        if (SlashKey() && !visible)
+            OpenConsole();
+        else if (Keyboard.current.leftCtrlKey.isPressed && Keyboard.current.tabKey.wasPressedThisFrame)
+            CloseConsole();
+        else if (EscapeKey()) CloseConsole();
+
+        // Time.timeScale = visible ? 0 : 1;
 
         if (visible && ReturnKey()) TryCommand();
     }
 
+    void OpenConsole() {
+        visible = true;
+        UpdateVisuals();
+        
+    }
+
+    public void CloseConsole() {
+        visible = false;
+        UpdateVisuals();
+        SelectInputFieldAndSetText("/");
+    }
+
     public void UpdateVisuals() {
-        group.alpha = visible ? 1 : 0;
-        group.interactable = visible;
-        group.blocksRaycasts = visible;
+        terminalCanvasGroup.alpha = visible ? 1 : 0;
+        terminalCanvasGroup.interactable = visible;
+        terminalCanvasGroup.blocksRaycasts = visible;
+
+        messagesCanvasGroup.alpha = !visible ? 1 : 0;
+        messagesCanvasGroup.interactable = !visible;
+        messagesCanvasGroup.blocksRaycasts = !visible;
 
         ClearInputField();
     }
@@ -267,15 +334,15 @@ public class JConsole : MonoBehaviour {
     }
 
     static bool SlashKey() {
-        return Input.GetKeyDown(KeyCode.Slash);
+        return Keyboard.current.slashKey.wasPressedThisFrame;
     }
 
     static bool EscapeKey() {
-        return Input.GetKeyDown(KeyCode.Escape);
+        return Keyboard.current.escapeKey.wasPressedThisFrame;
     }
 
     static bool ReturnKey() {
-        return Input.GetKeyDown(KeyCode.Return);
+        return Keyboard.current.enterKey.wasPressedThisFrame;
     }
 
     public HCommand GetCurrentCommand() {
@@ -304,8 +371,7 @@ public class JConsole : MonoBehaviour {
             }
 
             WriteLine($"<color=yellow>{selectedCommand.CommandFunction(input.Split(' '))}</color>");
-        }
-        else {
+        } else {
             WriteLine("Command not recognized.");
         }
 
@@ -317,159 +383,18 @@ public class JConsole : MonoBehaviour {
         inputField.text = string.Empty;
         inputField.ActivateInputField();
     }
+    
+    void SelectInputFieldAndSetText(string newContents) {
+        inputField.Select();
+        inputField.text = newContents;
+        inputField.ActivateInputField();
+    }
 
     public void WriteLine(string add) {
         commandOutputText.text += $"\n> {add}";
-        currentLine++;
     }
 
     public DialogueManager GetDialogueManager() {
-        return FindObjectOfType<DialogueManager>();
-    }
-}
-
-public interface HCommand {
-    string Keyword();
-    string CommandHelp();
-    List<string> AutocompleteOptions();
-    string CommandFunction(params string[] parameters);
-}
-
-public class ConsoleUtility {
-    public static string ParameterParse(string[] parameters) {
-        var result = "";
-
-        for (var i = 1; i < parameters.Length; i++)
-            if (parameters.Length < 2)
-                result += parameters[i];
-            else if (i < parameters.Length - 1)
-                result += parameters[i] + " ";
-            else
-                result += parameters[i];
-
-        return result;
-    }
-}
-
-public class HCCommandList : HCommand {
-    readonly List<string> options = new();
-
-    public string CommandFunction(params string[] parameters) {
-        foreach (var command in JConsole.i.commands)
-            JConsole.i.WriteLine($"{command.Keyword()} {command.CommandHelp()}");
-
-        return $"Listed {JConsole.i.commands.Count} commands.";
-    }
-
-    public string CommandHelp() {
-        return "";
-    }
-
-    public string Keyword() {
-        return "help";
-    }
-
-    public List<string> AutocompleteOptions() {
-        return options;
-    }
-}
-
-public class HCTestDialogue : HCommand {
-    readonly List<string> options = new();
-
-    public string CommandFunction(params string[] parameters) {
-        JConsole.i.GetDialogueManager().StartDialogue(Dialogue());
-        JConsole.i.visible = false;
-        JConsole.i.UpdateVisuals();
-
-        return "Testing dialogue...";
-    }
-
-    public string Keyword() {
-        return "testDialogue";
-    }
-
-    public string CommandHelp() {
-        return "";
-    }
-
-    public List<string> AutocompleteOptions() {
-        return options;
-    }
-
-    public DialogueSection Dialogue() {
-        var localName = "Alex";
-        var sound = "dialogue";
-
-        var l = new Monologue(localName,
-            "This [color,yellow]dialogue system[!color] and [color,yellow]text interpreter[!color] took [wave]years[!wave] of updating to get here, thanks to my dad.",
-            sound);
-        var delay = new Monologue(localName,
-            "This, well, this is supposed to test the delay. Really? I think it worked!", sound, l);
-        var color = new Monologue(localName, "This is testing whether the [color,yellow]colorful text[!color] works.",
-            sound, delay);
-        var shake = new Monologue(localName, "This is testing whether the [shake,7]shaky text works[!shake].", sound,
-            color);
-        var wave = new Monologue(localName, "This is testing whether the [wave]wavy text works[!wave].", sound, shake);
-        var basic = new Monologue(localName, "This is testing whether the basic text scroll works.", sound, wave);
-        var loopQuestion = new Choices(localName, "Now, try again?", sound,
-            ChoiceList(Choice("Yes", basic), Choice("No", null)));
-        l.next = loopQuestion;
-
-        return basic;
-    }
-}
-
-public class HCLoadScene : HCommand {
-    readonly List<string> options = new();
-
-    public string CommandFunction(params string[] parameters) {
-        var sceneExists = SceneManager.GetSceneByName(parameters[1]) != null;
-
-        if (sceneExists)
-            SceneManager.LoadScene(parameters[1]);
-
-        return sceneExists ? $"Loading {parameters[1]}..." : $"{parameters[1]} doesn't exist.";
-    }
-
-    public string CommandHelp() {
-        return "(string sceneName)";
-    }
-
-    public string Keyword() {
-        return "loadScene";
-    }
-
-    public List<string> AutocompleteOptions() {
-        if (options.Count <= 0) {
-            var sceneCount = SceneManager.sceneCountInBuildSettings;
-
-            for (var i = 0; i < sceneCount; i++)
-                options.Add(Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)));
-        }
-
-        return options;
-    }
-}
-
-public class HCForceQuit : HCommand {
-    readonly List<string> options = new();
-
-    public string CommandFunction(params string[] parameters) {
-        Application.Quit();
-
-        return "Quitting...";
-    }
-
-    public string CommandHelp() {
-        return "";
-    }
-
-    public string Keyword() {
-        return "quit";
-    }
-
-    public List<string> AutocompleteOptions() {
-        return options;
+        return FindFirstObjectByType<DialogueManager>();
     }
 }
