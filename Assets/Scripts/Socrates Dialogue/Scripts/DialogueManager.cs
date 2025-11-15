@@ -7,12 +7,9 @@ public class DialogueManager : MonoBehaviour {
     public SocraticVertexModifier nameText;
     public SocraticVertexModifier contentText;
 
-    [Header("Options")] public Vector3 origin = new Vector3(0, -220F, 0);
-    public float spacing = -45F;
-    public GameObject dialogueChoice;
-    public GameObject clickToContinue;
-
-    // public Animator anim;
+    readonly Vector3 origin = new Vector3(0, -220F, 0);
+    
+    const float spacing = -45F;
 
     public Transform parentChoicesTo;
 
@@ -28,7 +25,6 @@ public class DialogueManager : MonoBehaviour {
     }
 
     void GetComponents() {
-        // clickToContinue.SetActive(false);
         cam = FindFirstObjectByType<PCamera>();
         canvasGroup.alpha = 0;
     }
@@ -36,16 +32,10 @@ public class DialogueManager : MonoBehaviour {
     void Update() {
         PrepForDisplayOptions();
         DisplayOptions();
-
-        // if (promptToDisplay) {
-        //     CheckIfDialogueAnimationComplete();
-        // }
     }
 
     void PrepForDisplayOptions() {
-        if (optionsBeenDisplayed)
-            //|| anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0F
-        {
+        if (optionsBeenDisplayed) {
             return;
         }
 
@@ -249,7 +239,7 @@ public class DialogueManager : MonoBehaviour {
                 if (currentOptionDelay <= 0) {
                     Tuple<string, DialogueSuperclass.DialogueSection> option = choices.choices[indexOfCurrentChoice];
 
-                    GameObject s = Instantiate(dialogueChoice, Vector3.zero, Quaternion.identity);
+                    GameObject s = ResourceLoader.i.InstantiateObject("DialogueChoice", Vector3.zero, Quaternion.identity);
                     s.transform.SetParent(parentChoicesTo, false);
 
                     DialogueOptionDisplay optionDisplayBehavior = s.GetComponent<DialogueOptionDisplay>();
