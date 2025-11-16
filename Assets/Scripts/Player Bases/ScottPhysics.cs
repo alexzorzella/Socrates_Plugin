@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class ScottsPhysicsCalc : MonoBehaviour {
-    [Header("Steven's Data")] [Range(0f, 1f)]
+public class ScottPhysics : MonoBehaviour {
+    [Range(0f, 1f)]
     public float dampenBasic;
 
     [Range(0f, 1f)] public float dampenWhenStop;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerControllerTopDown : MonoBehaviour {
+public class TopDownController : MonoBehaviour {
     public float speed;
     Vector2 moveVelocity;
 
