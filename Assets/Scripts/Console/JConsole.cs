@@ -144,7 +144,7 @@ public class JConsole : MonoBehaviour {
         else if (Keyboard.current.downArrowKey.wasPressedThisFrame) scrollAmount = 1;
 
         if (scrollAmount != 0) {
-            selectedAutocompleteOption = IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount);
+            IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount, out selectedAutocompleteOption);
             inputField.MoveToEndOfLine(false, true);
         }
     }
@@ -283,7 +283,7 @@ public class JConsole : MonoBehaviour {
     }
 
     void ScrollHistoryBy(int amount) {
-        historyIndex = IncrementWithOverflow.Run(historyIndex, history.Count, amount);
+        IncrementWithOverflow.Run(historyIndex, history.Count, amount, out historyIndex);
         inputField.text = history[historyIndex];
         inputField.caretPosition = history[historyIndex].Length;
     }

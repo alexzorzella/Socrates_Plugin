@@ -10,6 +10,8 @@ public static class AlexLang {
 
 	static readonly List<LangListener> listeners = new();
 
+	const string filename = "lang.tsv";
+
 	public static void RegisterListener(LangListener listener) {
 		listeners.Add(listener);
 		listener.OnLangChanged();
@@ -31,11 +33,11 @@ public static class AlexLang {
 	}
 
 	public static void PlusPlus() {
-		selectedLanguage = IncrementWithOverflow.Run(selectedLanguage, languages.Count, 1);
+		 IncrementWithOverflow.Run(selectedLanguage, languages.Count, 1, out selectedLanguage);
 	}
 
 	public static void MinusMinus() {
-		selectedLanguage = IncrementWithOverflow.Run(selectedLanguage, languages.Count, -1);
+		IncrementWithOverflow.Run(selectedLanguage, languages.Count, -1, out selectedLanguage);
 	}
 
 	const char seperator = '§';
@@ -44,7 +46,14 @@ public static class AlexLang {
 	static readonly Dictionary<string, List<string>> dictionary = new();
 
 	public static void ParseFile() {
-		string contents = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Localization", "lang.tsv"));
+		string path = Path.Combine(Application.streamingAssetsPath, "Localization", filename);
+		
+		if (!File.Exists(path)) {
+			Debug.LogWarning($"No localization file found at {path}");
+			return;
+		}
+		
+		string contents = File.ReadAllText(path);
 
 		string[] lines = contents.Split('\n');
 

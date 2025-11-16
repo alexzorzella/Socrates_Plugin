@@ -44,7 +44,7 @@ public static class SaveSystem {
             return data;
         }
 
-        Debug.LogError($"Save file not found in {Path(path)}.");
+        Debug.LogWarning($"Save file not found in {Path(path)}.");
         return null;
     }
 }

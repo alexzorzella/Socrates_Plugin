@@ -49,7 +49,7 @@ public class GameManager {
 	void InitGame() {
 		stats = new GameStats();
 		
-		if (SaveSystem.LoadPlayer("fnk") != null) {
+		if (SaveSystem.LoadPlayer("save") != null) {
 			Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
 			Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
 		}
