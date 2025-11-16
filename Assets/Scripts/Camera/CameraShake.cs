@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour {
-    public List<CameraShakeProfile> activeShakes = new();
+    readonly List<CameraShakeProfile> activeShakes = new();
     Vector3 addedPosition;
 
     void Update() {
@@ -22,20 +22,21 @@ public class CameraShake : MonoBehaviour {
     }
 
     void PassThroughShakes() {
-        var validShakes = new List<CameraShakeProfile>();
+        var decayedShakes = new List<CameraShakeProfile>();
 
         var finalCameraPos = Vector3.zero;
         var finalCameraRotation = Quaternion.identity;
         float zRotation = 0;
 
-        foreach (var activeShake in activeShakes) {
-            activeShake.UpdateIntensity();
+        foreach (var shake in activeShakes) {
+            shake.UpdateIntensity();
 
-            if (!activeShake.Decayed()) {
-                validShakes.Add(activeShake);
-                finalCameraPos += activeShake.GetChoreography().position;
-                finalCameraRotation *= activeShake.GetChoreography().rotation;
-                zRotation += activeShake.GetChoreography().zRotation;
+            if (!shake.Decayed()) {
+                finalCameraPos += shake.GetChoreography().position;
+                finalCameraRotation *= shake.GetChoreography().rotation;
+                zRotation += shake.GetChoreography().zRotation;
+            } else {
+                decayedShakes.Add(shake);
             }
         }
 
@@ -43,6 +44,8 @@ public class CameraShake : MonoBehaviour {
         //transform.localRotation = Quaternion.Euler(new Vector3(0, 0, finalCameraRotation.z));
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, zRotation));
 
-        activeShakes = validShakes;
+        foreach (var shake in decayedShakes) {
+            activeShakes.Remove(shake);
+        }
     }
 }
