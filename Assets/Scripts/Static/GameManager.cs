@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.PlayerLoop;
 
 public class GameManager {
 	static GameManager pInstance = null;
@@ -10,7 +7,8 @@ public class GameManager {
 	public GameStats stats;
 	public EventManager eventManager;
 
-	public void PreSceneLoaded() {
+	// Put anything that should happen right after a new scene is loaded here
+	void PreSceneLoaded() {
 		eventManager.ClearRegistry();
 
 		if(InputManager.instance != null) {
@@ -23,7 +21,8 @@ public class GameManager {
 		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
 	}
 
-	public void PostSceneLoaded() {
+	// Put anything that should happen before a new scene is loaded here
+	void PostSceneLoaded() {
 		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
 		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
 	}
@@ -61,10 +60,10 @@ public class GameManager {
 	}
 
 	public void Bootstrap() {
-		// Put anything that should happen right after a new scene is loaded here
+		PreSceneLoaded();
 	}
 
 	public void Teardown() {
-		// Put anything that should happen before a new scene is loaded here
+		PostSceneLoaded();
 	}
 }
