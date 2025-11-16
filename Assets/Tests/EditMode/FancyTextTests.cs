@@ -227,4 +227,26 @@ public class FancyTextTests {
         
         Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
     }
+    
+    [Test]
+    public void FancyTextAverageCase() {
+        FancyText fancyText = new FancyText(
+            "The forecast today expects <size=120%><i><color=#F1B82B>[wave]sunny</color></size> skies[!wave]. " +
+            "Be safe out there-<i>don't forget your sunscreen</i>, or you might get [shake,2]sunburned![!shake]");
+
+        int expT0StartChar = 27;
+        int expT1StartChar = 38;
+        int expT2StartChar = 104;
+        int expT3StartChar = 114;
+        
+        int actT1StartChar = fancyText.GetAnnotationTokens()[0].startCharIndex;
+        int actT2StartChar = fancyText.GetAnnotationTokens()[1].startCharIndex;
+        int actT3StartChar = fancyText.GetAnnotationTokens()[2].startCharIndex;
+        int actT4StartChar = fancyText.GetAnnotationTokens()[3].startCharIndex;
+        
+        Assert.AreEqual(expT0StartChar, actT1StartChar);
+        Assert.AreEqual(expT1StartChar, actT2StartChar);
+        Assert.AreEqual(expT2StartChar, actT3StartChar);
+        Assert.AreEqual(expT3StartChar, actT4StartChar);
+    }
 }
