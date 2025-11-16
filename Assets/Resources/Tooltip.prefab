@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4919832936774396221}
   - component: {fileID: 8822993164540564425}
   m_Layer: 0
-  m_Name: TooltipScreenSpaceUI
+  m_Name: Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

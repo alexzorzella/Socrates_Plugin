@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TooltipScreenspaceUI : MonoBehaviour {
+public class Tooltip : MonoBehaviour {
     RectTransform backgroundRectTransform;
 
     RectTransform canvasRectTransform;
@@ -10,11 +10,21 @@ public class TooltipScreenspaceUI : MonoBehaviour {
     List<string> currentIcons = new();
     RectTransform rectTransform;
     TextMeshProUGUI textMeshPro;
-    public static TooltipScreenspaceUI Instance { get; private set; }
+
+    static Tooltip _i;
+    
+    public static Tooltip i {
+        get {
+            if (_i == null) {
+                Tooltip x = Resources.Load<Tooltip>("Tooltip");
+
+                _i = Instantiate(x);
+            }
+            return _i;
+        }
+    }
 
     void Awake() {
-        Instance = this;
-
         canvasRectTransform = transform.root.GetComponent<RectTransform>();
 
         backgroundRectTransform = transform.Find("Background").GetComponent<RectTransform>();
@@ -22,6 +32,8 @@ public class TooltipScreenspaceUI : MonoBehaviour {
         rectTransform = transform.GetComponent<RectTransform>();
 
         HideTooltip();
+        
+        DontDestroyOnLoad(gameObject);
     }
 
     void Update() {
@@ -51,14 +63,14 @@ public class TooltipScreenspaceUI : MonoBehaviour {
     }
 
     public static void SetText(string tooltipText) {
-        if (Instance != null) Instance.ShowTooltip(tooltipText);
+        if (_i != null) _i.Show(tooltipText);
     }
 
     public static void Hide() {
-        if (Instance != null) Instance.HideTooltip();
+        if (_i != null) _i.HideTooltip();
     }
 
-    void ShowTooltip(string tooltipText) {
+    void Show(string tooltipText) {
         gameObject.SetActive(true);
         UpdateText(tooltipText);
     }
