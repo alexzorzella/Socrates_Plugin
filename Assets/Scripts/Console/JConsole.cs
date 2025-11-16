@@ -300,8 +300,6 @@ public class JConsole : MonoBehaviour {
             CloseConsole();
         else if (EscapeKey()) CloseConsole();
 
-        // Time.timeScale = visible ? 0 : 1;
-
         if (visible && ReturnKey()) TryCommand();
     }
 

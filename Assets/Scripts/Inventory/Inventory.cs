@@ -124,8 +124,6 @@ public class Inventory : MonoBehaviour {
     public void FadeHotbarPromptOut() {
         LeanTween.cancel(gameObject);
 
-        // hotbarPrompt.alpha = 1;
-
         LeanTween.value(gameObject, hotbarPrompt.alpha, 0, hotbarFadeOutTime * hotbarPrompt.alpha)
             .setOnUpdate((value) => { hotbarPrompt.alpha = value; })
             .setEase(LeanTweenType.easeOutQuad);

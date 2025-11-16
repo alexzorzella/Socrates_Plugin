@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour {
     readonly List<CameraShakeProfile> activeShakes = new();
-    Vector3 addedPosition;
+    Vector3 offset;
 
     void Update() {
         UpdateCameraPosition();
     }
 
     public void SetAddedPosition(Vector3 position) {
-        addedPosition = position;
+        offset = position;
     }
 
     public void Shake(CameraShakeProfile profile) {
@@ -40,7 +40,7 @@ public class CameraShake : MonoBehaviour {
             }
         }
 
-        transform.localPosition = new Vector3(finalCameraPos.x, finalCameraPos.y, -10) + addedPosition;
+        transform.localPosition = new Vector3(finalCameraPos.x, finalCameraPos.y, -10) + offset;
         //transform.localRotation = Quaternion.Euler(new Vector3(0, 0, finalCameraRotation.z));
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, zRotation));
 

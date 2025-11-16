@@ -51,7 +51,15 @@ public class Tooltip : MonoBehaviour {
 
         rectTransform.anchoredPosition = anchoredPosition;
     }
+    
+    public static void SetText(string tooltipText) {
+        if (_i != null) _i.Show(tooltipText);
+    }
 
+    public static void Hide() {
+        if (_i != null) _i.HideTooltip();
+    }
+    
     void UpdateText(string tooltipText) {
         textMeshPro.SetText(tooltipText);
         textMeshPro.ForceMeshUpdate();
@@ -60,14 +68,6 @@ public class Tooltip : MonoBehaviour {
         var paddingSize = new Vector2(8, 8);
 
         backgroundRectTransform.sizeDelta = textSize + paddingSize;
-    }
-
-    public static void SetText(string tooltipText) {
-        if (_i != null) _i.Show(tooltipText);
-    }
-
-    public static void Hide() {
-        if (_i != null) _i.HideTooltip();
     }
 
     void Show(string tooltipText) {
