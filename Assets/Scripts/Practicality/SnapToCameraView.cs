@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class SnapToCameraView : MonoBehaviour {
+    enum Mode { UPPER_LEFT, UPPER_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT }
+    
     readonly Vector2 offset = new Vector2(-1.75F, 0F);
     const float zValue = 2.4F;
 
