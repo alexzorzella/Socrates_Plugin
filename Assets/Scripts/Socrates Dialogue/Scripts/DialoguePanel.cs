@@ -28,7 +28,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         contentText.ClearText();
         
         SetDialoguePanelVisible(true);
-        Debug.Log("Begun");
     }
 
     public void OnSectionChanged(NewDialogueSection newSection) {

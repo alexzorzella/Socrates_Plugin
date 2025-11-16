@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using NewSocratesDialogue;
 using UnityEngine;
-using static SocratesDialogue;
 
 public static class DialogueParser {
     public static NewDialogueSection ParseFile(string filename) {
