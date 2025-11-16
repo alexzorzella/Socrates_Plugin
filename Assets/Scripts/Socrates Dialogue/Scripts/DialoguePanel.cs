@@ -24,8 +24,8 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     }
 
     public void OnDialogueBegun() {
-        SocVertModifier.ParseAndSetText("", nameText, true);
-        SocVertModifier.ParseAndSetText("", contentText, true);
+        nameText.ClearText();
+        contentText.ClearText();
         
         SetDialoguePanelVisible(true);
         Debug.Log("Begun");
@@ -36,8 +36,8 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         string content = newSection.GetContent();
         
         
-        SocVertModifier.ParseAndSetText(name, nameText, true);
-        SocVertModifier.ParseAndSetText(content, contentText, muted: false);
+        nameText.SetText(name, true);
+        contentText.SetText(content, muted: false);
     }
 
     public bool OnStandby() {
@@ -50,6 +50,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     
     // Is passing the current section here really the best idea?
     public void DisplayTextFully(NewDialogueSection currentSection) {
-        SocVertModifier.ParseAndSetText(currentSection.GetContent(), contentText, true);
+        contentText.SetText(currentSection.GetContent(), true);
     }
 }
