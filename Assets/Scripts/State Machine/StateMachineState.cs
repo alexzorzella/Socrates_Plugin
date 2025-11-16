@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System;
-using System.Linq;
 
 public sealed class StateMachineState {
     readonly string name;
@@ -8,21 +7,9 @@ public sealed class StateMachineState {
     
     readonly Dictionary<StateMachineEvent, StateMachineState> transitions = new();
     readonly Dictionary<Predicate<object>, StateMachineState> entryTransitions = new();
-
-    // TODO: Make this a HashSet
-    readonly Dictionary<StateAtt, bool> attributes = new();
     
-    // TODO: This should be readonly (make a builder for these states later)
-    AssociatedDetector associatedDetector = AssociatedDetector.NONE;
-    
-    public StateMachineState(string name, params StateAtt[] attributes) {
+    public StateMachineState(string name) {
         this.name = name;
-        AddAttributes(attributes);
-    }
-
-    public StateMachineState WithAssociatedDetector(AssociatedDetector associatedDetector) {
-        this.associatedDetector = associatedDetector;
-        return this;
     }
     
     /// <summary>
@@ -62,18 +49,6 @@ public sealed class StateMachineState {
 
         return result;
     }
-
-    void AddAttributes(params StateAtt[] newAttributes) {
-        foreach (var attribute in newAttributes) {
-            if (!attributes.ContainsKey(attribute)) {
-                attributes.Add(attribute, true);
-            }
-        }
-    }
-
-    public bool HasAttribute(StateAtt checkFor) {
-        return attributes.ContainsKey(checkFor) ? attributes[checkFor] : false;
-    }
     
     public string GetName() {
         return name;
@@ -95,39 +70,7 @@ public sealed class StateMachineState {
         length = clipLength;
     }
 
-    public AssociatedDetector GetAssociatedDetector() {
-        return associatedDetector;
-    }
-    
     public override string ToString() {
-        string result = name;
-
-        result += $"\nAttributes:{(attributes.Count == 0 ? "None" : "")}";
-
-        for (int i = 0; i < attributes.Count; i++) {
-            result += $"{attributes.ElementAt(i).Key}{(i < attributes.Count - 1 ? "," : "")}";
-        }
-
-        result += $"\nComboDetector: {associatedDetector.ToString()}";
-        
-        return result;
+        return name;
     }
-}
-
-public enum StateAtt {
-    IGNORE_COMBO_INPUT,
-    IGNORE_PHYSICS_INPUT,
-    ABLE_TO_BLOCK,
-    FLIP_ENABLED,
-    STUNNED
-}
-
-public enum AssociatedDetector {
-    NONE,
-    STANDING,
-    AIRBORNE,
-    CROUCHED,
-    STANDING_OR_CROUCHED,
-    ANY,
-    SENTINEL
 }

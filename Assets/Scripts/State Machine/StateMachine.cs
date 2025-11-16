@@ -125,14 +125,6 @@ public class StateMachine {
         return _currentState.GetName();
     }
 
-    public bool Currently(StateAtt checkFor) {
-        return _currentState.HasAttribute(checkFor);
-    }
-
-    public AssociatedDetector CurrentlyAssociatedDetector() {
-        return _currentState.GetAssociatedDetector();
-    }
-
     public override string ToString() {
         string result = $"{name}\n";
 

@@ -1,11 +1,5 @@
 public enum StateMachineEvent {
-    STOP,
-    WALK_FORWARD,
-    WALK_BACKWARD,
-    JUMP,
-    FALL,
-    LAND,
-    CROUCH,
-    UN_CROUCH,
+    EVENT_A,
+    EVENT_B,
     ON_ANIMATION_COMPLETED
 }
