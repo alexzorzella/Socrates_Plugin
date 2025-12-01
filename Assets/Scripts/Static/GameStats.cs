@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿public class GameStats {
+    public float musicVol;
 
-public class GameStats
-{
+    public float sfxVol;
     //You rock.
 }
