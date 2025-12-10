@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using UnityEngine;
 
 public class FancyText {
@@ -152,32 +154,27 @@ public class FancyText {
         }
     }
 
+    static readonly char[] minorPunctuation = { ',', '–' };
+    static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
+    
     void AnnotateByPunctuation(int startAt = 0) {
         for (var i = startAt; i < cleanedText.Length; i++) {
             if (char.IsPunctuation(cleanedText[i]) && i < cleanedText.Length - 1) {
                 var c = cleanedText[i];
 
                 if (cleanedText[i + 1] == ' ') {
-                    if (c == ',' ||
-                        c == '.' ||
-                        c == '?' ||
-                        c == '!' ||
-                        c == '~' ||
-                        c == ':' ||
-                        c == ':' ||
-                        c == '(' ||
-                        c == ')' ||
-                        c == ';' ||
-                        c == '—' ||
-                        c == '–') {
+                    bool minorDelay = minorPunctuation.Contains(c);
+                    bool majorDelay = majorPunctuation.Contains(c);
+                    
+                    if (minorDelay || majorDelay) {
                         AnnotationToken newToken = new();
 
                         newToken.startCharIndex = i + 1;
                         newToken.endCharIndex = i + 1;
                         newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
-                        newToken.passedValue = c == ',' || c == '–'
-                            ? $"{SocraticAnnotation.displayMinorPunctuationDelay}"
-                            : $"{SocraticAnnotation.displayMajorPunctuationDelay}";
+                        newToken.passedValue = minorDelay
+                            ? SocraticAnnotation.minorPunctuationDisplayDelay.ToString()
+                            : SocraticAnnotation.majorPunctuationDisplayDelay.ToString();
 
                         annotationTokens.Add(newToken);
                     }

@@ -12,8 +12,8 @@
 
     public static readonly float displayTextDelay = 0.01F;
 
-    public static readonly float displayMinorPunctuationDelay = 0.25F;
-    public static readonly float displayMajorPunctuationDelay = 0.35F;
+    public static readonly float minorPunctuationDisplayDelay = 0.25F;
+    public static readonly float majorPunctuationDisplayDelay = 0.35F;
 
     public static readonly string waveTag = "wave";
     public static readonly bool waveWarpTextVertices = true;
