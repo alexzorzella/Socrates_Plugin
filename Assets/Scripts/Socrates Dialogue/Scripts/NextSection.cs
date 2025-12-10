@@ -9,12 +9,8 @@ namespace NewSocratesDialogue {
             this.choices = choices.ToList();
         }
 
-        public DialogueSection Next() {
-            return choices[0];
+        public DialogueSection Next(int choiceIndex = 0) {
+            return choices[choiceIndex];
         }
-        
-        // public ZFacet Clone() {
-        // return new NextSection(choices.Select(item => new NewDialogueSection(item)).ToList());
-        // }
     }
 }
