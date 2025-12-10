@@ -19,6 +19,11 @@ public class MultiAudioSource {
 	readonly AudioSource[] sources;
 	int next;
 
+	/// <summary>
+	/// Instances of MultiAudioSource can only be constructed via the `FromResource` and
+	/// `FromResources` functions.
+	/// </summary>
+	/// <param name="sources"></param>
 	MultiAudioSource(params AudioSource[] sources) {
 		this.sources = sources;
 		next = random.Next(0, sources.Length);
