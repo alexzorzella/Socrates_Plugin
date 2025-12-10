@@ -60,5 +60,9 @@ namespace NewSocratesDialogue {
         public string GetContent() {
             return content;
         }
+
+        public string GetSound() {
+            return sound;
+        }
     }
 }

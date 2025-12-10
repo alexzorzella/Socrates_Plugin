@@ -28,6 +28,10 @@ public class SocVertModifier : MonoBehaviour {
         currentDialogueSfx = dialogueSfx[soundName];
     }
 
+    public void StopDialogueSfx() {
+        currentDialogueSfx.Stop();
+    }
+
     TextMeshProUGUI TextComponent() {
         return textComponent;
     }

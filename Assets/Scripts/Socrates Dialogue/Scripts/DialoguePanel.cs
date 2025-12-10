@@ -49,6 +49,8 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         
         nameText.SetText(name, true);
         contentText.SetText(content, muted: false);
+        
+        contentText.SetDialogueSfx(section.GetSound());
     }
 
     /// <summary>
@@ -73,5 +75,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// (Is passing the current section here really the best idea?)
     public void DisplayTextFully(DialogueSection currentSection) {
         contentText.SetText(currentSection.GetContent(), true);
+        contentText.StopDialogueSfx();
     }
 }
