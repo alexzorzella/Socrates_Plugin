@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 
 public class FancyText {
@@ -158,19 +159,34 @@ public class FancyText {
     static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
     
     void AnnotateByPunctuation(int startAt = 0) {
+        int invisibleChars = 0;
+        bool readingInvisibleChar = false;
+        
         for (var i = startAt; i < cleanedText.Length; i++) {
-            if (char.IsPunctuation(cleanedText[i]) && i < cleanedText.Length - 1) {
-                var c = cleanedText[i];
+            char currentChar = cleanedText[i];
 
+            if (currentChar == '<') {
+                readingInvisibleChar = true;
+            }
+
+            if (readingInvisibleChar) {
+                invisibleChars++;
+            }
+            
+            if (currentChar == '>') {
+                readingInvisibleChar = false;
+            }
+            
+            if (char.IsPunctuation(currentChar) && i < cleanedText.Length - 1 && !readingInvisibleChar) {
                 if (cleanedText[i + 1] == ' ') {
-                    bool minorDelay = minorPunctuation.Contains(c);
-                    bool majorDelay = majorPunctuation.Contains(c);
+                    bool minorDelay = minorPunctuation.Contains(currentChar);
+                    bool majorDelay = majorPunctuation.Contains(currentChar);
                     
                     if (minorDelay || majorDelay) {
                         AnnotationToken newToken = new();
 
-                        newToken.startCharIndex = i + 1;
-                        newToken.endCharIndex = i + 1;
+                        newToken.startCharIndex = i + 1 - invisibleChars;
+                        newToken.endCharIndex = i + 1 - invisibleChars;
                         newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
                         newToken.passedValue = minorDelay
                             ? SocraticAnnotation.minorPunctuationDisplayDelay.ToString()
