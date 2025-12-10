@@ -169,12 +169,12 @@ public class SocVertModifier : MonoBehaviour {
             if (!muted) {
                 if (currentSection != null) {
                     if (currentDialogueSfx != null) {
-                        currentDialogueSfx.PlayIfDone();
+                        currentDialogueSfx.PlayOnlyIfDone();
                     }
                 }
                 else {
                     if (currentDialogueSfx != null) {
-                        currentDialogueSfx.PlayIfDone();
+                        currentDialogueSfx.PlayOnlyIfDone();
                     }
                 }
             }
