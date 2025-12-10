@@ -64,10 +64,10 @@ public static class DialogueParser {
     }
 
     /// <summary>
-    /// Returns test dialogue parsed from Assets/StreamingAssets/Localization/dialogue.tsv
+    /// Returns test dialogue parsed from Assets/StreamingAssets/Localization/test_dialogue.tsv
     /// </summary>
     /// <returns></returns>
     public static NewDialogueSection TestDialogue() {
-        return ParseFile("dialogue");
+        return ParseFile("test_dialogue");
     }
 }
