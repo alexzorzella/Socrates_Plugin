@@ -37,7 +37,7 @@ public class SocVertModifier : MonoBehaviour {
     }
 
     /// <summary>
-    /// Gets the text component attatched to the object.
+    /// Gets the text component attached to the object.
     /// </summary>
     private void GetComponents() {
         textComponent = GetComponent<TextMeshProUGUI>();
