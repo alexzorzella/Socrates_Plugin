@@ -12,8 +12,8 @@ public static class DialogueParser {
     /// </summary>
     /// <param name="filename"></param>
     /// <returns></returns>
-    public static NewDialogueSection ParseFile(string filename) {
-        List<NewDialogueSection> results = new();
+    public static DialogueSection ParseFile(string filename) {
+        List<DialogueSection> results = new();
 
         var filepath = Path.Combine(Application.streamingAssetsPath, "Localization", $"{filename}.tsv");
         
@@ -51,7 +51,7 @@ public static class DialogueParser {
                 break;
             }
             
-            NewDialogueSection current = new NewDialogueSection(speaker, content, sound);
+            DialogueSection current = new DialogueSection(speaker, content, sound);
 
             if (i > 0) {
                 results.Last().AddFacet(new NextSection(current));
@@ -67,7 +67,7 @@ public static class DialogueParser {
     /// Returns test dialogue parsed from Assets/StreamingAssets/Localization/test_dialogue.tsv
     /// </summary>
     /// <returns></returns>
-    public static NewDialogueSection TestDialogue() {
+    public static DialogueSection TestDialogue() {
         return ParseFile("test_dialogue");
     }
 }

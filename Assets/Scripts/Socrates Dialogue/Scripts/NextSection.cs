@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace NewSocratesDialogue {
     public class NextSection : ZFacet {
-        readonly List<NewDialogueSection> choices;
+        readonly List<DialogueSection> choices;
 
-        public NextSection(params NewDialogueSection[] choices) {
+        public NextSection(params DialogueSection[] choices) {
             this.choices = choices.ToList();
         }
 
-        public NewDialogueSection Next() {
+        public DialogueSection Next() {
             return choices[0];
         }
         

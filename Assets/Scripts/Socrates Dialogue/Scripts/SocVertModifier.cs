@@ -14,7 +14,7 @@ public class SocVertModifier : MonoBehaviour {
     int totalVisibleCharacters;
     int counter = 0;
 
-    NewDialogueSection currentSection;
+    DialogueSection currentSection;
 
     bool muted;
     static Dictionary<string, MultiAudioSource> dialogueSfx = new();

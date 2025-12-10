@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 
 public interface ZFacet {
-    // public ZFacet Clone();
+    
 }
 
 namespace NewSocratesDialogue {
-    public class NewDialogueSection {
+    public class DialogueSection {
         readonly string speakerName;
         readonly string content;
         readonly string sound;
     
-        public NewDialogueSection(
+        public DialogueSection(
             string speakerName, 
             string content, 
             string sound, 
@@ -22,7 +22,7 @@ namespace NewSocratesDialogue {
                 sound, 
                 facets.ToList()) { }
     
-        NewDialogueSection(
+        DialogueSection(
             string speakerName, 
             string content, 
             string sound, 
@@ -52,18 +52,7 @@ namespace NewSocratesDialogue {
     
             return default;
         }
-    
-        // public NewDialogueSection Clone() {
-        //     List<ZFacet> facetsCopy = new List<ZFacet>();
-        //
-        //     foreach (var facet in facets) {
-        //         facetsCopy.Add(facet);
-        //     }
-        //
-        //     NewDialogueSection clone = new NewDialogueSection(facetsCopy);
-        //
-        //     return clone;
-        // }
+        
         public string GetSpeaker() {
             return speakerName;
         }

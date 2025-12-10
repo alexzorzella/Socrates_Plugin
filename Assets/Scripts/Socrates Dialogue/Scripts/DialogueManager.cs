@@ -31,7 +31,7 @@ namespace NewSocratesDialogue {
         }
 
         DialoguePanel dialoguePanel;
-        NewDialogueSection currentSection;
+        DialogueSection currentSection;
         readonly List<DialogueListener> listeners = new();
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace NewSocratesDialogue {
         /// Starts a new dialogue interaction beginning with the passed starting dialogue section.
         /// </summary>
         /// <param name="start"></param>
-        public void StartDialogue(NewDialogueSection start) {
+        public void StartDialogue(DialogueSection start) {
             if (start == null) {
                 Debug.LogWarning("No dialogue section passed.");
                 return;
@@ -88,10 +88,10 @@ namespace NewSocratesDialogue {
         /// Sets the current dialogue section to the new dialogue section, optionally notifyfing all
         /// listeners that the dialogue section has changed.
         /// </summary>
-        /// <param name="newSection"></param>
+        /// <param name="section"></param>
         /// <param name="doNotNotify"></param>
-        void SetCurrentSection(NewDialogueSection newSection, bool doNotNotify = false) {
-            currentSection = newSection;
+        void SetCurrentSection(DialogueSection section, bool doNotNotify = false) {
+            currentSection = section;
 
             if (!doNotNotify) {
                 NotifyOfSectionChange();

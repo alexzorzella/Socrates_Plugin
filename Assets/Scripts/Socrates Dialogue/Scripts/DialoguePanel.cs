@@ -41,10 +41,10 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// Sets the name text fully and queues the content text to scroll, populated by new dialogue section
     /// data whenever the dialogue section changes.
     /// </summary>
-    /// <param name="newSection"></param>
-    public void OnSectionChanged(NewDialogueSection newSection) {
-        string name = newSection.GetSpeaker();
-        string content = newSection.GetContent();
+    /// <param name="section"></param>
+    public void OnSectionChanged(DialogueSection section) {
+        string name = section.GetSpeaker();
+        string content = section.GetContent();
         
         
         nameText.SetText(name, true);
@@ -71,7 +71,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// </summary>
     /// <param name="currentSection"></param>
     /// (Is passing the current section here really the best idea?)
-    public void DisplayTextFully(NewDialogueSection currentSection) {
+    public void DisplayTextFully(DialogueSection currentSection) {
         contentText.SetText(currentSection.GetContent(), true);
     }
 }
