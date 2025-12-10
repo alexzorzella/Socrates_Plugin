@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FancyText {
     readonly string rawText;
-    string cleanedText; // TODO: How do I make this readonly?
+    string cleanedText; // TODO: Make this readonly
     readonly List<AnnotationToken> annotationTokens = new();
 
     public FancyText(string rawText) {
