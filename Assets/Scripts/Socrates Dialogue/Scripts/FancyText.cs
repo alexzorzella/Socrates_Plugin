@@ -188,12 +188,6 @@ public class FancyText {
             token.endCharIndex -= totalOffset;
         }
     }
-
-    static readonly char[] minorPunctuation = { ',', '–' };
-    static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
-
-    const char richTextStart = '<';
-    const char richTextEnd = '>';
     
     /// <summary>
     /// Annotates the text with delays at punctuation marks.
@@ -209,7 +203,7 @@ public class FancyText {
             char currentChar = cleanedText[i];
 
             // Begin eating rich text tags
-            if (currentChar == richTextStart) {
+            if (currentChar == SocraticAnnotation.richTextStart) {
                 readingInvisibleChar = true;
             }
 
@@ -219,7 +213,7 @@ public class FancyText {
             }
             
             // Finish eating rich text tags
-            if (currentChar == richTextEnd) {
+            if (currentChar == SocraticAnnotation.richTextEnd) {
                 readingInvisibleChar = false;
             }
             
@@ -228,9 +222,9 @@ public class FancyText {
             if (char.IsPunctuation(currentChar) && i < cleanedText.Length - 1 && !readingInvisibleChar) {
                 char nextChar = cleanedText[i + 1];
                 
-                if (nextChar == ' ' || nextChar == richTextStart) {
-                    bool minorDelay = minorPunctuation.Contains(currentChar);
-                    bool majorDelay = majorPunctuation.Contains(currentChar);
+                if (nextChar == ' ' || nextChar == SocraticAnnotation.richTextStart) {
+                    bool minorDelay = SocraticAnnotation.minorPunctuation.Contains(currentChar);
+                    bool majorDelay = SocraticAnnotation.majorPunctuation.Contains(currentChar);
                     
                     if (minorDelay || majorDelay) {
                         AnnotationToken newToken = new();

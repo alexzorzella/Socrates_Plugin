@@ -5,25 +5,31 @@
         SHAKE
     }
 
-    public static readonly char parseStartChar = '[';
-    public static readonly char parseEndChar = ']';
-    public static readonly char parseClosePairChar = '!';
-    public static readonly char parseValueSeparator = ',';
+    public const char parseStartChar = '[';
+    public const char parseEndChar = ']';
+    public const char parseClosePairChar = '!';
+    public const char parseValueSeparator = ',';
 
-    public static readonly float displayTextDelay = 0.01F;
+    public const float displayTextDelay = 0.01F;
 
-    public static readonly float minorPunctuationDisplayDelay = 0.25F;
-    public static readonly float majorPunctuationDisplayDelay = 0.35F;
+    public const float minorPunctuationDisplayDelay = 0.25F;
+    public const float majorPunctuationDisplayDelay = 0.35F;
 
-    public static readonly string waveTag = "wave";
-    public static readonly bool waveWarpTextVertices = true;
-    public static readonly float waveFreqMultiplier = 0.025F;
-    public static readonly float waveAmplitude = 7F;
-    public static readonly float waveSpeed = 9F;
+    public const string waveTag = "wave";
+    public const bool waveWarpTextVertices = true;
+    public const float waveFreqMultiplier = 0.025F;
+    public const float waveAmplitude = 7F;
+    public const float waveSpeed = 9F;
 
-    public static readonly string delayTag = "delay";
+    public const string delayTag = "delay";
     
-    public static readonly string shakeTag = "shake";
+    public const string shakeTag = "shake";
+
+    public const char richTextStart = '<';
+    public const char richTextEnd = '>';
+    
+    public static readonly char[] minorPunctuation = { ',', '–' };
+    public static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
 }
 
 public class AnnotationToken {
