@@ -5,10 +5,17 @@ using NewSocratesDialogue;
 using UnityEngine;
 
 public static class DialogueParser {
+    const string defaultDialogueSound = "dialogue";
+    
+    /// <summary>
+    /// Parses dialogue from the passed .tsv file found in the StreamingAssets/Localization folder.
+    /// </summary>
+    /// <param name="filename"></param>
+    /// <returns></returns>
     public static NewDialogueSection ParseFile(string filename) {
         List<NewDialogueSection> results = new();
 
-        var filepath = Path.Combine(UnityEngine.Application.streamingAssetsPath, "Localization", $"{filename}.tsv");
+        var filepath = Path.Combine(Application.streamingAssetsPath, "Localization", $"{filename}.tsv");
         
         if (!File.Exists(filepath)) {
             Debug.LogWarning($"No dialogue file named {filename}.tsv found");
@@ -28,19 +35,19 @@ public static class DialogueParser {
                 continue;
             }
             
-            string speaker = entries[0];
-            string content = entries[1];
+            string speaker = entries[0];            // Pulls the speaker's name from the first column
+            string content = entries[1];            // Pulls the section's content from the second column
 
-            string sound = "dialogue";
-
-            if (entries.Length > 2) {
+            string sound = defaultDialogueSound;
+            
+            if (entries.Length > 2) {               // Pulls the dialogue sound name from the third column. If none was provided, it keeps the default.
                 string soundToken = entries[2].Replace("\r", string.Empty).Replace("\n", string.Empty);
                 if (!string.IsNullOrEmpty(soundToken)) {
                     sound = soundToken;
                 }
             }
-
-            if (string.IsNullOrEmpty(content)) {
+            
+            if (string.IsNullOrEmpty(content)) {    // Breaks if the contents of the dialogue were empty.
                 break;
             }
             
@@ -56,6 +63,10 @@ public static class DialogueParser {
         return results[0];
     }
 
+    /// <summary>
+    /// Returns test dialogue parsed from Assets/StreamingAssets/Localization/dialogue.tsv
+    /// </summary>
+    /// <returns></returns>
     public static NewDialogueSection TestDialogue() {
         return ParseFile("dialogue");
     }
