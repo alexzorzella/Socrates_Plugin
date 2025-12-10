@@ -15,6 +15,10 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         GetComponentInParent<DialogueManager>().RegisterListener(this);
     }
 
+    /// <summary>
+    /// Sets the dialogue panel's visibility.
+    /// </summary>
+    /// <param name="visible"></param>
     void SetDialoguePanelVisible(bool visible) {
         LeanTween.cancel(canvasGroup.gameObject);
 
@@ -23,6 +27,9 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
             .setOnUpdate((value) => { canvasGroup.alpha = value; });
     }
 
+    /// <summary>
+    /// Clears the name and content text and sets the panel to visible whenever a conversation is started.
+    /// </summary>
     public void OnDialogueBegun() {
         nameText.ClearText();
         contentText.ClearText();
@@ -30,6 +37,11 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         SetDialoguePanelVisible(true);
     }
 
+    /// <summary>
+    /// Sets the name text fully and queues the content text to scroll, populated by new dialogue section
+    /// data whenever the dialogue section changes.
+    /// </summary>
+    /// <param name="newSection"></param>
     public void OnSectionChanged(NewDialogueSection newSection) {
         string name = newSection.GetSpeaker();
         string content = newSection.GetContent();
@@ -39,15 +51,26 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         contentText.SetText(content, muted: false);
     }
 
+    /// <summary>
+    /// Returns whether the content text has finished displaying.
+    /// </summary>
+    /// <returns></returns>
     public bool OnStandby() {
         return contentText.TextHasBeenDisplayed();
     }
     
+    /// <summary>
+    /// Hides the panel when the dialogue ends.
+    /// </summary>
     public void OnDialogueEnded() {
         SetDialoguePanelVisible(false);
     }
     
-    // Is passing the current section here really the best idea?
+    /// <summary>
+    /// Forces the content of the passed section to fully display.
+    /// </summary>
+    /// <param name="currentSection"></param>
+    /// (Is passing the current section here really the best idea?)
     public void DisplayTextFully(NewDialogueSection currentSection) {
         contentText.SetText(currentSection.GetContent(), true);
     }
