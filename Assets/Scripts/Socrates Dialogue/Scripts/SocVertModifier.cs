@@ -20,6 +20,10 @@ public class SocVertModifier : MonoBehaviour {
     static Dictionary<string, MultiAudioSource> dialogueSfx = new();
     static MultiAudioSource currentDialogueSfx = null;
 
+    /// <summary>
+    /// Sets the sound effect that plays when a new character is revealed.
+    /// </summary>
+    /// <param name="soundName"></param>
     public void SetDialogueSfx(string soundName) {
         if (!dialogueSfx.ContainsKey(soundName)) {
             dialogueSfx.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
