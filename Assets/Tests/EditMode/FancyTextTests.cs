@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
+using SocratesDialogue;
 
 public static class IListExtensions {
     /// <summary>
