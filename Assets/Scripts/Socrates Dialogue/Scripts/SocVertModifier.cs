@@ -135,8 +135,8 @@ namespace SocratesDialogue {
 
             foreach (var parse in vertexMod.fancyText.GetAnnotationTokens()) {
                 debugParseInfo +=
-                    $"{parse.startCharIndex}-{parse.endCharIndex} Opening: ({parse.opener})\n" +
-                    $"{parse.richTextType} Value: {parse.passedValue}\n";
+                    $"{parse.GetStartCharIndex()}-{parse.GetEndCharIndex()} Opening: ({parse.IsOpener()})\n" +
+                    $"{parse.GetRichTextType()} Value: {parse.GetPassedValue()}\n";
             }
 
             sendInfoTo.text = $"" +
@@ -190,9 +190,9 @@ namespace SocratesDialogue {
                 currentBetweenCharacterDelay = SocraticAnnotation.displayTextDelay;
 
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
-                    if (parse.richTextType == SocraticAnnotation.RichTextType.DELAY) {
-                        if (parse.opener && parse.startCharIndex == counter &&
-                            !parse.executedAction) {
+                    if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY) {
+                        if (parse.IsOpener() && parse.GetStartCharIndex() == counter &&
+                            !parse.HasExecutedAction()) {
                             if (currentSection != null) {
                                 if (currentDialogueSfx != null) {
                                     currentDialogueSfx.Stop();
@@ -205,12 +205,12 @@ namespace SocratesDialogue {
                             }
 
                             currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
-                            parse.executedAction = true;
+                            parse.ExecuteAction();
 
                             OnCharDelay();
                         }
-                        else if (parse.opener && parse.startCharIndex == counter - 1 &&
-                                 parse.executedAction) {
+                        else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
+                                 parse.HasExecutedAction()) {
                             OnPostCharDelay();
                         }
                     }
@@ -355,8 +355,8 @@ namespace SocratesDialogue {
             }
 
             foreach (var parse in fancyText.GetAnnotationTokens()) {
-                if (parse.opener) {
-                    switch (parse.richTextType) {
+                if (parse.IsOpener()) {
+                    switch (parse.GetRichTextType()) {
                         case SocraticAnnotation.RichTextType.WAVE:
                             ApplyRichTextWave(textInfo, vertexPositions, parse, newVertexPositions);
                             break;
@@ -392,7 +392,7 @@ namespace SocratesDialogue {
                 vertexAnim[i].speed = UnityEngine.Random.Range(1f, 3f);
             }
 
-            for (int i = token.startCharIndex; i < token.linkedToken.startCharIndex; i++) {
+            for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
 
                 if (!charInfo.isVisible)
@@ -464,7 +464,7 @@ namespace SocratesDialogue {
                 ? token.GetDynamicValueAsFloat()
                 : SocraticAnnotation.waveSpeed;
 
-            for (int i = token.startCharIndex; i < token.linkedToken.startCharIndex; i++) {
+            for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
                 if (vertexIndex == 0 && i != 0) {

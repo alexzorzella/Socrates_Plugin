@@ -31,8 +31,8 @@ namespace SocratesDialogue {
         void AnnotateByMarkup(int startAt = 0) {
             for (var i = startAt; i < rawText.Length; i++) {
                 if (rawText[i] == SocraticAnnotation.parseStartChar) {
-                    AnnotationToken newToken = new();
-                    newToken.startCharIndex = i;
+                    AnnotationToken.Builder newTokenBuilder = new();
+                    newTokenBuilder.WithStartCharIndex(i);
 
                     var compareProfileTo = "";
                     var dynamicValue = "";
@@ -40,14 +40,14 @@ namespace SocratesDialogue {
 
                     for (var f = i + 1; f < rawText.Length; f++) {
                         if (rawText[f] == SocraticAnnotation.parseEndChar) {
-                            newToken.endCharIndex = f;
+                            newTokenBuilder.WithEndCharIndex(f);
 
                             if (compareProfileTo.Contains(SocraticAnnotation.waveTag))
-                                newToken.richTextType = SocraticAnnotation.RichTextType.WAVE;
+                                newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.WAVE);
                             else if (compareProfileTo.Contains(SocraticAnnotation.delayTag))
-                                newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
+                                newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.DELAY);
                             else if (compareProfileTo.Contains(SocraticAnnotation.shakeTag))
-                                newToken.richTextType = SocraticAnnotation.RichTextType.SHAKE;
+                                newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.SHAKE);
                             else
                                 Debug.LogError($"'{compareProfileTo}' -- Parse section did not have a valid input.");
 
@@ -55,10 +55,14 @@ namespace SocratesDialogue {
 
                             for (var c = i; c < f; c++) contents += rawText[c];
 
-                            if (contents.Contains(SocraticAnnotation.parseClosePairChar)) newToken.opener = false;
+                            if (contents.Contains(SocraticAnnotation.parseClosePairChar)) {
+                                newTokenBuilder.IsCloser();
+                            }
 
-                            if (readingDynamicValue) newToken.passedValue = dynamicValue;
+                            if (readingDynamicValue) newTokenBuilder.WithPassedValue(dynamicValue);
 
+                            AnnotationToken newToken = newTokenBuilder.Build();
+                            
                             annotationTokens.Add(newToken);
 
                             AnnotateByMarkup(f);
@@ -83,7 +87,7 @@ namespace SocratesDialogue {
             List<AnnotationToken> closingTokens = new();
 
             foreach (var token in annotationTokens) {
-                if (token.opener) {
+                if (token.IsOpener()) {
                     openingTokens.Add(token);
                 }
                 else {
@@ -93,9 +97,9 @@ namespace SocratesDialogue {
 
             foreach (var opener in openingTokens) {
                 foreach (var closer in closingTokens) {
-                    if (opener.richTextType == closer.richTextType && closer.linkedToken == null) {
-                        opener.linkedToken = closer;
-                        closer.linkedToken = opener;
+                    if (opener.GetRichTextType() == closer.GetRichTextType() && closer.GetLinkedToken() == null) {
+                        opener.LinkToken(closer);
+                        closer.LinkToken(opener);
                         break;
                     }
                 }
@@ -125,11 +129,10 @@ namespace SocratesDialogue {
             int totalCharactersSnipped = 0;
 
             foreach (var token in annotationTokens) {
-                if (token.startCharIndex != token.endCharIndex) {
-                    token.startCharIndex -= totalCharactersSnipped;
-                    token.endCharIndex -= totalCharactersSnipped;
-                    var start = token.startCharIndex;
-                    var length = token.endCharIndex - token.startCharIndex + 1;
+                if (token.GetStartCharIndex() != token.GetEndCharIndex()) {
+                    token.ShiftCharIndices(totalCharactersSnipped);
+                    var start = token.GetStartCharIndex();
+                    var length = token.GetEndCharIndex() - token.GetStartCharIndex() + 1;
                     cleanedText = cleanedText.Remove(start, length);
                     totalCharactersSnipped += length;
                 }
@@ -182,13 +185,12 @@ namespace SocratesDialogue {
                 int totalOffset = 0;
 
                 foreach (var richTextToken in richTextTokens) {
-                    if (token.startCharIndex > richTextToken.startIndex) {
+                    if (token.GetStartCharIndex() > richTextToken.startIndex) {
                         totalOffset += richTextToken.length + 1;
                     }
                 }
 
-                token.startCharIndex -= totalOffset;
-                token.endCharIndex -= totalOffset;
+                token.ShiftCharIndices(totalOffset);
             }
         }
 
@@ -230,15 +232,22 @@ namespace SocratesDialogue {
                         bool majorDelay = SocraticAnnotation.majorPunctuation.Contains(currentChar);
 
                         if (minorDelay || majorDelay) {
-                            AnnotationToken newToken = new();
+                            AnnotationToken.Builder newTokenBuilder = new();
 
-                            newToken.startCharIndex = i + 1 - invisibleChars;
-                            newToken.endCharIndex = i + 1 - invisibleChars;
-                            newToken.richTextType = SocraticAnnotation.RichTextType.DELAY;
-                            newToken.passedValue = minorDelay
+                            int charIndex = i + 1 - invisibleChars;
+                            
+                            newTokenBuilder.WithStartCharIndex(charIndex);
+                            newTokenBuilder.WithEndCharIndex(charIndex);
+                            newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.DELAY);
+
+                            string passedValue = minorDelay
                                 ? SocraticAnnotation.minorPunctuationDisplayDelay.ToString()
                                 : SocraticAnnotation.majorPunctuationDisplayDelay.ToString();
+                            
+                            newTokenBuilder.WithPassedValue(passedValue);
 
+                            AnnotationToken newToken = newTokenBuilder.Build();
+                            
                             annotationTokens.Add(newToken);
                         }
                     }

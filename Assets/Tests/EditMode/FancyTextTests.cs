@@ -92,13 +92,13 @@ public class FancyTextTests {
         //           $"Opening/closing ct: {openingTokens.Count}/{closingTokens.Count} \n\n");
         
         foreach (var token in fancyText.GetAnnotationTokens()) {
-            if (token.richTextType == SocraticAnnotation.RichTextType.DELAY) {
+            if (token.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY) {
                 continue;
             }
             
-            int actualTokenStartChar = token.startCharIndex;
+            int actualTokenStartChar = token.GetStartCharIndex();
 
-            if (token.opener) {
+            if (token.IsOpener()) {
                 Assert.AreEqual(0, actualTokenStartChar, "Opening token index mismatched");
             } else {
                 Assert.AreEqual(expectedClosingTokenStartCharIndex, actualTokenStartChar, "Closing token index mismatched");
@@ -167,7 +167,7 @@ public class FancyTextTests {
         string actualContent = fancyText.ToString();
         
         Assert.AreEqual(expectedContent, actualContent);
-        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
@@ -180,7 +180,7 @@ public class FancyTextTests {
         string actualContent = fancyText.ToString();
         
         Assert.AreEqual(expectedContent, actualContent);
-        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
@@ -189,7 +189,7 @@ public class FancyTextTests {
 
         int expectedclosingTokenIndex = 11;
         
-        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
@@ -198,7 +198,7 @@ public class FancyTextTests {
 
         int expectedClosingTokenIndex = 11;
         
-        Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
@@ -208,8 +208,8 @@ public class FancyTextTests {
         int expectedOpeningTokenCharIndex = 0;
         int expectedClosingTokenCharIndex = 11;
         
-        int actualOpeningTokenCharIndex = fancyText.GetAnnotationTokens()[0].startCharIndex;
-        int actualClosingTokenCharIndex = fancyText.GetAnnotationTokens()[1].startCharIndex;
+        int actualOpeningTokenCharIndex = fancyText.GetAnnotationTokens()[0].GetStartCharIndex();
+        int actualClosingTokenCharIndex = fancyText.GetAnnotationTokens()[1].GetStartCharIndex();
         
         Assert.AreEqual(expectedOpeningTokenCharIndex, actualOpeningTokenCharIndex);
         Assert.AreEqual(expectedClosingTokenCharIndex, actualClosingTokenCharIndex);
@@ -221,7 +221,7 @@ public class FancyTextTests {
 
         int expectedClosingTokenIndex = 11;
         
-        Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].startCharIndex);
+        Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
@@ -235,10 +235,10 @@ public class FancyTextTests {
         int expT2StartChar = 104;
         int expT3StartChar = 114;
         
-        int actT1StartChar = fancyText.GetAnnotationTokens()[0].startCharIndex;
-        int actT2StartChar = fancyText.GetAnnotationTokens()[1].startCharIndex;
-        int actT3StartChar = fancyText.GetAnnotationTokens()[2].startCharIndex;
-        int actT4StartChar = fancyText.GetAnnotationTokens()[3].startCharIndex;
+        int actT1StartChar = fancyText.GetAnnotationTokens()[0].GetStartCharIndex();
+        int actT2StartChar = fancyText.GetAnnotationTokens()[1].GetStartCharIndex();
+        int actT3StartChar = fancyText.GetAnnotationTokens()[2].GetStartCharIndex();
+        int actT4StartChar = fancyText.GetAnnotationTokens()[3].GetStartCharIndex();
         
         Assert.AreEqual(expT0StartChar, actT1StartChar);
         Assert.AreEqual(expT1StartChar, actT2StartChar);
