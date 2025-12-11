@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public interface ZFacet {
-    
+namespace NewSocratesDialogue {
+    public interface ZFacet { }
 }
 
 namespace NewSocratesDialogue {
@@ -56,11 +56,11 @@ namespace NewSocratesDialogue {
         public string GetSpeaker() {
             return speakerName;
         }
-
+    
         public string GetContent() {
             return content;
         }
-
+    
         public string GetSound() {
             return sound;
         }
