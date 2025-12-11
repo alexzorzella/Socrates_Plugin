@@ -1,4 +1,4 @@
-﻿namespace NewSocratesDialogue {
+﻿namespace SocratesDialogue {
     public static class SocraticAnnotation {
         public enum RichTextType {
             WAVE,

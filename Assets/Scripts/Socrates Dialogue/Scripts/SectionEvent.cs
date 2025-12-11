@@ -1,6 +1,6 @@
 using System;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class SectionEvent : ZFacet {
         readonly Action action;
         readonly bool onStart;

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public interface ZFacet { }
 }
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class DialogueSection {
         readonly string speakerName;
         readonly string content;

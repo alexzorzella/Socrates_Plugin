@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class FancyText {
         readonly string rawText;
         string cleanedText; // TODO: Make this readonly

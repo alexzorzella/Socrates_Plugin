@@ -1,4 +1,4 @@
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public interface DialogueListener {
         void OnDialogueBegun();
         void OnSectionChanged(DialogueSection section);

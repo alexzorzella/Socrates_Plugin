@@ -1,4 +1,4 @@
-using NewSocratesDialogue;
+using SocratesDialogue;
 using UnityEngine;
 
 public class DialoguePanel : MonoBehaviour, DialogueListener {

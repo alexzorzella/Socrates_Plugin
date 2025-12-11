@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NewSocratesDialogue;
+using SocratesDialogue;
 using UnityEngine;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public static class DialogueParser {
         const string defaultDialogueSound = "dialogue";
 

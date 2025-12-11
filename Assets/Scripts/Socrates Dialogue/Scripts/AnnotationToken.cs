@@ -1,4 +1,4 @@
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class AnnotationToken {
         public string passedValue = "";
         public int startCharIndex = -1;

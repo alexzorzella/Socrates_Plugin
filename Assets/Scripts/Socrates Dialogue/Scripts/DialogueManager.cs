@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class DialogueManager : MonoBehaviour {
         static DialogueManager _i;
         

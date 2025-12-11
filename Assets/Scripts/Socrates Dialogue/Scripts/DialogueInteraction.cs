@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using NewSocratesDialogue;
+using SocratesDialogue;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

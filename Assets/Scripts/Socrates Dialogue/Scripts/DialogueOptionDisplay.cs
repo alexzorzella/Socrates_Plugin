@@ -1,4 +1,4 @@
-﻿using NewSocratesDialogue;
+﻿using SocratesDialogue;
 using TMPro;
 using UnityEngine;
 

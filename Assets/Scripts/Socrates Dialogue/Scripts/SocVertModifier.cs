@@ -2,7 +2,7 @@
 using TMPro;
 using System.Collections.Generic;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class SocVertModifier : MonoBehaviour {
         FancyText fancyText;

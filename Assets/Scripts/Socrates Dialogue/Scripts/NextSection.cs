@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class NextSection : ZFacet {
         readonly List<DialogueSection> choices;
 
