@@ -19,33 +19,13 @@ namespace SocratesDialogue {
         DialogueSection currentSection;
 
         bool muted;
-        static Dictionary<string, MultiAudioSource> dialogueSfx = new();
+        static readonly Dictionary<string, MultiAudioSource> dialogueSfx = new();
         static MultiAudioSource currentDialogueSfx = null;
 
         float startedDisplayingLast = 0;
         const float scrollTime = 0.1F;
         const float minOffsetY = -12;
         
-        /// <summary>
-        /// Sets the sound effect that plays when a new character is revealed.
-        /// </summary>
-        /// <param name="soundName"></param>
-        public void SetDialogueSfx(string soundName) {
-            if (!dialogueSfx.ContainsKey(soundName)) {
-                dialogueSfx.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
-            }
-
-            currentDialogueSfx = dialogueSfx[soundName];
-        }
-
-        public void StopDialogueSfx() {
-            currentDialogueSfx.Stop();
-        }
-
-        TextMeshProUGUI TextComponent() {
-            return textComponent;
-        }
-
         void Awake() {
             GetComponents();
         }
@@ -57,6 +37,18 @@ namespace SocratesDialogue {
             textComponent = GetComponent<TextMeshProUGUI>();
         }
 
+        /// <summary>
+        /// Sets the sound effect that plays when a new character is revealed.
+        /// </summary>
+        /// <param name="soundName"></param>
+        public void SetDialogueSfx(string soundName) {
+            if (!dialogueSfx.ContainsKey(soundName)) {
+                dialogueSfx.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
+            }
+
+            currentDialogueSfx = dialogueSfx[soundName];
+        }
+        
         /// <summary>
         /// Returns whether all the text has been displayed. Only returns true if there's visible text in the text element.
         /// </summary>
