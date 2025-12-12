@@ -20,6 +20,10 @@ namespace SocratesDialogue {
         static Dictionary<string, MultiAudioSource> dialogueSfx = new();
         static MultiAudioSource currentDialogueSfx = null;
 
+        float startedDisplayingLast = 0;
+        const float scrollSpeed = 0.2F;
+        const float scrollMin = -10;
+        
         /// <summary>
         /// Sets the sound effect that plays when a new character is revealed.
         /// </summary>
@@ -107,6 +111,8 @@ namespace SocratesDialogue {
                 
                 counter = textComponent.maxVisibleCharacters;
             }
+
+            startedDisplayingLast = Time.timeSinceLevelLoad;
         }
         
         /// <summary>
@@ -278,7 +284,7 @@ namespace SocratesDialogue {
 
             Vector3[] newVertexPositions = GetMaterialAtZero(textInfo).vertices;
 
-            ScrollInFromY(textInfo, newVertexPositions);
+            // ScrollInFromY(textInfo, newVertexPositions, startedDisplayingLast);
 
             ApplyRichText(textComponent, textInfo, newVertexPositions);
 
@@ -317,9 +323,39 @@ namespace SocratesDialogue {
         /// <param name="vertexMod"></param>
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
-        static void ScrollInFromY(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
+        static void ScrollInFromY(
+            TMP_TextInfo textInfo,
+            Vector3[] vertexPositionsReadFrom,
+            Vector3[] vertexPositionsWriteTo,
+            float startedDisplayingLast,
+            FancyText fancyText) {
             //Under construction
+            
+            for (int i = 0; i < textInfo.characterInfo.Length; i++) {
+                int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
+                if (vertexIndex == 0 && i != 0) {
+                    //Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
+                    continue;
+                }
+
+                float timeSinceStartedDisplay = 
+                    (Time.timeSinceLevelLoad - startedDisplayingLast) + i * SocraticAnnotation.displayTextDelay;
+                float offsetY = 
+                    LeanTween.easeInExpo(scrollMin, 0, Mathf.Clamp(timeSinceStartedDisplay / scrollSpeed, 0, 1));
+
+                vertexPositionsWriteTo[vertexIndex + 0].y = vertexPositionsReadFrom[vertexIndex + 0].y + offsetY;
+                vertexPositionsWriteTo[vertexIndex + 1].y = vertexPositionsReadFrom[vertexIndex + 1].y + offsetY;
+
+                vertexPositionsWriteTo[vertexIndex + 2].y = vertexPositionsReadFrom[vertexIndex + 2].y + offsetY;
+                vertexPositionsWriteTo[vertexIndex + 3].y = vertexPositionsReadFrom[vertexIndex + 3].y + offsetY;
+            }
+            
+            for (int i = 0; i < textInfo.meshInfo.Length; i++) {
+                textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
+                textInfo.textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
+            }
+            
             //Under construction
         }
 
@@ -331,6 +367,8 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
+            ScrollInFromY(textInfo, vertexPositions, newVertexPositions, startedDisplayingLast, fancyText);
+            
             if (fancyText.GetAnnotationTokens() == null) {
                 return;
             }
