@@ -285,9 +285,7 @@ namespace SocratesDialogue {
 
             Vector3[] newVertexPositions = GetMaterialAtZero(textInfo).vertices;
 
-            // ScrollInFromY(textInfo, newVertexPositions, startedDisplayingLast);
-
-            ApplyRichText(textComponent, textInfo, newVertexPositions);
+            ApplyRichText(textInfo, newVertexPositions);
 
             int start = counter - 15; // Why 15?
 
@@ -371,23 +369,12 @@ namespace SocratesDialogue {
                     continue;
                 }
 
-                // textComponent.ForceMeshUpdate();
-                int meshIndex = textInfo.characterInfo[i].materialReferenceIndex;
-                
                 // Update the positions of all four vertices
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
                     vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + offsetY;
                 }
             }
-            
-            // for (int i = 0; i < textInfo.meshInfo.Length; i++) {
-            //     TMP_MeshInfo meshInfo = textInfo.meshInfo[i];
-            //
-            //     meshInfo.mesh.vertices = meshInfo.vertices;
-            //     
-            //     textInfo.textComponent.UpdateGeometry(meshInfo.mesh, i);
-            // }
         }
 
         /// <summary>
@@ -397,7 +384,7 @@ namespace SocratesDialogue {
         /// <param name="vertexMod"></param>
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
-        void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
+        void ApplyRichText(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
             ScrollInFromY(textInfo, vertexPositions, newVertexPositions);
             
             if (fancyText.GetAnnotationTokens() != null) {
@@ -405,10 +392,10 @@ namespace SocratesDialogue {
                     if (parse.IsOpener()) {
                         switch (parse.GetRichTextType()) {
                             case SocraticAnnotation.RichTextType.WAVE:
-                                ApplyRichTextWave(textInfo, vertexPositions, parse, newVertexPositions);
+                                ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                                 break;
                             case SocraticAnnotation.RichTextType.SHAKE:
-                                ApplyRichTextShake(vertexPositions, parse, newVertexPositions);
+                                ApplyRichTextShake(parse, vertexPositions, newVertexPositions);
                                 break;
                         }
                     }
@@ -429,8 +416,10 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
-        void ApplyRichTextShake(Vector3[] vertexPositionsReadFrom,
-            AnnotationToken token, Vector3[] vertexPositionsWriteTo) {
+        void ApplyRichTextShake(
+            AnnotationToken token, 
+            Vector3[] vertexPositionsReadFrom, 
+            Vector3[] vertexPositionsWriteTo) {
             TMP_TextInfo textInfo = textComponent.textInfo;
 
             VertexAnim[] vertexAnim = new VertexAnim[1024];
@@ -508,8 +497,8 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsWriteTo"></param>
         void ApplyRichTextWave(
             TMP_TextInfo textInfo, 
-            Vector3[] vertexPositionsReadFrom,
             AnnotationToken token,
+            Vector3[] vertexPositionsReadFrom,
             Vector3[] vertexPositionsWriteTo) {
             float wave_speed = token.ContainsDynamicValue()
                 ? token.GetDynamicValueAsFloat()
