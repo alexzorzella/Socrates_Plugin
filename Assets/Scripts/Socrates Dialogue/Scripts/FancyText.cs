@@ -257,8 +257,8 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Returns the time it would take for character at a passed index to be revealed given
-        /// the character and annotated text delays.
+        /// Returns the timestamp that a character will or was revealed, accounting for
+        /// the display time per character and delay annotations.
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -267,7 +267,7 @@ namespace SocratesDialogue {
 
             foreach (var token in annotationTokens) {
                 if (token.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY &&
-                    token.GetStartCharIndex() < index) {
+                    token.GetStartCharIndex() <= index) {
                     result += token.GetDynamicValueAsFloat();
                 }
             }

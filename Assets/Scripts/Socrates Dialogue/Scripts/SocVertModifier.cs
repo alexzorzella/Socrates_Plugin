@@ -352,17 +352,17 @@ namespace SocratesDialogue {
                 float timeSinceDialogueStarted = Time.timeSinceLevelLoad - startedDisplayingLast;
                 
                 // Cache the time that a character would first be displayed
-                float charDisplayTime = fancyText.GetCharDisplayTime(i);
+                float charDisplayTimestamp = fancyText.GetCharDisplayTime(i);
                 
                 // Break if the time since the dialogue started has not reached that time yet.
                 // This is safe because no other character after this one can be revealed
                 // before this one is.
-                if (timeSinceDialogueStarted < charDisplayTime) {
+                if (timeSinceDialogueStarted < charDisplayTimestamp) {
                     break;
                 }
                 
                 // Calculate how long the character has been displayed so far
-                float timeCharHasBeenDisplayed = timeSinceDialogueStarted - charDisplayTime;
+                float timeCharHasBeenDisplayed = timeSinceDialogueStarted - charDisplayTimestamp;
                 
                 // Calculate the percentage of the way the character is supposed to be
                 float percentageOfPathMoved = timeCharHasBeenDisplayed / scrollTime;
