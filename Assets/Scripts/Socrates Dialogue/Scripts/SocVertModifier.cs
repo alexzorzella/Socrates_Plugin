@@ -157,15 +157,8 @@ namespace SocratesDialogue {
                 counter++;
 
                 if (!muted) {
-                    if (currentSection != null) {
-                        if (currentDialogueSfx != null) {
-                            currentDialogueSfx.PlayOnlyIfDone();
-                        }
-                    }
-                    else {
-                        if (currentDialogueSfx != null) {
-                            currentDialogueSfx.PlayOnlyIfDone();
-                        }
+                    if (currentDialogueSfx != null) {
+                        currentDialogueSfx.PlayOnlyIfDone();
                     }
                 }
 
@@ -175,15 +168,8 @@ namespace SocratesDialogue {
                     if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY) {
                         if (parse.IsOpener() && parse.GetStartCharIndex() == counter &&
                             !parse.HasExecutedAction()) {
-                            if (currentSection != null) {
-                                if (currentDialogueSfx != null) {
-                                    currentDialogueSfx.Stop();
-                                }
-                            }
-                            else {
-                                if (currentDialogueSfx != null) {
-                                    currentDialogueSfx.Stop();
-                                }
+                            if (currentDialogueSfx != null) {
+                                currentDialogueSfx.Stop();
                             }
 
                             currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
