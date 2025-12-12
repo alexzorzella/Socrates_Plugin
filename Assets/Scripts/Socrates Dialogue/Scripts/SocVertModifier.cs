@@ -326,12 +326,13 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsWriteTo"></param>
         /// <param name="startedDisplayingLast"></param>
         /// <param name="fancyText"></param>
-        void ScrollInFromY() {
+        void ScrollInFromY(
+            TMP_TextInfo textInfo, 
+            Vector3[] vertexPositionsReadFrom,
+            Vector3[] vertexPositionsWriteTo) {
             if (counter >= textComponent.maxVisibleCharacters) {
                 return;
             }
-
-            TMP_TextInfo textInfo = textComponent.textInfo;
             
             for (int i = 0; i < textInfo.characterInfo.Length; i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -376,17 +377,17 @@ namespace SocratesDialogue {
                 // Update the positions of all four vertices
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
-                    textInfo.meshInfo[meshIndex].vertices[absVertexIndex].y = vertexPositions[absVertexIndex].y + offsetY;
+                    vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + offsetY;
                 }
             }
             
-            for (int i = 0; i < textInfo.meshInfo.Length; i++) {
-                TMP_MeshInfo meshInfo = textInfo.meshInfo[i];
-            
-                meshInfo.mesh.vertices = meshInfo.vertices;
-                
-                textInfo.textComponent.UpdateGeometry(meshInfo.mesh, i);
-            }
+            // for (int i = 0; i < textInfo.meshInfo.Length; i++) {
+            //     TMP_MeshInfo meshInfo = textInfo.meshInfo[i];
+            //
+            //     meshInfo.mesh.vertices = meshInfo.vertices;
+            //     
+            //     textInfo.textComponent.UpdateGeometry(meshInfo.mesh, i);
+            // }
         }
 
         /// <summary>
@@ -397,7 +398,7 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-            ScrollInFromY();
+            ScrollInFromY(textInfo, vertexPositions, newVertexPositions);
             
             if (fancyText.GetAnnotationTokens() != null) {
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
