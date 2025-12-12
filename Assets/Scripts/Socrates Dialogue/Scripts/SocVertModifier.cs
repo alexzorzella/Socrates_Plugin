@@ -319,7 +319,7 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Makes the characters come from below with a log function.
+        /// Makes the characters come from below. Still under construction.
         /// </summary>
         /// <param name="textInfo"></param>
         /// <param name="vertexPositionsReadFrom"></param>
@@ -332,8 +332,6 @@ namespace SocratesDialogue {
             }
 
             TMP_TextInfo textInfo = textComponent.textInfo;
-            
-            //Under construction
             
             for (int i = 0; i < textInfo.characterInfo.Length; i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -389,8 +387,6 @@ namespace SocratesDialogue {
                 
                 textInfo.textComponent.UpdateGeometry(meshInfo.mesh, i);
             }
-            
-            //Under construction
         }
 
         /// <summary>
@@ -509,8 +505,11 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
-        void ApplyRichTextWave(TMP_TextInfo textInfo, Vector3[] vertexPositionsReadFrom,
-            AnnotationToken token, Vector3[] vertexPositionsWriteTo) {
+        void ApplyRichTextWave(
+            TMP_TextInfo textInfo, 
+            Vector3[] vertexPositionsReadFrom,
+            AnnotationToken token,
+            Vector3[] vertexPositionsWriteTo) {
             float wave_speed = token.ContainsDynamicValue()
                 ? token.GetDynamicValueAsFloat()
                 : SocraticAnnotation.waveSpeed;
