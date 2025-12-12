@@ -445,9 +445,9 @@ namespace SocratesDialogue {
 
                 Vector3[] sourceVertices = vertexPositionsReadFrom;
 
-                Vector2 charMidBasline = (sourceVertices[vertexIndex + 0] + sourceVertices[vertexIndex + 2]) / 2;
+                Vector2 charMidBaseline = (sourceVertices[vertexIndex + 0] + sourceVertices[vertexIndex + 2]) / 2;
 
-                Vector3 offset = charMidBasline;
+                Vector3 offset = charMidBaseline;
 
                 Vector3[] destinationVertices = textInfo.meshInfo[materialIndex].vertices;
 
@@ -456,16 +456,16 @@ namespace SocratesDialogue {
                 vertexPositionsWriteTo[vertexIndex + 2] = sourceVertices[vertexIndex + 2] - offset;
                 vertexPositionsWriteTo[vertexIndex + 3] = sourceVertices[vertexIndex + 3] - offset;
 
-                float AngleMultiplier = 1.0F; //how much it rotates
-                float CurveScale = token.GetDynamicValueAsFloat(); //noticability
-                float loopCount = 1.0F; //don't know
+                float angleMultiplier = 1.0F; // How much it rotates
+                float curveScale = token.GetDynamicValueAsFloat(); // Noticeability
+                float loopCount = 1.0F; // Don't know
 
                 vertAnim.angle = Mathf.SmoothStep(-vertAnim.angleRange, vertAnim.angleRange,
                     Mathf.PingPong(loopCount / 25f * vertAnim.speed, 1f));
-                Vector3 jitterOffset = new Vector3(UnityEngine.Random.Range(-.25f, .25f),
-                    UnityEngine.Random.Range(-.25f, .25f), 0);
-                Matrix4x4 matrix = Matrix4x4.TRS(jitterOffset * CurveScale,
-                    Quaternion.Euler(0, 0, UnityEngine.Random.Range(-5f, 5f) * AngleMultiplier), Vector3.one);
+                Vector3 jitterOffset = new Vector3(Random.Range(-.25f, .25f),
+                    Random.Range(-.25f, .25f), 0);
+                Matrix4x4 matrix = Matrix4x4.TRS(jitterOffset * curveScale,
+                    Quaternion.Euler(0, 0, Random.Range(-5f, 5f) * angleMultiplier), Vector3.one);
 
                 vertexPositionsWriteTo[vertexIndex + 0] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 0]);
                 vertexPositionsWriteTo[vertexIndex + 1] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 1]);
@@ -496,7 +496,7 @@ namespace SocratesDialogue {
             AnnotationToken token,
             Vector3[] vertexPositionsReadFrom,
             Vector3[] vertexPositionsWriteTo) {
-            float wave_speed = token.ContainsDynamicValue()
+            float waveSpeed = token.ContainsDynamicValue()
                 ? token.GetDynamicValueAsFloat()
                 : SocraticAnnotation.waveSpeed;
 
@@ -512,11 +512,11 @@ namespace SocratesDialogue {
                 float rightVerticesXPos = vertexPositionsReadFrom[vertexIndex + 2].x;
 
                 float leftOffsetY = Mathf.Sin(
-                    Time.timeSinceLevelLoad * wave_speed +
+                    Time.timeSinceLevelLoad * waveSpeed +
                     leftVerticesXPos * SocraticAnnotation.waveFreqMultiplier) * SocraticAnnotation.waveAmplitude;
 
                 float rightOffsetY = SocraticAnnotation.waveWarpTextVertices
-                    ? Mathf.Sin(Time.timeSinceLevelLoad * wave_speed +
+                    ? Mathf.Sin(Time.timeSinceLevelLoad * waveSpeed +
                                 rightVerticesXPos * SocraticAnnotation.waveFreqMultiplier) *
                       SocraticAnnotation.waveAmplitude
                     : leftOffsetY;
