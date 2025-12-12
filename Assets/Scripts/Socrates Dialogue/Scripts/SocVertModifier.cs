@@ -147,6 +147,12 @@ namespace SocratesDialogue {
             if (currentBetweenCharacterDelay <= 0) {
                 counter++;
 
+                // float actualTime = Time.timeSinceLevelLoad;
+                // float expectedTime = fancyText.GetCharDisplayTime(counter);
+                // float percentError = ((expectedTime - actualTime) / actualTime) * 100;
+                //
+                // Debug.Log(percentError);
+                
                 if (!muted) {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.PlayOnlyIfDone();
