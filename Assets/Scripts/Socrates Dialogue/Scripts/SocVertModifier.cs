@@ -22,7 +22,7 @@ namespace SocratesDialogue {
 
         float startedDisplayingLast = 0;
         const float scrollTime = 0.1F;
-        const float minOffsetY = -10;
+        const float minOffsetY = -12;
         
         /// <summary>
         /// Sets the sound effect that plays when a new character is revealed.
@@ -362,7 +362,7 @@ namespace SocratesDialogue {
                 
                 // Calculate the offset relative to the character's origin that it needs to be
                 // using an easing function
-                float offsetY = LeanTween.linear(minOffsetY, 0, Mathf.Clamp(percentageOfPathMoved, 0, 1));
+                float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, Mathf.Clamp(percentageOfPathMoved, 0, 1));
 
                 // If the percentage is greater than one, there's no need to update its position
                 if (percentageOfPathMoved > 1) {
@@ -391,7 +391,7 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-            if (counter < totalVisibleCharacters) {
+            if (counter < textComponent.maxVisibleCharacters) {
                 ScrollInFromY(textInfo, vertexPositions, newVertexPositions, startedDisplayingLast, fancyText);
             }
             
