@@ -139,12 +139,7 @@ namespace SocratesDialogue {
         /// </summary>
         void IncrementCharCounter() {
             if (counter >= totalVisibleCharacters) {
-                if (currentSection != null && !muted) {
-                    if (currentDialogueSfx != null) {
-                        currentDialogueSfx.Stop();
-                    }
-                }
-                else if (!muted) {
+                if (!muted) {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.Stop();
                     }
