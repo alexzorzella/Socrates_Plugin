@@ -402,20 +402,18 @@ namespace SocratesDialogue {
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
             ScrollInFromY();
-
-            if (fancyText.GetAnnotationTokens() == null) {
-                return;
-            }
-
-            foreach (var parse in fancyText.GetAnnotationTokens()) {
-                if (parse.IsOpener()) {
-                    switch (parse.GetRichTextType()) {
-                        case SocraticAnnotation.RichTextType.WAVE:
-                            ApplyRichTextWave(textInfo, vertexPositions, parse, newVertexPositions);
-                            break;
-                        case SocraticAnnotation.RichTextType.SHAKE:
-                            ApplyRichTextShake(vertexPositions, parse, newVertexPositions);
-                            break;
+            
+            if (fancyText.GetAnnotationTokens() != null) {
+                foreach (var parse in fancyText.GetAnnotationTokens()) {
+                    if (parse.IsOpener()) {
+                        switch (parse.GetRichTextType()) {
+                            case SocraticAnnotation.RichTextType.WAVE:
+                                ApplyRichTextWave(textInfo, vertexPositions, parse, newVertexPositions);
+                                break;
+                            case SocraticAnnotation.RichTextType.SHAKE:
+                                ApplyRichTextShake(vertexPositions, parse, newVertexPositions);
+                                break;
+                        }
                     }
                 }
             }
