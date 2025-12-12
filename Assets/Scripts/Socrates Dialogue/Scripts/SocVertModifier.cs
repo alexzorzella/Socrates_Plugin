@@ -364,8 +364,8 @@ namespace SocratesDialogue {
                 
                 // Calculate the offset relative to the character's origin that it needs to be
                 // using an easing function
-                // float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
-                float offsetY = minOffsetY * (1 - percentageOfPathMoved);
+                float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
+                // float offsetY = minOffsetY * (1 - percentageOfPathMoved);
                 
                 // If the percentage is greater than one, there's no need to update its position
                 if (percentageOfPathMoved > 1) {
