@@ -2,6 +2,7 @@
 using TMPro;
 using System.Collections.Generic;
 using Codice.CM.Common.Tree.Partial;
+using log4net.DateFormatter;
 
 namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
@@ -94,11 +95,9 @@ namespace SocratesDialogue {
             totalVisibleCharacters = textComponent.textInfo.characterCount;
 
             for (var i = 0; i < totalVisibleCharacters; i++) {
-                SetColor(
-                    textComponent, 
-                    i, 
-                    OverrideAlpha(GetColorOfTopLeft(textComponent, i), true), 
-                    i);
+                SetCharColor(
+                    textComponent, i, 
+                    OverrideAlpha(GetColorOfTopLeft(textComponent, i), true));
             }
 
             textComponent.color = new Color(color.r, color.g, color.b, 0);
@@ -165,7 +164,7 @@ namespace SocratesDialogue {
                 // Reset the current delay
                 currentBetweenCharacterDelay = SocraticAnnotation.displayDelayPerChar;
 
-                // Execute any unexecuted 
+                // Executed unexecuted delays
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     bool isDelay = parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY;
                     
@@ -226,19 +225,20 @@ namespace SocratesDialogue {
         /// <param name="charIndex"></param>
         /// <param name="color"></param>
         /// <param name="i"></param>
-        void SetColor(TextMeshProUGUI textComponent, int charIndex, Color32 color, int i) {
+        void SetCharColor(TextMeshProUGUI textComponent, int charIndex, Color32 color) {
             int meshIndex = textComponent.textInfo.characterInfo[charIndex].materialReferenceIndex;
             int vertexIndex = textComponent.textInfo.characterInfo[charIndex].vertexIndex;
 
-            if (vertexIndex == 0 && i != 0) {
+            if (!textComponent.textInfo.characterInfo[charIndex].isVisible) {
                 return;
             }
 
             Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
-            vertexColors[vertexIndex + 0] = color;
-            vertexColors[vertexIndex + 1] = color;
-            vertexColors[vertexIndex + 2] = color;
-            vertexColors[vertexIndex + 3] = color;
+
+            for (int v = 0; v < 4; v++) {
+                int absVertexIndex = vertexIndex + v;
+                vertexColors[absVertexIndex] = color;
+            }
 
             textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
         }
@@ -284,10 +284,8 @@ namespace SocratesDialogue {
 
             if (counter <= totalVisibleCharacters) {
                 for (int i = start; i < counter; i++) {
-                    SetColor(textComponent, 
-                        i, 
-                        OverrideAlpha(GetColorOfTopLeft(textComponent, i), false), 
-                        i);
+                    SetCharColor(textComponent, i, 
+                        OverrideAlpha(GetColorOfTopLeft(textComponent, i), false));
                 }
             }
 
