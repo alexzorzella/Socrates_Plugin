@@ -22,17 +22,44 @@ namespace SocratesDialogue {
             this.isOpener = isOpener;
         }
 
-        public string GetPassedValue() { return passedValue; }
-        public int GetStartCharIndex() { return startCharIndex; }
-
+        /// <summary>
+        /// Shifts the start and end character indices back by the passed value.
+        /// </summary>
+        /// <param name="by"></param>
         public void ShiftCharIndices(int by) {
             startCharIndex -= by;
             endCharIndex -= by;
         }
-        
-        public int GetEndCharIndex() { return endCharIndex; }
 
-        public void LinkToken(AnnotationToken linkedToken) { this.linkedToken = linkedToken; }
+        /// <summary>
+        /// Links this token to the passed token.
+        /// </summary>
+        /// <param name="linkedToken"></param>
+        public void LinkToken(AnnotationToken linkedToken) {
+            this.linkedToken = linkedToken;
+        }
+        
+        /// <summary>
+        /// Returns whether the annotation has a dynamic value cached.
+        /// </summary>
+        /// <returns></returns>
+        public bool ContainsDynamicValue() {
+            return !string.IsNullOrEmpty(passedValue);
+        }
+
+        /// <summary>
+        /// Returns the dynamic value as a float.
+        /// </summary>
+        /// <returns></returns>
+        public float GetDynamicValueAsFloat() {
+            float result = 0;
+            result = float.Parse(passedValue);
+            return result;
+        }
+        
+        public string GetPassedValue() { return passedValue; }
+        public int GetStartCharIndex() { return startCharIndex; }
+        public int GetEndCharIndex() { return endCharIndex; }
         
         public AnnotationToken GetLinkedToken() { return linkedToken; }
         public bool IsOpener() { return isOpener; }
@@ -40,16 +67,6 @@ namespace SocratesDialogue {
 
         public bool HasExecutedAction() { return hasExecutedAction; }
         public void ExecuteAction() { hasExecutedAction = true; }
-        
-        public bool ContainsDynamicValue() {
-            return !string.IsNullOrEmpty(passedValue);
-        }
-
-        public float GetDynamicValueAsFloat() {
-            float result = 0;
-            result = float.Parse(passedValue);
-            return result;
-        }
 
         public class Builder {
             string passedValue = "";

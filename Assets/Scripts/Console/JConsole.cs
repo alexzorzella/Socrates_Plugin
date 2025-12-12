@@ -5,7 +5,6 @@ using SocratesDialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-// using static DialogueSuperclass;
 
 public class JConsole : MonoBehaviour {
     static JConsole _i;
@@ -18,7 +17,6 @@ public class JConsole : MonoBehaviour {
 
     public TextMeshProUGUI autocompleteOptionsText;
 
-    // RectTransform autocompleteOptionsRect;
     public RectTransform autocompleteBackgroundRect;
 
     public int selectedAutocompleteOption;
