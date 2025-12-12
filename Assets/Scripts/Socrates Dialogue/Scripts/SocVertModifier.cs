@@ -137,7 +137,6 @@ namespace SocratesDialogue {
         /// is displayed, executes parse actions that it's at or has passed that haven't been
         /// executed yet, and handles the state of the dialogue audio.
         /// </summary>
-        /// <param name="vertexModifier"></param>
         void IncrementCharCounter() {
             if (counter >= totalVisibleCharacters) {
                 if (currentSection != null && !muted) {
@@ -278,8 +277,6 @@ namespace SocratesDialogue {
         /// <summary>
         /// Manages the visible characters and calls the rich text to be updated.
         /// </summary>
-        /// <param name="textComponent"></param>
-        /// <param name="vertexMod"></param>
         void UpdateTextEmbellishes() {
             TMP_TextInfo textInfo = textComponent.textInfo;
 
@@ -322,8 +319,6 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="vertexPositionsWriteTo"></param>
-        /// <param name="startedDisplayingLast"></param>
-        /// <param name="fancyText"></param>
         void ScrollInFromY(
             TMP_TextInfo textInfo, 
             Vector3[] vertexPositionsReadFrom,
@@ -383,8 +378,6 @@ namespace SocratesDialogue {
         /// <summary>
         /// Applies the rich text based on what the parse means.
         /// </summary>
-        /// <param name="textComponent"></param>
-        /// <param name="vertexMod"></param>
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
@@ -415,8 +408,8 @@ namespace SocratesDialogue {
         /// <summary>
         /// Courtesy of TextMeshPro: I don't know much about this, but I know it works.
         /// </summary>
-        /// <param name="textComponent"></param>
         /// <param name="vertexPositionsReadFrom"></param>
+        /// <param name="textInfo"></param>
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
         void ApplyRichTextShake(
