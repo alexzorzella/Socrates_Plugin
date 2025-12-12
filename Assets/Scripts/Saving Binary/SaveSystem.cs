@@ -3,11 +3,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public static class SaveSystem {
-    static string Path(string specificPath) {
-        var path = Application.persistentDataPath + $"/{specificPath}.save";
-        return path;
-    }
-
     public static void SavePlayer(GameStats stats) {
         var formatter = new BinaryFormatter();
 
@@ -22,14 +17,19 @@ public static class SaveSystem {
         stream.Close();
     }
 
-    public static bool FileExists(string specificFile) {
-        return File.Exists(Path(specificFile));
+    static string Path(string specificPath) {
+        var path = Application.persistentDataPath + $"/{specificPath}.save";
+        return path;
+    }
+    
+    static bool FileExists(string filename) {
+        return File.Exists(Path(filename));
     }
 
-    public static PlayerData LoadSave(string path) {
-        if (File.Exists(Path(path))) {
+    public static PlayerData LoadSave(string filename) {
+        if (FileExists(filename)) {
             var formatter = new BinaryFormatter();
-            var stream = new FileStream(Path(path), FileMode.Open);
+            var stream = new FileStream(Path(filename), FileMode.Open);
 
             var data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
@@ -37,14 +37,15 @@ public static class SaveSystem {
             return data;
         }
 
-        Debug.LogWarning($"Save file not found in {Path(path)}.");
+        Debug.LogWarning($"Save file not found in {Path(filename)}.");
         return null;
     }
     
-    public static void DeleteSave(string name) {
-        if (File.Exists(Path(name)))
-            File.Delete(Path(name));
-        else
-            Debug.LogError($"Tried to delete file in {Path(name)}.");
+    public static void DeleteSave(string filename) {
+        if (File.Exists(Path(filename))) {
+            File.Delete(Path(filename));
+        } else {
+            Debug.LogError($"Tried to delete file in {Path(filename)}.");
+        }
     }
 }
