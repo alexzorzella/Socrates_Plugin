@@ -138,6 +138,8 @@ namespace SocratesDialogue {
         /// executed yet, and handles the state of the dialogue audio.
         /// </summary>
         void IncrementCharCounter() {
+            // Return if the counter has exceeded the maximum number of characters after
+            // muting the current sound effect, if one exists 
             if (counter >= totalVisibleCharacters) {
                 if (!muted) {
                     if (currentDialogueSfx != null) {
@@ -148,6 +150,9 @@ namespace SocratesDialogue {
                 return;
             }
 
+            // If the current delay between characters is less than or equal to zero,
+            // the number of visible characters is increased, the sound effect is played
+            // if it's not already
             if (currentBetweenCharacterDelay <= 0) {
                 counter++;
 
@@ -157,12 +162,20 @@ namespace SocratesDialogue {
                     }
                 }
 
+                // Reset the current delay
                 currentBetweenCharacterDelay = SocraticAnnotation.displayDelayPerChar;
 
+                // Execute any unexecuted 
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
-                    if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY) {
-                        if (parse.IsOpener() && parse.GetStartCharIndex() == counter &&
-                            !parse.HasExecutedAction()) {
+                    bool isDelay = parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY;
+                    
+                    if (isDelay) {
+                        bool isUnexecutedAction = 
+                            parse.IsOpener() && 
+                            parse.GetStartCharIndex() <= counter &&
+                            !parse.HasExecutedAction();
+                        
+                        if (isUnexecutedAction) {
                             if (currentDialogueSfx != null) {
                                 currentDialogueSfx.Stop();
                             }
