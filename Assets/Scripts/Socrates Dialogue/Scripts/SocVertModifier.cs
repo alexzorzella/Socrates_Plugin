@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using Codice.CM.Common.Tree.Partial;
 
 namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
@@ -325,18 +326,19 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsWriteTo"></param>
         /// <param name="startedDisplayingLast"></param>
         /// <param name="fancyText"></param>
-        static void ScrollInFromY(
-            TMP_TextInfo textInfo,
-            Vector3[] vertexPositionsReadFrom,
-            Vector3[] vertexPositionsWriteTo,
-            float startedDisplayingLast,
-            FancyText fancyText) {
+        void ScrollInFromY() {
+            if (counter >= textComponent.maxVisibleCharacters) {
+                return;
+            }
+
+            TMP_TextInfo textInfo = textComponent.textInfo;
+            
             //Under construction
             
             for (int i = 0; i < textInfo.characterInfo.Length; i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
-
-                if (vertexIndex == 0 && i != 0) {
+                
+                if (!textInfo.characterInfo[i].isVisible) {
                     //Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
                     continue;
                 }
@@ -347,9 +349,9 @@ namespace SocratesDialogue {
                 // Cache the time that a character would first be displayed
                 float charDisplayTime = fancyText.GetCharDisplayTime(i);
                 
-                // Break if the time since the dialogue started has not reached that time yet.
-                // This is safe because no other character after this one can be revealed
-                // before this one is.
+                // // Break if the time since the dialogue started has not reached that time yet.
+                // // This is safe because no other character after this one can be revealed
+                // // before this one is.
                 if (timeSinceDialogueStarted < charDisplayTime) {
                     break;
                 }
@@ -370,15 +372,30 @@ namespace SocratesDialogue {
                     continue;
                 }
 
-                // Update the positions of all four vertices
+                // textComponent.ForceMeshUpdate();
+                int meshIndex = textInfo.characterInfo[i].materialReferenceIndex;
+                Vector3[] vertices = textInfo.meshInfo[meshIndex].vertices;
+                
+                //
+                // // Update the positions of all four vertices
                 for (int v = 0; v < 4; v++) {
-                    vertexPositionsWriteTo[vertexIndex + v].y = vertexPositionsReadFrom[vertexIndex + v].y + offsetY;
+                    int absVertexIndex = vertexIndex + v;
+
+                    if (absVertexIndex >= vertexPositions.Length ||
+                        absVertexIndex >= vertices.Length) {
+                        continue;
+                    }
+                    
+                    vertices[absVertexIndex].y = vertexPositions[absVertexIndex].y + offsetY;
                 }
             }
             
             for (int i = 0; i < textInfo.meshInfo.Length; i++) {
-                textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
-                textInfo.textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
+                TMP_MeshInfo meshInfo = textInfo.meshInfo[i];
+            
+                meshInfo.mesh.vertices = meshInfo.vertices;
+                
+                textInfo.textComponent.UpdateGeometry(meshInfo.mesh, i);
             }
             
             //Under construction
@@ -392,11 +409,9 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-            if (counter < textComponent.maxVisibleCharacters) {
-                ScrollInFromY(textInfo, vertexPositions, newVertexPositions, startedDisplayingLast, fancyText);
-            }
+            // ScrollInFromY();
 
-            if (fancyText.GetAnnotationTokens() == null || true) {
+            if (fancyText.GetAnnotationTokens() == null) {
                 return;
             }
 
