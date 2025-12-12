@@ -357,17 +357,20 @@ namespace SocratesDialogue {
                 float timeCharHasBeenDisplayed = timeSinceDialogueStarted - charDisplayTime;
                 
                 // Calculate the percentage of the way the character is supposed to be
-                float percentageOfPathMoved = Mathf.Clamp(timeCharHasBeenDisplayed / scrollTime, 0, 1);
-                
-                // Calculate the offset relative to the character's origin that it needs to be
-                // using an easing function
-                float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
-                // float offsetY = minOffsetY * (1 - percentageOfPathMoved);
+                float percentageOfPathMoved = timeCharHasBeenDisplayed / scrollTime;
                 
                 // If the percentage is greater than one, there's no need to update its position
                 if (percentageOfPathMoved > 1) {
                     continue;
                 }
+                
+                // Clamp the percentage
+                percentageOfPathMoved = Mathf.Clamp(percentageOfPathMoved, 0, 1);
+                
+                // Calculate the offset relative to the character's origin that it needs to be
+                // using an easing function
+                float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
+                // float offsetY = minOffsetY * (1 - percentageOfPathMoved);
 
                 // Update the positions of all four vertices
                 for (int v = 0; v < 4; v++) {
