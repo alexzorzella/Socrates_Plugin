@@ -328,6 +328,11 @@ namespace SocratesDialogue {
         
         /// <summary>
         /// Makes the characters come from below. Still under construction.
+        ///
+        /// Known bugs:
+        /// 1. The reveal time for the characters is beating the estimated time calculated by
+        ///    fancyText.GetCharDisplayTime(i), so as the text scrolls, the effect diminishes.
+        /// 2. Some characters jitter when animating and end up in the wrong location.
         /// </summary>
         /// <param name="textInfo"></param>
         /// <param name="vertexPositionsReadFrom"></param>
