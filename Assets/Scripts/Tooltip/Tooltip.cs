@@ -53,11 +53,11 @@ public class Tooltip : MonoBehaviour {
     }
     
     public static void SetText(string tooltipText) {
-        if (_i != null) _i.Show(tooltipText);
+        i.Show(tooltipText);
     }
 
     public static void Hide() {
-        if (_i != null) _i.HideTooltip();
+        i.HideTooltip();
     }
     
     void UpdateText(string tooltipText) {
