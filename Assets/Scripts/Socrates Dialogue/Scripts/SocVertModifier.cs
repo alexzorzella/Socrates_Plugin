@@ -21,8 +21,8 @@ namespace SocratesDialogue {
         static MultiAudioSource currentDialogueSfx = null;
 
         float startedDisplayingLast = 0;
-        const float scrollTime = 0.2F;
-        const float minOffsetY = -30;
+        const float scrollTime = 0.1F;
+        const float minOffsetY = -10;
         
         /// <summary>
         /// Sets the sound effect that plays when a new character is revealed.
@@ -391,7 +391,9 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-            ScrollInFromY(textInfo, vertexPositions, newVertexPositions, startedDisplayingLast, fancyText);
+            if (counter < totalVisibleCharacters) {
+                ScrollInFromY(textInfo, vertexPositions, newVertexPositions, startedDisplayingLast, fancyText);
+            }
             
             if (fancyText.GetAnnotationTokens() == null) {
                 return;
