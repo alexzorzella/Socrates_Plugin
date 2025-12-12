@@ -21,8 +21,8 @@ namespace SocratesDialogue {
         static MultiAudioSource currentDialogueSfx = null;
 
         float startedDisplayingLast = 0;
-        const float scrollSpeed = 0.2F;
-        const float scrollMin = -10;
+        const float scrollSpeed = 1F;
+        const float scrollMin = -30;
         
         /// <summary>
         /// Sets the sound effect that plays when a new character is revealed.
@@ -169,7 +169,7 @@ namespace SocratesDialogue {
                     }
                 }
 
-                currentBetweenCharacterDelay = SocraticAnnotation.displayTextDelay;
+                currentBetweenCharacterDelay = SocraticAnnotation.displayDelayPerChar;
 
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY) {
@@ -320,9 +320,11 @@ namespace SocratesDialogue {
         /// <summary>
         /// Makes the characters come from below with a log function.
         /// </summary>
-        /// <param name="vertexMod"></param>
         /// <param name="textInfo"></param>
-        /// <param name="newVertexPositions"></param>
+        /// <param name="vertexPositionsReadFrom"></param>
+        /// <param name="vertexPositionsWriteTo"></param>
+        /// <param name="startedDisplayingLast"></param>
+        /// <param name="fancyText"></param>
         static void ScrollInFromY(
             TMP_TextInfo textInfo,
             Vector3[] vertexPositionsReadFrom,
@@ -339,16 +341,38 @@ namespace SocratesDialogue {
                     continue;
                 }
 
-                float timeSinceStartedDisplay = 
-                    (Time.timeSinceLevelLoad - startedDisplayingLast) + i * SocraticAnnotation.displayTextDelay;
-                float offsetY = 
-                    LeanTween.easeInExpo(scrollMin, 0, Mathf.Clamp(timeSinceStartedDisplay / scrollSpeed, 0, 1));
+                // Calculate the amount of time that passed since the dialogue started
+                float timeSinceDialogueStarted = Time.timeSinceLevelLoad - startedDisplayingLast;
+                
+                // Cache the time that a character would first be displayed
+                float charDisplayTime = fancyText.GetCharDisplayTime(i);
+                
+                // Break if the time since the dialogue started has not reached that time yet.
+                // This is safe because no other character after this one can be revealed
+                // before this one is.
+                if (timeSinceDialogueStarted < charDisplayTime) {
+                    break;
+                }
+                
+                // Calculate how long the character has been displayed so far
+                float timeCharHasBeenDisplayed = timeSinceDialogueStarted - charDisplayTime;
+                
+                // Calculate the percentage of the way the character is supposed to be
+                float percentageOfPathMoved = timeCharHasBeenDisplayed / scrollSpeed;
+                
+                // Calculate the offset relative to the character's origin that it needs to be
+                // using an easing function
+                float offsetY = LeanTween.linear(scrollMin, 0, Mathf.Clamp(percentageOfPathMoved, 0, 1));
 
-                vertexPositionsWriteTo[vertexIndex + 0].y = vertexPositionsReadFrom[vertexIndex + 0].y + offsetY;
-                vertexPositionsWriteTo[vertexIndex + 1].y = vertexPositionsReadFrom[vertexIndex + 1].y + offsetY;
+                // If the percentage is greater than one, there's no need to update its position
+                if (percentageOfPathMoved > 1) {
+                    continue;
+                }
 
-                vertexPositionsWriteTo[vertexIndex + 2].y = vertexPositionsReadFrom[vertexIndex + 2].y + offsetY;
-                vertexPositionsWriteTo[vertexIndex + 3].y = vertexPositionsReadFrom[vertexIndex + 3].y + offsetY;
+                // Update the positions of all four vertices
+                for (int v = 0; v < 4; v++) {
+                    vertexPositionsWriteTo[vertexIndex + v].y = vertexPositionsReadFrom[vertexIndex + v].y + offsetY;
+                }
             }
             
             for (int i = 0; i < textInfo.meshInfo.Length; i++) {

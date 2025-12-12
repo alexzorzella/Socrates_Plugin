@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace SocratesDialogue {
@@ -78,7 +79,7 @@ namespace SocratesDialogue {
                 }
             }
         }
-
+        
         /// <summary>
         /// Pairs opening and closing annotation tokens together.
         /// </summary>
@@ -253,6 +254,25 @@ namespace SocratesDialogue {
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns the time it would take for character at a passed index to be revealed given
+        /// the character and annotated text delays.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public float GetCharDisplayTime(int index) {
+            float result = index * SocraticAnnotation.displayDelayPerChar;
+
+            foreach (var token in annotationTokens) {
+                if (token.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY &&
+                    token.GetStartCharIndex() < index) {
+                    result += token.GetDynamicValueAsFloat();
+                }
+            }
+            
+            return result;
         }
 
         public override string ToString() {
