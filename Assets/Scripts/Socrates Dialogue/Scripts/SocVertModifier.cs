@@ -22,8 +22,8 @@ namespace SocratesDialogue {
         static MultiAudioSource currentDialogueSfx = null;
 
         float startedDisplayingLast = 0;
-        const float scrollTime = 1F; // 0.1
-        const float minOffsetY = -24; // -12
+        const float scrollTime = 0.1F;
+        const float minOffsetY = -12;
         
         /// <summary>
         /// Sets the sound effect that plays when a new character is revealed.
@@ -349,9 +349,9 @@ namespace SocratesDialogue {
                 // Cache the time that a character would first be displayed
                 float charDisplayTime = fancyText.GetCharDisplayTime(i);
                 
-                // // Break if the time since the dialogue started has not reached that time yet.
-                // // This is safe because no other character after this one can be revealed
-                // // before this one is.
+                // Break if the time since the dialogue started has not reached that time yet.
+                // This is safe because no other character after this one can be revealed
+                // before this one is.
                 if (timeSinceDialogueStarted < charDisplayTime) {
                     break;
                 }
@@ -374,19 +374,11 @@ namespace SocratesDialogue {
 
                 // textComponent.ForceMeshUpdate();
                 int meshIndex = textInfo.characterInfo[i].materialReferenceIndex;
-                Vector3[] vertices = textInfo.meshInfo[meshIndex].vertices;
                 
-                //
-                // // Update the positions of all four vertices
+                // Update the positions of all four vertices
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
-
-                    if (absVertexIndex >= vertexPositions.Length ||
-                        absVertexIndex >= vertices.Length) {
-                        continue;
-                    }
-                    
-                    vertices[absVertexIndex].y = vertexPositions[absVertexIndex].y + offsetY;
+                    textInfo.meshInfo[meshIndex].vertices[absVertexIndex].y = vertexPositions[absVertexIndex].y + offsetY;
                 }
             }
             
@@ -409,7 +401,7 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TextMeshProUGUI textComponent, TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-            // ScrollInFromY();
+            ScrollInFromY();
 
             if (fancyText.GetAnnotationTokens() == null) {
                 return;
