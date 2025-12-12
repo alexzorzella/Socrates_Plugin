@@ -22,18 +22,11 @@ public static class SaveSystem {
         stream.Close();
     }
 
-    public static void DeleteSave(string name) {
-        if (File.Exists(Path(name)))
-            File.Delete(Path(name));
-        else
-            Debug.LogError($"Tried to delete file in {Path(name)}.");
-    }
-
     public static bool FileExists(string specificFile) {
         return File.Exists(Path(specificFile));
     }
 
-    public static PlayerData LoadPlayer(string path) {
+    public static PlayerData LoadSave(string path) {
         if (File.Exists(Path(path))) {
             var formatter = new BinaryFormatter();
             var stream = new FileStream(Path(path), FileMode.Open);
@@ -46,5 +39,12 @@ public static class SaveSystem {
 
         Debug.LogWarning($"Save file not found in {Path(path)}.");
         return null;
+    }
+    
+    public static void DeleteSave(string name) {
+        if (File.Exists(Path(name)))
+            File.Delete(Path(name));
+        else
+            Debug.LogError($"Tried to delete file in {Path(name)}.");
     }
 }

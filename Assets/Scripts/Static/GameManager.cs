@@ -4,11 +4,51 @@ using UnityEngine.Audio;
 public class GameManager {
 	static GameManager pInstance = null;
 	
-	public GameStats stats;
+	GameStats stats;
 	public EventManager eventManager;
 
-	// Put anything that should happen right after a new scene is loaded here
-	void PreSceneLoaded() {
+	public static GameManager Instance() {
+		if (pInstance == null) {
+			pInstance = new GameManager();
+			pInstance.Initialize();
+		}
+		return pInstance;
+	}
+	
+	void Initialize() {
+		stats = new GameStats();
+		
+		if (SaveSystem.LoadSave("save") != null) {
+			Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
+			Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+		}
+
+		eventManager = new EventManager();
+
+		AlexLang.ParseFile();
+	}
+	
+	public void SaveGame() {
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
+
+		SaveSystem.SavePlayer(stats);
+	}
+
+	/// <summary>
+	/// Runs the moment a new scene is loaded. Put anything that should happen
+	/// right after a new scene is loaded here.
+	/// </summary>
+	public void Bootstrap() {
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+	}
+
+	/// <summary>
+	/// Runs the moment before a new scene is loaded. Put anything that should happen right before
+	/// a new scene is loaded here.
+	/// </summary>
+	public void Teardown() {
 		eventManager.ClearRegistry();
 
 		if(InputManager.instance != null) {
@@ -19,47 +59,5 @@ public class GameManager {
 
 		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
 		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
-	}
-
-	// Put anything that should happen before a new scene is loaded here
-	void PostSceneLoaded() {
-		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
-		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
-	}
-
-	public static GameManager Instance() {
-		if (pInstance == null) {
-			pInstance = new GameManager();
-			pInstance.InitGame();
-		}
-		return pInstance;
-	}
-
-	public void SaveGame() {
-		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
-		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
-
-		SaveSystem.SavePlayer(stats);
-	}
-	
-	void InitGame() {
-		stats = new GameStats();
-		
-		if (SaveSystem.LoadPlayer("save") != null) {
-			Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
-			Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
-		}
-
-		eventManager = new EventManager();
-
-		AlexLang.ParseFile();
-	}
-
-	public void Bootstrap() {
-		PreSceneLoaded();
-	}
-
-	public void Teardown() {
-		PostSceneLoaded();
 	}
 }
