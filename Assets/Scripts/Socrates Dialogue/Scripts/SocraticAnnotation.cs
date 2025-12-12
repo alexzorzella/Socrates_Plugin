@@ -11,7 +11,7 @@
         public const char parseClosePairChar = '!';
         public const char parseValueSeparator = ',';
 
-        public const float displayDelayPerChar = 0.01F;
+        public const float displayDelayPerChar = 0.1F; // 0.01
 
         public const float minorPunctuationDisplayDelay = 0.25F;
         public const float majorPunctuationDisplayDelay = 0.35F;

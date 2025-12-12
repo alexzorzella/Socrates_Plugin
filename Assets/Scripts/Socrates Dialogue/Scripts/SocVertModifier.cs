@@ -21,8 +21,8 @@ namespace SocratesDialogue {
         static MultiAudioSource currentDialogueSfx = null;
 
         float startedDisplayingLast = 0;
-        const float scrollTime = 0.1F;
-        const float minOffsetY = -12;
+        const float scrollTime = 1F; // 0.1
+        const float minOffsetY = -24; // -12
         
         /// <summary>
         /// Sets the sound effect that plays when a new character is revealed.
@@ -358,12 +358,13 @@ namespace SocratesDialogue {
                 float timeCharHasBeenDisplayed = timeSinceDialogueStarted - charDisplayTime;
                 
                 // Calculate the percentage of the way the character is supposed to be
-                float percentageOfPathMoved = timeCharHasBeenDisplayed / scrollTime;
+                float percentageOfPathMoved = Mathf.Clamp(timeCharHasBeenDisplayed / scrollTime, 0, 1);
                 
                 // Calculate the offset relative to the character's origin that it needs to be
                 // using an easing function
-                float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, Mathf.Clamp(percentageOfPathMoved, 0, 1));
-
+                // float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
+                float offsetY = minOffsetY * (1 - percentageOfPathMoved);
+                
                 // If the percentage is greater than one, there's no need to update its position
                 if (percentageOfPathMoved > 1) {
                     continue;
@@ -394,8 +395,8 @@ namespace SocratesDialogue {
             if (counter < textComponent.maxVisibleCharacters) {
                 ScrollInFromY(textInfo, vertexPositions, newVertexPositions, startedDisplayingLast, fancyText);
             }
-            
-            if (fancyText.GetAnnotationTokens() == null) {
+
+            if (fancyText.GetAnnotationTokens() == null || true) {
                 return;
             }
 
