@@ -60,21 +60,15 @@ namespace SocratesDialogue {
                    && totalVisibleCharacters > 0;
         }
 
-        public void ClearText() {
-            SetText("", true);
-        }
-
         /// <summary>
-        /// 
+        /// Converts the passed raw text to fancy text and sets the text component's text fully,
+        /// muted by default. Flagging it to scroll won't fully display it immediately and not
+        /// muting it will make it play the current dialogue sound while the text scrolls.
         /// </summary>
         /// <param name="rawText"></param>
-        /// <param name="vertexModifier"></param>
-        /// <param name="displayFully"></param>
+        /// <param name="scroll"></param>
         /// <param name="muted"></param>
-        public void SetText(
-            string rawText,
-            bool displayFully = false,
-            bool muted = true) {
+        public void SetText(string rawText, bool scroll = false, bool muted = true) {
             this.muted = muted;
             counter = 0;
             currentBetweenCharacterDelay = 0;
@@ -94,20 +88,32 @@ namespace SocratesDialogue {
 
             totalVisibleCharacters = textComponent.textInfo.characterCount;
 
-            for (var i = 0; i < totalVisibleCharacters; i++)
-                SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), true), i);
+            for (var i = 0; i < totalVisibleCharacters; i++) {
+                SetColor(
+                    textComponent, 
+                    i, 
+                    OverrideAlpha(GetColorOfTopLeft(textComponent, i), true), 
+                    i);
+            }
 
             textComponent.color = new Color(color.r, color.g, color.b, 0);
 
-            if (displayFully) {
-                var temp = Color.white;
-
-                ColorUtility.TryParseHtmlString("#DDD0CC", out temp);
-
-                textComponent.color = temp;
-                // AudioManager.i.StopAllSourcesContains("dialogue", true);
+            if (!scroll) {
+                textComponent.color = OverrideAlpha(textComponent.color, false);
+                
+                if (currentDialogueSfx != null) {
+                    currentDialogueSfx.Stop();
+                }
+                
                 counter = textComponent.maxVisibleCharacters;
             }
+        }
+        
+        /// <summary>
+        /// Clears the current text.
+        /// </summary>
+        public void ClearText() {
+            SetText("");
         }
 
         void Update() {
@@ -120,39 +126,9 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Provides debug data breakdown for testing.
-        /// </summary>
-        /// <param name="sendInfoTo"></param>
-        /// <param name="grabInfoFrom"></param>
-        /// <param name="vertexMod"></param>
-        static void UpdateDebugText(TextMeshProUGUI sendInfoTo, TextMeshProUGUI grabInfoFrom,
-            SocVertModifier vertexMod) {
-            if (sendInfoTo == null) {
-                return;
-            }
-
-            string debugParseInfo = "";
-
-            foreach (var parse in vertexMod.fancyText.GetAnnotationTokens()) {
-                debugParseInfo +=
-                    $"{parse.GetStartCharIndex()}-{parse.GetEndCharIndex()} Opening: ({parse.IsOpener()})\n" +
-                    $"{parse.GetRichTextType()} Value: {parse.GetPassedValue()}\n";
-            }
-
-            sendInfoTo.text = $"" +
-                              $"{(int)(1.0f / Time.deltaTime)} FPS\n" +
-                              $"String Length: {grabInfoFrom.text.Length}\n" +
-                              $"Display Counter: {vertexMod.counter}\n" +
-                              $"Vertices: {grabInfoFrom.mesh.vertices.Length}\n" +
-                              $"Character Count: {grabInfoFrom.textInfo.characterCount}\n" +
-                              $"Line Count: {grabInfoFrom.textInfo.lineCount}\n" +
-                              $"Word Count: {grabInfoFrom.textInfo.wordCount}\n" +
-                              $"Parse Count: {vertexMod.fancyText.GetAnnotationTokens().Count}\n" +
-                              $"Total Visible Characters: {vertexMod.totalVisibleCharacters}\n" + debugParseInfo;
-        }
-
-        /// <summary>
-        /// Increments the counter and manages the volume of the sound being played.
+        /// Increments the counter, resets the clock for the time left until the next character
+        /// is displayed, executes parse actions that it's at or has passed that haven't been
+        /// executed yet, and handles the state of the dialogue audio.
         /// </summary>
         /// <param name="vertexModifier"></param>
         void IncrementCharCounter() {
@@ -221,15 +197,17 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Occurs when the character delay beings.
+        /// Executes whenever a character delay beings.
         /// </summary>
         void OnCharDelay() {
+            
         }
 
         /// <summary>
-        /// Occurs when the character delay finishes.
+        /// Executes whenever a character delay ends.
         /// </summary>
         void OnPostCharDelay() {
+            
         }
 
         /// <summary>
@@ -281,12 +259,12 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Returns the color given with the alpha toggled on or off. 
+        /// Returns the color given with the alpha changed to 0 or 1. 
         /// </summary>
         /// <param name="color"></param>
         /// <param name="hidden"></param>
         /// <returns></returns>
-        Color ToggleAlpha(Color color, bool hidden) {
+        Color OverrideAlpha(Color color, bool hidden) {
             return new Color(color.r, color.g, color.b, hidden ? 0F : 1F);
         }
 
@@ -310,7 +288,10 @@ namespace SocratesDialogue {
 
             if (counter <= totalVisibleCharacters) {
                 for (int i = start; i < counter; i++) {
-                    SetColor(textComponent, i, ToggleAlpha(GetColorOfTopLeft(textComponent, i), false), i);
+                    SetColor(textComponent, 
+                        i, 
+                        OverrideAlpha(GetColorOfTopLeft(textComponent, i), false), 
+                        i);
                 }
             }
 

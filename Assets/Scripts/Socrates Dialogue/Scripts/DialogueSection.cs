@@ -39,10 +39,21 @@ namespace SocratesDialogue {
             facets.Add(facet);
         }
     
+        /// <summary>
+        /// Returns whether the dialogue contains a facet of type T.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public bool HasFacet<T>() where T : ZFacet {
             return GetFacet<T>() != null;
         }
-    
+        
+        /// <summary>
+        /// Returns the first instance of type T it finds in the list of facets and
+        /// null if it doesn't find anything.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public T GetFacet<T>() where T : ZFacet {
             foreach (var facet in facets) {
                 if (typeof(T).IsInstanceOfType(facet)) {
