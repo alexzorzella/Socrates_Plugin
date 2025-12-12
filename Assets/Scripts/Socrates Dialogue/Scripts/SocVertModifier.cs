@@ -183,9 +183,8 @@ namespace SocratesDialogue {
                             parse.ExecuteAction();
 
                             OnCharDelay();
-                        }
-                        else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
-                                 parse.HasExecutedAction()) {
+                        } else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
+                                  parse.HasExecutedAction()) {
                             OnPostCharDelay();
                         }
                     }
@@ -306,6 +305,36 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
+        /// Applies the rich text based on what the parse means.
+        /// </summary>
+        /// <param name="textInfo"></param>
+        /// <param name="newVertexPositions"></param>
+        void ApplyRichText(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
+            ScrollInFromY(textInfo, vertexPositions, newVertexPositions);
+            
+            if (fancyText.GetAnnotationTokens() != null) {
+                foreach (var parse in fancyText.GetAnnotationTokens()) {
+                    if (parse.IsOpener()) {
+                        switch (parse.GetRichTextType()) {
+                            case SocraticAnnotation.RichTextType.WAVE:
+                                ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
+                                break;
+                            case SocraticAnnotation.RichTextType.SHAKE:
+                                ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        struct VertexAnim {
+            public float angleRange;
+            public float angle;
+            public float speed;
+        }
+        
+        /// <summary>
         /// Makes the characters come from below. Still under construction.
         /// </summary>
         /// <param name="textInfo"></param>
@@ -365,36 +394,6 @@ namespace SocratesDialogue {
                     vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + offsetY;
                 }
             }
-        }
-
-        /// <summary>
-        /// Applies the rich text based on what the parse means.
-        /// </summary>
-        /// <param name="textInfo"></param>
-        /// <param name="newVertexPositions"></param>
-        void ApplyRichText(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
-            ScrollInFromY(textInfo, vertexPositions, newVertexPositions);
-            
-            if (fancyText.GetAnnotationTokens() != null) {
-                foreach (var parse in fancyText.GetAnnotationTokens()) {
-                    if (parse.IsOpener()) {
-                        switch (parse.GetRichTextType()) {
-                            case SocraticAnnotation.RichTextType.WAVE:
-                                ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
-                                break;
-                            case SocraticAnnotation.RichTextType.SHAKE:
-                                ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-
-        struct VertexAnim {
-            public float angleRange;
-            public float angle;
-            public float speed;
         }
 
         /// <summary>
