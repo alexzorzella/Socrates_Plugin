@@ -398,7 +398,7 @@ namespace SocratesDialogue {
                                 ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                                 break;
                             case SocraticAnnotation.RichTextType.SHAKE:
-                                ApplyRichTextShake(parse, vertexPositions, newVertexPositions);
+                                ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
                                 break;
                         }
                     }
@@ -420,10 +420,10 @@ namespace SocratesDialogue {
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
         void ApplyRichTextShake(
+            TMP_TextInfo textInfo,
             AnnotationToken token, 
             Vector3[] vertexPositionsReadFrom, 
             Vector3[] vertexPositionsWriteTo) {
-            TMP_TextInfo textInfo = textComponent.textInfo;
 
             VertexAnim[] vertexAnim = new VertexAnim[1024];
 
