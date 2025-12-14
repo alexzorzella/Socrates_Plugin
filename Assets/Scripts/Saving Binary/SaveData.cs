@@ -2,7 +2,8 @@
 
 [Serializable]
 public class SaveData {
-    //Put the info here
+    readonly float sfxVolume;
+    readonly float musicVolume;
 
     /// <summary>
     /// Returns the data in SaveData as a GameStats object. GameStats may
@@ -12,6 +13,9 @@ public class SaveData {
     /// <returns></returns>
     public GameStats AsStats() {
         GameStats result = new();
+
+        result.sfxVolume = sfxVolume;
+        result.musicVolume = musicVolume;
         
         return result;
     }
@@ -23,6 +27,7 @@ public class SaveData {
     /// </summary>
     /// <param name="stats"></param>
     public SaveData(GameStats stats) {
-        
+        sfxVolume = stats.sfxVolume;
+        musicVolume = stats.musicVolume;
     }
 }

@@ -21,11 +21,11 @@ public class GameManager {
 		if (saveData != null) {
 			stats = saveData.AsStats();
 		} else {
-			stats = new GameStats();	
+			stats = new GameStats();
 		}
 		
-		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
-		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVolume);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVolume);
 
 		eventManager = new EventManager();
 
@@ -33,8 +33,8 @@ public class GameManager {
 	}
 	
 	public void SaveGame() {
-		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
-		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVolume);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVolume);
 
 		SaveSystem.Save(stats);
 	}
@@ -44,8 +44,8 @@ public class GameManager {
 	/// right after a new scene is loaded here.
 	/// </summary>
 	public void Bootstrap() {
-		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
-		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVolume);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVolume);
 	}
 
 	/// <summary>
@@ -61,7 +61,7 @@ public class GameManager {
 
 		LeanTween.cancelAll();
 
-		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
-		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVolume);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVolume);
 	}
 }
