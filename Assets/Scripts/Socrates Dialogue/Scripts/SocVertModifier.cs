@@ -451,11 +451,11 @@ namespace SocratesDialogue {
 
                 Vector3[] destinationVertices = textInfo.meshInfo[materialIndex].vertices;
 
-                vertexPositionsWriteTo[vertexIndex + 0] = sourceVertices[vertexIndex + 0] - offset;
-                vertexPositionsWriteTo[vertexIndex + 1] = sourceVertices[vertexIndex + 1] - offset;
-                vertexPositionsWriteTo[vertexIndex + 2] = sourceVertices[vertexIndex + 2] - offset;
-                vertexPositionsWriteTo[vertexIndex + 3] = sourceVertices[vertexIndex + 3] - offset;
-
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexPositionsWriteTo[absVertexIndex] = sourceVertices[absVertexIndex] - offset;
+                }
+                
                 float angleMultiplier = 1.0F; // How much it rotates
                 float curveScale = token.GetDynamicValueAsFloat(); // Noticeability
                 float loopCount = 1.0F; // Don't know
@@ -467,15 +467,11 @@ namespace SocratesDialogue {
                 Matrix4x4 matrix = Matrix4x4.TRS(jitterOffset * curveScale,
                     Quaternion.Euler(0, 0, Random.Range(-5f, 5f) * angleMultiplier), Vector3.one);
 
-                vertexPositionsWriteTo[vertexIndex + 0] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 0]);
-                vertexPositionsWriteTo[vertexIndex + 1] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 1]);
-                vertexPositionsWriteTo[vertexIndex + 2] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 2]);
-                vertexPositionsWriteTo[vertexIndex + 3] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 3]);
-
-                vertexPositionsWriteTo[vertexIndex + 0] += offset;
-                vertexPositionsWriteTo[vertexIndex + 1] += offset;
-                vertexPositionsWriteTo[vertexIndex + 2] += offset;
-                vertexPositionsWriteTo[vertexIndex + 3] += offset;
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexPositionsWriteTo[absVertexIndex] = matrix.MultiplyPoint3x4(destinationVertices[absVertexIndex]);
+                    vertexPositionsWriteTo[absVertexIndex] += offset;
+                }
             }
         }
 
