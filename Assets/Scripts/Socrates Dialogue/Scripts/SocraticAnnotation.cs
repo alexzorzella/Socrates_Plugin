@@ -1,9 +1,14 @@
-﻿namespace SocratesDialogue {
+﻿using System.Collections.Generic;
+
+namespace SocratesDialogue {
     public static class SocraticAnnotation {
         public enum RichTextType {
             WAVE,
             DELAY,
-            SHAKE
+            SHAKE,
+            // GRADIENT,
+            // FUNCTION,
+            // SOUND
         }
 
         public const char parseStartChar = '[';
@@ -16,15 +21,20 @@
         public const float minorPunctuationDisplayDelay = 0.25F;
         public const float majorPunctuationDisplayDelay = 0.35F;
 
-        public const string waveTag = "wave";
         public const bool waveWarpTextVertices = true;
         public const float waveFreqMultiplier = 0.025F;
         public const float waveAmplitude = 7F;
         public const float waveSpeed = 9F;
 
-        public const string delayTag = "delay";
+        public static readonly Dictionary<string, RichTextType> annotationTags = new() {
+            { "wave", RichTextType.WAVE },
+            { "delay", RichTextType.DELAY },
+            { "shake", RichTextType.SHAKE },
+            // { "gradient", RichTextType.GRADIENT },
+            // { "notify", RichTextType.FUNCTION },
+            // { "sound", RichTextType.SOUND },
+        };
 
-        public const string shakeTag = "shake";
 
         public const char richTextStart = '<';
         public const char richTextEnd = '>';
