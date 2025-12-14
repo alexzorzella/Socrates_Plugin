@@ -384,11 +384,6 @@ namespace SocratesDialogue {
                 // Calculate the percentage of the way the character is supposed to be
                 float percentageOfPathMoved = timeCharHasBeenDisplayed / scrollTime;
                 
-                // If the percentage is greater than one, there's no need to update its position
-                if (percentageOfPathMoved > 1) {
-                    continue;
-                }
-                
                 // Clamp the percentage
                 percentageOfPathMoved = Mathf.Clamp(percentageOfPathMoved, 0, 1);
                 
