@@ -317,13 +317,16 @@ namespace SocratesDialogue {
             if (fancyText.GetAnnotationTokens() != null) {
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     if (parse.IsOpener()) {
-                        switch (parse.GetRichTextType()) {
-                            case SocraticAnnotation.RichTextType.WAVE:
-                                ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
-                                break;
-                            case SocraticAnnotation.RichTextType.SHAKE:
+                        if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.SHAKE) {
                                 ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
-                                break;
+                        }
+                    }
+                }
+                
+                foreach (var parse in fancyText.GetAnnotationTokens()) {
+                    if (parse.IsOpener()) {
+                        if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.WAVE) {
+                            ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                         }
                     }
                 }
