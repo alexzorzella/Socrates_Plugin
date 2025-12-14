@@ -60,10 +60,21 @@ public class MultiAudioSource {
 	/// <summary>
 	/// Randomly sets the pitch of all the audio sources.
 	/// </summary>
-	public void RandomizePitches() {
-		foreach (var source in sources) {
-			source.pitch = UnityEngine.Random.Range(0.8F, 1.2F);
+	public void RandomizePitches(float minPitch = 0.8F, float maxPitch = 1.2F) {
+		if (maxPitch < minPitch) {
+			maxPitch = minPitch;
 		}
+		
+		foreach (var source in sources) {
+			source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+		}
+	}
+
+	/// <summary>
+	/// An alias for PlayRoundRobin()
+	/// </summary>
+	public void Play() {
+		PlayRoundRobin();
 	}
 	
 	/// <summary>
@@ -121,10 +132,12 @@ public class MultiAudioSource {
 	/// <param name="path"></param>
 	/// <param name="loop"></param>
 	/// <param name="audioMixer"></param>
+	/// <param name="volume"></param>
+	/// <param name="pitch"></param>
 	/// <returns></returns>
 	/// <exception cref="ArgumentException"></exception>
 	public static MultiAudioSource FromResource(
-	  GameObject gameObject, String path, bool loop = false, string audioMixer = "SFX") {
+	  GameObject gameObject, string path, bool loop = false, string audioMixer = "SFX", float volume = 1F, float pitch = 1F) {
 		AudioClip clip = Resources.Load<AudioClip>(path);
 		if (clip == null) {
 			throw new ArgumentException("Resource not found: " + path);
@@ -137,26 +150,31 @@ public class MultiAudioSource {
 		audioSource.loop = loop;
 		audioSource.outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
 
+		audioSource.volume = volume;
+		audioSource.pitch = pitch;
+
 		return new MultiAudioSource(audioSource);
 	}
-	
+
 	/// <summary>
 	/// This is like the `FromResource`, but for loading multiple audio
 	/// clips (say to be played randomly or in a round-robbin fashion).
-	///
+	/// 
 	/// The `count` is how many clips to load. The expected file names are
 	/// `pathPrefix_0`, `pathPrefix_1`, ... `pathPrefix_{count - 1}`.
-	///
+	/// 
 	/// This method throws if any of the resources does not exist. 
 	/// </summary>
 	/// <param name="gameObject"></param>
 	/// <param name="pathPrefix"></param>
 	/// <param name="count"></param>
 	/// <param name="audioMixer"></param>
+	/// <param name="volume"></param>
+	/// <param name="pitch"></param>
 	/// <returns></returns>
 	/// <exception cref="ArgumentException"></exception>
 	public static MultiAudioSource FromResources(
-	  GameObject gameObject, String pathPrefix, int count, string audioMixer = "SFX") {
+	  GameObject gameObject, string pathPrefix, int count, string audioMixer = "SFX", float volume = 1F, float pitch = 1F) {
 		AudioSource[] audioSources = new AudioSource[count];
 
 		for (int i = 0; i < count; i++) {
@@ -167,6 +185,9 @@ public class MultiAudioSource {
 			audioSources[i] = gameObject.AddComponent<AudioSource>();
 			audioSources[i].clip = clip;
 			audioSources[i].outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
+			
+			audioSources[i].volume = volume;
+			audioSources[i].pitch = pitch;
 		}
 
 		return new MultiAudioSource(audioSources);
