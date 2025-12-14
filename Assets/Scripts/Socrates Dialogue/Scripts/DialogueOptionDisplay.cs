@@ -1,30 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NewSocratesDialogue;
+﻿using SocratesDialogue;
 using TMPro;
 using UnityEngine;
 
-public class DialogueOptionDisplay : MonoBehaviour
-{
+// TODO: Reimplement behavior
+public class DialogueOptionDisplay : MonoBehaviour {
     public TextMeshProUGUI contentText;
 
-    private DialogueManager manager;
-    private Animator anim;
+    DialogueManager manager;
+    Animator anim;
 
-    private void Start()
-    {
+    void Start() {
         anim = GetComponent<Animator>();
         manager = FindFirstObjectByType<DialogueManager>();
     }
 
-    public void SetParams(string optionText)
-    {
+    public void SetParams(string optionText) {
         contentText.text = optionText;
         // leadsTo = nextDialogueSection;
     }
 
-    public void ProceedOnClick()
-    {
+    public void ProceedOnClick() {
         // if(manager.displayingChoices)
         // {
         //     return;
@@ -36,13 +31,11 @@ public class DialogueOptionDisplay : MonoBehaviour
         // manager.DisplayDialogue();
     }
 
-    public float AnimationLength()
-    {
-        if(anim == null)
-        {
+    public float AnimationLength() {
+        if (anim == null) {
             anim = GetComponent<Animator>();
         }
 
         return anim.GetCurrentAnimatorStateInfo(0).length;
-    }    
+    }
 }

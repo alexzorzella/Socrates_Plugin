@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NewSocratesDialogue;
+using SocratesDialogue;
 
 public class HcTestDialogue : HCommand {
     readonly List<string> options = new();

@@ -80,7 +80,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour {
 
         rb.bodyType = RigidbodyType2D.Static;
 
-        NATransition.i.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GnaTransition.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnGrounded() {

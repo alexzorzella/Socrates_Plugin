@@ -1,4 +1,4 @@
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class CharDelay : ZFacet {
         readonly float delay;
 

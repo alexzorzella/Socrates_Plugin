@@ -1,20 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NewSocratesDialogue {
+namespace SocratesDialogue {
     public class NextSection : ZFacet {
-        readonly List<NewDialogueSection> choices;
+        readonly List<DialogueSection> choices;
 
-        public NextSection(params NewDialogueSection[] choices) {
+        public NextSection(params DialogueSection[] choices) {
             this.choices = choices.ToList();
         }
 
-        public NewDialogueSection Next() {
-            return choices[0];
+        public DialogueSection Next(int choiceIndex = 0) {
+            return choices[choiceIndex];
         }
-        
-        // public ZFacet Clone() {
-        // return new NextSection(choices.Select(item => new NewDialogueSection(item)).ToList());
-        // }
     }
 }

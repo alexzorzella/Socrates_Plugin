@@ -1,6 +1,6 @@
 ﻿public class GameStats {
-    public float musicVol;
-
-    public float sfxVol;
+    public float musicVolume;
+    public float sfxVolume;
+    
     //You rock.
 }

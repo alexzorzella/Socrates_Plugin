@@ -100,6 +100,6 @@ public class IntroFunc : MonoBehaviour {
 	}
 
 	public void LoadScene(string sceneName) {
-		NATransition.i.LoadScene(sceneName);
+		GnaTransition.LoadScene(sceneName);
 	}
 }

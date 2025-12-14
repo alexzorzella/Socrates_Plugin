@@ -1,47 +1,35 @@
-﻿public static class SocraticAnnotation {
-    public enum RichTextType {
-        WAVE,
-        DELAY,
-        SHAKE
-    }
+﻿namespace SocratesDialogue {
+    public static class SocraticAnnotation {
+        public enum RichTextType {
+            WAVE,
+            DELAY,
+            SHAKE
+        }
 
-    public static readonly char parseStartChar = '[';
-    public static readonly char parseEndChar = ']';
-    public static readonly char parseClosePairChar = '!';
-    public static readonly char parseValueSeparator = ',';
+        public const char parseStartChar = '[';
+        public const char parseEndChar = ']';
+        public const char parseClosePairChar = '!';
+        public const char parseValueSeparator = ',';
 
-    public static readonly float displayTextDelay = 0.01F;
+        public const float displayDelayPerChar = 0.1F;
 
-    public static readonly float displayMinorPunctuationDelay = 0.25F;
-    public static readonly float displayMajorPunctuationDelay = 0.35F;
+        public const float minorPunctuationDisplayDelay = 0.25F;
+        public const float majorPunctuationDisplayDelay = 0.35F;
 
-    public static readonly string waveTag = "wave";
-    public static readonly bool waveWarpTextVertices = true;
-    public static readonly float waveFreqMultiplier = 0.025F;
-    public static readonly float waveAmplitude = 7F;
-    public static readonly float waveSpeed = 9F;
+        public const string waveTag = "wave";
+        public const bool waveWarpTextVertices = true;
+        public const float waveFreqMultiplier = 0.025F;
+        public const float waveAmplitude = 7F;
+        public const float waveSpeed = 9F;
 
-    public static readonly string delayTag = "delay";
-    
-    public static readonly string shakeTag = "shake";
-}
+        public const string delayTag = "delay";
 
-public class AnnotationToken {
-    public string passedValue = "";
-    public int startCharIndex = -1;
-    public int endCharIndex = -1;
-    public bool executedAction = false;
-    public AnnotationToken linkedToken;
-    public bool opener = true;
-    public SocraticAnnotation.RichTextType richTextType;
+        public const string shakeTag = "shake";
 
-    public bool ContainsDynamicValue() {
-        return !string.IsNullOrEmpty(passedValue);
-    }
+        public const char richTextStart = '<';
+        public const char richTextEnd = '>';
 
-    public float GetDynamicValueAsFloat() {
-        float result = 0;
-        result = float.Parse(passedValue);
-        return result;
+        public static readonly char[] minorPunctuation = { ',', '–' };
+        public static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
     }
 }
