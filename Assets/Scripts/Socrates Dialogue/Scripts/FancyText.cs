@@ -256,6 +256,16 @@ namespace SocratesDialogue {
             }
         }
 
+        readonly List<float> charDisplayTimes = new();
+
+        public void ClearDisplayTimes() {
+            charDisplayTimes.Clear();
+        }
+
+        public void LogDisplayTime(float time) {
+            charDisplayTimes.Add(time);
+        }
+        
         /// <summary>
         /// Returns the timestamp that a character will or was revealed, accounting for
         /// the display time per character and delay annotations.
@@ -263,6 +273,12 @@ namespace SocratesDialogue {
         /// <param name="index"></param>
         /// <returns></returns>
         public float GetCharDisplayTime(int index) {
+            if (index >= charDisplayTimes.Count) {
+                return 0;
+            }
+            
+            return charDisplayTimes[index];
+            
             float result = index * SocraticAnnotation.displayDelayPerChar;
 
             foreach (var token in annotationTokens) {

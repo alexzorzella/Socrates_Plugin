@@ -105,6 +105,8 @@ namespace SocratesDialogue {
             }
 
             startedDisplayingLast = Time.timeSinceLevelLoad;
+            
+            fancyText.ClearDisplayTimes();
         }
         
         /// <summary>
@@ -146,6 +148,8 @@ namespace SocratesDialogue {
             // if it's not already
             if (currentBetweenCharacterDelay <= 0) {
                 counter++;
+                
+                fancyText.LogDisplayTime(Time.timeSinceLevelLoad - startedDisplayingLast);
 
                 // float actualTime = Time.timeSinceLevelLoad;
                 // float expectedTime = fancyText.GetCharDisplayTime(counter);
@@ -362,7 +366,9 @@ namespace SocratesDialogue {
                 // Calculate the amount of time that passed since the dialogue started
                 float timeSinceDialogueStarted = Time.timeSinceLevelLoad - startedDisplayingLast;
                 
-                // Cache the time that a character would first be displayed
+                // Cache the time that a character would first be displayed.
+                // This is the amount of time it would take for the character to
+                // appear after the dialogue first started.
                 float charDisplayTimestamp = fancyText.GetCharDisplayTime(i);
                 
                 // Break if the time since the dialogue started has not reached that time yet.
