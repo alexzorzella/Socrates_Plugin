@@ -258,14 +258,21 @@ namespace SocratesDialogue {
 
         readonly List<float> charDisplayTimes = new();
 
+        /// <summary>
+        /// Clears the cache of the character display times. 
+        /// </summary>
         public void ClearDisplayTimes() {
             charDisplayTimes.Clear();
         }
 
+        /// <summary>
+        /// Logs a character display time.
+        /// </summary>
+        /// <param name="time"></param>
         public void LogDisplayTime(float time) {
             charDisplayTimes.Add(time);
         }
-        
+
         /// <summary>
         /// Returns the timestamp that a character will or was revealed, accounting for
         /// the display time per character and delay annotations.
@@ -276,19 +283,8 @@ namespace SocratesDialogue {
             if (index >= charDisplayTimes.Count) {
                 return 0;
             }
-            
-            return charDisplayTimes[index];
-            
-            float result = index * SocraticAnnotation.displayDelayPerChar;
 
-            foreach (var token in annotationTokens) {
-                if (token.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY &&
-                    token.GetStartCharIndex() <= index) {
-                    result += token.GetDynamicValueAsFloat();
-                }
-            }
-            
-            return result;
+            return charDisplayTimes[index];
         }
 
         public override string ToString() {
