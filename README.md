@@ -9,52 +9,32 @@ Contributions to the Socrates Plugin are more than welcome! If you intend on wor
 
 ## Scripts
 
-This repository is a colleciton of scripts that my dad and I have worked on for years. The standard here is documented, tested code. Feel free to take and expand on these scripts as you wish!
+This repository is a colleciton of scripts that my dad and I have worked on for years. The standard here is documented, tested code. Feel free to take and expand on these scripts as you wish! A lot of these scripts are meant to be used as a base to write something more specific.
 
-### Appetizers
+<i>Audio Management</i>: MultiAudioSource is streamlined to make it easy to load and play audio files directly from your files.
 
-### Main Courses
+<i>Camera Movement and Shake</i>: Basic camera movement and shake.
 
-### Desserts
+<i>JConsole</i>: A command console designed to make testing, debugging, and demoing eaiser.
 
-MultiAudioSource.cs
-CameraShake.cs
-CameraShakeProfile.cs
-ShakeOnMouseClick.cs
-Parallax.cs
-PCamera.cs
-Shakepedia.cs
-HcSuppressMessages.cs
-HcTestDialogue.cs
-JConsole.cs
-JConsoleLogListener.cs
-Screenshot.cs
-SystemMessage.cs
-AlexInput.cs
-AlexInputLinker.cs
-EventManager.cs
-InputHandler.cs
-InputManager.cs
-InputUtility.cs
+<i>Input System</i>: Use the new input system to manage multiple controllers and local multiplayer.
 
-Inventory
+<i>Inventory</i>: A basic inventory system.
 
-AlexLang
+<i>AlexLang</i>: Quick .tsv based localization. This is not as robust as many other localization packages out there, but it gets the job done.
 
-Physics
+<i>Physics</i>: A couple of physics bases to work off of.
 
-Practicality
+<i>Practicality</i>: Various scripts to make your life easier, including (but not limited to) a script to automatically update the build version on build (found in Assets/Editor) and increment with overflow.
 
-Save System
+<i>Save System</i>: A non-encrypted saving binary for saving and loading game states.
 
-Socrates Dialogue
+<i>Socrates Dialogue</i>: A robust dialogue system that supports loading from .tsv. Includes text annotations including wavy text, shaky text, and delays during text scroll. Compatible with TextMeshPro rich text tags.
 
-State Machine
+<i>State Machine</i>: A custom state machine framework.
 
-GameManager
+<i>GameManager</i>: A static singleton instance to manage the game state.
 
-ResourceLoader
+<i>ResourceLoader</i>: Streamlines loading objects, sprites, animators, and more directly from your files.
 
-Tooltip
-
-Transition
+<i>GnaTransition</i>: Streamlines transitioning scenes while running bootstrap and teardown code if necessary.
