@@ -46,7 +46,7 @@ public static class SaveSystem {
     }
     
     /// <summary>
-    /// Returns the data saved in the file with the passed filename.
+    /// Returns the data saved in the file with the passed filename as SaveData.
     /// </summary>
     /// <param name="filename"></param>
     /// <returns></returns>
@@ -67,6 +67,10 @@ public static class SaveSystem {
         return null;
     }
     
+    /// <summary>
+    /// Deletes the save with the passed filename.
+    /// </summary>
+    /// <param name="filename"></param>
     public static void DeleteSave(string filename) {
         string path = Path(filename);
         
