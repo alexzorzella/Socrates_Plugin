@@ -16,12 +16,16 @@ public class GameManager {
 	}
 	
 	void Initialize() {
-		stats = new GameStats();
-		
-		if (SaveSystem.LoadSave("save") != null) {
-			Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
-			Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
+		SaveData saveData = SaveSystem.LoadSave("save");
+
+		if (saveData != null) {
+			stats = saveData.AsStats();
+		} else {
+			stats = new GameStats();	
 		}
+		
+		Resources.Load<AudioMixerGroup>("Music").audioMixer.SetFloat("Volume", stats.musicVol);
+		Resources.Load<AudioMixerGroup>("SFX").audioMixer.SetFloat("Volume", stats.sfxVol);
 
 		eventManager = new EventManager();
 
@@ -32,7 +36,7 @@ public class GameManager {
 		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVol);
 		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVol);
 
-		SaveSystem.SavePlayer(stats);
+		SaveSystem.Save(stats);
 	}
 
 	/// <summary>
