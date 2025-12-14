@@ -5,6 +5,9 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
+/// <summary>
+/// For BuildVersionProcessor to work, it must be in Assets/Editor.
+/// </summary>
 public class BuildVersionProcessor : IPreprocessBuildWithReport {
   const string DEFAULT_VERSION = "24.11.9";
 
