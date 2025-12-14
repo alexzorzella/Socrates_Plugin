@@ -32,6 +32,9 @@ public class GameManager {
 		AlexLang.ParseFile();
 	}
 	
+	/// <summary>
+	/// Saves the game.
+	/// </summary>
 	public void SaveGame() {
 		Resources.Load<AudioMixerGroup>("Music").audioMixer.GetFloat("Volume", out stats.musicVolume);
 		Resources.Load<AudioMixerGroup>("SFX").audioMixer.GetFloat("Volume", out stats.sfxVolume);
