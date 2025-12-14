@@ -328,6 +328,11 @@ namespace SocratesDialogue {
                     }
                 }
             }
+            
+            for (int i = 0; i < textInfo.meshInfo.Length; i++) {
+                textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
+                textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
+            }
         }
 
         struct VertexAnim {
@@ -471,11 +476,6 @@ namespace SocratesDialogue {
                 vertexPositionsWriteTo[vertexIndex + 1] += offset;
                 vertexPositionsWriteTo[vertexIndex + 2] += offset;
                 vertexPositionsWriteTo[vertexIndex + 3] += offset;
-            }
-
-            for (int i = 0; i < textInfo.meshInfo.Length; i++) {
-                textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
-                textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
             }
         }
 
