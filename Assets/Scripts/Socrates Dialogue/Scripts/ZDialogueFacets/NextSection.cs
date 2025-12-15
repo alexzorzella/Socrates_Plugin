@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace SocratesDialogue {
     public class NextSection : ZDialogueFacet {
-        readonly List<DialogueSection> choices;
+        readonly DialogueSection next;
 
-        public NextSection(params DialogueSection[] choices) {
-            this.choices = choices.ToList();
+        public NextSection(DialogueSection next) {
+            this.next = next;
         }
 
-        public DialogueSection Next(int choiceIndex = 0) {
-            return choices[choiceIndex];
+        public DialogueSection Next() {
+            return next;
         }
     }
 }

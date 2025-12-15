@@ -55,6 +55,11 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
                 SocraticAnnotation.defaultSoundName;
         
         contentText.SetDialogueSfx(soundName);
+
+        if (section.GetFacet<DialogueSoundbite>() != null) {
+            string soundbiteName = section.GetFacet<DialogueSoundbite>().ToString();
+            contentText.PlaySoundbite(soundbiteName);
+        }
     }
 
     /// <summary>

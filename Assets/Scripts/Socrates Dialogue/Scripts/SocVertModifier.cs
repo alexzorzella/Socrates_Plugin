@@ -42,11 +42,23 @@ namespace SocratesDialogue {
         /// </summary>
         /// <param name="soundName"></param>
         public void SetDialogueSfx(string soundName) {
-            if (!dialogueSfx.ContainsKey(soundName)) {
-                dialogueSfx.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
-            }
-
+            TryAddSound(soundName);
             currentDialogueSfx = dialogueSfx[soundName];
+        }
+        
+        public void PlaySoundbite(string soundbiteName) {
+            TryAddSound(soundbiteName);
+            dialogueSfx[soundbiteName].PlayRandom();
+        }
+
+        void TryAddSound(string soundName) {
+            if (!dialogueSfx.ContainsKey(soundName)) {
+                MultiAudioSource source = MultiAudioSource.FromResource(gameObject, soundName);
+
+                if (source != null) {
+                    dialogueSfx.Add(soundName, source);
+                }
+            }
         }
         
         /// <summary>
@@ -515,6 +527,7 @@ namespace SocratesDialogue {
                       SocraticAnnotation.waveAmplitude
                     : leftOffsetY;
 
+                // TODO: Refactor
                 vertexPositionsWriteTo[vertexIndex + 0].y = vertexPositionsReadFrom[vertexIndex + 0].y + leftOffsetY;
                 vertexPositionsWriteTo[vertexIndex + 1].y = vertexPositionsReadFrom[vertexIndex + 1].y + leftOffsetY;
 
