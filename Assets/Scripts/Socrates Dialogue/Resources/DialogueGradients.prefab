@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7662886953622461695}
   - component: {fileID: 3729921102621613423}
   m_Layer: 0
-  m_Name: Gradients
+  m_Name: DialogueGradients
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

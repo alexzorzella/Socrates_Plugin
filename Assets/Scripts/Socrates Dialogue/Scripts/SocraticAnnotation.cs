@@ -6,9 +6,23 @@ namespace SocratesDialogue {
             WAVE,
             DELAY,
             SHAKE,
-            // GRADIENT,
+            GRADIENT,
             SOUND
         }
+        
+        public static readonly Dictionary<string, RichTextType> annotationTags = new() {
+            { "wave", RichTextType.WAVE },
+            { "delay", RichTextType.DELAY },
+            { "shake", RichTextType.SHAKE },
+            { "gradient", RichTextType.GRADIENT },
+            { "sound", RichTextType.SOUND }
+        };
+
+        public const char richTextStart = '<';
+        public const char richTextEnd = '>';
+
+        public static readonly char[] minorPunctuation = { ',', '–' };
+        public static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
 
         public const char parseStartChar = '[';
         public const char parseEndChar = ']';
@@ -26,19 +40,7 @@ namespace SocratesDialogue {
         public const float waveSpeed = 9F;
         
         public const string defaultSoundName = "dialogue";
-
-        public static readonly Dictionary<string, RichTextType> annotationTags = new() {
-            { "wave", RichTextType.WAVE },
-            { "delay", RichTextType.DELAY },
-            { "shake", RichTextType.SHAKE },
-            // { "gradient", RichTextType.GRADIENT },
-            { "sound", RichTextType.SOUND }
-        };
-
-        public const char richTextStart = '<';
-        public const char richTextEnd = '>';
-
-        public static readonly char[] minorPunctuation = { ',', '–' };
-        public static readonly char[] majorPunctuation = { '.', '?', '!', '~', ':', ':', '(', ')', ';', '—' };
+        
+        public const float gradientSpeed = 1F;
     }
 }
