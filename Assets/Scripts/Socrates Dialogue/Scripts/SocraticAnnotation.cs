@@ -41,6 +41,7 @@ namespace SocratesDialogue {
         
         public const string defaultSoundName = "dialogue";
         
-        public const float gradientSpeed = 1F;
+        public const float gradientSpeed = 0.1F;
+        public const float gradientWidth = 4F;
     }
 }

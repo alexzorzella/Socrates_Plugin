@@ -1,4 +1,5 @@
 name:Bill and Ted	content:[gradient]Most bodacious! What a most excellent day! We've got the time machine up and running.[!gradient]									
+name:Socrates	content:[gradient]■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[!gradient]									
 name:Alex	content:What a wonderful day!	sound:dialogue	delay:0.015	event:shakeCamera(3)	ref:12		picture:alex_smile	soundbite:alex_laugh		
 name:Amy	content:This is most excellent!	sound:dialogue_2	pitch:1.2	event:panCamera(timeMachine)	ref:16		picture:amy_happy	option:Jamon,12	option:Relaxing,15	option:Chow down,16
 name:Alex	content:What's on the agenda?				ref:12		picture:alex_eyebrows	soundbite:alex_huh		

@@ -562,6 +562,8 @@ namespace SocratesDialogue {
             TMP_TextInfo textInfo,
             AnnotationToken token,
             Vector3[] vertexPositionsReadFrom) {
+            // Under construction
+            
             float xOffset =  Mathf.Abs(textInfo.characterInfo[0].bottomLeft.x);
             
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
@@ -574,23 +576,29 @@ namespace SocratesDialogue {
 
                 float leftVerticesXPos = vertexPositionsReadFrom[vertexIndex + 0].x;
                 float rightVerticesXPos = vertexPositionsReadFrom[vertexIndex + 2].x;
-
-                float percentage = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + charInfo.vertex_BL.position.x + xOffset) % 1; //  + leftVerticesXPos)
+                
+                float percentageL = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + charInfo.bottomLeft.x / SocraticAnnotation.gradientWidth + xOffset) % 1;
+                float percentageR = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + charInfo.bottomRight.x / SocraticAnnotation.gradientWidth + xOffset) % 1;
                 
                 int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
                 
                 Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
-                Color color = DialogueGradients.i.rainbow.Evaluate(percentage);
-
-                color = OverrideAlpha(color, vertexColors[0].a <= 0);
+                
+                Color colorL = DialogueGradients.i.rainbow.Evaluate(percentageL);
+                colorL = OverrideAlpha(colorL, vertexColors[0].a <= 0);
+                
+                Color colorR = DialogueGradients.i.rainbow.Evaluate(percentageR);
+                colorR = OverrideAlpha(colorR, vertexColors[0].a <= 0);
                 
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
-                    vertexColors[absVertexIndex] = color;
+                    vertexColors[absVertexIndex] = v < 2 ? colorL : colorR;
                 }
 
                 textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
             }
+            
+            // Under construction
         }
 
         static Vector2[] FromVector4Arr(Vector4[] input) {
