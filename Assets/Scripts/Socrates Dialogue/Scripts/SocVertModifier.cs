@@ -538,12 +538,10 @@ namespace SocratesDialogue {
                       SocraticAnnotation.waveAmplitude
                     : leftOffsetY;
 
-                // TODO: Refactor
-                vertexPositionsWriteTo[vertexIndex + 0].y = vertexPositionsReadFrom[vertexIndex + 0].y + leftOffsetY;
-                vertexPositionsWriteTo[vertexIndex + 1].y = vertexPositionsReadFrom[vertexIndex + 1].y + leftOffsetY;
-
-                vertexPositionsWriteTo[vertexIndex + 2].y = vertexPositionsReadFrom[vertexIndex + 2].y + rightOffsetY;
-                vertexPositionsWriteTo[vertexIndex + 3].y = vertexPositionsReadFrom[vertexIndex + 3].y + rightOffsetY;
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + leftOffsetY;
+                }
             }
         }
 
