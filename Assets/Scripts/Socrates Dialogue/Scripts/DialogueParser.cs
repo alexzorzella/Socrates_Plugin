@@ -56,12 +56,12 @@ namespace SocratesDialogue {
             { "content", passedValue => new DialogueContent((string)passedValue) },
             { "dialogue", passedValue => new DialogueContent((string)passedValue) },
             { "sound", passedValue => new DialogueSound((string)passedValue) },
-            { "delay", passedValue => new CharDelay((string)passedValue) }
-            // { "event", typeof(DialogueEvent) },
-            // { "ref", typeof(DialogueRef) },
-            // { "reference", typeof(DialogueRef) },
+            { "delay", passedValue => new CharDelay((string)passedValue) },
+            { "event", passedValue => new DialogueEvent((string)passedValue) }
+            // { "ref", passedValue => new DialogueReference(passedValue) },
+            // { "reference", passedValue => new DialogueReference(passedValue) },
             // { "option", typeof(Next) },
-            // { "soundbite", typeof(DialogueSoundbite) }
+            // { "soundbite", passedValue => new DialogueSoundbite(passedValue) }
         };
         
         static List<ZDialogueFacet> ParseFacetsFrom(string line) {
