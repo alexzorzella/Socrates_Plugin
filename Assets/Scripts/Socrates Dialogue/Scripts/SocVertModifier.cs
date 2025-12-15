@@ -352,7 +352,7 @@ namespace SocratesDialogue {
                             ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                         }
                         else if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.GRADIENT) {
-                            ApplyRichTextGradient(textComponent, textInfo, parse, vertexPositions, newVertexPositions);
+                            ApplyRichTextGradient(textComponent, textInfo, parse, vertexPositions);
                         }
                     }
                 }
@@ -560,8 +560,7 @@ namespace SocratesDialogue {
             TextMeshProUGUI textComponent,
             TMP_TextInfo textInfo,
             AnnotationToken token,
-            Vector3[] vertexPositionsReadFrom,
-            Vector3[] vertexPositionsWriteTo) {
+            Vector3[] vertexPositionsReadFrom) {
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
@@ -573,13 +572,15 @@ namespace SocratesDialogue {
                 float leftVerticesXPos = vertexPositionsReadFrom[vertexIndex + 0].x;
                 float rightVerticesXPos = vertexPositionsReadFrom[vertexIndex + 2].x;
 
-                float percentage = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + leftVerticesXPos) % 1;
-                Color color = DialogueGradients.i.rainbow.Evaluate(percentage);
+                float percentage = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed) % 1; //  + leftVerticesXPos)
                 
                 int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
                 
                 Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
+                Color color = DialogueGradients.i.rainbow.Evaluate(percentage);
 
+                color = OverrideAlpha(color, vertexColors[0].a <= 0);
+                
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
                     vertexColors[absVertexIndex] = color;
