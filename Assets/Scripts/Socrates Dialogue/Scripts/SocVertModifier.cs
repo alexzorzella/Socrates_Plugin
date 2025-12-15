@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Codice.CM.Common.Tree.Partial;
 using log4net.DateFormatter;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
@@ -561,18 +562,20 @@ namespace SocratesDialogue {
             TMP_TextInfo textInfo,
             AnnotationToken token,
             Vector3[] vertexPositionsReadFrom) {
+            float xOffset =  Mathf.Abs(textInfo.characterInfo[0].bottomLeft.x);
+            
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
-                int vertexIndex = textInfo.characterInfo[i].vertexIndex;
+                TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
+                int vertexIndex = charInfo.vertexIndex;
 
-                if (vertexIndex == 0 && i != 0 || !textComponent.textInfo.characterInfo[i].isVisible) {
-                    //Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
+                if (!charInfo.isVisible) {
                     continue;
                 }
 
                 float leftVerticesXPos = vertexPositionsReadFrom[vertexIndex + 0].x;
                 float rightVerticesXPos = vertexPositionsReadFrom[vertexIndex + 2].x;
 
-                float percentage = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed) % 1; //  + leftVerticesXPos)
+                float percentage = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + charInfo.vertex_BL.position.x + xOffset) % 1; //  + leftVerticesXPos)
                 
                 int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
                 
