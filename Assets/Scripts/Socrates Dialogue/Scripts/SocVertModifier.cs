@@ -160,7 +160,7 @@ namespace SocratesDialogue {
             // if it's not already
             if (currentBetweenCharacterDelay <= 0) {
                 counter++;
-                
+
                 fancyText.LogDisplayTime(Time.timeSinceLevelLoad - startedDisplayingLast);
 
                 // float actualTime = Time.timeSinceLevelLoad;
@@ -168,7 +168,7 @@ namespace SocratesDialogue {
                 // float percentError = ((expectedTime - actualTime) / actualTime) * 100;
                 //
                 // Debug.Log(percentError);
-                
+
                 if (!muted) {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.PlayOnlyIfDone();
@@ -180,25 +180,35 @@ namespace SocratesDialogue {
 
                 // Executed unexecuted delays
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
-                    bool isDelay = parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY;
-                    
-                    if (isDelay) {
+                    SocraticAnnotation.RichTextType richTextType = parse.GetRichTextType();
+
+                    bool isDelay = richTextType == SocraticAnnotation.RichTextType.DELAY;
+                    bool isSoundChange = richTextType == SocraticAnnotation.RichTextType.SOUND;
+
+                    if (isDelay || isSoundChange) {
                         bool isUnexecutedAction = 
                             parse.IsOpener() && 
                             parse.GetStartCharIndex() <= counter &&
                             !parse.HasExecutedAction();
                         
                         if (isUnexecutedAction) {
-                            if (currentDialogueSfx != null) {
-                                currentDialogueSfx.Stop();
+                            if (isDelay) {
+                                if (currentDialogueSfx != null) {
+                                    currentDialogueSfx.Stop();
+                                }
+
+                                currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
+                                parse.ExecuteAction();
+
+                                OnCharDelay();
                             }
-
-                            currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
-                            parse.ExecuteAction();
-
-                            OnCharDelay();
+                            else {
+                                currentDialogueSfx.Stop();
+                                SetDialogueSfx(parse.GetDynamicValue());
+                                currentDialogueSfx.Play();
+                            }
                         } else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
-                                  parse.HasExecutedAction()) {
+                                  parse.HasExecutedAction() && isDelay) {
                             OnPostCharDelay();
                         }
                     }

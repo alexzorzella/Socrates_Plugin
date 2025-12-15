@@ -7,8 +7,7 @@ namespace SocratesDialogue {
             DELAY,
             SHAKE,
             // GRADIENT,
-            // FUNCTION,
-            // SOUND
+            SOUND
         }
 
         public const char parseStartChar = '[';
@@ -33,8 +32,7 @@ namespace SocratesDialogue {
             { "delay", RichTextType.DELAY },
             { "shake", RichTextType.SHAKE },
             // { "gradient", RichTextType.GRADIENT },
-            // { "notify", RichTextType.FUNCTION },
-            // { "sound", RichTextType.SOUND },
+            { "sound", RichTextType.SOUND }
         };
 
         public const char richTextStart = '<';

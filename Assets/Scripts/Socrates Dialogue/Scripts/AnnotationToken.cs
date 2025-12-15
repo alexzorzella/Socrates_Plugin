@@ -48,6 +48,14 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
+        /// Returns the raw passed value.
+        /// </summary>
+        /// <returns></returns>
+        public string GetDynamicValue() {
+            return passedValue;
+        }
+        
+        /// <summary>
         /// Returns the dynamic value as a float.
         /// </summary>
         /// <returns></returns>
@@ -94,7 +102,7 @@ namespace SocratesDialogue {
                 isOpener = false;
                 return this;
             }
-
+            
             public Builder WithRichTextType(SocraticAnnotation.RichTextType richTextType) {
                 this.richTextType = richTextType;
                 return this;

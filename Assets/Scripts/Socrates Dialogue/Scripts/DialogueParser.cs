@@ -48,7 +48,7 @@ namespace SocratesDialogue {
             return results[0];
         }
 
-        static readonly Regex facetReader = new(@"^([a-zA-Z]+):[ ]*([^\[\]]+)$");
+        static readonly Regex facetReader = new(@"^([a-zA-Z]+):[ ]*(.*)$");
         
         static readonly Dictionary<string, Func<object, ZDialogueFacet>> tokenToFacet = new() {
             { "name", passedValue => new DialogueSpeaker((string)passedValue) },
