@@ -6,6 +6,10 @@ namespace SocratesDialogue {
             this.delay = delay;
         }
 
+        public CharDelay(string delayUncast) {
+            float.TryParse(delayUncast, out delay);
+        }
+
         public float GetDelay() {
             return delay;
         }

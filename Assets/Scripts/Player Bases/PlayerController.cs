@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void InitializeValues() {
-        var cam = FindObjectOfType<PCamera>();
+        var cam = FindFirstObjectByType<PCamera>();
         cam.SetTargetWithTransform(transform);
         cam.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }

@@ -30,14 +30,6 @@ namespace SocratesDialogue {
 
         static readonly Regex tagFormatter = new(@"^\!?([a-zA-Z]+)(?:,([^\[\]]+))?$");
         
-        // [wave]
-        // [wave,25]
-        // [!wave]
-        // [notify,19]
-        // [gradient,ocean]
-        // [gradient,ocean*]
-        // [notify,changeCamTarget:(0,2,2)]
-        
         /// <summary>
         /// Caches annotations according to markup found in the text.
         /// </summary>
@@ -63,13 +55,6 @@ namespace SocratesDialogue {
                                 continue;
                             }
 
-                            // regexMatch = regexMatch.NextMatch();
-
-                            // if (regexMatch.NextMatch() != null) {
-                            //     string error = $"{compareProfileTo} matched too much.";
-                            //     throw new AssertionException(error, "");
-                            // }
-                            
                             string formattedTag = regexMatch.Groups[1].Value;
                             
                             if (SocraticAnnotation.annotationTags.ContainsKey(formattedTag)) {

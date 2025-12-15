@@ -25,6 +25,8 @@ namespace SocratesDialogue {
         public const float waveFreqMultiplier = 0.025F;
         public const float waveAmplitude = 7F;
         public const float waveSpeed = 9F;
+        
+        public const string defaultSoundName = "dialogue";
 
         public static readonly Dictionary<string, RichTextType> annotationTags = new() {
             { "wave", RichTextType.WAVE },

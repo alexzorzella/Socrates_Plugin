@@ -48,8 +48,13 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         
         nameText.SetText(name);
         contentText.SetText(content, scroll: true, muted: false);
+
+        string soundName = 
+            section.GetFacet<DialogueSound>() != null ? 
+                section.GetFacet<DialogueSound>().ToString() : 
+                SocraticAnnotation.defaultSoundName;
         
-        contentText.SetDialogueSfx(section.GetFacet<DialogueSound>().ToString());
+        contentText.SetDialogueSfx(soundName);
     }
 
     /// <summary>

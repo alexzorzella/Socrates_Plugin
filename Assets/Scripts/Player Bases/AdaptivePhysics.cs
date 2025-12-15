@@ -55,7 +55,7 @@ public class AdaptivePhysics : MonoBehaviour {
     }
 
     void InitializeValues() {
-        var cam = FindObjectOfType<PCamera>();
+        var cam = FindFirstObjectByType<PCamera>();
         cam.SetTargetWithTransform(transform);
 
         if (GetComponentInChildren<Animator>() != null) anim = GetComponentInChildren<Animator>();
