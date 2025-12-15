@@ -35,7 +35,6 @@ namespace SocratesDialogue {
             // { "sound", RichTextType.SOUND },
         };
 
-
         public const char richTextStart = '<';
         public const char richTextEnd = '>';
 

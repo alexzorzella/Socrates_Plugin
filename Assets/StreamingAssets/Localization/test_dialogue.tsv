@@ -1,58 +1,59 @@
-Helen	It seems to me
-Helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]
-Helen	It's from an old familiar [shake,3][wave,3]scorooooooooe[!wave][!shake]
-Helen	I know it well
-Helen	that melody
-Helen	It's funny how a theme
-Helen	Recalls a favorite dream
-Helen	A dream that brought you so close to me
-Helen	I know each word
-Helen	Because I've heard that song before
-Helen	"The lyrics said ""forever more"""
-Helen	Forever more's a memory
-Helen	Please have them play it again
-Helen	And I'll remember just when I've heard
-Helen	That lovely song [wave,3]bef[shake,1]ooooooooooooo[!shake]re[!wave]
-Slate	You know who's an amazing jazz pianist? Hazel Scott. She's pretty good.
-Slate	<i>You know who's an amazing drummer?</i> Neil Peart. He's pretty good.
-Slate	<b>You know who's an amazing lyricist?</b> Chico Buarque. He's pretty good.
-Slate	[wave,3]You know who's an amazing guitar player?[!wave] Mike Oldfield. He's pretty good.
-June	Slate? Are you feeling okay?
-Slate	Of course.
-June	<size=50%>Your eyes had rolled back into your head and you were chittering about musicians.</size>
-Slate	Huh?
-June	Let's [wave]get something to eat[!wave]. I'm <i>starving</i> right now.
-Slate	<size=50%>Chittering? That sounds like someone else...</size> I could go for some <size=110%>Submarine Sandwiches</size> right now.
-June	<size=50%>Maybe you are okay</size> Let's go eat!
-Slate	Tell me about your time at <color=yellow>University of American Samoa</color>.
-June	[shake,4][wave,2]I did <size=110%>a lot</size> in college.[!shake][!wave]
-June	Are you asking about anything in particular?
-Ratman	You're you're you're you're you're you're
-Slate	What the
-Ratman	You're. You're. You're. You're. You're. You're. You're. You're. You're. 
-Slate	<b>You know an amazing jazz pianist?</b> Hazel Scott.  [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave] [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave] [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave]
-Ratman	<b><b><b><b><b><b><b><b><b>You're.</b></b></b></b></b></b></b></b></b> You're. You're. You're. You're. You're. You're. You're. You're. 
-Nopunct	This text has no punctuation therefore it will have no delays it also does not have any fancy text annotations
-Nopunct	This text has no punctuation therefore it will have no delays it also does not have any fancy text annotations
-Noannot	This text has punctutaion, but no annotations. I like Pink Floyd. Their music is pretty good.
-Nopunct	No punctuation I like Pink Floyd their music is pretty good
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-`	
-`	
+Helen	It seems to me								
+Helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]								
+Helen	It's from an old familiar sc[shake,3][wave,3]oooooooo[!shake]re[!wave]								
+Helen	I know it well								
+Helen	that melody								
+Helen	It's funny how a theme								
+Helen	Recalls a favorite dream								
+Helen	A dream that brought you so close to me								
+Helen	I know each word								
+Helen	Because I've heard that song before								
+Helen	"The lyrics said ""forever more"""								
+Helen	Forever more's a memory								
+Helen	Please have them play it again								
+Helen	And I'll remember just when I've heard								
+Helen	That lovely song [wave,3]bef[shake,1]ooooooooooooo[!shake]re[!wave]								
+Slate	You know who's an amazing jazz pianist? Hazel Scott. She's pretty good.								
+Slate	<i>You know who's an amazing drummer?</i> Neil Peart. He's pretty good.								
+Slate	<b>You know who's an amazing lyricist?</b> Chico Buarque. He's pretty good.								
+Slate	[wave,3]You know who's an amazing guitar player?[!wave] Mike Oldfield. He's pretty good.								
+June	Slate? Are you feeling okay?								
+Slate	Of course.								
+June	<size=50%>Your eyes had rolled back into your head and you were chittering about musicians.</size>								
+Slate	Huh?								
+June	Let's [wave]get something to eat[!wave]. I'm <i>starving</i> right now.								
+Slate	<size=50%>Chittering? That sounds like someone else...</size> I could go for some <size=110%>Submarine Sandwiches</size> right now.								
+June	<size=50%>Maybe you are okay</size> Let's go eat!								
+Slate	Tell me about your time at <color=yellow>University of American Samoa</color>.								
+June	[shake,4][wave,2]I did <size=110%>a lot</size> in college.[!shake][!wave]								
+June	Are you asking about anything in particular?								
+Ratman	You're you're you're you're you're you're								
+Slate	What the								
+Ratman	You're. You're. You're. You're. You're. You're. You're. You're. You're. 								
+Slate	<b>You know an amazing jazz pianist?</b> Hazel Scott.  [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave] [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave] [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave]								
+Ratman	<b><b><b><b><b><b><b><b><b>You're.</b></b></b></b></b></b></b></b></b> You're. You're. You're. You're. You're. You're. You're. You're. 								
+Nopunct	This text has no punctuation therefore it will have no delays it also does not have any fancy text annotations								
+Nopunct	This text has no punctuation therefore it will have no delays it also does not have any fancy text annotations								
+Noannot	This text has punctutaion, but no annotations. I like Pink Floyd. Their music is pretty good.								
+Nopunct	No punctuation I like Pink Floyd their music is pretty good								
+									
+Alex									
+The Zinhos									
+Alex									
+Alex									
+Dad									
+Alex									
+Dad									
+Alex									
+Dad									
+Alex									
+Dad									
+Alex									
+name:Alex	content:The Zinhos [wave,3]approves![!wave]	sound:dialogue_2	delay:0.015	event:setCamTarget(0,1,2)	ref:12	soundbyte:12	picture:alex_happy		
+name:Dad	content:But the Zinhos!	"option0:""Return"",12"							
+									
+									
+									
+`									
+`									
+									

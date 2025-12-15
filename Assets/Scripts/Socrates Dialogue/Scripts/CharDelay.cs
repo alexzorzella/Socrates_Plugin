@@ -1,5 +1,5 @@
 namespace SocratesDialogue {
-    public class CharDelay : ZFacet {
+    public class CharDelay : ZDialogueFacet {
         readonly float delay;
 
         public CharDelay(float delay) {
@@ -10,7 +10,7 @@ namespace SocratesDialogue {
             return delay;
         }
         
-        public ZFacet Clone() {
+        public ZDialogueFacet Clone() {
             return new CharDelay(delay);
         }
     }

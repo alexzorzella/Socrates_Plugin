@@ -1,7 +1,7 @@
 using System;
 
 namespace SocratesDialogue {
-    public class SectionEvent : ZFacet {
+    public class SectionEvent : ZDialogueFacet {
         readonly Action action;
         readonly bool onStart;
         bool hasTriggered;
@@ -25,7 +25,7 @@ namespace SocratesDialogue {
             return hasTriggered;
         }
 
-        public ZFacet Clone() {
+        public ZDialogueFacet Clone() {
             return new SectionEvent((Action)action.Clone(), onStart, hasTriggered);
         }
     }

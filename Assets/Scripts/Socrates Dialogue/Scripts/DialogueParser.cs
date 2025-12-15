@@ -30,32 +30,14 @@ namespace SocratesDialogue {
             for (int i = 0; i < lines.Length; i++) {
                 string line = lines[i];
 
-                string[] entries = line.Split('\t');
+                List<ZDialogueFacet> facets = ParseFacetsFrom(line);
 
-                if (entries.Length < 2) {
-                    continue;
-                }
+                DialogueSection current = new DialogueSection(facets);
 
-                string speaker = entries[0]; // Pulls the speaker's name from the first column
-                string content = entries[1]; // Pulls the section's content from the second column
-
-                string sound = defaultDialogueSound;
-
-                if (entries.Length > 2) {
-                    // Pulls the dialogue sound name from the third column. If none was provided, it keeps the default.
-                    string soundToken = entries[2].Replace("\r", string.Empty).Replace("\n", string.Empty);
-                    if (!string.IsNullOrEmpty(soundToken)) {
-                        sound = soundToken;
-                    }
-                }
-
-                if (string.IsNullOrEmpty(content)) {
-                    // Breaks if the contents of the dialogue were empty.
+                if (!current.HasFacet<DialogueContent>()) {
                     break;
                 }
-
-                DialogueSection current = new DialogueSection(speaker, content, sound);
-
+                
                 if (i > 0) {
                     results.Last().AddFacet(new NextSection(current));
                 }
@@ -64,6 +46,27 @@ namespace SocratesDialogue {
             }
 
             return results[0];
+        }
+
+        static List<ZDialogueFacet> ParseFacetsFrom(string line) {
+            List<ZDialogueFacet> results = new();
+            
+            string[] entries = line.Split('\t');
+
+            string speaker = entries[0]; // Pulls the speaker's name from the first column
+            string content = entries[1]; // Pulls the section's content from the second column
+
+            string sound = defaultDialogueSound;
+
+            if (entries.Length > 2) {
+                // Pulls the dialogue sound name from the third column. If none was provided, it keeps the default.
+                string soundToken = entries[2].Replace("\r", string.Empty).Replace("\n", string.Empty);
+                if (!string.IsNullOrEmpty(soundToken)) {
+                    sound = soundToken;
+                }
+            }
+
+            return results;
         }
 
         /// <summary>
