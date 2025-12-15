@@ -353,7 +353,11 @@ namespace SocratesDialogue {
                             ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                         }
                         else if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.GRADIENT) {
-                            ApplyRichTextGradient(textComponent, textInfo, parse, vertexPositions);
+                            ApplyRichTextGradient(
+                                textComponent,
+                                parse, 
+                                vertexPositions,
+                                totalVisibleCharacters);
                         }
                     }
                 }
@@ -556,39 +560,45 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="token"></param>
-        /// <param name="vertexPositionsWriteTo"></param>
+        /// <param name="totalVisibleCharacters"></param>
         void ApplyRichTextGradient(
             TextMeshProUGUI textComponent,
-            TMP_TextInfo textInfo,
             AnnotationToken token,
-            Vector3[] vertexPositionsReadFrom) {
+            Vector3[] vertexPositionsReadFrom,
+            int totalVisibleCharacters) {
             // Under construction
+            
+            TMP_TextInfo textInfo = textComponent.textInfo;
             
             float xOffset =  Mathf.Abs(textInfo.characterInfo[0].bottomLeft.x);
             
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
                 int vertexIndex = charInfo.vertexIndex;
+                
+                bool hidden = i >= totalVisibleCharacters;
 
-                if (!charInfo.isVisible) {
+                if (!charInfo.isVisible || hidden) {
                     continue;
                 }
 
-                float leftVerticesXPos = vertexPositionsReadFrom[vertexIndex + 0].x;
-                float rightVerticesXPos = vertexPositionsReadFrom[vertexIndex + 2].x;
+                float timeOffset = Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed;
+                float lX = charInfo.bottomLeft.x;
+                float rX = charInfo.bottomRight.x;
                 
-                float percentageL = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + charInfo.bottomLeft.x / SocraticAnnotation.gradientWidth + xOffset) % 1;
-                float percentageR = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + charInfo.bottomRight.x / SocraticAnnotation.gradientWidth + xOffset) % 1;
+                float percentageL = (timeOffset + lX / SocraticAnnotation.gradientWidth + xOffset) % 1;
+                float percentageR = (timeOffset + rX / SocraticAnnotation.gradientWidth + xOffset) % 1;
                 
                 int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
                 
                 Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
+
                 
                 Color colorL = DialogueGradients.i.rainbow.Evaluate(percentageL);
-                colorL = OverrideAlpha(colorL, vertexColors[0].a <= 0);
+                colorL = OverrideAlpha(colorL, false);
                 
                 Color colorR = DialogueGradients.i.rainbow.Evaluate(percentageR);
-                colorR = OverrideAlpha(colorR, vertexColors[0].a <= 0);
+                colorR = OverrideAlpha(colorR, false);
                 
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
