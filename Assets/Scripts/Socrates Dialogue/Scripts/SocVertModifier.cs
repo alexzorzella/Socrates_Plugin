@@ -565,7 +565,7 @@ namespace SocratesDialogue {
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
 
-                if (vertexIndex == 0 && i != 0) {
+                if (vertexIndex == 0 && i != 0 || !textComponent.textInfo.characterInfo[i].isVisible) {
                     //Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
                     continue;
                 }
@@ -573,21 +573,19 @@ namespace SocratesDialogue {
                 float leftVerticesXPos = vertexPositionsReadFrom[vertexIndex + 0].x;
                 float rightVerticesXPos = vertexPositionsReadFrom[vertexIndex + 2].x;
 
-                float percentage = (Time.timeSinceLevelLoad + leftVerticesXPos * SocraticAnnotation.gradientSpeed) % 1;
+                float percentage = (Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed + leftVerticesXPos) % 1;
                 Color color = DialogueGradients.i.rainbow.Evaluate(percentage);
+                
+                int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
+                
+                Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
 
-                // float rightOffsetY = SocraticAnnotation.waveWarpTextVertices
-                //     ? Mathf.Sin(Time.timeSinceLevelLoad * waveSpeed +
-                //                 rightVerticesXPos * SocraticAnnotation.waveFreqMultiplier) *
-                //       SocraticAnnotation.waveAmplitude
-                //     : leftOffsetY;
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexColors[absVertexIndex] = color;
+                }
 
-                SetCharColor(textComponent, i, color);
-
-                // for (int v = 0; v < 4; v++) {
-                //     int absVertexIndex = vertexIndex + v;
-                //     vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + leftOffsetY;
-                // }
+                textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
             }
         }
 
