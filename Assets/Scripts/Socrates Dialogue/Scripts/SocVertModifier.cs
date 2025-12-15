@@ -192,13 +192,14 @@ namespace SocratesDialogue {
                             !parse.HasExecutedAction();
                         
                         if (isUnexecutedAction) {
+                            parse.ExecuteAction();
+                            
                             if (isDelay) {
                                 if (currentDialogueSfx != null) {
                                     currentDialogueSfx.Stop();
                                 }
 
                                 currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
-                                parse.ExecuteAction();
 
                                 OnCharDelay();
                             }
