@@ -132,19 +132,21 @@ namespace SocratesDialogue {
             }
 
             DialogueSection nextSection = null;
+
+            int nextSectionCount = currentSection.CountOfFacetType<NextSection>();
             
             if (!string.IsNullOrWhiteSpace(reference)) {
                 nextSection = DialogueManifest.GetSectionByReference(reference);
-            } else if (currentSection.CountOfFacetType<NextSection>() == 1) {
+            } else if (nextSectionCount == 1) {
                 nextSection = currentSection.GetFacet<NextSection>().LeadsTo();
             }
-
-            if (nextSection == null) {
+            
+            if (nextSection == null && nextSectionCount <= 1) {
                 EndDialogue();
                 return;
             }
 
-            if (dialoguePanel.OnStandby()) {
+            if (dialoguePanel.OnStandby() && nextSectionCount <= 1) {
                 SetCurrentSection(nextSection);
             }
             else {
