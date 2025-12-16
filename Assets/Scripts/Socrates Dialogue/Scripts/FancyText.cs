@@ -256,8 +256,8 @@ namespace SocratesDialogue {
                             newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.DELAY);
 
                             string passedValue = minorDelay
-                                ? SocraticAnnotation.minorPunctuationDisplayDelay.ToString()
-                                : SocraticAnnotation.majorPunctuationDisplayDelay.ToString();
+                                ? SocraticAnnotation.i.minorPunctuationDisplayDelay.ToString()
+                                : SocraticAnnotation.i.majorPunctuationDisplayDelay.ToString();
                             
                             newTokenBuilder.WithPassedValue(passedValue);
 

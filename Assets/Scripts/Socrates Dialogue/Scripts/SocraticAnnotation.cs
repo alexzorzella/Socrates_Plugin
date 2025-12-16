@@ -1,7 +1,25 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SocratesDialogue {
-    public static class SocraticAnnotation {
+    public class SocraticAnnotation : MonoBehaviour {
+        static SocraticAnnotation _i;
+
+        void Start() {
+            DontDestroyOnLoad(gameObject);
+        }
+	
+        public static SocraticAnnotation i {
+            get {
+                if (_i == null) {
+                    SocraticAnnotation x = Resources.Load<SocraticAnnotation>("SocraticAnnotation");
+
+                    _i = Instantiate(x);
+                }
+                return _i;
+            }
+        }
+        
         public enum RichTextType {
             WAVE,
             DELAY,
@@ -29,19 +47,27 @@ namespace SocratesDialogue {
         public const char parseClosePairChar = '!';
         public const char parseValueSeparator = ',';
 
-        public const float displayDelayPerChar = 0.01F;
+        [Range(0, 0.1F)]
+        public float displayDelayPerChar = 0.01F;
 
-        public const float minorPunctuationDisplayDelay = 0.25F;
-        public const float majorPunctuationDisplayDelay = 0.35F;
+        [Range(0, 1F)]
+        public float minorPunctuationDisplayDelay = 0.25F;
+        [Range(0, 1F)]
+        public float majorPunctuationDisplayDelay = 0.35F;
 
-        public const bool waveWarpTextVertices = true;
-        public const float waveFreqMultiplier = 0.025F;
-        public const float waveAmplitude = 7F;
-        public const float waveSpeed = 9F;
+        public bool waveWarpTextVertices = true;
+        [Range(0, 0.1F)]
+        public float waveFreqMultiplier = 0.025F;
+        [Range(0, 20F)]
+        public float waveAmplitude = 7F;
+        [Range(0, 20F)]
+        public float waveSpeed = 9F;
         
         public const string defaultSoundName = "dialogue";
         
-        public const float gradientSpeed = 0.1F;
-        public const float gradientWidth = 4F;
+        [Range(-20F, 20F)]
+        public float gradientSpeed = 0.1F;
+        [Range(0, 4000)]
+        public float gradientWidth = 2000F;
     }
 }

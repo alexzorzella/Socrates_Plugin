@@ -178,7 +178,7 @@ namespace SocratesDialogue {
                 }
 
                 // Reset the current delay
-                currentBetweenCharacterDelay = SocraticAnnotation.displayDelayPerChar;
+                currentBetweenCharacterDelay = SocraticAnnotation.i.displayDelayPerChar;
 
                 // Executed unexecuted delays
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
@@ -523,7 +523,7 @@ namespace SocratesDialogue {
             Vector3[] vertexPositionsWriteTo) {
             float waveSpeed = token.ContainsDynamicValue()
                 ? token.GetDynamicValueAsFloat()
-                : SocraticAnnotation.waveSpeed;
+                : SocraticAnnotation.i.waveSpeed;
 
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -538,12 +538,12 @@ namespace SocratesDialogue {
 
                 float leftOffsetY = Mathf.Sin(
                     Time.timeSinceLevelLoad * waveSpeed +
-                    leftVerticesXPos * SocraticAnnotation.waveFreqMultiplier) * SocraticAnnotation.waveAmplitude;
+                    leftVerticesXPos * SocraticAnnotation.i.waveFreqMultiplier) * SocraticAnnotation.i.waveAmplitude;
 
-                float rightOffsetY = SocraticAnnotation.waveWarpTextVertices
+                float rightOffsetY = SocraticAnnotation.i.waveWarpTextVertices
                     ? Mathf.Sin(Time.timeSinceLevelLoad * waveSpeed +
-                                rightVerticesXPos * SocraticAnnotation.waveFreqMultiplier) *
-                      SocraticAnnotation.waveAmplitude
+                                rightVerticesXPos * SocraticAnnotation.i.waveFreqMultiplier) *
+                      SocraticAnnotation.i.waveAmplitude
                     : leftOffsetY;
 
                 for (int v = 0; v < 4; v++) {
@@ -582,12 +582,12 @@ namespace SocratesDialogue {
                     continue;
                 }
 
-                float timeOffset = Time.timeSinceLevelLoad * SocraticAnnotation.gradientSpeed;
+                float timeOffset = Time.timeSinceLevelLoad * SocraticAnnotation.i.gradientSpeed;
                 float lX = charInfo.bottomLeft.x;
                 float rX = charInfo.bottomRight.x;
                 
-                float percentageL = (timeOffset + lX / SocraticAnnotation.gradientWidth + xOffset) % 1;
-                float percentageR = (timeOffset + rX / SocraticAnnotation.gradientWidth + xOffset) % 1;
+                float percentageL = (timeOffset + lX / SocraticAnnotation.i.gradientWidth + xOffset) % 1;
+                float percentageR = (timeOffset + rX / SocraticAnnotation.i.gradientWidth + xOffset) % 1;
                 
                 int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
                 
