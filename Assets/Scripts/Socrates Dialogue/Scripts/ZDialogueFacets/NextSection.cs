@@ -14,7 +14,7 @@ namespace SocratesDialogue {
             
             if (!optionMatch.Success) {
                 reference = rawInput;
-            } else if(optionMatch.Groups.Count == 2) {
+            } else if(optionMatch.Groups.Count == 3) {
                 prompt = optionMatch.Groups[1].Value;
                 reference = optionMatch.Groups[2].Value;
             }
