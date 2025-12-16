@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using SocratesDialogue;
 using UnityEngine;
 
 namespace SocratesDialogue {
     public static class DialogueParser {
+        const int maxEmptyLinesBeforeBreak = 50;
+
         /// <summary>
         /// Parses dialogue from the passed .tsv file found in the StreamingAssets/Localization folder.
         /// </summary>
@@ -27,6 +30,8 @@ namespace SocratesDialogue {
 
             string[] lines = contents.Split('\n');
 
+            int emptyLineCount = 0;
+
             for (int i = 0; i < lines.Length; i++) {
                 string line = lines[i];
 
@@ -35,13 +40,33 @@ namespace SocratesDialogue {
                 DialogueSection current = new DialogueSection(facets);
 
                 if (!current.HasFacet<DialogueContent>()) {
-                    break;
-                }
-                
-                if (i > 0) {
-                    results.Last().AddFacet(new NextSection(current));
+                    emptyLineCount++;
+
+                    if (emptyLineCount > maxEmptyLinesBeforeBreak) {
+                        break;
+                    }
+
+                    continue;
                 }
 
+                emptyLineCount = 0;
+
+                string uniqueReference = "";
+
+                if (current.HasFacet<DialogueReference>()) {
+                    uniqueReference = current.GetFacet<DialogueReference>().ToString();
+                }
+
+                if (results.Count > 0) {
+                    if(!current.HasFacet<DialogueReference>()) {
+                        uniqueReference = DialogueManifest.GetUniqueReference();
+                    }
+    
+                    uniqueReference = DialogueManifest.AddEntry(uniqueReference, current);
+    
+                    results.Last().AddFacet(new NextSection(uniqueReference));
+                }
+                
                 results.Add(current);
             }
 
@@ -49,24 +74,24 @@ namespace SocratesDialogue {
         }
 
         static readonly Regex facetReader = new(@"^([a-zA-Z]+):[ ]*(.*)$");
-        
+
         static readonly Dictionary<string, Func<object, ZDialogueFacet>> tokenToFacet = new() {
             { "name", passedValue => new DialogueSpeaker((string)passedValue) },
             { "speaker", passedValue => new DialogueSpeaker((string)passedValue) },
             { "content", passedValue => new DialogueContent((string)passedValue) },
+            { "option", passedValue => new DialogueContent((string)passedValue) },
             { "dialogue", passedValue => new DialogueContent((string)passedValue) },
             { "sound", passedValue => new DialogueSound((string)passedValue) },
             { "delay", passedValue => new CharDelay((string)passedValue) },
             { "event", passedValue => new DialogueEvent((string)passedValue) },
-            { "soundbite", passedValue => new DialogueSoundbite((string)passedValue) }
-            // { "option", passedValue => new NextSection(passedValue) },
-            // { "ref", passedValue => new DialogueReference(passedValue) },
-            // { "reference", passedValue => new DialogueReference(passedValue) },
+            { "soundbite", passedValue => new DialogueSoundbite((string)passedValue) },
+            { "ref", passedValue => new DialogueReference((string)passedValue) },
+            { "reference", passedValue => new DialogueReference((string)passedValue) }
         };
-        
+
         static List<ZDialogueFacet> ParseFacetsFrom(string line) {
             List<ZDialogueFacet> results = new();
-            
+
             string[] entries = line.Split('\t');
 
             foreach (string entry in entries) {
@@ -75,7 +100,7 @@ namespace SocratesDialogue {
                 if (string.IsNullOrWhiteSpace(entry)) {
                     continue;
                 }
-                
+
                 if (!regexMatch.Success) {
                     Debug.LogError($"{entry} couldn't be parsed.");
                     continue;
@@ -83,16 +108,15 @@ namespace SocratesDialogue {
 
                 string token = regexMatch.Groups[1].Value;
                 token = token.ToLower();
-                
+
                 if (!tokenToFacet.ContainsKey(token)) {
                     Debug.LogWarning($"There is no token called '{token}'. Input '{entry}' couldn't be parsed.");
                     continue;
                 }
-                
+
                 string passedValue = regexMatch.Groups[2].Value;
-                    
+
                 ZDialogueFacet facet = tokenToFacet[token](passedValue);
-                
                 results.Add(facet);
             }
 
