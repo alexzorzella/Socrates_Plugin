@@ -103,18 +103,26 @@ namespace SocratesDialogue {
         /// finished displaying. If it has, it continues to the next section. Otherwise, it fully displays the current
         /// dialogue section's content.
         /// </summary>
-        public void ContinueConversation() {
+        public void ContinueConversation(string reference = "") {
             if (!Talking()) {
                 return;
             }
 
-            if (!currentSection.HasFacet<NextSection>()) {
+            DialogueSection nextSection = null;
+            
+            if (!string.IsNullOrWhiteSpace(reference)) {
+                nextSection = DialogueManifest.GetSectionByReference(reference);
+            } else if (currentSection.HasFacet<NextSection>()) {
+                nextSection = currentSection.GetFacet<NextSection>().Next();
+            }
+
+            if (nextSection == null) {
                 EndDialogue();
                 return;
             }
 
             if (dialoguePanel.OnStandby()) {
-                SetCurrentSection(currentSection.GetFacet<NextSection>().Next());
+                SetCurrentSection(nextSection);
             }
             else {
                 dialoguePanel.DisplayTextFully(currentSection);

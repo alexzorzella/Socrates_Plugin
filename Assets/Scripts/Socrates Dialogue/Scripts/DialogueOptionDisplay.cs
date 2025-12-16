@@ -1,41 +1,24 @@
 ﻿using SocratesDialogue;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // TODO: Reimplement behavior
-public class DialogueOptionDisplay : MonoBehaviour {
-    public TextMeshProUGUI contentText;
+public class DialogueOptionDisplay : MonoBehaviour, IPointerClickHandler {
+    DialogueManager dialogueManager;
+    string reference;
+    
+    TextMeshProUGUI contentText;
 
-    DialogueManager manager;
-    Animator anim;
-
-    void Start() {
-        anim = GetComponent<Animator>();
-        manager = FindFirstObjectByType<DialogueManager>();
+    public void Initialize(DialogueManager dialogueManager, string contents, string reference) {
+        this.dialogueManager = dialogueManager;
+        this.reference = reference;
+        
+        contentText = GetComponentInChildren<TextMeshProUGUI>();
+        contentText.text = contents;
     }
-
-    public void SetParams(string optionText) {
-        contentText.text = optionText;
-        // leadsTo = nextDialogueSection;
-    }
-
-    public void ProceedOnClick() {
-        // if(manager.displayingChoices)
-        // {
-        //     return;
-        // }
-        //
-        // // AudioManager.i.Play("dialogue_select");
-        //
-        // manager.currentSection = leadsTo;
-        // manager.DisplayDialogue();
-    }
-
-    public float AnimationLength() {
-        if (anim == null) {
-            anim = GetComponent<Animator>();
-        }
-
-        return anim.GetCurrentAnimatorStateInfo(0).length;
+    
+    public void OnPointerClick(PointerEventData eventData) {
+        dialogueManager.ContinueConversation(reference);
     }
 }
