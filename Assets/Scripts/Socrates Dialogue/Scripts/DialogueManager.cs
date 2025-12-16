@@ -127,29 +127,44 @@ namespace SocratesDialogue {
         /// dialogue section's content.
         /// </summary>
         public void ContinueConversation(string reference = "") {
-            if (!Talking()) {
+            int nextSectionCount = 0;
+            
+            // Count the number of choices. Monologues have one next section (no choices).
+            // Branching events have two or more sections (more than one choice).
+            // For now, there's no way to only have one choice.
+            if (currentSection != null) {
+                nextSectionCount = currentSection.CountOfFacetType<NextSection>();
+            }
+            
+            // Return if there's no conversation or if the current dialogue is a
+            // branching dialogue and there was no choice passed.
+            if (!Talking() || (nextSectionCount > 1 && string.IsNullOrWhiteSpace(reference))) {
                 return;
             }
 
             DialogueSection nextSection = null;
 
-            int nextSectionCount = currentSection.CountOfFacetType<NextSection>();
-            
+            // Cached the reference's associated dialogue section if one was passed
             if (!string.IsNullOrWhiteSpace(reference)) {
                 nextSection = DialogueManifest.GetSectionByReference(reference);
             } else if (nextSectionCount == 1) {
+                // Otherwise, if the current section is a Monologue (only one
+                // section next), cache it.
                 nextSection = currentSection.GetFacet<NextSection>().LeadsTo();
             }
             
-            if (nextSection == null && nextSectionCount <= 1) {
+            // If the next section is null, end the dialogue and return
+            if (nextSection == null) {
                 EndDialogue();
                 return;
             }
 
-            if (dialoguePanel.OnStandby() && nextSectionCount <= 1) {
+            // If the dialogue panel has finished displaying the text, navigate
+            // to the next section
+            if (dialoguePanel.OnStandby()) {
                 SetCurrentSection(nextSection);
-            }
-            else {
+            } else {
+                // Otherwise, fully display the text
                 dialoguePanel.DisplayTextFully(currentSection);
             }
         }
