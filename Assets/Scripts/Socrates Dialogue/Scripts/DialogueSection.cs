@@ -46,6 +46,11 @@ namespace SocratesDialogue {
             return default;
         }
 
+        /// <summary>
+        /// Returns the list of ZDialogueFacet of type T in facets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public List<T> GetFacets<T>() where T : ZDialogueFacet {
             List<T> result = new();
             
@@ -58,6 +63,11 @@ namespace SocratesDialogue {
             return result;
         }
 
+        /// <summary>
+        /// Returns the number of ZDialogueFacet of type T in facets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public int CountOfFacetType<T>() where T : ZDialogueFacet {
             List<T> facetsOfTypeT = GetFacets<T>();
             int result = facetsOfTypeT.Count;
