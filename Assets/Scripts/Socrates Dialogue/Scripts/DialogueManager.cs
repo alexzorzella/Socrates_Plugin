@@ -29,7 +29,7 @@ namespace SocratesDialogue {
                 return _i;
             }
         }
-
+        
         DialoguePanel dialoguePanel;
         DialogueSection currentSection;
         readonly List<DialogueListener> listeners = new();
@@ -64,7 +64,7 @@ namespace SocratesDialogue {
 
             NotifyOfDialogueBegun();
 
-            LeanTween.delayedCall(DialoguePanel.toggleTime, () => { SetCurrentSection(start); });
+            LeanTween.delayedCall(DialoguePanel.fadeTime, () => { SetCurrentSection(start); });
         }
 
         /// <summary>

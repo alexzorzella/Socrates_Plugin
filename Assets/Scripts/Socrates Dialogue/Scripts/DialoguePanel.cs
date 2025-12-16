@@ -1,18 +1,30 @@
 using System.Collections.Generic;
+using PlasticGui.WorkspaceWindow.QueryViews.Changesets;
 using SocratesDialogue;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialoguePanel : MonoBehaviour, DialogueListener {
+    RectTransform rectTransform;
     CanvasGroup canvasGroup;
-
-    public const float toggleTime = 0.15F;
 
     public SocVertModifier nameText;
     public SocVertModifier contentText;
     
+    public const float fadeTime = 0.15F;
+    const float moveTime = 0.25F;
+    static readonly Vector2 origin = new Vector2(0, 79);
+
+    public VerticalLayoutGroup choiceParent;
+    RectTransform choiceParentRect;
+    
     void Awake() {
+        rectTransform = GetComponent<RectTransform>();
+        
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
+        choiceParentRect = choiceParent.GetComponent<RectTransform>();
+        
         GetComponentInParent<DialogueManager>().RegisterListener(this);
     }
 
@@ -24,7 +36,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         LeanTween.cancel(canvasGroup.gameObject);
 
         canvasGroup.alpha = visible ? 0 : 1;
-        LeanTween.value(canvasGroup.alpha, visible ? 1 : 0, toggleTime)
+        LeanTween.value(canvasGroup.alpha, visible ? 1 : 0, fadeTime)
             .setOnUpdate((value) => { canvasGroup.alpha = value; });
     }
 
@@ -61,6 +73,24 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
             string soundbiteName = section.GetFacet<DialogueSoundbite>().ToString();
             contentText.PlaySoundbite(soundbiteName);
         }
+
+        int choiceCount = section.CountOfFacetType<NextSection>();
+        
+        if (choiceCount > 1) {
+            Move(origin + new Vector2(0, choiceParentRect.sizeDelta.y));
+        }
+        else {
+            Move(origin);
+        }
+    }
+
+    void Move(Vector2 to) {
+        LeanTween.cancel(gameObject);
+        
+        LeanTween.value
+                (gameObject, rectTransform.anchoredPosition, to, moveTime).
+            setOnUpdate((Vector2 newPos) => { rectTransform.anchoredPosition = newPos; }).
+            setEase(LeanTweenType.easeOutQuad);
     }
 
     /// <summary>
