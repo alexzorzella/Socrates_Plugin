@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 // TODO: Reimplement behavior
-public class DialogueOptionDisplay : MonoBehaviour, IPointerClickHandler {
+public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
     DialogueManager dialogueManager;
     string reference;
     

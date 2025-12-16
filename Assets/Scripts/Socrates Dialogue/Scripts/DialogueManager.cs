@@ -33,6 +33,16 @@ namespace SocratesDialogue {
         DialoguePanel dialoguePanel;
         DialogueSection currentSection;
         readonly List<DialogueListener> listeners = new();
+        
+        public Transform choiceParent;
+        readonly List<GameObject> choiceObjects = new();
+
+        void ClearChoiceObjects() {
+            while (choiceObjects.Count > 0) {
+                Destroy(choiceObjects[0]);
+                choiceObjects.RemoveAt(0);
+            }
+        }
 
         /// <summary>
         /// Registers the passed listener to listen to this dialogue manager's events.
@@ -91,10 +101,23 @@ namespace SocratesDialogue {
         /// <param name="section"></param>
         /// <param name="doNotNotify"></param>
         void SetCurrentSection(DialogueSection section, bool doNotNotify = false) {
+            ClearChoiceObjects();
+            
             currentSection = section;
 
             if (!doNotNotify) {
                 NotifyOfSectionChange();
+            }
+            
+            if (section != null && section.CountOfFacetType<NextSection>() > 1) {
+                List<NextSection> choices = section.GetFacets<NextSection>();
+
+                foreach (var choice in choices) {
+                    GameObject dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
+                    DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
+                    dialogueChoice.Initialize(this, choice.Prompt(), choice.LeadsToRef());
+                    choiceObjects.Add(dialogueChoiceObject);
+                }
             }
         }
 
@@ -112,8 +135,8 @@ namespace SocratesDialogue {
             
             if (!string.IsNullOrWhiteSpace(reference)) {
                 nextSection = DialogueManifest.GetSectionByReference(reference);
-            } else if (currentSection.HasFacet<NextSection>()) {
-                nextSection = currentSection.GetFacet<NextSection>().Next();
+            } else if (currentSection.CountOfFacetType<NextSection>() == 1) {
+                nextSection = currentSection.GetFacet<NextSection>().LeadsTo();
             }
 
             if (nextSection == null) {

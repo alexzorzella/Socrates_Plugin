@@ -1,15 +1,20 @@
-using System.Collections.Generic;
-using System.Linq;
-using Codice.Client.BaseCommands;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace SocratesDialogue {
     public class NextSection : ZDialogueFacet {
+        readonly string prompt;
         readonly string reference;
         DialogueSection next;
-
+        
+        static readonly Regex optionReader = new(@"^(.*),(.*)$");
+        
         public NextSection(string reference) {
+            
+            
+            
             this.reference = reference;
+            
             TryCache();
         }
         
@@ -28,10 +33,18 @@ namespace SocratesDialogue {
             }
         }
         
-        public DialogueSection Next() {
+        public DialogueSection LeadsTo() {
             TryCache();
             
             return next;
+        }
+
+        public string LeadsToRef() {
+            return reference;
+        }
+
+        public string Prompt() {
+            return prompt;
         }
     }
 }
