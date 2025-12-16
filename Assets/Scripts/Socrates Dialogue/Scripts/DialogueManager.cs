@@ -33,6 +33,16 @@ namespace SocratesDialogue {
         DialoguePanel dialoguePanel;
         DialogueSection currentSection;
         readonly List<DialogueListener> listeners = new();
+        
+        public Transform choiceParent;
+        readonly List<GameObject> choiceObjects = new();
+
+        void ClearChoiceObjects() {
+            while (choiceObjects.Count > 0) {
+                Destroy(choiceObjects[0]);
+                choiceObjects.RemoveAt(0);
+            }
+        }
 
         /// <summary>
         /// Registers the passed listener to listen to this dialogue manager's events.
@@ -91,10 +101,23 @@ namespace SocratesDialogue {
         /// <param name="section"></param>
         /// <param name="doNotNotify"></param>
         void SetCurrentSection(DialogueSection section, bool doNotNotify = false) {
+            ClearChoiceObjects();
+            
             currentSection = section;
 
             if (!doNotNotify) {
                 NotifyOfSectionChange();
+            }
+            
+            if (section != null && section.CountOfFacetType<NextSection>() > 1) {
+                List<NextSection> choices = section.GetFacets<NextSection>();
+
+                foreach (var choice in choices) {
+                    GameObject dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
+                    DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
+                    dialogueChoice.Initialize(this, choice.Prompt(), choice.LeadsToRef());
+                    choiceObjects.Add(dialogueChoiceObject);
+                }
             }
         }
 
@@ -103,20 +126,50 @@ namespace SocratesDialogue {
         /// finished displaying. If it has, it continues to the next section. Otherwise, it fully displays the current
         /// dialogue section's content.
         /// </summary>
-        public void ContinueConversation() {
-            if (!Talking()) {
+        public void ContinueConversation(string reference = "") {
+            int nextSectionCount = 0;
+            
+            // Count the number of choices. Monologues have one next section (no choices).
+            // Branching events have two or more sections (more than one choice).
+            // For now, there's no way to only have one choice.
+            if (currentSection != null) {
+                nextSectionCount = currentSection.CountOfFacetType<NextSection>();
+            }
+            
+            // Return if there's no conversation or if the current dialogue is a
+            // branching dialogue and there was no choice passed.
+            if (!Talking() || (nextSectionCount > 1 && string.IsNullOrWhiteSpace(reference))) {
                 return;
             }
 
-            if (!currentSection.HasFacet<NextSection>()) {
+            DialogueSection nextSection = null;
+
+            // Cached the reference's associated dialogue section if one was passed
+            if (!string.IsNullOrWhiteSpace(reference)) {
+                try {
+                    nextSection = DialogueManifest.GetSectionByReference(reference);
+                } catch {
+                    Debug.LogWarning($"Reference {reference} has no associated dialogue section.");
+                    nextSection = null;
+                }
+            } else if (nextSectionCount == 1) {
+                // Otherwise, if the current section is a Monologue (only one
+                // section next), cache it.
+                nextSection = currentSection.GetFacet<NextSection>().LeadsTo();
+            }
+            
+            // If the next section is null, end the dialogue and return
+            if (nextSection == null) {
                 EndDialogue();
                 return;
             }
 
+            // If the dialogue panel has finished displaying the text, navigate
+            // to the next section
             if (dialoguePanel.OnStandby()) {
-                SetCurrentSection(currentSection.GetFacet<NextSection>().Next());
-            }
-            else {
+                SetCurrentSection(nextSection);
+            } else {
+                // Otherwise, fully display the text
                 dialoguePanel.DisplayTextFully(currentSection);
             }
         }

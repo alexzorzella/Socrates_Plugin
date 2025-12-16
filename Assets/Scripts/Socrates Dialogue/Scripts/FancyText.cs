@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace SocratesDialogue {
     public class FancyText {
@@ -25,6 +28,8 @@ namespace SocratesDialogue {
             CleanText(noPunctuationAnnotation);
         }
 
+        static readonly Regex tagFormatter = new(@"^\!?([a-zA-Z]+)(?:,([^\[\]]+))?$");
+        
         /// <summary>
         /// Caches annotations according to markup found in the text.
         /// </summary>
@@ -36,23 +41,29 @@ namespace SocratesDialogue {
                     newTokenBuilder.WithStartCharIndex(i);
 
                     var compareProfileTo = "";
-                    var dynamicValue = "";
-                    var readingDynamicValue = false;
+                    // var dynamicValue = "";
+                    // var readingDynamicValue = false;
 
                     for (var f = i + 1; f < rawText.Length; f++) {
                         if (rawText[f] == SocraticAnnotation.parseEndChar) {
                             newTokenBuilder.WithEndCharIndex(f);
 
-                            if (compareProfileTo.Contains(SocraticAnnotation.waveTag))
-                                newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.WAVE);
-                            else if (compareProfileTo.Contains(SocraticAnnotation.delayTag))
-                                newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.DELAY);
-                            else if (compareProfileTo.Contains(SocraticAnnotation.shakeTag))
-                                newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.SHAKE);
-                            else
-                                Debug.LogError($"'{compareProfileTo}' -- Parse section did not have a valid input.");
+                            Match regexMatch = tagFormatter.Match(compareProfileTo);
+                            
+                            if (!regexMatch.Success) {
+                                Debug.LogError($"{compareProfileTo} couldn't be parsed.");
+                                continue;
+                            }
 
-                            var contents = "";
+                            string formattedTag = regexMatch.Groups[1].Value;
+                            
+                            if (SocraticAnnotation.annotationTags.ContainsKey(formattedTag)) {
+                                newTokenBuilder.WithRichTextType(SocraticAnnotation.annotationTags[formattedTag]);
+                            } else {
+                                Debug.LogError($"'{formattedTag}' is not a valid annotation tag.");
+                            }
+
+                            string contents = "";
 
                             for (var c = i; c < f; c++) contents += rawText[c];
 
@@ -60,7 +71,14 @@ namespace SocratesDialogue {
                                 newTokenBuilder.IsCloser();
                             }
 
-                            if (readingDynamicValue) newTokenBuilder.WithPassedValue(dynamicValue);
+                            int groupCount = regexMatch.Groups.Count;
+                            
+                            if (groupCount == 3) {
+                                string dynamicValue = regexMatch.Groups[2].Value;
+                                newTokenBuilder.WithPassedValue(dynamicValue);
+                            } else if(groupCount > 3) {
+                                Debug.Log($"You captured too close to the sun on wings of pastrami!");
+                            }
 
                             AnnotationToken newToken = newTokenBuilder.Build();
                             
@@ -71,10 +89,6 @@ namespace SocratesDialogue {
                         }
 
                         compareProfileTo += rawText[f];
-
-                        if (readingDynamicValue) dynamicValue += rawText[f];
-
-                        if (rawText[f] == SocraticAnnotation.parseValueSeparator) readingDynamicValue = true;
                     }
                 }
             }
@@ -242,8 +256,8 @@ namespace SocratesDialogue {
                             newTokenBuilder.WithRichTextType(SocraticAnnotation.RichTextType.DELAY);
 
                             string passedValue = minorDelay
-                                ? SocraticAnnotation.minorPunctuationDisplayDelay.ToString()
-                                : SocraticAnnotation.majorPunctuationDisplayDelay.ToString();
+                                ? SocraticAnnotation.i.minorPunctuationDisplayDelay.ToString()
+                                : SocraticAnnotation.i.majorPunctuationDisplayDelay.ToString();
                             
                             newTokenBuilder.WithPassedValue(passedValue);
 
@@ -256,6 +270,23 @@ namespace SocratesDialogue {
             }
         }
 
+        readonly List<float> charDisplayTimes = new();
+
+        /// <summary>
+        /// Clears the cache of the character display times. 
+        /// </summary>
+        public void ClearDisplayTimes() {
+            charDisplayTimes.Clear();
+        }
+
+        /// <summary>
+        /// Logs a character display time.
+        /// </summary>
+        /// <param name="time"></param>
+        public void LogDisplayTime(float time) {
+            charDisplayTimes.Add(time);
+        }
+
         /// <summary>
         /// Returns the timestamp that a character will or was revealed, accounting for
         /// the display time per character and delay annotations.
@@ -263,16 +294,11 @@ namespace SocratesDialogue {
         /// <param name="index"></param>
         /// <returns></returns>
         public float GetCharDisplayTime(int index) {
-            float result = index * SocraticAnnotation.displayDelayPerChar;
-
-            foreach (var token in annotationTokens) {
-                if (token.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY &&
-                    token.GetStartCharIndex() <= index) {
-                    result += token.GetDynamicValueAsFloat();
-                }
+            if (index >= charDisplayTimes.Count) {
+                return 0;
             }
-            
-            return result;
+
+            return charDisplayTimes[index];
         }
 
         public override string ToString() {

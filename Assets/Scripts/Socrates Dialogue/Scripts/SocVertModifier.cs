@@ -3,6 +3,8 @@ using TMPro;
 using System.Collections.Generic;
 using Codice.CM.Common.Tree.Partial;
 using log4net.DateFormatter;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
@@ -25,7 +27,7 @@ namespace SocratesDialogue {
         float startedDisplayingLast = 0;
         const float scrollTime = 0.1F;
         const float minOffsetY = -12;
-        
+
         void Awake() {
             GetComponents();
         }
@@ -42,13 +44,25 @@ namespace SocratesDialogue {
         /// </summary>
         /// <param name="soundName"></param>
         public void SetDialogueSfx(string soundName) {
-            if (!dialogueSfx.ContainsKey(soundName)) {
-                dialogueSfx.Add(soundName, MultiAudioSource.FromResource(gameObject, soundName));
-            }
-
+            TryAddSound(soundName);
             currentDialogueSfx = dialogueSfx[soundName];
         }
-        
+
+        public void PlaySoundbite(string soundbiteName) {
+            TryAddSound(soundbiteName);
+            dialogueSfx[soundbiteName].PlayRandom();
+        }
+
+        void TryAddSound(string soundName) {
+            if (!dialogueSfx.ContainsKey(soundName)) {
+                MultiAudioSource source = MultiAudioSource.FromResource(gameObject, soundName);
+
+                if (source != null) {
+                    dialogueSfx.Add(soundName, source);
+                }
+            }
+        }
+
         /// <summary>
         /// Returns whether all the text has been displayed. Only returns true if there's visible text in the text element.
         /// </summary>
@@ -88,7 +102,7 @@ namespace SocratesDialogue {
 
             for (var i = 0; i < totalVisibleCharacters; i++) {
                 SetCharColor(
-                    textComponent, i, 
+                    textComponent, i,
                     OverrideAlpha(GetColorOfTopLeft(textComponent, i), true));
             }
 
@@ -96,17 +110,19 @@ namespace SocratesDialogue {
 
             if (!scroll) {
                 textComponent.color = OverrideAlpha(textComponent.color, false);
-                
+
                 if (currentDialogueSfx != null) {
                     currentDialogueSfx.Stop();
                 }
-                
+
                 counter = textComponent.maxVisibleCharacters;
             }
 
             startedDisplayingLast = Time.timeSinceLevelLoad;
+
+            fancyText.ClearDisplayTimes();
         }
-        
+
         /// <summary>
         /// Clears the current text.
         /// </summary>
@@ -147,12 +163,14 @@ namespace SocratesDialogue {
             if (currentBetweenCharacterDelay <= 0) {
                 counter++;
 
+                fancyText.LogDisplayTime(Time.timeSinceLevelLoad - startedDisplayingLast);
+
                 // float actualTime = Time.timeSinceLevelLoad;
                 // float expectedTime = fancyText.GetCharDisplayTime(counter);
                 // float percentError = ((expectedTime - actualTime) / actualTime) * 100;
                 //
                 // Debug.Log(percentError);
-                
+
                 if (!muted) {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.PlayOnlyIfDone();
@@ -160,29 +178,41 @@ namespace SocratesDialogue {
                 }
 
                 // Reset the current delay
-                currentBetweenCharacterDelay = SocraticAnnotation.displayDelayPerChar;
+                currentBetweenCharacterDelay = SocraticAnnotation.i.displayDelayPerChar;
 
                 // Executed unexecuted delays
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
-                    bool isDelay = parse.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY;
-                    
-                    if (isDelay) {
-                        bool isUnexecutedAction = 
-                            parse.IsOpener() && 
+                    SocraticAnnotation.RichTextType richTextType = parse.GetRichTextType();
+
+                    bool isDelay = richTextType == SocraticAnnotation.RichTextType.DELAY;
+                    bool isSoundChange = richTextType == SocraticAnnotation.RichTextType.SOUND;
+
+                    if (isDelay || isSoundChange) {
+                        bool isUnexecutedAction =
+                            parse.IsOpener() &&
                             parse.GetStartCharIndex() <= counter &&
                             !parse.HasExecutedAction();
-                        
-                        if (isUnexecutedAction) {
-                            if (currentDialogueSfx != null) {
-                                currentDialogueSfx.Stop();
-                            }
 
-                            currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
+                        if (isUnexecutedAction) {
                             parse.ExecuteAction();
 
-                            OnCharDelay();
-                        } else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
-                                  parse.HasExecutedAction()) {
+                            if (isDelay) {
+                                if (currentDialogueSfx != null) {
+                                    currentDialogueSfx.Stop();
+                                }
+
+                                currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
+
+                                OnCharDelay();
+                            }
+                            else {
+                                currentDialogueSfx.Stop();
+                                SetDialogueSfx(parse.GetDynamicValue());
+                                currentDialogueSfx.Play();
+                            }
+                        }
+                        else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
+                                 parse.HasExecutedAction() && isDelay) {
                             OnPostCharDelay();
                         }
                     }
@@ -196,14 +226,12 @@ namespace SocratesDialogue {
         /// Executes whenever a character delay beings.
         /// </summary>
         void OnCharDelay() {
-            
         }
 
         /// <summary>
         /// Executes whenever a character delay ends.
         /// </summary>
         void OnPostCharDelay() {
-            
         }
 
         /// <summary>
@@ -281,7 +309,7 @@ namespace SocratesDialogue {
 
             if (counter <= totalVisibleCharacters) {
                 for (int i = start; i < counter; i++) {
-                    SetCharColor(textComponent, i, 
+                    SetCharColor(textComponent, i,
                         OverrideAlpha(GetColorOfTopLeft(textComponent, i), false));
                 }
             }
@@ -309,20 +337,35 @@ namespace SocratesDialogue {
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
             ScrollInFromY(textInfo, vertexPositions, newVertexPositions);
-            
+
             if (fancyText.GetAnnotationTokens() != null) {
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     if (parse.IsOpener()) {
-                        switch (parse.GetRichTextType()) {
-                            case SocraticAnnotation.RichTextType.WAVE:
-                                ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
-                                break;
-                            case SocraticAnnotation.RichTextType.SHAKE:
-                                ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
-                                break;
+                        if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.SHAKE) {
+                            ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
                         }
                     }
                 }
+
+                foreach (var parse in fancyText.GetAnnotationTokens()) {
+                    if (parse.IsOpener()) {
+                        if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.WAVE) {
+                            ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
+                        }
+                        else if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.GRADIENT) {
+                            ApplyRichTextGradient(
+                                textComponent,
+                                parse, 
+                                vertexPositions,
+                                counter);
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < textInfo.meshInfo.Length; i++) {
+                textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
+                textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
             }
         }
 
@@ -331,7 +374,7 @@ namespace SocratesDialogue {
             public float angle;
             public float speed;
         }
-        
+
         /// <summary>
         /// Makes the characters come from below. Still under construction.
         ///
@@ -344,16 +387,16 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="vertexPositionsWriteTo"></param>
         void ScrollInFromY(
-            TMP_TextInfo textInfo, 
+            TMP_TextInfo textInfo,
             Vector3[] vertexPositionsReadFrom,
             Vector3[] vertexPositionsWriteTo) {
             if (counter >= textComponent.maxVisibleCharacters) {
                 return;
             }
-            
+
             for (int i = 0; i < textInfo.characterInfo.Length; i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
-                
+
                 if (!textInfo.characterInfo[i].isVisible) {
                     //Debug.Log($"Vertex index is zero? {parse.startCharacterLocation}");
                     continue;
@@ -361,31 +404,28 @@ namespace SocratesDialogue {
 
                 // Calculate the amount of time that passed since the dialogue started
                 float timeSinceDialogueStarted = Time.timeSinceLevelLoad - startedDisplayingLast;
-                
-                // Cache the time that a character would first be displayed
+
+                // Cache the time that a character would first be displayed.
+                // This is the amount of time it would take for the character to
+                // appear after the dialogue first started.
                 float charDisplayTimestamp = fancyText.GetCharDisplayTime(i);
-                
+
                 // Break if the time since the dialogue started has not reached that time yet.
                 // This is safe because no other character after this one can be revealed
                 // before this one is.
                 if (timeSinceDialogueStarted < charDisplayTimestamp) {
                     break;
                 }
-                
+
                 // Calculate how long the character has been displayed so far
                 float timeCharHasBeenDisplayed = timeSinceDialogueStarted - charDisplayTimestamp;
-                
+
                 // Calculate the percentage of the way the character is supposed to be
                 float percentageOfPathMoved = timeCharHasBeenDisplayed / scrollTime;
-                
-                // If the percentage is greater than one, there's no need to update its position
-                if (percentageOfPathMoved > 1) {
-                    continue;
-                }
-                
+
                 // Clamp the percentage
                 percentageOfPathMoved = Mathf.Clamp(percentageOfPathMoved, 0, 1);
-                
+
                 // Calculate the offset relative to the character's origin that it needs to be
                 // using an easing function
                 float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
@@ -408,10 +448,9 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsWriteTo"></param>
         void ApplyRichTextShake(
             TMP_TextInfo textInfo,
-            AnnotationToken token, 
-            Vector3[] vertexPositionsReadFrom, 
+            AnnotationToken token,
+            Vector3[] vertexPositionsReadFrom,
             Vector3[] vertexPositionsWriteTo) {
-
             VertexAnim[] vertexAnim = new VertexAnim[1024];
 
             for (int i = 0; i < 1024; i++) {
@@ -445,10 +484,10 @@ namespace SocratesDialogue {
 
                 Vector3[] destinationVertices = textInfo.meshInfo[materialIndex].vertices;
 
-                vertexPositionsWriteTo[vertexIndex + 0] = sourceVertices[vertexIndex + 0] - offset;
-                vertexPositionsWriteTo[vertexIndex + 1] = sourceVertices[vertexIndex + 1] - offset;
-                vertexPositionsWriteTo[vertexIndex + 2] = sourceVertices[vertexIndex + 2] - offset;
-                vertexPositionsWriteTo[vertexIndex + 3] = sourceVertices[vertexIndex + 3] - offset;
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexPositionsWriteTo[absVertexIndex] = sourceVertices[absVertexIndex] - offset;
+                }
 
                 float angleMultiplier = 1.0F; // How much it rotates
                 float curveScale = token.GetDynamicValueAsFloat(); // Noticeability
@@ -461,38 +500,30 @@ namespace SocratesDialogue {
                 Matrix4x4 matrix = Matrix4x4.TRS(jitterOffset * curveScale,
                     Quaternion.Euler(0, 0, Random.Range(-5f, 5f) * angleMultiplier), Vector3.one);
 
-                vertexPositionsWriteTo[vertexIndex + 0] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 0]);
-                vertexPositionsWriteTo[vertexIndex + 1] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 1]);
-                vertexPositionsWriteTo[vertexIndex + 2] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 2]);
-                vertexPositionsWriteTo[vertexIndex + 3] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 3]);
-
-                vertexPositionsWriteTo[vertexIndex + 0] += offset;
-                vertexPositionsWriteTo[vertexIndex + 1] += offset;
-                vertexPositionsWriteTo[vertexIndex + 2] += offset;
-                vertexPositionsWriteTo[vertexIndex + 3] += offset;
-            }
-
-            for (int i = 0; i < textInfo.meshInfo.Length; i++) {
-                textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
-                textComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexPositionsWriteTo[absVertexIndex] =
+                        matrix.MultiplyPoint3x4(destinationVertices[absVertexIndex]);
+                    vertexPositionsWriteTo[absVertexIndex] += offset;
+                }
             }
         }
 
         /// <summary>
-        /// Applies the rich text setting the wave positions.
+        /// Applies a wave to the passed textInfo given the passed token, using the readFrom and writeTo arrays.
         /// </summary>
         /// <param name="textInfo"></param>
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
         void ApplyRichTextWave(
-            TMP_TextInfo textInfo, 
+            TMP_TextInfo textInfo,
             AnnotationToken token,
             Vector3[] vertexPositionsReadFrom,
             Vector3[] vertexPositionsWriteTo) {
             float waveSpeed = token.ContainsDynamicValue()
                 ? token.GetDynamicValueAsFloat()
-                : SocraticAnnotation.waveSpeed;
+                : SocraticAnnotation.i.waveSpeed;
 
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -507,20 +538,77 @@ namespace SocratesDialogue {
 
                 float leftOffsetY = Mathf.Sin(
                     Time.timeSinceLevelLoad * waveSpeed +
-                    leftVerticesXPos * SocraticAnnotation.waveFreqMultiplier) * SocraticAnnotation.waveAmplitude;
+                    leftVerticesXPos * SocraticAnnotation.i.waveFreqMultiplier) * SocraticAnnotation.i.waveAmplitude;
 
-                float rightOffsetY = SocraticAnnotation.waveWarpTextVertices
+                float rightOffsetY = SocraticAnnotation.i.waveWarpTextVertices
                     ? Mathf.Sin(Time.timeSinceLevelLoad * waveSpeed +
-                                rightVerticesXPos * SocraticAnnotation.waveFreqMultiplier) *
-                      SocraticAnnotation.waveAmplitude
+                                rightVerticesXPos * SocraticAnnotation.i.waveFreqMultiplier) *
+                      SocraticAnnotation.i.waveAmplitude
                     : leftOffsetY;
 
-                vertexPositionsWriteTo[vertexIndex + 0].y = vertexPositionsReadFrom[vertexIndex + 0].y + leftOffsetY;
-                vertexPositionsWriteTo[vertexIndex + 1].y = vertexPositionsReadFrom[vertexIndex + 1].y + leftOffsetY;
-
-                vertexPositionsWriteTo[vertexIndex + 2].y = vertexPositionsReadFrom[vertexIndex + 2].y + rightOffsetY;
-                vertexPositionsWriteTo[vertexIndex + 3].y = vertexPositionsReadFrom[vertexIndex + 3].y + rightOffsetY;
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + leftOffsetY;
+                }
             }
+        }
+
+        /// <summary>
+        /// Applies a gradient to the passed textInfo given the passed token, using the readFrom and writeTo arrays.
+        /// </summary>
+        /// <param name="textComponent"></param>
+        /// <param name="textInfo"></param>
+        /// <param name="vertexPositionsReadFrom"></param>
+        /// <param name="token"></param>
+        /// <param name="totalVisibleCharacters"></param>
+        void ApplyRichTextGradient(
+            TextMeshProUGUI textComponent,
+            AnnotationToken token,
+            Vector3[] vertexPositionsReadFrom,
+            int totalVisibleCharacters) {
+            // Under construction
+            
+            TMP_TextInfo textInfo = textComponent.textInfo;
+            
+            float xOffset =  Mathf.Abs(textInfo.characterInfo[0].bottomLeft.x);
+            
+            for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
+                TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
+                int vertexIndex = charInfo.vertexIndex;
+                
+                bool hidden = i >= totalVisibleCharacters;
+
+                if (!charInfo.isVisible || hidden) {
+                    continue;
+                }
+
+                float timeOffset = Time.timeSinceLevelLoad * SocraticAnnotation.i.gradientSpeed;
+                float lX = charInfo.bottomLeft.x;
+                float rX = charInfo.bottomRight.x;
+                
+                float percentageL = (timeOffset + lX / SocraticAnnotation.i.gradientWidth + xOffset) % 1;
+                float percentageR = (timeOffset + rX / SocraticAnnotation.i.gradientWidth + xOffset) % 1;
+                
+                int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
+                
+                Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
+
+                
+                Color colorL = DialogueGradients.i.rainbow.Evaluate(percentageL);
+                colorL = OverrideAlpha(colorL, false);
+                
+                Color colorR = DialogueGradients.i.rainbow.Evaluate(percentageR);
+                colorR = OverrideAlpha(colorR, false);
+                
+                for (int v = 0; v < 4; v++) {
+                    int absVertexIndex = vertexIndex + v;
+                    vertexColors[absVertexIndex] = v < 2 ? colorL : colorR;
+                }
+
+                textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+            }
+            
+            // Under construction
         }
 
         static Vector2[] FromVector4Arr(Vector4[] input) {

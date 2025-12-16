@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SocratesDialogue;
 using UnityEngine;
 
@@ -43,14 +44,23 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// </summary>
     /// <param name="section"></param>
     public void OnSectionChanged(DialogueSection section) {
-        string name = section.GetSpeaker();
-        string content = section.GetContent();
-        
+        string name = section.GetFacet<DialogueSpeaker>().ToString();
+        string content = section.GetFacet<DialogueContent>().ToString();
         
         nameText.SetText(name);
         contentText.SetText(content, scroll: true, muted: false);
+
+        string soundName =
+            section.GetFacet<DialogueSound>() != null ? 
+                section.GetFacet<DialogueSound>().ToString() : 
+                SocraticAnnotation.defaultSoundName;
         
-        contentText.SetDialogueSfx(section.GetSound());
+        contentText.SetDialogueSfx(soundName);
+
+        if (section.GetFacet<DialogueSoundbite>() != null) {
+            string soundbiteName = section.GetFacet<DialogueSoundbite>().ToString();
+            contentText.PlaySoundbite(soundbiteName);
+        }
     }
 
     /// <summary>
@@ -74,6 +84,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// <param name="currentSection"></param>
     /// (Is passing the current section here really the best idea?)
     public void DisplayTextFully(DialogueSection currentSection) {
-        contentText.SetText(currentSection.GetContent());
+        contentText.SetText(currentSection.GetFacet<DialogueContent>().ToString());
     }
 }

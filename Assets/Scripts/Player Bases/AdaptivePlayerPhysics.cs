@@ -58,7 +58,7 @@ public class AdaptivePlayerPhysics : MonoBehaviour {
     }
 
     void InitializeValues() {
-        var cam = FindObjectOfType<PCamera>();
+        var cam = FindFirstObjectByType<PCamera>();
         cam.SetTargetWithTransform(transform);
         anim = GetComponentInChildren<Animator>();
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10F);

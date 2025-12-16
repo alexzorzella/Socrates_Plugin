@@ -2,41 +2,23 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SocratesDialogue {
-    public interface ZFacet { }
+    public interface ZDialogueFacet { }
 }
 
 namespace SocratesDialogue {
     public class DialogueSection {
-        readonly string speakerName;
-        readonly string content;
-        readonly string sound;
+        readonly List<ZDialogueFacet> facets;
+        
+        public DialogueSection(params ZDialogueFacet[] facets) : 
+            this(facets.ToList()) { }
     
-        public DialogueSection(
-            string speakerName, 
-            string content, 
-            string sound, 
-            params ZFacet[] facets) : 
-            this(
-                speakerName, 
-                content, 
-                sound, 
-                facets.ToList()) { }
-    
-        DialogueSection(
-            string speakerName, 
-            string content, 
-            string sound, 
-            List<ZFacet> facets) {
-            this.speakerName = speakerName;
-            this.content = content;
-            this.sound = sound;
+        public DialogueSection(List<ZDialogueFacet> facets) {
             this.facets = facets;
         }
     
-        readonly List<ZFacet> facets;
     
-        public void AddFacet(ZFacet facet) {
-            facets.Add(facet);
+        public void AddFacet(ZDialogueFacet dialogueFacet) {
+            facets.Add(dialogueFacet);
         }
     
         /// <summary>
@@ -44,7 +26,7 @@ namespace SocratesDialogue {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public bool HasFacet<T>() where T : ZFacet {
+        public bool HasFacet<T>() where T : ZDialogueFacet {
             return GetFacet<T>() != null;
         }
         
@@ -54,7 +36,7 @@ namespace SocratesDialogue {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetFacet<T>() where T : ZFacet {
+        public T GetFacet<T>() where T : ZDialogueFacet {
             foreach (var facet in facets) {
                 if (typeof(T).IsInstanceOfType(facet)) {
                     return (T)facet;
@@ -63,17 +45,34 @@ namespace SocratesDialogue {
     
             return default;
         }
-        
-        public string GetSpeaker() {
-            return speakerName;
+
+        /// <summary>
+        /// Returns the list of ZDialogueFacet of type T in facets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public List<T> GetFacets<T>() where T : ZDialogueFacet {
+            List<T> result = new();
+            
+            foreach (var facet in facets) {
+                if (typeof(T).IsInstanceOfType(facet)) {
+                    result.Add((T)facet);
+                }
+            }
+
+            return result;
         }
-    
-        public string GetContent() {
-            return content;
-        }
-    
-        public string GetSound() {
-            return sound;
+
+        /// <summary>
+        /// Returns the number of ZDialogueFacet of type T in facets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public int CountOfFacetType<T>() where T : ZDialogueFacet {
+            List<T> facetsOfTypeT = GetFacets<T>();
+            int result = facetsOfTypeT.Count;
+            
+            return result;
         }
     }
 }

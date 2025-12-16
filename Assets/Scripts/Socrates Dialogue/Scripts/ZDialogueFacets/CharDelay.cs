@@ -1,16 +1,20 @@
 namespace SocratesDialogue {
-    public class CharDelay : ZFacet {
+    public class CharDelay : ZDialogueFacet {
         readonly float delay;
 
         public CharDelay(float delay) {
             this.delay = delay;
         }
 
+        public CharDelay(string delayUncast) {
+            float.TryParse(delayUncast, out delay);
+        }
+
         public float GetDelay() {
             return delay;
         }
         
-        public ZFacet Clone() {
+        public ZDialogueFacet Clone() {
             return new CharDelay(delay);
         }
     }

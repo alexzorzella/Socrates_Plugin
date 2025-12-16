@@ -92,7 +92,10 @@ public class FancyTextTests {
         //           $"Opening/closing ct: {openingTokens.Count}/{closingTokens.Count} \n\n");
         
         foreach (var token in fancyText.GetAnnotationTokens()) {
-            if (token.GetRichTextType() == SocraticAnnotation.RichTextType.DELAY) {
+            SocraticAnnotation.RichTextType richTextType = token.GetRichTextType();
+            
+            if (richTextType == SocraticAnnotation.RichTextType.DELAY ||
+                richTextType == SocraticAnnotation.RichTextType.SOUND) {
                 continue;
             }
             
