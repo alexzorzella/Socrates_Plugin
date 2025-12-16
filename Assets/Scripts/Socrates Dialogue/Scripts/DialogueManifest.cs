@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using SocratesDialogue;
-using UnityEngine;
 
 public class DialogueManifest {
     static int counter = 0;
 
     public static string GetUniqueReference() {
+        while (sectionsByReference.ContainsKey(counter.ToString())) {
+            counter++;
+        }
+        
         string result = counter.ToString();
         counter++;
         
