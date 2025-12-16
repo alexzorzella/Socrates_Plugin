@@ -28,6 +28,8 @@ namespace SocratesDialogue {
 
             string[] lines = contents.Split('\n');
 
+            // TODO: This can be refactored so that the loop just waits for the first line with
+            // content, and then treats that until the next empty line as a block.
             int emptyLineCount = 0;
             int currentConversationIndex = 0;
             results.Add(new List<DialogueSection>());
