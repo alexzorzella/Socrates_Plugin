@@ -15,7 +15,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     public SocVertModifier contentText;
     
     public const float fadeTime = 0.15F;
-    public const float moveTime = 0.25F;
+    const float moveTime = 0.25F;
     static readonly Vector2 origin = new Vector2(0, 79);
     static readonly Vector2 padding = new Vector2(0, 10);
 
@@ -93,12 +93,15 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         if (section != null && section.CountOfFacetType<NextSection>() > 1) {
             List<NextSection> choices = section.GetFacets<NextSection>();
             GameObject dialogueChoiceObject = null;
-                
+
+            int index = 0;
             foreach (var choice in choices) {
                 dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
                 DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
-                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.LeadsToRef());
+                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.LeadsToRef(), moveTime, index);
                 choiceObjects.Add(dialogueChoiceObject);
+
+                index++;
             }
 
             if (dialogueChoiceObject != null) {
