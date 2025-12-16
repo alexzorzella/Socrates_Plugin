@@ -129,8 +129,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     }
 
     void Move(Vector2 to) {
-        LeanTween.cancel(gameObject);
-        
         LeanTween.value
                 (gameObject, rectTransform.anchoredPosition, to, moveTime).
             setOnUpdate((Vector2 newPos) => { rectTransform.anchoredPosition = newPos; }).
@@ -149,6 +147,9 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// Hides the panel when the dialogue ends.
     /// </summary>
     public void OnDialogueEnded() {
+        ClearChoiceObjects();
+        Move(origin);
+        
         SetDialoguePanelVisible(false);
     }
     
