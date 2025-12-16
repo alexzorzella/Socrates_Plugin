@@ -148,9 +148,9 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// </summary>
     public void OnDialogueEnded() {
         ClearChoiceObjects();
-        Move(origin);
         
         SetDialoguePanelVisible(false);
+        Move(origin);
     }
     
     /// <summary>
