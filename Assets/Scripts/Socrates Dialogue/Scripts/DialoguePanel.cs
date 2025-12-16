@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using PlasticGui.WorkspaceWindow.QueryViews.Changesets;
 using SocratesDialogue;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DialoguePanel : MonoBehaviour, DialogueListener {
+    DialogueManager dialogueManager;
+    
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
 
@@ -12,20 +15,31 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     public SocVertModifier contentText;
     
     public const float fadeTime = 0.15F;
-    const float moveTime = 0.25F;
+    public const float moveTime = 0.25F;
     static readonly Vector2 origin = new Vector2(0, 79);
+    static readonly Vector2 padding = new Vector2(0, 10);
 
-    public VerticalLayoutGroup choiceParent;
-    RectTransform choiceParentRect;
+    [FormerlySerializedAs("choiceParent")] public VerticalLayoutGroup choiceLayoutGroup;
+    RectTransform choiceParent;
+    
+    readonly List<GameObject> choiceObjects = new();
+
+    void ClearChoiceObjects() {
+        while (choiceObjects.Count > 0) {
+            Destroy(choiceObjects[0]);
+            choiceObjects.RemoveAt(0);
+        }
+    }
     
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
         
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
-        choiceParentRect = choiceParent.GetComponent<RectTransform>();
+        choiceParent = choiceLayoutGroup.GetComponent<RectTransform>();
         
-        GetComponentInParent<DialogueManager>().RegisterListener(this);
+        dialogueManager = GetComponentInParent<DialogueManager>();
+        dialogueManager.RegisterListener(this);
     }
 
     /// <summary>
@@ -74,10 +88,29 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
             contentText.PlaySoundbite(soundbiteName);
         }
 
+        ClearChoiceObjects();
+        
+        if (section != null && section.CountOfFacetType<NextSection>() > 1) {
+            List<NextSection> choices = section.GetFacets<NextSection>();
+            GameObject dialogueChoiceObject = null;
+                
+            foreach (var choice in choices) {
+                dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
+                DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
+                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.LeadsToRef());
+                choiceObjects.Add(dialogueChoiceObject);
+            }
+
+            if (dialogueChoiceObject != null) {
+                float dialogueChoiceHeight = dialogueChoiceObject.GetComponent<RectTransform>().sizeDelta.y;
+                choiceParent.sizeDelta = new Vector2(choiceParent.sizeDelta.x, choices.Count * (dialogueChoiceHeight + choiceLayoutGroup.spacing));
+            }
+        }
+        
         int choiceCount = section.CountOfFacetType<NextSection>();
         
         if (choiceCount > 1) {
-            Move(origin + new Vector2(0, choiceParentRect.sizeDelta.y));
+            Move(origin + new Vector2(0, choiceParent.rect.height) + padding);
         }
         else {
             Move(origin);

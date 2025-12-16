@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SocratesDialogue {
     public class DialogueManager : MonoBehaviour {
@@ -34,15 +35,7 @@ namespace SocratesDialogue {
         DialogueSection currentSection;
         readonly List<DialogueListener> listeners = new();
         
-        public Transform choiceParent;
-        readonly List<GameObject> choiceObjects = new();
-
-        void ClearChoiceObjects() {
-            while (choiceObjects.Count > 0) {
-                Destroy(choiceObjects[0]);
-                choiceObjects.RemoveAt(0);
-            }
-        }
+        public RectTransform choiceParent;
 
         /// <summary>
         /// Registers the passed listener to listen to this dialogue manager's events.
@@ -101,23 +94,10 @@ namespace SocratesDialogue {
         /// <param name="section"></param>
         /// <param name="doNotNotify"></param>
         void SetCurrentSection(DialogueSection section, bool doNotNotify = false) {
-            ClearChoiceObjects();
-            
             currentSection = section;
 
             if (!doNotNotify) {
                 NotifyOfSectionChange();
-            }
-            
-            if (section != null && section.CountOfFacetType<NextSection>() > 1) {
-                List<NextSection> choices = section.GetFacets<NextSection>();
-
-                foreach (var choice in choices) {
-                    GameObject dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
-                    DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
-                    dialogueChoice.Initialize(this, choice.Prompt(), choice.LeadsToRef());
-                    choiceObjects.Add(dialogueChoiceObject);
-                }
             }
         }
 
