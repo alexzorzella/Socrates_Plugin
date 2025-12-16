@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-// TODO: Reimplement behavior
 public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
     DialogueManager dialogueManager;
     string reference;
