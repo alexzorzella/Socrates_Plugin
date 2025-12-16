@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using Codice.CM.Common.Tree.Partial;
-using log4net.DateFormatter;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class SocVertModifier : MonoBehaviour {
+    public class SocratesText : MonoBehaviour {
         FancyText fancyText;
 
         TextMeshProUGUI textComponent;
@@ -28,6 +24,20 @@ namespace SocratesDialogue {
         const float scrollTime = 0.1F;
         const float minOffsetY = -12;
 
+        bool onStandby;
+
+        readonly List<SocratesTextListener> listeners = new();
+
+        public void RegisterListener(SocratesTextListener newListener) {
+            listeners.Add(newListener);
+        }
+
+        void NotifyListenersOfFullyDisplayed() {
+            foreach (var listener in listeners) {
+                listener.OnFullyDisplayed();
+            }
+        }
+        
         void Awake() {
             GetComponents();
         }
@@ -121,6 +131,8 @@ namespace SocratesDialogue {
             startedDisplayingLast = Time.timeSinceLevelLoad;
 
             fancyText.ClearDisplayTimes();
+
+            onStandby = false;
         }
 
         /// <summary>
@@ -138,7 +150,7 @@ namespace SocratesDialogue {
             IncrementCharCounter();
             UpdateTextEmbellishes();
         }
-
+        
         /// <summary>
         /// Increments the counter, resets the clock for the time left until the next character
         /// is displayed, executes parse actions that it's at or has passed that haven't been
@@ -148,6 +160,12 @@ namespace SocratesDialogue {
             // Return if the counter has exceeded the maximum number of characters after
             // muting the current sound effect, if one exists 
             if (counter >= totalVisibleCharacters) {
+                if (!onStandby) {
+                    onStandby = true;
+                    
+                    NotifyListenersOfFullyDisplayed();
+                }
+                
                 if (!muted) {
                     if (currentDialogueSfx != null) {
                         currentDialogueSfx.Stop();

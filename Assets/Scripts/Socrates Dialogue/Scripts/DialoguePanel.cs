@@ -5,21 +5,22 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class DialoguePanel : MonoBehaviour, DialogueListener {
+public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListener {
     DialogueManager dialogueManager;
+    DialogueSection currentSection;
     
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
 
-    public SocVertModifier nameText;
-    public SocVertModifier contentText;
+    public SocratesText nameText;
+    public SocratesText contentText;
     
     public const float fadeTime = 0.15F;
     const float moveTime = 0.25F;
     static readonly Vector2 origin = new Vector2(0, 79);
     static readonly Vector2 padding = new Vector2(0, 10);
 
-    [FormerlySerializedAs("choiceParent")] public VerticalLayoutGroup choiceLayoutGroup;
+    public VerticalLayoutGroup choiceLayoutGroup;
     RectTransform choiceParent;
     
     readonly List<GameObject> choiceObjects = new();
@@ -40,6 +41,8 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         
         dialogueManager = GetComponentInParent<DialogueManager>();
         dialogueManager.RegisterListener(this);
+        
+        contentText.RegisterListener(this);
     }
 
     /// <summary>
@@ -68,30 +71,37 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// Sets the name text fully and queues the content text to scroll, populated by new dialogue section
     /// data whenever the dialogue section changes.
     /// </summary>
-    /// <param name="section"></param>
-    public void OnSectionChanged(DialogueSection section) {
-        string name = section.GetFacet<DialogueSpeaker>().ToString();
-        string content = section.GetFacet<DialogueContent>().ToString();
+    /// <param name="newSection"></param>
+    public void OnSectionChanged(DialogueSection newSection) {
+        currentSection = newSection;
+        
+        string name = newSection.GetFacet<DialogueSpeaker>().ToString();
+        string content = newSection.GetFacet<DialogueContent>().ToString();
         
         nameText.SetText(name);
         contentText.SetText(content, scroll: true, muted: false);
 
         string soundName =
-            section.GetFacet<DialogueSound>() != null ? 
-                section.GetFacet<DialogueSound>().ToString() : 
+            newSection.GetFacet<DialogueSound>() != null ? 
+                newSection.GetFacet<DialogueSound>().ToString() : 
                 SocraticAnnotation.defaultSoundName;
         
         contentText.SetDialogueSfx(soundName);
 
-        if (section.GetFacet<DialogueSoundbite>() != null) {
-            string soundbiteName = section.GetFacet<DialogueSoundbite>().ToString();
+        if (newSection.GetFacet<DialogueSoundbite>() != null) {
+            string soundbiteName = newSection.GetFacet<DialogueSoundbite>().ToString();
             contentText.PlaySoundbite(soundbiteName);
         }
+    }
 
+    /// <summary>
+    /// Runs whenever the current dialogue section's content is fully displayed for the first time.
+    /// </summary>
+    public void OnFullyDisplayed() {
         ClearChoiceObjects();
         
-        if (section != null && section.CountOfFacetType<NextSection>() > 1) {
-            List<NextSection> choices = section.GetFacets<NextSection>();
+        if (currentSection != null && currentSection.CountOfFacetType<NextSection>() > 1) {
+            List<NextSection> choices = currentSection.GetFacets<NextSection>();
             GameObject dialogueChoiceObject = null;
 
             int index = 0;
@@ -110,7 +120,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
             }
         }
         
-        int choiceCount = section.CountOfFacetType<NextSection>();
+        int choiceCount = currentSection.CountOfFacetType<NextSection>();
         
         if (choiceCount > 1) {
             Move(origin + new Vector2(0, choiceParent.rect.height) + padding);
@@ -128,7 +138,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
             setOnUpdate((Vector2 newPos) => { rectTransform.anchoredPosition = newPos; }).
             setEase(LeanTweenType.easeOutQuad);
     }
-
+    
     /// <summary>
     /// Returns whether the content text has finished displaying.
     /// </summary>
