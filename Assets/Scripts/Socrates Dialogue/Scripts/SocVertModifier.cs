@@ -357,7 +357,7 @@ namespace SocratesDialogue {
                                 textComponent,
                                 parse, 
                                 vertexPositions,
-                                totalVisibleCharacters);
+                                counter);
                         }
                     }
                 }

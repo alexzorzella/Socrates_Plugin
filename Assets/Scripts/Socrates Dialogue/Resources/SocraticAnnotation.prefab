@@ -51,5 +51,5 @@ MonoBehaviour:
   waveFreqMultiplier: 0.025
   waveAmplitude: 7
   waveSpeed: 9
-  gradientSpeed: -5
+  gradientSpeed: -0.5
   gradientWidth: 2000
