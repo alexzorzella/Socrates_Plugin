@@ -16,7 +16,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     public SocratesText contentText;
     
     public const float fadeTime = 0.15F;
-    const float moveTime = 0.25F;
+    const float moveTime = 0.5F;
     static readonly Vector2 origin = new Vector2(0, 79);
     static readonly Vector2 padding = new Vector2(0, 10);
 
@@ -92,14 +92,15 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
             string soundbiteName = newSection.GetFacet<DialogueSoundbite>().ToString();
             contentText.PlaySoundbite(soundbiteName);
         }
+        
+        ClearChoiceObjects();
+        Move(origin);
     }
 
     /// <summary>
     /// Runs whenever the current dialogue section's content is fully displayed for the first time.
     /// </summary>
     public void OnFullyDisplayed() {
-        ClearChoiceObjects();
-        
         if (currentSection != null && currentSection.CountOfFacetType<NextSection>() > 1) {
             List<NextSection> choices = currentSection.GetFacets<NextSection>();
             GameObject dialogueChoiceObject = null;
@@ -124,9 +125,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
         
         if (choiceCount > 1) {
             Move(origin + new Vector2(0, choiceParent.rect.height) + padding);
-        }
-        else {
-            Move(origin);
         }
     }
 

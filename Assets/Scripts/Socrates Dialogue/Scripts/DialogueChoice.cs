@@ -10,7 +10,7 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
     
     TextMeshProUGUI contentText;
 
-    const float fadeInTime = 0.25F;
+    const float fadeInTime = 0.3F;
 
     CanvasGroup canvasGroup;
 
@@ -27,7 +27,7 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
             canvasGroup.alpha = 0;
             
             LeanTween.cancel(gameObject);
-            LeanTween.delayedCall(fadeInAfter * index,
+            LeanTween.delayedCall(fadeInAfter + (fadeInTime * index),
                 () => {
                     LeanTween.value(gameObject, 0, 1, fadeInTime).
                         setOnUpdate((alpha) => {
