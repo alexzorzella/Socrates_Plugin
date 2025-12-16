@@ -27,7 +27,7 @@ public class DialogueManifest {
     }
 
     public static string AddEntry(string uniqueReference, DialogueSection current) {
-        if (sectionsByReference.ContainsKey(uniqueReference)) {
+        if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
             uniqueReference = GetUniqueReference();
         }
         

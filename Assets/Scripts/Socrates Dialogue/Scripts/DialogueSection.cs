@@ -59,7 +59,14 @@ namespace SocratesDialogue {
         }
 
         public int CountOfFacetType<T>() where T : ZDialogueFacet {
-            int result = GetFacets<T>().Count;
+            List<T> facetsOfTypeT = GetFacets<T>();
+            
+            int result = 0;
+
+            if (facetsOfTypeT != null) {
+                result = facetsOfTypeT.Count;
+            }
+            
             return result;
         }
     }

@@ -9,12 +9,16 @@ namespace SocratesDialogue {
         
         static readonly Regex optionReader = new(@"^(.*),(.*)$");
         
-        public NextSection(string reference) {
+        public NextSection(string rawInput) {
+            var optionMatch = optionReader.Match(rawInput);
             
-            
-            
-            this.reference = reference;
-            
+            if (!optionMatch.Success) {
+                reference = rawInput;
+            } else if(optionMatch.Groups.Count == 2) {
+                prompt = optionMatch.Groups[1].Value;
+                reference = optionMatch.Groups[2].Value;
+            }
+
             TryCache();
         }
         
