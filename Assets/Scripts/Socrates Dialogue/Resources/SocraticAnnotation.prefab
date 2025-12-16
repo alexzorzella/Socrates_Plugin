@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8808782274904191495}
-  - component: {fileID: 4458626835320178133}
+  - component: {fileID: 1825383193296819740}
   m_Layer: 0
   m_Name: SocraticAnnotation
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4458626835320178133
+--- !u!114 &1825383193296819740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,14 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20eee8c99f101e444b2ca05e4aed2199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  richTextStart: 60
-  richTextEnd: 62
-  minorPunctuation: 2c001320
-  majorPunctuation: 2e003f0021007e003a003a00280029003b001420
-  parseStartChar: 91
-  parseEndChar: 93
-  parseClosePairChar: 33
-  parseValueSeparator: 44
   displayDelayPerChar: 0.01
   minorPunctuationDisplayDelay: 0.25
   majorPunctuationDisplayDelay: 0.35
@@ -59,6 +51,5 @@ MonoBehaviour:
   waveFreqMultiplier: 0.025
   waveAmplitude: 7
   waveSpeed: 9
-  defaultSoundName: dialogue
   gradientSpeed: 0.1
-  gradientWidth: 4
+  gradientWidth: 2000
