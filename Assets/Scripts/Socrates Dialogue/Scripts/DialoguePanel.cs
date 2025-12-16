@@ -50,7 +50,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         nameText.SetText(name);
         contentText.SetText(content, scroll: true, muted: false);
 
-        string soundName = 
+        string soundName =
             section.GetFacet<DialogueSound>() != null ? 
                 section.GetFacet<DialogueSound>().ToString() : 
                 SocraticAnnotation.defaultSoundName;

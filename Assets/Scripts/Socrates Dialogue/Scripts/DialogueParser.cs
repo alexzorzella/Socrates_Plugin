@@ -34,7 +34,7 @@ namespace SocratesDialogue {
             int currentConversationIndex = 0;
             results.Add(new List<DialogueSection>());
             
-            // For each line line in the .tsv
+            // For each line in the .tsv
             for (int i = 0; i < lines.Length; i++) {
                 string line = lines[i];
 
