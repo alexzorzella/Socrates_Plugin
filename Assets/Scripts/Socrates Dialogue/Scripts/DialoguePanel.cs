@@ -1,19 +1,48 @@
 using System.Collections.Generic;
+using PlasticGui.WorkspaceWindow.QueryViews.Changesets;
 using SocratesDialogue;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-public class DialoguePanel : MonoBehaviour, DialogueListener {
+public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListener {
+    DialogueManager dialogueManager;
+    DialogueSection currentSection;
+    
+    RectTransform rectTransform;
     CanvasGroup canvasGroup;
 
-    public const float toggleTime = 0.15F;
+    public SocratesText nameText;
+    public SocratesText contentText;
+    
+    public const float fadeTime = 0.15F;
+    const float moveTime = 0.5F;
+    static readonly Vector2 origin = new Vector2(0, 79);
+    static readonly Vector2 padding = new Vector2(0, 10);
 
-    public SocVertModifier nameText;
-    public SocVertModifier contentText;
+    public VerticalLayoutGroup choiceLayoutGroup;
+    RectTransform choiceParent;
+    
+    readonly List<GameObject> choiceObjects = new();
+
+    void ClearChoiceObjects() {
+        while (choiceObjects.Count > 0) {
+            Destroy(choiceObjects[0]);
+            choiceObjects.RemoveAt(0);
+        }
+    }
     
     void Awake() {
+        rectTransform = GetComponent<RectTransform>();
+        
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
-        GetComponentInParent<DialogueManager>().RegisterListener(this);
+        choiceParent = choiceLayoutGroup.GetComponent<RectTransform>();
+        
+        dialogueManager = GetComponentInParent<DialogueManager>();
+        dialogueManager.RegisterListener(this);
+        
+        contentText.RegisterListener(this);
     }
 
     /// <summary>
@@ -24,7 +53,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
         LeanTween.cancel(canvasGroup.gameObject);
 
         canvasGroup.alpha = visible ? 0 : 1;
-        LeanTween.value(canvasGroup.alpha, visible ? 1 : 0, toggleTime)
+        LeanTween.value(canvasGroup.alpha, visible ? 1 : 0, fadeTime)
             .setOnUpdate((value) => { canvasGroup.alpha = value; });
     }
 
@@ -42,27 +71,70 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// Sets the name text fully and queues the content text to scroll, populated by new dialogue section
     /// data whenever the dialogue section changes.
     /// </summary>
-    /// <param name="section"></param>
-    public void OnSectionChanged(DialogueSection section) {
-        string name = section.GetFacet<DialogueSpeaker>().ToString();
-        string content = section.GetFacet<DialogueContent>().ToString();
+    /// <param name="newSection"></param>
+    public void OnSectionChanged(DialogueSection newSection) {
+        currentSection = newSection;
+        
+        string name = newSection.GetFacet<DialogueSpeaker>().ToString();
+        string content = newSection.GetFacet<DialogueContent>().ToString();
         
         nameText.SetText(name);
         contentText.SetText(content, scroll: true, muted: false);
 
         string soundName =
-            section.GetFacet<DialogueSound>() != null ? 
-                section.GetFacet<DialogueSound>().ToString() : 
+            newSection.GetFacet<DialogueSound>() != null ? 
+                newSection.GetFacet<DialogueSound>().ToString() : 
                 SocraticAnnotation.defaultSoundName;
         
         contentText.SetDialogueSfx(soundName);
 
-        if (section.GetFacet<DialogueSoundbite>() != null) {
-            string soundbiteName = section.GetFacet<DialogueSoundbite>().ToString();
+        if (newSection.GetFacet<DialogueSoundbite>() != null) {
+            string soundbiteName = newSection.GetFacet<DialogueSoundbite>().ToString();
             contentText.PlaySoundbite(soundbiteName);
+        }
+        
+        ClearChoiceObjects();
+        Move(origin);
+    }
+
+    /// <summary>
+    /// Runs whenever the current dialogue section's content is fully displayed for the first time.
+    /// </summary>
+    public void OnFullyDisplayed() {
+        if (currentSection != null && currentSection.CountOfFacetType<NextSection>() > 1) {
+            List<NextSection> choices = currentSection.GetFacets<NextSection>();
+            GameObject dialogueChoiceObject = null;
+
+            int index = 0;
+            foreach (var choice in choices) {
+                dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
+                DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
+                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.LeadsToRef(), moveTime, index);
+                choiceObjects.Add(dialogueChoiceObject);
+
+                index++;
+            }
+
+            if (dialogueChoiceObject != null) {
+                float dialogueChoiceHeight = dialogueChoiceObject.GetComponent<RectTransform>().sizeDelta.y;
+                choiceParent.sizeDelta = new Vector2(choiceParent.sizeDelta.x, choices.Count * (dialogueChoiceHeight + choiceLayoutGroup.spacing));
+            }
+        }
+        
+        int choiceCount = currentSection.CountOfFacetType<NextSection>();
+        
+        if (choiceCount > 1) {
+            Move(origin + new Vector2(0, choiceParent.rect.height) + padding);
         }
     }
 
+    void Move(Vector2 to) {
+        LeanTween.value
+                (gameObject, rectTransform.anchoredPosition, to, moveTime).
+            setOnUpdate((Vector2 newPos) => { rectTransform.anchoredPosition = newPos; }).
+            setEase(LeanTweenType.easeOutQuad);
+    }
+    
     /// <summary>
     /// Returns whether the content text has finished displaying.
     /// </summary>
@@ -75,7 +147,10 @@ public class DialoguePanel : MonoBehaviour, DialogueListener {
     /// Hides the panel when the dialogue ends.
     /// </summary>
     public void OnDialogueEnded() {
+        ClearChoiceObjects();
+        
         SetDialoguePanelVisible(false);
+        Move(origin);
     }
     
     /// <summary>

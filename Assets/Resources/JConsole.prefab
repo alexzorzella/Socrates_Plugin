@@ -156,8 +156,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7535845886469833380}
   m_HandleRect: {fileID: 3331000687834113720}
   m_Direction: 2
-  m_Value: -0.001609442
-  m_Size: 0.99961144
+  m_Value: -0.015873017
+  m_Size: 0.99998677
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -232,7 +232,8 @@ MonoBehaviour:
     console\n> <color=yellow>Esc</color> to close console and open controller menu"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -272,15 +273,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -532,7 +535,8 @@ MonoBehaviour:
   m_text: Enter command beginning with /...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -572,15 +576,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -651,7 +657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.00048828125, y: 0.00048828125}
+  m_AnchoredPosition: {x: -0.00048828125, y: 0}
   m_SizeDelta: {x: 1822, y: 878.37}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &6144662764196891706
@@ -851,7 +857,8 @@ MonoBehaviour:
   m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -891,15 +898,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 3
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -986,7 +995,8 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1026,15 +1036,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1134,7 +1146,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &6289257198774711191
 MonoBehaviour:
@@ -1462,10 +1474,13 @@ MonoBehaviour:
   m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
+  m_KeepTextSelectionVisible: 0
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
+  isAlert: 0
   m_InputValidator: {fileID: 0}
+  m_ShouldActivateOnSelect: 1
 --- !u!1 &6665608071079711332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,7 +1732,8 @@ MonoBehaviour:
   m_text: grilled_salmon
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
-  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
+  m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1757,15 +1773,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

@@ -1,7 +1,7 @@
 namespace SocratesDialogue {
     public interface DialogueListener {
         void OnDialogueBegun();
-        void OnSectionChanged(DialogueSection section);
+        void OnSectionChanged(DialogueSection newSection);
         void OnDialogueEnded();
     }
 }
