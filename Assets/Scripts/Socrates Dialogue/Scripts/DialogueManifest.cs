@@ -3,9 +3,32 @@ using System.Collections.Generic;
 using SocratesDialogue;
 
 public class DialogueManifest {
+    static DialogueManifest _i;
+
+    static readonly List<string> dialogueFilenames = new() { "test_dialogue" };
+
+    DialogueManifest() {
+        ParseFiles();
+    }
+    
+    void ParseFiles() {
+        foreach (string filename in dialogueFilenames) {
+            DialogueParser.ParseFile(filename, this);
+        }
+    }
+    
+    public static DialogueManifest i {
+        get {
+            if (_i == null) {
+                _i = new DialogueManifest();
+            }
+            return _i;
+        }
+    }
+    
     static int counter = 0;
 
-    public static string GetUniqueReference() {
+    static string GetUniqueReference() {
         while (sectionsByReference.ContainsKey(counter.ToString())) {
             counter++;
         }
@@ -18,7 +41,7 @@ public class DialogueManifest {
     
     static readonly Dictionary<string, DialogueSection> sectionsByReference = new();
 
-    public static DialogueSection GetSectionByReference(string reference) {
+    public DialogueSection GetSectionByReference(string reference) {
         if (sectionsByReference.ContainsKey(reference)) {
             return sectionsByReference[reference];
         }
@@ -26,7 +49,7 @@ public class DialogueManifest {
         throw new NullReferenceException($"{reference} doesn't reference a dialogue section.");
     }
 
-    public static string AddEntry(string uniqueReference, DialogueSection current) {
+    public string AddEntry(string uniqueReference, DialogueSection current) {
         if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
             uniqueReference = GetUniqueReference();
         }

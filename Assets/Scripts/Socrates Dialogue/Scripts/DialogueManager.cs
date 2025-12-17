@@ -158,7 +158,7 @@ namespace SocratesDialogue {
             // Cached the reference's associated dialogue section if one was passed
             if (!string.IsNullOrWhiteSpace(reference)) {
                 try {
-                    nextSection = DialogueManifest.GetSectionByReference(reference);
+                    nextSection = DialogueManifest.i.GetSectionByReference(reference);
                 } catch {
                     Debug.LogWarning($"Reference {reference} has no associated dialogue section.");
                     nextSection = null;

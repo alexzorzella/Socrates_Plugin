@@ -29,7 +29,7 @@ namespace SocratesDialogue {
         void TryCache() {
             try {
                 if (next == null) {
-                    next = DialogueManifest.GetSectionByReference(reference);
+                    next = DialogueManifest.i.GetSectionByReference(reference);
                 }
             }
             catch {

@@ -27,7 +27,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
 
     void ClearChoiceObjects() {
         while (choiceObjects.Count > 0) {
-            Destroy(choiceObjects[0]);
+            choiceObjects[0].GetComponent<DialogueChoice>().Destroy();
             choiceObjects.RemoveAt(0);
         }
     }

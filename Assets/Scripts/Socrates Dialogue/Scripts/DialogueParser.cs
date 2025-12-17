@@ -14,10 +14,10 @@ namespace SocratesDialogue {
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static DialogueSection ParseFile(string filename) {
+        public static DialogueSection ParseFile(string filename, DialogueManifest manifest) {
             List<List<DialogueSection>> results = new();
 
-            var filepath = Path.Combine(Application.streamingAssetsPath, "Localization", $"{filename}.tsv");
+            var filepath = Path.Combine(Application.streamingAssetsPath, "Dialogue", $"{filename}.tsv");
 
             if (!File.Exists(filepath)) {
                 Debug.LogWarning($"No dialogue file named {filename}.tsv found");
@@ -74,7 +74,7 @@ namespace SocratesDialogue {
                 // Added the unique reference to the manifest paired with the new section.
                 // If the unique reference is empty or whitespace, it'll generate a new,
                 // unique reference for it.
-                uniqueReference = DialogueManifest.AddEntry(uniqueReference, newSection);
+                uniqueReference = manifest.AddEntry(uniqueReference, newSection);
                 
                 // If this isn't the first line of conversation,
                 if (results[currentConversationIndex].Count > 0) {
@@ -150,14 +150,6 @@ namespace SocratesDialogue {
             }
 
             return results;
-        }
-
-        /// <summary>
-        /// Returns test dialogue parsed from Assets/StreamingAssets/Localization/test_dialogue.tsv
-        /// </summary>
-        /// <returns></returns>
-        public static DialogueSection TestDialogue() {
-            return ParseFile("test_dialogue");
         }
     }
 }
