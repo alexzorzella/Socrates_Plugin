@@ -2,27 +2,24 @@ using System;
 using System.Collections.Generic;
 using SocratesDialogue;
 
-public class DialogueManifest {
-    static DialogueManifest _i;
-
-    static readonly List<string> dialogueFilenames = new() { "test_dialogue" };
-
-    DialogueManifest() {
-        ParseFiles();
-    }
+public static class DialogueManifest {
+    static readonly List<string> dialogueFilenames = new() {
+        "test_dialogue",
+        "test_dialogue 1",
+        "test_dialogue 2",
+        "test_dialogue 3",
+        "test_dialogue 4",
+        "test_dialogue 5",
+        "test_dialogue 6",
+        "test_dialogue 7",
+        "test_dialogue 8"
+    };
     
-    void ParseFiles() {
+    static void ParseFiles() {
+        sectionsByReference = new();
+        
         foreach (string filename in dialogueFilenames) {
-            DialogueParser.ParseFile(filename, this);
-        }
-    }
-    
-    public static DialogueManifest i {
-        get {
-            if (_i == null) {
-                _i = new DialogueManifest();
-            }
-            return _i;
+            DialogueParser.ParseFile(filename);
         }
     }
     
@@ -39,9 +36,13 @@ public class DialogueManifest {
         return result;
     }
     
-    static readonly Dictionary<string, DialogueSection> sectionsByReference = new();
+    static Dictionary<string, DialogueSection> sectionsByReference;
 
-    public DialogueSection GetSectionByReference(string reference) {
+    public static DialogueSection GetSectionByReference(string reference) {
+        if (sectionsByReference == null) {
+            ParseFiles();
+        }
+        
         if (sectionsByReference.ContainsKey(reference)) {
             return sectionsByReference[reference];
         }
@@ -49,7 +50,11 @@ public class DialogueManifest {
         throw new NullReferenceException($"{reference} doesn't reference a dialogue section.");
     }
 
-    public string AddEntry(string uniqueReference, DialogueSection current) {
+    public static string AddEntry(string uniqueReference, DialogueSection current) {
+        if (sectionsByReference == null) {
+            ParseFiles();
+        }
+        
         if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
             uniqueReference = GetUniqueReference();
         }

@@ -14,7 +14,7 @@ namespace SocratesDialogue {
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static DialogueSection ParseFile(string filename, DialogueManifest manifest) {
+        public static DialogueSection ParseFile(string filename) {
             List<List<DialogueSection>> results = new();
 
             var filepath = Path.Combine(Application.streamingAssetsPath, "Dialogue", $"{filename}.tsv");
@@ -74,7 +74,7 @@ namespace SocratesDialogue {
                 // Added the unique reference to the manifest paired with the new section.
                 // If the unique reference is empty or whitespace, it'll generate a new,
                 // unique reference for it.
-                uniqueReference = manifest.AddEntry(uniqueReference, newSection);
+                uniqueReference = DialogueManifest.AddEntry(uniqueReference, newSection);
                 
                 // If this isn't the first line of conversation,
                 if (results[currentConversationIndex].Count > 0) {
