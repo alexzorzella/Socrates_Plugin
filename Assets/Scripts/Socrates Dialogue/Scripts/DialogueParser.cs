@@ -8,7 +8,9 @@ using UnityEngine;
 namespace SocratesDialogue {
     public static class DialogueParser {
         const int maxEmptyLinesBeforeBreak = 50;
-
+        
+        enum ParsingMode { TAG_BY_CELL, TAG_BY_COLUMN, TOKEN_DEF, SKIP_LINE }
+        
         /// <summary>
         /// Parses dialogue from the passed .tsv file found in the StreamingAssets/Localization folder.
         /// </summary>
@@ -33,34 +35,66 @@ namespace SocratesDialogue {
             int emptyLineCount = 0;
             int currentConversationIndex = 0;
             results.Add(new List<DialogueSection>());
+
+            ParsingMode parsingMode = ParsingMode.SKIP_LINE;
+
+            string[] columns;
             
             // For each line in the .tsv
             for (int i = 0; i < lines.Length; i++) {
                 string line = lines[i];
 
-                // First parse the facets from the line
-                List<ZDialogueFacet> facets = ParseFacetsFrom(line);
+                switch (parsingMode) {
+                    case ParsingMode.TAG_BY_COLUMN:
+                        
+                        
+                        break;
+                    case ParsingMode.TOKEN_DEF:
+                        string[] entries = line.Split('\t');
+                        DialogueManifest.AddReference(entries[0], entries[1]);
+                        
+                        continue;
+                }
+                
+                parsingMode = ParsingModeFromLine(line);
+                List<ZDialogueFacet> facets = new();
+                
+                switch (parsingMode) {
+                    // The line is empty and will be skipped
+                    case ParsingMode.SKIP_LINE:
+                        emptyLineCount++;
+
+                        // Break when encountering too many empty lines
+                        if (emptyLineCount > maxEmptyLinesBeforeBreak) {
+                            break;
+                        }
+
+                        // If the current conversation has lines, make a new one
+                        if (results[currentConversationIndex].Count > 0) {
+                            currentConversationIndex++;
+                            results.Add(new List<DialogueSection>());
+                        }
+
+                        continue;
+                    // The line will be tagged per cell
+                    case ParsingMode.TAG_BY_CELL:
+                        // First parse the facets from the line
+                        facets = ParseFacetsFrom(line);
+                        break;
+                    // From the next line until an empty one, the cells' attributes
+                    // will be determined by this one
+                    case ParsingMode.TAG_BY_COLUMN:
+                        string[] entries = line.Split('\t');
+                        columns = entries;
+                        continue;
+                    // From the next line until an empty one, the cells will
+                    // define the tokens' replacements
+                    case ParsingMode.TOKEN_DEF:
+                        continue;
+                }
 
                 // Create a new instance of a dialogue section passing the facets
                 DialogueSection newSection = new DialogueSection(facets);
-
-                // If there's no actual content, it's considered an empty line
-                if (!newSection.HasFacet<DialogueContent>()) {
-                    emptyLineCount++;
-
-                    // Break when encountering too many empty lines
-                    if (emptyLineCount > maxEmptyLinesBeforeBreak) {
-                        break;
-                    }
-
-                    // If the current conversation has lines, make a new one
-                    if (results[currentConversationIndex].Count > 0) {
-                        currentConversationIndex++;
-                        results.Add(new List<DialogueSection>());
-                    }
-
-                    continue;
-                }
 
                 emptyLineCount = 0;
 
@@ -98,6 +132,31 @@ namespace SocratesDialogue {
             // Debug.Log($"Parsed {results.Count} conversation(s) from {filename}");
             
             return results[0][0];
+        }
+
+        static ParsingMode ParsingModeFromLine(string line) {
+            ParsingMode result = ParsingMode.SKIP_LINE;
+
+            string[] entries = line.Split('\t');
+
+            string firstEntry = entries[0];
+            
+            if (!string.IsNullOrWhiteSpace(firstEntry)) {
+                if (firstEntry == "token") {
+                    result = ParsingMode.TOKEN_DEF;
+                } else {
+                    result = ParsingMode.TAG_BY_CELL;
+                }
+            }
+            
+            foreach(var token in tokenToFacet) {
+                if (firstEntry == token.Key) {
+                    result = ParsingMode.TAG_BY_COLUMN;
+                    break;
+                }
+            }
+
+            return result;
         }
 
         static readonly Regex facetReader = new(@"^([a-zA-Z]+):[ ]*(.*)$");

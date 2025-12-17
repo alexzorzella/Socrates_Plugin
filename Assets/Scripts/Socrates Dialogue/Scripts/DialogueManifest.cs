@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using SocratesDialogue;
+using UnityEngine;
 
 public static class DialogueManifest {
     static readonly List<string> dialogueFilenames = new() {
@@ -36,7 +38,10 @@ public static class DialogueManifest {
         return result;
     }
     
+    static readonly Regex tokenMatch = new("@([a-zA-Z0-9_]*)|([^@]+)");
+    
     static Dictionary<string, DialogueSection> sectionsByReference;
+    static readonly Dictionary<string, string> tokenReplacements = new();
 
     public static DialogueSection GetSectionByReference(string reference) {
         if (sectionsByReference == null) {
@@ -62,5 +67,27 @@ public static class DialogueManifest {
         sectionsByReference.Add(uniqueReference, current);
 
         return uniqueReference;
+    }
+
+    public static void AddReference(string token, string replaceWith) {
+        tokenReplacements.Add(token, replaceWith);
+    }
+
+    public static string GetReplacementFor(string token) {
+        string result = "";
+        
+        if (tokenReplacements.ContainsKey(token)) {
+            result = tokenReplacements[token];
+        }
+
+        return result;
+    }
+
+    public static void UpdateReference(string forToken, string newReplacement) {
+        if (tokenReplacements.ContainsKey(forToken)) {
+            tokenReplacements[forToken] = newReplacement;
+        } else {
+            Debug.LogWarning($"The token '{forToken}' isn't present in the collection of replacements.");
+        }
     }
 }

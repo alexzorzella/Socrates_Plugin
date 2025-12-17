@@ -7,20 +7,23 @@ name:Alex	content:I think we can go hiking. [shake,2][gradient][sound,dialogue_2
 name:Alex	content:I think we can go hiking. [sound,dialogue]<size=50%>[wave,0.5]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]									
 name:Alex	content:I think we can go hiking. [sound,dialogue_3]<size=50%>[wave,2]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]									
 										
+token	value									
+helen	Helen									
+cat_man	Timothy									
+ratman	Ratman									
+zinhos	Socrates									
+alexsfx	dialogue_1									
 										
-										
-name:Socrates	content:[gradient]■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[!gradient]									
+name:Socrates	content:[gradient]■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[!gradient]	note:The square character persists in TextMeshProUGUI.								
 										
 name:Foo	content:Bar baz qux.	ref:foo0								
 										
-	It looks like you have @bodacious_count bodacious points!									
-										
-name	content	sound	ref							
-name:@helen	It seems to me		helen	Helen						
-name:@helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]		cat_man							
-name:@helen	It's from an old familiar sc[shake,3][wave,3]oooooooo[!shake]re[!wave]		ratman							
-name:@helen	I know it well		zinhos	The Howler!						
-name:@helen	that melody		alexsfx	dialogue_1						
+name	content									
+name:@helen	It seems to me									
+name:@helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]									
+name:@helen	It's from an old familiar sc[shake,3][wave,3]oooooooo[!shake]re[!wave]									
+name:@helen	I know it well									
+name:@helen	that melody									
 name:@helen	It's funny how a theme									
 name:@helen	Recalls a favorite dream									
 name:@helen	A dream that brought you so close to me									
@@ -55,17 +58,17 @@ Nopunct	This text has no punctuation therefore it will have no delays it also do
 Noannot	This text has punctutaion, but no annotations. I like Pink Floyd. Their music is pretty good.									
 Nopunct	No punctuation I like Pink Floyd their music is pretty good									
 										
-Alex										
-The Zinhos										
-Alex										
-Alex										
-Dad										
-Alex										
-Dad										
-Alex										
-Dad										
-Alex										
-Dad										
-Alex										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
 name:Alex	content:The Zinhos [wave,3]approves![!wave]	sound:dialogue_2	delay:0.015	event:setCamTarget(0,1,2)	ref:12	soundbite:12	picture:alex_happy			
 name:Dad	content:But the Zinhos!	"option:""Return"",12"								
