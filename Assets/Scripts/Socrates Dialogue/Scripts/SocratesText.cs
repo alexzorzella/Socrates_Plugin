@@ -565,7 +565,7 @@ namespace SocratesDialogue {
 
                 for (int v = 0; v < 4; v++) {
                     int absVertexIndex = vertexIndex + v;
-                    vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + leftOffsetY;
+                    vertexPositionsWriteTo[absVertexIndex].y = vertexPositionsReadFrom[absVertexIndex].y + (v < 2 ? leftOffsetY : rightOffsetY);
                 }
             }
         }

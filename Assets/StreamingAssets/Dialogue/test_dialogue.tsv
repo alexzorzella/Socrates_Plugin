@@ -1,7 +1,7 @@
 name:Bill	content:[gradient]Most bodacious! What a most excellent day! We've got the time machine up and running.[!gradient]	option:Continue,ted2	option:na	option:na2,100	option:A,0	option:A,0	event:zinhostown(10,thehowler)			
 name:Ted	content:I wonder what's in [gradient]store for us[!gradient]... today?	ref:ted2								
 name:Alex	content:What a wonderful day!	sound:dialogue	delay:0.015	event:shakeCamera(3)	ref:12		picture:alex_smile	soundbite:alex_laugh		
-name:Amy	content:This is most excellent!	sound:dialogue_2	pitch:1.2	event:panCamera(timeMachine)	ref:16		picture:amy_happy	option:Jamon,12	next:Next,14	choice:Chow down,16
+name:Amy	content:[wave,10][gradient]This is most excellent[!wave][!gradient]! <color=yellow>Where</color> will we visit today?	sound:dialogue_2	pitch:1.2	event:panCamera(timeMachine)	ref:16		picture:amy_happy	option:Jamon,12	next:Next,14	choice:Chow down,16
 name:Alex	content:What's on the agenda?				ref:14		picture:alex_eyebrows	soundbite:alex_huh		
 name:Alex	content:I think we can go hiking. [shake,2][gradient][sound,dialogue_2]<size=50%>[wave,1]I'm in the mood for sanwiches, too.[!wave]</size>[!gradient][!sound][!shake]									
 name:Alex	content:I think we can go hiking. [sound,dialogue]<size=50%>[wave,0.5]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]									
@@ -13,7 +13,7 @@ name:Socrates	content:[gradient]■■■■■■■■■■■■■■■■
 										
 name:Foo	content:Bar baz qux.	ref:foo0								
 										
-										
+	It looks like you have @bodacious_count bodacious points!									
 										
 name	content	sound	ref							
 name:@helen	It seems to me		helen	Helen						
