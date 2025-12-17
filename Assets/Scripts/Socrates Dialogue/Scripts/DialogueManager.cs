@@ -34,6 +34,7 @@ namespace SocratesDialogue {
         DialoguePanel dialoguePanel;
         DialogueSection currentSection;
         readonly List<DialogueListener> listeners = new();
+        readonly Dictionary<string, List<DialogueEventListener>> eventListeners = new();
         
         public RectTransform choiceParent;
 
@@ -43,6 +44,28 @@ namespace SocratesDialogue {
         /// <param name="newListener"></param>
         public void RegisterListener(DialogueListener newListener) {
             listeners.Add(newListener);
+        }
+
+        public void RegisterEventListener(DialogueEventListener newListener, string eventTag = "") {
+            if (!eventListeners.ContainsKey(eventTag)) {
+                eventListeners.Add(eventTag, new List<DialogueEventListener>());
+            }
+            
+            eventListeners[eventTag].Add(newListener);
+        }
+
+        void NotifyDialogueEventListeners(string eventTag, string parameters) {
+            if (eventListeners.ContainsKey("")) {
+                foreach (var listener in eventListeners[""]) {
+                    listener.OnEvent(eventTag, parameters);
+                }
+            }
+            
+            if (eventListeners.ContainsKey(eventTag)) {
+                foreach (var listener in eventListeners[eventTag]) {
+                    listener.OnEvent(eventTag, parameters);
+                }
+            }
         }
 
         /// <summary>
@@ -88,7 +111,7 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Sets the current dialogue section to the new dialogue section, optionally notifyfing all
+        /// Sets the current dialogue section to the new dialogue section, optionally notifying all
         /// listeners that the dialogue section has changed.
         /// </summary>
         /// <param name="section"></param>
@@ -98,6 +121,14 @@ namespace SocratesDialogue {
 
             if (!doNotNotify) {
                 NotifyOfSectionChange();
+            }
+
+            if (currentSection != null) {
+                DialogueEvent dialogueEvent = currentSection.GetFacet<DialogueEvent>();
+
+                if (dialogueEvent != null) {
+                    NotifyDialogueEventListeners(dialogueEvent.GetTag(), dialogueEvent.GetParameters());
+                }
             }
         }
 

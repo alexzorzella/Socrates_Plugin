@@ -354,8 +354,12 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="newVertexPositions"></param>
         void ApplyRichText(TMP_TextInfo textInfo, Vector3[] newVertexPositions) {
+            if (fancyText == null) {
+                return;
+            }
+            
             ScrollInFromY(textInfo, vertexPositions, newVertexPositions);
-
+            
             if (fancyText.GetAnnotationTokens() != null) {
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     if (parse.IsOpener()) {
@@ -394,12 +398,7 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Makes the characters come from below. Still under construction.
-        ///
-        /// Known bugs:
-        /// 1. The reveal time for the characters is beating the estimated time calculated by
-        ///    fancyText.GetCharDisplayTime(i), so as the text scrolls, the effect diminishes.
-        /// 2. Some characters jitter when animating and end up in the wrong location.
+        /// Makes the characters come from below.
         /// </summary>
         /// <param name="textInfo"></param>
         /// <param name="vertexPositionsReadFrom"></param>
