@@ -101,7 +101,13 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// Runs whenever the current dialogue section's content is fully displayed for the first time.
     /// </summary>
     public void OnFullyDisplayed() {
-        if (currentSection != null && currentSection.CountOfFacetType<NextSection>() > 1) {
+        if (currentSection == null) {
+            return;
+        }
+        
+        int choiceCount = currentSection.CountOfFacetType<NextSection>();
+        
+        if (choiceCount > 1) {
             List<NextSection> choices = currentSection.GetFacets<NextSection>();
             GameObject dialogueChoiceObject = null;
 
@@ -119,11 +125,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
                 float dialogueChoiceHeight = dialogueChoiceObject.GetComponent<RectTransform>().sizeDelta.y;
                 choiceParent.sizeDelta = new Vector2(choiceParent.sizeDelta.x, choices.Count * (dialogueChoiceHeight + choiceLayoutGroup.spacing));
             }
-        }
-        
-        int choiceCount = currentSection.CountOfFacetType<NextSection>();
-        
-        if (choiceCount > 1) {
+            
             Move(origin + new Vector2(0, choiceParent.rect.height) + padding);
         }
     }
