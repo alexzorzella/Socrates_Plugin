@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace SocratesDialogue {
     public class DialogueEvent : ZDialogueFacet {
-        static readonly Regex eventMatch = new(@"^([a-zA-Z0-9\-_]+)\((?:.*)\)");
+        static readonly Regex eventMatch = new(@"^([a-zA-Z0-9\-_]+)\((.*)\)");
 
         string eventTag = "";
         string parameters = "";
@@ -16,7 +16,7 @@ namespace SocratesDialogue {
                 return;
             }
 
-            string eventTag = regexMatch.Groups[1].Value;
+            eventTag = regexMatch.Groups[1].Value;
 
             if (regexMatch.Groups.Count > 2) {
                 parameters = regexMatch.Groups[2].Value;
