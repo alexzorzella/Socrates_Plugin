@@ -70,6 +70,10 @@ public static class DialogueManifest {
     }
 
     public static void AddReference(string token, string replaceWith) {
+        if (string.IsNullOrWhiteSpace(token)) {
+            return;
+        }
+        
         tokenReplacements.Add(token, replaceWith);
     }
 

@@ -5,11 +5,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("EditMode")]
+
 namespace SocratesDialogue {
     public static class DialogueParser {
         const int maxEmptyLinesBeforeBreak = 50;
         
-        enum ParsingMode { TAG_BY_CELL, TAG_BY_COLUMN, TOKEN_DEF, SKIP_LINE }
+        internal enum ParsingMode { TAG_BY_CELL, TAG_BY_COLUMN, TOKEN_DEF, SKIP_LINE }
         
         /// <summary>
         /// Parses dialogue from the passed .tsv file found in the StreamingAssets/Localization folder.
@@ -38,17 +42,15 @@ namespace SocratesDialogue {
 
             ParsingMode parsingMode = ParsingMode.SKIP_LINE;
 
-            string[] columns;
+            string[] columns = Array.Empty<string>();
             
             // For each line in the .tsv
             for (int i = 0; i < lines.Length; i++) {
                 string line = lines[i];
 
+                List<ZDialogueFacet> facets = new();
+                
                 switch (parsingMode) {
-                    case ParsingMode.TAG_BY_COLUMN:
-                        
-                        
-                        break;
                     case ParsingMode.TOKEN_DEF:
                         string[] entries = line.Split('\t');
                         DialogueManifest.AddReference(entries[0], entries[1]);
@@ -57,11 +59,13 @@ namespace SocratesDialogue {
                 }
                 
                 parsingMode = ParsingModeFromLine(line);
-                List<ZDialogueFacet> facets = new();
                 
                 switch (parsingMode) {
                     // The line is empty and will be skipped
                     case ParsingMode.SKIP_LINE:
+                        // The columns are cleared
+                        columns = Array.Empty<string>();
+                        
                         emptyLineCount++;
 
                         // Break when encountering too many empty lines
@@ -76,13 +80,8 @@ namespace SocratesDialogue {
                         }
 
                         continue;
-                    // The line will be tagged per cell
-                    case ParsingMode.TAG_BY_CELL:
-                        // First parse the facets from the line
-                        facets = ParseFacetsFrom(line);
-                        break;
                     // From the next line until an empty one, the cells' attributes
-                    // will be determined by this one
+                    // will be determined by the entries in this one
                     case ParsingMode.TAG_BY_COLUMN:
                         string[] entries = line.Split('\t');
                         columns = entries;
@@ -93,6 +92,8 @@ namespace SocratesDialogue {
                         continue;
                 }
 
+                facets = ParseFacetsFrom(line, columns);
+                
                 // Create a new instance of a dialogue section passing the facets
                 DialogueSection newSection = new DialogueSection(facets);
 
@@ -134,8 +135,8 @@ namespace SocratesDialogue {
             return results[0][0];
         }
 
-        static ParsingMode ParsingModeFromLine(string line) {
-            ParsingMode result = ParsingMode.SKIP_LINE;
+        internal static ParsingMode ParsingModeFromLine(string line) {
+            ParsingMode result = ParsingMode.TAG_BY_CELL;
 
             string[] entries = line.Split('\t');
 
@@ -145,15 +146,15 @@ namespace SocratesDialogue {
                 if (firstEntry == "token") {
                     result = ParsingMode.TOKEN_DEF;
                 } else {
-                    result = ParsingMode.TAG_BY_CELL;
+                    foreach(var token in tokenToFacet) {
+                        if (firstEntry == token.Key) {
+                            result = ParsingMode.TAG_BY_COLUMN;
+                            break;
+                        }
+                    }
                 }
-            }
-            
-            foreach(var token in tokenToFacet) {
-                if (firstEntry == token.Key) {
-                    result = ParsingMode.TAG_BY_COLUMN;
-                    break;
-                }
+            } else {
+                result = ParsingMode.SKIP_LINE;
             }
 
             return result;
@@ -177,33 +178,43 @@ namespace SocratesDialogue {
             { "reference", passedValue => new DialogueReference((string)passedValue) }
         };
 
-        static List<ZDialogueFacet> ParseFacetsFrom(string line) {
+        static List<ZDialogueFacet> ParseFacetsFrom(string line, string[] columns) {
             List<ZDialogueFacet> results = new();
 
             string[] entries = line.Split('\t');
 
-            foreach (string entry in entries) {
-                Match regexMatch = facetReader.Match(entry);
-
-                if (string.IsNullOrWhiteSpace(entry)) {
-                    continue;
+            for (int i = 0; i < entries.Length; i++) {
+                string token = "";
+                string passedValue = "";
+                    
+                if (columns.Length <= 0) {
+                    string entry = entries[i];
+                    
+                    Match regexMatch = facetReader.Match(entry);
+    
+                    if (string.IsNullOrWhiteSpace(entry)) {
+                        continue;
+                    }
+    
+                    if (!regexMatch.Success) {
+                        // Debug.LogError($"{entry} couldn't be parsed.");
+                        continue;
+                    }
+    
+                    token = regexMatch.Groups[1].Value;
+                    token = token.ToLower();
+    
+                    if (!tokenToFacet.ContainsKey(token)) {
+                        Debug.LogWarning($"There is no token called '{token}'. Input '{entry}' couldn't be parsed.");
+                        continue;
+                    }
+    
+                    passedValue = regexMatch.Groups[2].Value;
+                } else {
+                    token = columns[i];
+                    passedValue = entries[i];
                 }
-
-                if (!regexMatch.Success) {
-                    // Debug.LogError($"{entry} couldn't be parsed.");
-                    continue;
-                }
-
-                string token = regexMatch.Groups[1].Value;
-                token = token.ToLower();
-
-                if (!tokenToFacet.ContainsKey(token)) {
-                    Debug.LogWarning($"There is no token called '{token}'. Input '{entry}' couldn't be parsed.");
-                    continue;
-                }
-
-                string passedValue = regexMatch.Groups[2].Value;
-
+                
                 ZDialogueFacet facet = tokenToFacet[token](passedValue);
                 results.Add(facet);
             }
