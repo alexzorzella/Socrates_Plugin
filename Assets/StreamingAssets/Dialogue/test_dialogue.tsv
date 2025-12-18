@@ -1,0 +1,78 @@
+name:@bill	content:[gradient]Most bodacious! What a most excellent day! We've got the time machine up and running.[!gradient]	option:Continue,ted2	option:na	option:na2,100	option:A,0	option:A,0	event:zinhostown(10,thehowler)			
+name:@ted	content:I wonder what's in [gradient]store for us[!gradient]... today?	ref:ted2	next:hike							
+name:@alex	content:What a wonderful day!	sound:dialogue	delay:0.015	event:shakeCamera(3)	ref:12		picture:alex_smile	soundbite:alex_laugh		
+name@amy	content:[wave,10][gradient]This is most excellent[!wave][!gradient]! <color=yellow>Where</color> will we visit today?	sound:dialogue_2	pitch:1.2	event:panCamera(timeMachine)	ref:16		picture:amy_happy	option:Jamon,12	next:Next,14	choice:Chow down,16
+name:@alex	content:What's on the agenda?				ref:14		picture:alex_eyebrows	soundbite:alex_huh		
+name:@alex	content:I think we can go hiking. [shake,2][gradient][sound,dialogue_2]<size=50%>[wave,1]I'm in the mood for sanwiches, too.[!wave]</size>[!gradient][!sound][!shake]									
+name:@alex	content:I think we can go hiking. [sound,dialogue]<size=50%>[wave,0.5]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]									
+name:@alex	content:I think we can go hiking. [sound,dialogue_3]<size=50%>[wave,2]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]	next:helen	ref:hike							
+										
+token	value									
+helen	Helen Forrest									
+cat_man	Timothy									
+ratman	Ratman									
+zinhos	Socrates									
+alexsfx	dialogue_1									
+bill	William									
+ted	Theodore									
+alex	Alex, Airplane Devourer	Note:How do you eat an airplane? One bite at a time.								
+amy	Amy Who Seeks Jamon	Note:How do you eat a leg of jamon? One bite at a time.								
+										
+name:Socrates	content:[gradient]■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[!gradient]	note:The square character persists in TextMeshProUGUI.								
+										
+name:Foo	content:Bar baz qux.	ref:foo0								
+										
+name	content									
+name:@helen	It seems to me	ref:helen								
+@helen	I've heard that song [gradient][wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave][!gradient]									
+name:@helen	It's from an old familiar [gradient]sc[shake,3][wave,3]oooooooo[!shake]re[!wave][!gradient]									
+@helen	I know it well									
+name:@helen	that melody									
+@helen	It's funny how a theme									
+name:@helen	Recalls a favorite dream									
+@helen	A dream that brought you so close to me									
+name:@helen	I know each word									
+@helen	Because I've heard that song before									
+name:@helen	"The lyrics said ""forever more"""									
+@helen	Forever more's a memory									
+name:@helen	Please have them play it again									
+@helen	And I'll remember just when I've heard									
+name:@helen	That lovely song [gradient][wave,3]bef[shake,1]ooooooooooooo[!shake]re[!wave][!gradient]									
+@helen	You know who's an amazing jazz pianist? Hazel Scott. She's pretty good.									
+Slate	<i>You know who's an amazing drummer?</i> Neil Peart. He's pretty good.									
+Slate	<b>You know who's an amazing lyricist?</b> Chico Buarque. He's pretty good.									
+Slate	[wave,3]You know who's an amazing guitar player?[!wave] Mike Oldfield. He's pretty good.									
+June	Slate? Are you feeling okay?									
+Slate	Of course.									
+June	<size=50%>Your eyes had rolled back into your head and you were chittering about musicians.</size>									
+Slate	Huh?									
+June	Let's [wave]get something to eat[!wave]. I'm <i>starving</i> right now.									
+Slate	<size=50%>Chittering? That sounds like someone else...</size> I could go for some <size=110%>Submarine Sandwiches</size> right now.									
+June	<size=50%>Maybe you are okay</size> Let's go eat!									
+Slate	Tell me about your time at <color=yellow>University of American Samoa</color>.									
+June	[shake,4][wave,2]I did <size=110%>a lot</size> in college.[!shake][!wave]									
+June	Are you asking about anything in particular?									
+Ratman	You're you're you're you're you're you're									
+Slate	What the									
+Ratman	You're. You're. You're. You're. You're. You're. You're. You're. You're. 									
+Slate	<b>You know an amazing jazz pianist?</b> Hazel Scott.  [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave] [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave] [wave,1]Hazel Scott[!wave] <i>[wave,2]Hazel Scott</i>[!wave]									
+Ratman	<b><b><b><b><b><b><b><b><b>You're.</b></b></b></b></b></b></b></b></b> You're. You're. You're. You're. You're. You're. You're. You're. 									
+Nopunct	This text has no punctuation therefore it will have no delays it also does not have any fancy text annotations									
+Nopunct	This text has no punctuation therefore it will have no delays it also does not have any fancy text annotations									
+Noannot	This text has punctutaion, but no annotations. I like Pink Floyd. Their music is pretty good.									
+Nopunct	No punctuation I like Pink Floyd their music is pretty good									
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+name:Alex	content:The Zinhos [wave,3]approves![!wave]	sound:dialogue_2	delay:0.015	event:setCamTarget(0,1,2)	ref:12	soundbite:12	picture:alex_happy			
+name:Dad	content:But the Zinhos!	"option:""Return"",12"								

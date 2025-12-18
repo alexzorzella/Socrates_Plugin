@@ -39,6 +39,18 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
             canvasGroup.alpha = 1;
         }
     }
+
+    public void Destroy() {
+        LeanTween.cancel(gameObject);
+        
+        LeanTween.value(gameObject, 1, 0, fadeInTime).
+            setOnUpdate((alpha) => {
+                canvasGroup.alpha = alpha;
+            }).setOnComplete(() => {
+                LeanTween.cancel(gameObject); 
+                Destroy(gameObject);
+            });
+    }
     
     public void OnPointerClick(PointerEventData eventData) {
         dialogueManager.ContinueConversation(reference);
