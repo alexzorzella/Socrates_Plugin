@@ -24,8 +24,8 @@ name:Foo	content:Bar baz qux.	ref:foo0
 										
 name	content									
 name:@helen	It seems to me	ref:helen								
-@helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]									
-name:@helen	It's from an old familiar sc[shake,3][wave,3]oooooooo[!shake]re[!wave]									
+@helen	I've heard that song [gradient][wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave][!gradient]									
+name:@helen	It's from an old familiar [gradient]sc[shake,3][wave,3]oooooooo[!shake]re[!wave][!gradient]									
 @helen	I know it well									
 name:@helen	that melody									
 @helen	It's funny how a theme									
@@ -37,7 +37,7 @@ name:@helen	"The lyrics said ""forever more"""
 @helen	Forever more's a memory									
 name:@helen	Please have them play it again									
 @helen	And I'll remember just when I've heard									
-name:@helen	That lovely song [wave,3]bef[shake,1]ooooooooooooo[!shake]re[!wave]									
+name:@helen	That lovely song [gradient][wave,3]bef[shake,1]ooooooooooooo[!shake]re[!wave][!gradient]									
 @helen	You know who's an amazing jazz pianist? Hazel Scott. She's pretty good.									
 Slate	<i>You know who's an amazing drummer?</i> Neil Peart. He's pretty good.									
 Slate	<b>You know who's an amazing lyricist?</b> Chico Buarque. He's pretty good.									
