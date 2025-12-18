@@ -127,6 +127,19 @@ public class SocraTSVTests {
         }
         
         [Test]
+        public void ReplaceTokenMultipleWithOneInsideWord() {
+            DialogueManifest.ClearTokenReplacements();
+            DialogueManifest.AddTokenReplacement("food", "jamon");
+
+            string input = "Amy, was the {food} super{food}ilicious?";
+
+            string expected = "Amy, was the jamon superjamonilicious?";
+            string actual = DialogueManifest.ReplaceTokensIn(input);
+            
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [Test]
         public void ReplaceTokensTwoUnique() {
             DialogueManifest.ClearTokenReplacements();
             DialogueManifest.AddTokenReplacement("user", "Amy");
