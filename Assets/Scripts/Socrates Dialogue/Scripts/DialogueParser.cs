@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 using System.Runtime.CompilerServices;
+using UnityEditor;
 
 [assembly: InternalsVisibleTo("EditMode")]
 
@@ -49,6 +50,10 @@ namespace SocratesDialogue {
                 string line = lines[i];
 
                 List<ZDialogueFacet> facets = new();
+
+                if (ParsingModeFromLine(line) == ParsingMode.SKIP_LINE) {
+                    parsingMode = ParsingMode.SKIP_LINE;
+                }
                 
                 switch (parsingMode) {
                     case ParsingMode.TOKEN_DEF:
@@ -186,8 +191,11 @@ namespace SocratesDialogue {
             for (int i = 0; i < entries.Length; i++) {
                 string token = "";
                 string passedValue = "";
-                    
-                if (columns.Length <= 0) {
+
+                bool noColumns = columns.Length <= 0;
+                bool columnEmpty = (i >= columns.Length) || string.IsNullOrWhiteSpace(columns[i]);
+                
+                if (noColumns || columnEmpty) {
                     string entry = entries[i];
                     
                     Match regexMatch = facetReader.Match(entry);
@@ -213,6 +221,10 @@ namespace SocratesDialogue {
                 } else {
                     token = columns[i];
                     passedValue = entries[i];
+                }
+
+                if (string.IsNullOrWhiteSpace(token)) {
+                    continue;
                 }
                 
                 ZDialogueFacet facet = tokenToFacet[token](passedValue);

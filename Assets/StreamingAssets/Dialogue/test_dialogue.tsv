@@ -1,11 +1,11 @@
 name:Bill	content:[gradient]Most bodacious! What a most excellent day! We've got the time machine up and running.[!gradient]	option:Continue,ted2	option:na	option:na2,100	option:A,0	option:A,0	event:zinhostown(10,thehowler)			
-name:Ted	content:I wonder what's in [gradient]store for us[!gradient]... today?	ref:ted2								
+name:Ted	content:I wonder what's in [gradient]store for us[!gradient]... today?	ref:ted2	next:hike							
 name:Alex	content:What a wonderful day!	sound:dialogue	delay:0.015	event:shakeCamera(3)	ref:12		picture:alex_smile	soundbite:alex_laugh		
 name:Amy	content:[wave,10][gradient]This is most excellent[!wave][!gradient]! <color=yellow>Where</color> will we visit today?	sound:dialogue_2	pitch:1.2	event:panCamera(timeMachine)	ref:16		picture:amy_happy	option:Jamon,12	next:Next,14	choice:Chow down,16
 name:Alex	content:What's on the agenda?				ref:14		picture:alex_eyebrows	soundbite:alex_huh		
 name:Alex	content:I think we can go hiking. [shake,2][gradient][sound,dialogue_2]<size=50%>[wave,1]I'm in the mood for sanwiches, too.[!wave]</size>[!gradient][!sound][!shake]									
 name:Alex	content:I think we can go hiking. [sound,dialogue]<size=50%>[wave,0.5]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]									
-name:Alex	content:I think we can go hiking. [sound,dialogue_3]<size=50%>[wave,2]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]									
+name:Alex	content:I think we can go hiking. [sound,dialogue_3]<size=50%>[wave,2]I'm in the mood for sanwiches, too.[!wave]</size>[!sound]	next:helen	ref:hike							
 										
 token	value									
 helen	Helen									
@@ -19,7 +19,7 @@ name:Socrates	content:[gradient]■■■■■■■■■■■■■■■■
 name:Foo	content:Bar baz qux.	ref:foo0								
 										
 name	content									
-name:@helen	It seems to me									
+name:@helen	It seems to me	ref:helen								
 name:@helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]									
 name:@helen	It's from an old familiar sc[shake,3][wave,3]oooooooo[!shake]re[!wave]									
 name:@helen	I know it well									
