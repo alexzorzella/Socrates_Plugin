@@ -7,7 +7,17 @@ This repository and its contents are protected by the GPL 3.0 License. If you do
 
 Contributions to the Socrates Plugin are more than welcome! If you intend on working with the Socrates Plugin's source code please do so in Unity verison 6000.0.58f2, and make sure you're not commiting any editor caches! (These are folders like .idea/ or .vscode/. If you use another editor that isn't already in the .gitignore, make sure to add it to the .gitignore before making a pull request). The editor may be upgraded in the future.
 
-## Scripts
+## Socrates: Dialogue Markdown Language
+
+Socrates is an open source dialogue markdown language. The entire suite of Socrates systems include
+
+1. Socrates Text: TextMeshPro based fancy text
+2. Socrates Dialogue: A component based dialogue system
+3. SocraTSV: A parser that converts .tsv files written in Socrates Markdown to Socrates Dialogue
+
+Socrates Text and Socrates Dialogue both work as standalone systems, but they come bundled. SocraTSV is written specifically to convert Socrates Markdown to Socrates Dialogue, but can still be reworked to be compatible with another dialogue system.
+
+## The Scripts
 
 This repository is a colleciton of scripts that my dad and I have worked on for years. The standard here is documented, tested code. Feel free to take and expand on these scripts as you wish! A lot of these scripts are meant to be used as a base to write something more specific.
 
