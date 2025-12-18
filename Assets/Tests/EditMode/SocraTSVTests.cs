@@ -79,7 +79,7 @@ public class SocraTSVTests {
             string line =
                 "name:Alex\tcontent:I love tests!\tsound:dialogue_0\tsoundbite:applause\tThey\tare\tquite\tdelicious\t\t\t\t";
 
-            DialogueParser.ParsingMode expected = DialogueParser.ParsingMode.SKIP_LINE;
+            DialogueParser.ParsingMode expected = DialogueParser.ParsingMode.TAG_BY_CELL;
             DialogueParser.ParsingMode actual = DialogueParser.ParsingModeFromLine(line);
 
             Assert.AreEqual(expected, actual);

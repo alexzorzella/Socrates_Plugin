@@ -152,7 +152,7 @@ namespace SocratesDialogue {
             string firstEntry = entries[0];
 
             if (!string.IsNullOrWhiteSpace(firstEntry)) {
-                if (firstEntry == "token") {
+                if (firstEntry.ToLower() == "token") {
                     result = ParsingMode.TOKEN_DEF;
                 }
                 else {
