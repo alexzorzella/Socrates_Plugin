@@ -6,15 +6,7 @@ using UnityEngine;
 
 public static class DialogueManifest {
     static readonly List<string> dialogueFilenames = new() {
-        "test_dialogue",
-        "test_dialogue 1",
-        "test_dialogue 2",
-        "test_dialogue 3",
-        "test_dialogue 4",
-        "test_dialogue 5",
-        "test_dialogue 6",
-        "test_dialogue 7",
-        "test_dialogue 8"
+        "test_dialogue"
     };
     
     static void ParseFiles() {
