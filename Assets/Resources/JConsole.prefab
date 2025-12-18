@@ -156,8 +156,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7535845886469833380}
   m_HandleRect: {fileID: 3331000687834113720}
   m_Direction: 2
-  m_Value: -0.015873017
-  m_Size: 0.99998677
+  m_Value: -0.03125
+  m_Size: 0.9999955
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -227,9 +227,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "> <color=#00E5FF>friday.jam</color> installed\n> <color=#00E5FF>\uC720\uB098.ham</color>
-    installed\n> /help for command list\n> <color=yellow>Ctrl + Tab</color> to close
-    console\n> <color=yellow>Esc</color> to close console and open controller menu"
+  m_text: '> /help for command list
+
+    > <color=yellow>Ctrl + Tab</color> or <color=yellow>Esc</color>
+    to close console'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3466fdff2cc8f44b86239565e2d92de, type: 2}
   m_sharedMaterial: {fileID: -8086514981061483979, guid: f3466fdff2cc8f44b86239565e2d92de,
@@ -657,7 +658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.00048828125, y: 0}
+  m_AnchoredPosition: {x: -0.00048828125, y: 0.000061035156}
   m_SizeDelta: {x: 1822, y: 878.37}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &6144662764196891706
@@ -1299,7 +1300,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6289257199542393709}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
