@@ -38,8 +38,6 @@ public static class DialogueManifest {
         return result;
     }
     
-    static readonly Regex tokenMatch = new("@([a-zA-Z0-9_]*)|([^@]+)");
-    
     static Dictionary<string, DialogueSection> sectionsByReference;
     static readonly Dictionary<string, string> tokenReplacements = new();
 
@@ -69,7 +67,7 @@ public static class DialogueManifest {
         return uniqueReference;
     }
 
-    public static void AddReference(string token, string replaceWith) {
+    public static void AddTokenReplacement(string token, string replaceWith) {
         if (string.IsNullOrWhiteSpace(token)) {
             return;
         }
@@ -77,6 +75,33 @@ public static class DialogueManifest {
         tokenReplacements.Add(token, replaceWith);
     }
 
+    static readonly Regex tokenMatch = new("@([a-zA-Z0-9_]*)|([^@]+)");
+    
+    public static string ReplaceTokensIn(string input) {
+        string result = "";
+        
+        Match regexMatch = tokenMatch.Match(input);
+
+        while(regexMatch.Success) {
+            string sentenceChunkRaw = regexMatch.Groups[0].Value;
+            string sentenceChunk = regexMatch.Groups[1].Value;
+
+            if (sentenceChunk.Length > 0 && sentenceChunkRaw[0] == '@') {
+                result += GetReplacementFor(sentenceChunk);
+            } else {
+                result += sentenceChunkRaw;
+            }
+
+            regexMatch = regexMatch.NextMatch();
+        }
+
+        if (string.IsNullOrWhiteSpace(result)) {
+            result = input;
+        }
+
+        return result;
+    }
+    
     public static string GetReplacementFor(string token) {
         string result = "";
         
@@ -93,5 +118,9 @@ public static class DialogueManifest {
         } else {
             Debug.LogWarning($"The token '{forToken}' isn't present in the collection of replacements.");
         }
+    }
+
+    public static void ClearTokenReplacements() {
+        tokenReplacements.Clear();
     }
 }
