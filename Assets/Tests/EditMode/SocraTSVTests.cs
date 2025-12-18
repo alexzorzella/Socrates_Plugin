@@ -92,7 +92,7 @@ public class SocraTSVTests {
             DialogueManifest.ClearTokenReplacements();
             DialogueManifest.AddTokenReplacement("user", "Amy");
 
-            string input = "@user ate jamon.";
+            string input = "{user} ate jamon.";
 
             string expected = "Amy ate jamon.";
             string actual = DialogueManifest.ReplaceTokensIn(input);
@@ -105,7 +105,7 @@ public class SocraTSVTests {
             DialogueManifest.ClearTokenReplacements();
             DialogueManifest.AddTokenReplacement("user", "Amy");
 
-            string input = "Who ate jamon? @user ate jamon.";
+            string input = "Who ate jamon? {user} ate jamon.";
 
             string expected = "Who ate jamon? Amy ate jamon.";
             string actual = DialogueManifest.ReplaceTokensIn(input);
@@ -118,7 +118,7 @@ public class SocraTSVTests {
             DialogueManifest.ClearTokenReplacements();
             DialogueManifest.AddTokenReplacement("user", "Amy");
 
-            string input = "Who ate jamon? @user.";
+            string input = "Who ate jamon? {user}.";
 
             string expected = "Who ate jamon? Amy.";
             string actual = DialogueManifest.ReplaceTokensIn(input);
@@ -132,7 +132,7 @@ public class SocraTSVTests {
             DialogueManifest.AddTokenReplacement("user", "Amy");
             DialogueManifest.AddTokenReplacement("food", "jamon");
 
-            string input = "@user ate @food.";
+            string input = "{user} ate {food}.";
 
             string expected = "Amy ate jamon.";
             string actual = DialogueManifest.ReplaceTokensIn(input);
@@ -146,7 +146,7 @@ public class SocraTSVTests {
             DialogueManifest.AddTokenReplacement("user", "Amy");
             DialogueManifest.AddTokenReplacement("title", "Who Seeks Jamon");
 
-            string input = "@user @title devoured jamon.";
+            string input = "{user} {title} devoured jamon.";
 
             string expected = "Amy Who Seeks Jamon devoured jamon.";
             string actual = DialogueManifest.ReplaceTokensIn(input);
@@ -162,7 +162,7 @@ public class SocraTSVTests {
             DialogueManifest.AddTokenReplacement("action", "devoured");
             DialogueManifest.AddTokenReplacement("food", "jamon");
 
-            string input = "@user @title @action @food";
+            string input = "{user} {title} {action} {food}";
 
             string expected = "Amy Who Seeks Jamon devoured jamon";
             string actual = DialogueManifest.ReplaceTokensIn(input);

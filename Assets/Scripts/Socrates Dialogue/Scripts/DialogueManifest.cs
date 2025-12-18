@@ -75,7 +75,7 @@ public static class DialogueManifest {
         tokenReplacements.Add(token, replaceWith);
     }
 
-    static readonly Regex tokenMatch = new("@([a-zA-Z0-9_]*)|([^@]+)");
+    static readonly Regex tokenMatch = new("{([^{}]*)}|([^{}]+)");
     
     public static string ReplaceTokensIn(string input) {
         string result = "";
@@ -86,7 +86,7 @@ public static class DialogueManifest {
             string sentenceChunkRaw = regexMatch.Groups[0].Value;
             string sentenceChunk = regexMatch.Groups[1].Value;
 
-            if (sentenceChunk.Length > 0 && sentenceChunkRaw[0] == '@') {
+            if (sentenceChunk.Length > 0 && sentenceChunkRaw[0] == '{') {
                 result += GetReplacementFor(sentenceChunk);
             } else {
                 result += sentenceChunkRaw;
