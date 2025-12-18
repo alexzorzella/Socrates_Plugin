@@ -198,11 +198,11 @@ namespace SocratesDialogue {
                 if (noColumns || columnEmpty) {
                     string entry = entries[i];
                     
-                    Match regexMatch = facetReader.Match(entry);
-    
                     if (string.IsNullOrWhiteSpace(entry)) {
                         continue;
                     }
+                    
+                    Match regexMatch = facetReader.Match(entry);
     
                     if (!regexMatch.Success) {
                         // Debug.LogError($"{entry} couldn't be parsed.");
