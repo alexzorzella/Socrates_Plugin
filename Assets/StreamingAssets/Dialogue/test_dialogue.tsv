@@ -24,21 +24,21 @@ name:Foo	content:Bar baz qux.	ref:foo0
 										
 name	content									
 name:@helen	It seems to me	ref:helen								
-name:@helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]									
+@helen	I've heard that song [wave,3]bef[shake,3]ooooooooooooo[!shake]re[!wave]									
 name:@helen	It's from an old familiar sc[shake,3][wave,3]oooooooo[!shake]re[!wave]									
-name:@helen	I know it well									
+@helen	I know it well									
 name:@helen	that melody									
-name:@helen	It's funny how a theme									
+@helen	It's funny how a theme									
 name:@helen	Recalls a favorite dream									
-name:@helen	A dream that brought you so close to me									
+@helen	A dream that brought you so close to me									
 name:@helen	I know each word									
-name:@helen	Because I've heard that song before									
+@helen	Because I've heard that song before									
 name:@helen	"The lyrics said ""forever more"""									
-name:@helen	Forever more's a memory									
+@helen	Forever more's a memory									
 name:@helen	Please have them play it again									
-name:@helen	And I'll remember just when I've heard									
+@helen	And I'll remember just when I've heard									
 name:@helen	That lovely song [wave,3]bef[shake,1]ooooooooooooo[!shake]re[!wave]									
-Slate	You know who's an amazing jazz pianist? Hazel Scott. She's pretty good.									
+@helen	You know who's an amazing jazz pianist? Hazel Scott. She's pretty good.									
 Slate	<i>You know who's an amazing drummer?</i> Neil Peart. He's pretty good.									
 Slate	<b>You know who's an amazing lyricist?</b> Chico Buarque. He's pretty good.									
 Slate	[wave,3]You know who's an amazing guitar player?[!wave] Mike Oldfield. He's pretty good.									
