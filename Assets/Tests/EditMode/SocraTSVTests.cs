@@ -101,6 +101,32 @@ public class SocraTSVTests {
         }
         
         [Test]
+        public void ReplaceTokenSingleRegularWordFirst() {
+            DialogueManifest.ClearTokenReplacements();
+            DialogueManifest.AddTokenReplacement("user", "Amy");
+
+            string input = "Who ate jamon? @user ate jamon.";
+
+            string expected = "Who ate jamon? Amy ate jamon.";
+            string actual = DialogueManifest.ReplaceTokensIn(input);
+            
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [Test]
+        public void ReplaceTokenSingleRightBeforePunctuation() {
+            DialogueManifest.ClearTokenReplacements();
+            DialogueManifest.AddTokenReplacement("user", "Amy");
+
+            string input = "Who ate jamon? @user.";
+
+            string expected = "Who ate jamon? Amy.";
+            string actual = DialogueManifest.ReplaceTokensIn(input);
+            
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [Test]
         public void ReplaceTokensTwoUnique() {
             DialogueManifest.ClearTokenReplacements();
             DialogueManifest.AddTokenReplacement("user", "Amy");
