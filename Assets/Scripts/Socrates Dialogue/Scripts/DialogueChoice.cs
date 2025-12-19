@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
     DialogueManager dialogueManager;
-    string reference;
+    string nextSectionRef;
     
     TextMeshProUGUI contentText;
 
@@ -14,11 +14,24 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
 
     CanvasGroup canvasGroup;
 
-    public void Initialize(DialogueManager dialogueManager, string contents, string reference, float fadeInAfter = 0, int index = 0) {
+    /// <summary>
+    /// Initializes the dialogue choice and fades it in after a given amount of time.
+    /// </summary>
+    /// <param name="dialogueManager"></param>
+    /// <param name="contents"></param>
+    /// <param name="nextSectionRef"></param>
+    /// <param name="fadeInAfter"></param>
+    /// <param name="index"></param>
+    public void Initialize(
+        DialogueManager dialogueManager, 
+        string contents, 
+        string nextSectionRef, 
+        float fadeInAfter = 0, 
+        int index = 0) {
         canvasGroup = GetComponent<CanvasGroup>();
         
         this.dialogueManager = dialogueManager;
-        this.reference = reference;
+        this.nextSectionRef = nextSectionRef;
         
         contentText = GetComponentInChildren<TextMeshProUGUI>();
         contentText.text = contents;
@@ -40,6 +53,9 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
         }
     }
 
+    /// <summary>
+    /// Fades the choice object out before destroying it.
+    /// </summary>
     public void Destroy() {
         LeanTween.cancel(gameObject);
         
@@ -52,7 +68,11 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
             });
     }
     
+    /// <summary>
+    /// Continues the conversation when the UI element is clicked.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData) {
-        dialogueManager.ContinueConversation(reference);
+        dialogueManager.ContinueConversation(nextSectionRef);
     }
 }
