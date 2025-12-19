@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// To change the way the user continues the conversation, just call
 /// DialogueManager.ContinueConversation() from somewhere else.
 /// </summary>
-public class DialogueInteraction : MonoBehaviour {
+public class LeftClickContinuesDialogue : MonoBehaviour {
     void Update() {
         if (Mouse.current.leftButton.wasPressedThisFrame) {
             DialogueManager.i.ContinueConversation();
