@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using System.Runtime.CompilerServices;
-using UnityEditor;
 
 [assembly: InternalsVisibleTo("EditMode")]
 
@@ -39,8 +38,6 @@ namespace SocratesDialogue {
 
             string[] lines = contents.Split('\n');
 
-            // TODO: This can be refactored so that the loop just waits for the first line with
-            // content, and then treats that until the next empty line as a block.
             int emptyLineCount = 0;
             int currentConversationIndex = 0;
             results.Add(new List<DialogueSection>());
@@ -144,6 +141,12 @@ namespace SocratesDialogue {
             return results[0][0];
         }
 
+        /// <summary>
+        /// Returns the ParsingMode that should be applied to the passed line based
+        /// on its contents.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         internal static ParsingMode ParsingModeFromLine(string line) {
             ParsingMode result = ParsingMode.TAG_BY_CELL;
 
@@ -163,8 +166,7 @@ namespace SocratesDialogue {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 result = ParsingMode.SKIP_LINE;
             }
 
@@ -189,6 +191,14 @@ namespace SocratesDialogue {
             { "reference", passedValue => new DialogueReference((string)passedValue) }
         };
 
+        /// <summary>
+        /// Returns a list of ZDialogueFacet parsed from the cells of the passed .tsv file line.
+        /// Invalid tokens are ignored, making the system futureproof, and allowing for
+        /// comments.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="columns"></param>
+        /// <returns></returns>
         static List<ZDialogueFacet> ParseFacetsFrom(string line, string[] columns) {
             List<ZDialogueFacet> results = new();
 
