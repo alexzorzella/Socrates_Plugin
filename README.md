@@ -21,7 +21,19 @@ Socrates Text and Socrates Dialogue both work as standalone systems, but they co
 
 This repository is a colleciton of scripts that my dad and I have worked on for years. The standard here is documented, tested code. The status of each system's documentation and test thoroughness is listed below. The goal is to have everything tested (if applicable) and documented. I prioritize refactoring, testing, and documenting more complicated systems before simpler ones. Systems like the basic camera movement and shake, inventory, and state machine are much shorter and are intented to use as baselines or for very basic functionality. Systems that are more complicated, like the Socrates Dialogue system (which is essentially three systems in one) comes first. Feel free to take and expand on these scripts as you wish! Again, a lot of these scripts are meant to be used as a base to write something more specific.
 
+<i>Socrates Dialogue</i> (Fully documented and somewhat tested): A robust dialogue system that supports loading from .tsv. Includes text annotations including wavy text, shaky text, and delays during text scroll. Compatible with TextMeshPro rich text tags.
+
 <i>Audio Management</i> (Fully documented): MultiAudioSource is streamlined to make it easy to load and play audio files directly from your files.
+
+<i>ResourceLoader</i> (Fully documented): Streamlines loading objects, sprites, animators, and more directly from your files.
+
+<i>GnaTransition</i> (Fully documented): Streamlines transitioning scenes while running bootstrap and teardown code if necessary.
+
+<i>Save System</i> (Fully documented): A non-encrypted saving binary for saving and loading game states.
+
+<i>State Machine</i> (Somewhat documented): A custom state machine framework.
+
+<i>GameManager</i> (Somewhat documented): A static singleton instance to manage the game state.
 
 <i>Camera Movement and Shake</i> (No documentation): Basic camera movement and shake.
 
@@ -36,15 +48,3 @@ This repository is a colleciton of scripts that my dad and I have worked on for 
 <i>Physics</i> (No documentation): A couple of physics bases to work off of.
 
 <i>Practicality</i> (No documentation): Various scripts to make your life easier, including (but not limited to) a script to automatically update the build version on build (found in Assets/Editor) and increment with overflow.
-
-<i>Save System</i> (Fully documented): A non-encrypted saving binary for saving and loading game states.
-
-<i>Socrates Dialogue</i> (Fully documented and somewhat tested): A robust dialogue system that supports loading from .tsv. Includes text annotations including wavy text, shaky text, and delays during text scroll. Compatible with TextMeshPro rich text tags.
-
-<i>State Machine</i> (Somewhat documented): A custom state machine framework.
-
-<i>GameManager</i> (Documented): A static singleton instance to manage the game state.
-
-<i>ResourceLoader</i> (Fully documented): Streamlines loading objects, sprites, animators, and more directly from your files.
-
-<i>GnaTransition</i> (Fully documented): Streamlines transitioning scenes while running bootstrap and teardown code if necessary.
