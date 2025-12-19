@@ -107,7 +107,12 @@ public class JConsole : MonoBehaviour {
         commands.Add(new HcCloseConsole());
         commands.Add(new HcForceQuit());
 
-        foreach (var command in commands) autocompleteCommands.Add(command.Keyword());
+        foreach (var command in commands) {
+            WriteLine($"Loaded <color=yellow>{command.Keyword()}</color>");
+            autocompleteCommands.Add(command.Keyword());
+        }
+        
+        WriteLine($"Successfully loaded {commands.Count} commands");
 
         canvasRect = GetComponent<RectTransform>();
 

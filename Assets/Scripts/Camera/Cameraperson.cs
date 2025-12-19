@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class PCamera : MonoBehaviour {
-    static PCamera i;
+public class Cameraperson : MonoBehaviour {
+    static Cameraperson i;
 
-    public PCamera Get() {
+    public Cameraperson Get() {
         return i;
     }
     

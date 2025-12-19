@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SystemMessage : MonoBehaviour {
-	public const float lifetime = 1.2F;
-	public const float fadeSpeed = 1F;
+	const float lifetime = 1.2F;
+	const float fadeSpeed = 1F;
 
 	float currentLifetime;
 	float fadeTime;
@@ -12,7 +12,7 @@ public class SystemMessage : MonoBehaviour {
 	RectTransform rect;
 	public TextMeshProUGUI text;
 
-	private void Awake() {
+	void Awake() {
 		currentLifetime = lifetime;
 		rect = GetComponent<RectTransform>();
 	}

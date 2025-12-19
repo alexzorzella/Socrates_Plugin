@@ -17,7 +17,7 @@ namespace SocratesDialogue {
         DialogueSection currentSection;
 
         bool muted;
-        static readonly Dictionary<string, MultiAudioSource> dialogueSfx = new();
+        static readonly Dictionary<string, MultiAudioSource> dialogueSfxPool = new();
         static MultiAudioSource currentDialogueSfx = null;
 
         float startedDisplayingLast = 0;
@@ -28,47 +28,74 @@ namespace SocratesDialogue {
 
         readonly List<SocratesTextListener> listeners = new();
 
+        /// <summary>
+        /// Registers a SocratesTextListener to listen for notifications
+        /// whenever this SocratesText finishes displaying its contents.
+        /// </summary>
+        /// <param name="newListener"></param>
         public void RegisterListener(SocratesTextListener newListener) {
             listeners.Add(newListener);
         }
 
+        /// <summary>
+        /// Notifies all listeners that the text has fully displayed.
+        /// </summary>
         void NotifyListenersOfFullyDisplayed() {
             foreach (var listener in listeners) {
                 listener.OnFullyDisplayed();
             }
         }
         
+        /// <summary>
+        /// Cache the local components on Awake().
+        /// </summary>
         void Awake() {
             GetComponents();
         }
 
         /// <summary>
-        /// Caches the text component attached to the object.
+        /// Caches the text component attached to the object. If there's
+        /// text already in the component, it formats and displays that
+        /// text.
         /// </summary>
         void GetComponents() {
             textComponent = GetComponent<TextMeshProUGUI>();
+
+            string defaultText = textComponent.text;
+            if (!string.IsNullOrWhiteSpace(defaultText)) {
+                SetText(defaultText);
+            }
         }
 
         /// <summary>
-        /// Sets the sound effect that plays when a new character is revealed.
+        /// Sets the sound effect that plays when a new character is revealed. The sound
+        /// is not played when the function is called.
         /// </summary>
         /// <param name="soundName"></param>
         public void SetDialogueSfx(string soundName) {
             TryAddSound(soundName);
-            currentDialogueSfx = dialogueSfx[soundName];
+            currentDialogueSfx = dialogueSfxPool[soundName];
         }
 
+        /// <summary>
+        /// Plays a sound with the passed name.
+        /// </summary>
+        /// <param name="soundbiteName"></param>
         public void PlaySoundbite(string soundbiteName) {
             TryAddSound(soundbiteName);
-            dialogueSfx[soundbiteName].PlayRandom();
+            dialogueSfxPool[soundbiteName].PlayRandom();
         }
 
+        /// <summary>
+        /// If a sound with the passed name isn't present in the pool of sounds, it's added.
+        /// </summary>
+        /// <param name="soundName"></param>
         void TryAddSound(string soundName) {
-            if (!dialogueSfx.ContainsKey(soundName)) {
+            if (!dialogueSfxPool.ContainsKey(soundName)) {
                 MultiAudioSource source = MultiAudioSource.FromResource(gameObject, soundName);
 
                 if (source != null) {
-                    dialogueSfx.Add(soundName, source);
+                    dialogueSfxPool.Add(soundName, source);
                 }
             }
         }
@@ -213,20 +240,22 @@ namespace SocratesDialogue {
 
                         if (isUnexecutedAction) {
                             parse.ExecuteAction();
+                            
+                            if (currentDialogueSfx != null) {
+                                currentDialogueSfx.Stop();
+                            }
 
                             if (isDelay) {
-                                if (currentDialogueSfx != null) {
-                                    currentDialogueSfx.Stop();
-                                }
-
                                 currentBetweenCharacterDelay = parse.GetDynamicValueAsFloat();
 
                                 OnCharDelay();
                             }
                             else {
-                                currentDialogueSfx.Stop();
                                 SetDialogueSfx(parse.GetDynamicValue());
-                                currentDialogueSfx.Play();
+
+                                if (currentDialogueSfx != null) {
+                                    currentDialogueSfx.Play();
+                                }
                             }
                         }
                         else if (parse.IsOpener() && parse.GetStartCharIndex() == counter - 1 &&
@@ -375,11 +404,7 @@ namespace SocratesDialogue {
                             ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                         }
                         else if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.GRADIENT) {
-                            ApplyRichTextGradient(
-                                textComponent,
-                                parse, 
-                                vertexPositions,
-                                counter);
+                            ApplyRichTextGradient(textComponent, parse, counter);
                         }
                     }
                 }
@@ -424,12 +449,12 @@ namespace SocratesDialogue {
 
                 // Cache the time that a character would first be displayed.
                 // This is the amount of time it would take for the character to
-                // appear after the dialogue first started.
+                // appear after the dialogue first started
                 float charDisplayTimestamp = fancyText.GetCharDisplayTime(i);
 
                 // Break if the time since the dialogue started has not reached that time yet.
                 // This is safe because no other character after this one can be revealed
-                // before this one is.
+                // before this one is
                 if (timeSinceDialogueStarted < charDisplayTimestamp) {
                     break;
                 }
@@ -446,7 +471,6 @@ namespace SocratesDialogue {
                 // Calculate the offset relative to the character's origin that it needs to be
                 // using an easing function
                 float offsetY = LeanTween.easeOutQuad(minOffsetY, 0, percentageOfPathMoved);
-                // float offsetY = minOffsetY * (1 - percentageOfPathMoved);
 
                 // Update the positions of all four vertices
                 for (int v = 0; v < 4; v++) {
@@ -457,7 +481,7 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
-        /// Courtesy of TextMeshPro: I don't know much about this, but I know it works.
+        /// Applies a shake to the passed textInfo given the passed token, using the readFrom and writeTo arrays.
         /// </summary>
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="textInfo"></param>
@@ -574,17 +598,12 @@ namespace SocratesDialogue {
         /// Applies a gradient to the passed textInfo given the passed token, using the readFrom and writeTo arrays.
         /// </summary>
         /// <param name="textComponent"></param>
-        /// <param name="textInfo"></param>
-        /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="token"></param>
         /// <param name="totalVisibleCharacters"></param>
         void ApplyRichTextGradient(
             TextMeshProUGUI textComponent,
             AnnotationToken token,
-            Vector3[] vertexPositionsReadFrom,
             int totalVisibleCharacters) {
-            // Under construction
-            
             TMP_TextInfo textInfo = textComponent.textInfo;
             
             float xOffset =  Mathf.Abs(textInfo.characterInfo[0].bottomLeft.x);
@@ -624,8 +643,6 @@ namespace SocratesDialogue {
 
                 textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
             }
-            
-            // Under construction
         }
 
         static Vector2[] FromVector4Arr(Vector4[] input) {

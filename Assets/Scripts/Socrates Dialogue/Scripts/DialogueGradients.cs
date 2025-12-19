@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// A self-instantiating singleton object that stores the gradients used
+/// by the dialogue system. In the future, multiple gradients will be
+/// supported.
+/// </summary>
 public class DialogueGradients : MonoBehaviour {
     static DialogueGradients _i;
 
