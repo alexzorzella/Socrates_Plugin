@@ -3,8 +3,8 @@ using NUnit.Framework;
 public class SocraTSVReplacementTests {
     [Test]
     public void ReplaceTokenSingle() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("user", "Amy");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("user", "Amy");
 
         string input = "{user} ate jamon.";
 
@@ -16,8 +16,8 @@ public class SocraTSVReplacementTests {
 
     [Test]
     public void ReplaceTokenSingleRegularWordFirst() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("user", "Amy");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("user", "Amy");
 
         string input = "Who ate jamon? {user} ate jamon.";
 
@@ -29,8 +29,8 @@ public class SocraTSVReplacementTests {
 
     [Test]
     public void ReplaceTokenSingleRightBeforePunctuation() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("user", "Amy");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("user", "Amy");
 
         string input = "Who ate jamon? {user}.";
 
@@ -42,8 +42,8 @@ public class SocraTSVReplacementTests {
 
     [Test]
     public void ReplaceTokenMultipleWithOneInsideWord() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("food", "jamon");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("food", "jamon");
 
         string input = "Amy, was the {food} super{food}ilicious?";
 
@@ -55,9 +55,9 @@ public class SocraTSVReplacementTests {
 
     [Test]
     public void ReplaceTokensTwoUnique() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("user", "Amy");
-        DialogueManifest.AddTokenReplacement("food", "jamon");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("user", "Amy");
+        DialogueManifest.AddDialogueVariable("food", "jamon");
 
         string input = "{user} ate {food}.";
 
@@ -69,9 +69,9 @@ public class SocraTSVReplacementTests {
 
     [Test]
     public void ReplaceTokensTwoAdjacent() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("user", "Amy");
-        DialogueManifest.AddTokenReplacement("title", "Who Seeks Jamon");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("user", "Amy");
+        DialogueManifest.AddDialogueVariable("title", "Who Seeks Jamon");
 
         string input = "{user} {title} devoured jamon.";
 
@@ -83,11 +83,11 @@ public class SocraTSVReplacementTests {
 
     [Test]
     public void ReplaceTokensOnlyTokensManyAdjacent() {
-        DialogueManifest.ClearTokenReplacements();
-        DialogueManifest.AddTokenReplacement("user", "Amy");
-        DialogueManifest.AddTokenReplacement("title", "Who Seeks Jamon");
-        DialogueManifest.AddTokenReplacement("action", "devoured");
-        DialogueManifest.AddTokenReplacement("food", "jamon");
+        DialogueManifest.ClearDialogueVariables();
+        DialogueManifest.AddDialogueVariable("user", "Amy");
+        DialogueManifest.AddDialogueVariable("title", "Who Seeks Jamon");
+        DialogueManifest.AddDialogueVariable("action", "devoured");
+        DialogueManifest.AddDialogueVariable("food", "jamon");
 
         string input = "{user} {title} {action} {food}";
 
