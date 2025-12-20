@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class DialogueManifest {
     static readonly List<string> dialogueFilenames = new() {
-        "test_dialogue"
+        "example_dialogue"
     };
     
     /// <summary>

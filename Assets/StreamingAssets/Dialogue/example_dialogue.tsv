@@ -1,0 +1,113 @@
+token	value									
+man	Rahul									
+woman	Tiffany									
+waiter	Monet									
+										
+name:{man}	content:So, {woman}, are you a fan of baked goods?	ref:bakery								
+name:{woman}	content:Yeah, I like bakeries.									
+name:{man}	content:You a fan of the smell of [wave,2][gradient]freshly baked bread[!gradient][!wave],									
+name:{man}	content:or do you perfer the pastry section?									
+name:{woman}	content:Humm. <size=80%>It's hard to say.</size> [delay,0.5][!delay] I think that I'm more of a pastry lover.									
+name:{woman}	content:What about you, {man}?									
+name:{waiter}	content:Hello, my name is {waiter}. I'll be assisting you this [gradient]beautiful afternoon[!gradient].									
+name:{waiter}	content:Are you <i>ready to order</i>?									
+name:{man}	content:I think we need a few more minutes.									
+name:{woman}	content:Yeah.									
+name:{waiter}	content:Of course.									
+name:{woman}	content:Isn't that [shake,5]kind of strange?[!shake]	sound:dialogue_2								
+name:{man}	content:Yeah, now that you <i>[shake,5]mention it[!shake]</i>, something does feel off. [sound,dialogue_2]<size=70%>I can't put my finger on it, though.</size>[!sound]									
+name:{woman}	content:Since when do [wave,2]bakeries have <i>waiters</i>[!wave]?	next:realization								
+										
+name	content	ref								
+{man}	[shake,3]<size=70%>I think that they're onto us...</size>[!shake]	realization	sound:dialogue_2							
+{woman}	<size=70%>We've got to stick it out. We're waiting for our guy.</size>									
+{man}	<size=70%>[shake,2]I'm not sure about this.[!shake] That waiter... did he look suspicous?</size>									
+{woman}	<size=50%>I'm grabbing [gradient]the briefcase[!gradient]. We can't risk anything.</size>									
+{man}	<size=70%>It's 14:19. We've got <i>one minute!</i></size>									
+{woman}	<size=50%>[shake,5]Aughhhhhhh![!shake] Don't make me regret this.</size>	sound:dialogue_2								
+{man}	<size=70%>Thirty seconds.</size>									
+{man}	<size=120%>Waiter!</size> We're [gradient][wave,5]ready to order[!gradient][!wave].									
+{woman}	There he is!									
+{man}	<size=150%>[shake,5][gradient][wave,5]Showtime. {woman}, cover me![!shake][!gradient][!wave]									
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
