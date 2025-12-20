@@ -5,7 +5,7 @@ public class HcTestDialogue : HCommand {
     readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
-        DialogueManager.i.StartDialogue(DialogueManifest.GetSectionByReference("ted2"));
+        DialogueManager.i.StartDialogue(DialogueManifest.GetSectionByReference("bakery"));
         JConsole.i.visible = false;
         JConsole.i.UpdateVisuals();
 

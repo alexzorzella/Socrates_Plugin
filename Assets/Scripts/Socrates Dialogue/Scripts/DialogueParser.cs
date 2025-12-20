@@ -59,7 +59,7 @@ namespace SocratesDialogue {
                 switch (parsingMode) {
                     case ParsingMode.TOKEN_DEF:
                         string[] entries = line.Split('\t');
-                        DialogueManifest.AddTokenReplacement(entries[0], entries[1]);
+                        DialogueManifest.AddDialogueVariable(entries[0], entries[1]);
 
                         continue;
                 }
