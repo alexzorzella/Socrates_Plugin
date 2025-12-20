@@ -25,6 +25,10 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     
     readonly List<GameObject> choiceObjects = new();
 
+    /// <summary>
+    /// Deletes the choice objects in the object cache as it clears the
+    /// cache, one by one.
+    /// </summary>
     void ClearChoiceObjects() {
         while (choiceObjects.Count > 0) {
             choiceObjects[0].GetComponent<DialogueChoice>().Destroy();
@@ -130,6 +134,10 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
         }
     }
 
+    /// <summary>
+    /// Moves the panel to the passed position.
+    /// </summary>
+    /// <param name="to"></param>
     void Move(Vector2 to) {
         LeanTween.value
                 (gameObject, rectTransform.anchoredPosition, to, moveTime).
