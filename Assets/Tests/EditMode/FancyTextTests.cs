@@ -39,7 +39,7 @@ public class FancyTextTests {
     readonly List<string> wrappedTestStrings = new() {
         "Thanks, dad.",
         "Obrigado, pai.",
-        "The Zinhos!",
+        "Socrates!",
         "A test in the hand is worth hours of editing in the bush",
         "All tests passed, why not write some more?",
         "Did you remember to clone?",
@@ -162,10 +162,10 @@ public class FancyTextTests {
     
      [Test]
     public void FancyTextSingleTokenNestedWithRichTextTag() {
-        FancyText fancyText = new FancyText("[wave]<size=120%>The Zinhos!</size>[!wave]");
+        FancyText fancyText = new FancyText("[wave]<size=120%>Socrates!</size>[!wave]");
 
-        string expectedContent = "<size=120%>The Zinhos!</size>";
-        int expectedclosingTokenIndex = 11;
+        string expectedContent = "<size=120%>Socrates!</size>";
+        int expectedclosingTokenIndex = 9;
         
         string actualContent = fancyText.ToString();
         
@@ -175,10 +175,10 @@ public class FancyTextTests {
     
     [Test]
     public void FancyTextSingleTokenNestedWithRichTextTagB() {
-        FancyText fancyText = new FancyText("[wave]<size=20%>The Zinhos!</size>[!wave]");
+        FancyText fancyText = new FancyText("[wave]<size=20%>Socrates!</size>[!wave]");
 
-        string expectedContent = "<size=20%>The Zinhos!</size>";
-        int expectedclosingTokenIndex = 11;
+        string expectedContent = "<size=20%>Socrates!</size>";
+        int expectedclosingTokenIndex = 9;
         
         string actualContent = fancyText.ToString();
         
@@ -188,28 +188,28 @@ public class FancyTextTests {
     
     [Test]
     public void FancyTextSingleTokenNestedWithRichTextTagC() {
-        FancyText fancyText = new FancyText("[wave]<size=20%>The Zinhos![!wave]</size>");
+        FancyText fancyText = new FancyText("[wave]<size=20%>Socrates![!wave]</size>");
 
-        int expectedclosingTokenIndex = 11;
+        int expectedclosingTokenIndex = 9;
         
         Assert.AreEqual(expectedclosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
     public void FancyTextSingleTokenNestedWithMultipleRichTextTags() {
-        FancyText fancyText = new FancyText("[wave]<size=20%><i>The Zinhos!</i></size>[!wave]</size>");
+        FancyText fancyText = new FancyText("[wave]<size=20%><i>Socrates!</i></size>[!wave]</size>");
 
-        int expectedClosingTokenIndex = 11;
+        int expectedClosingTokenIndex = 9;
         
         Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
     
     [Test]
     public void FancyTextSingleTokenNestedWithRichTextTagD() {
-        FancyText fancyText = new FancyText("<size=20%>[wave]The Zinhos!</size>[!wave]");
+        FancyText fancyText = new FancyText("<size=20%>[wave]Socrates!</size>[!wave]");
 
         int expectedOpeningTokenCharIndex = 0;
-        int expectedClosingTokenCharIndex = 11;
+        int expectedClosingTokenCharIndex = 9;
         
         int actualOpeningTokenCharIndex = fancyText.GetAnnotationTokens()[0].GetStartCharIndex();
         int actualClosingTokenCharIndex = fancyText.GetAnnotationTokens()[1].GetStartCharIndex();
@@ -220,9 +220,9 @@ public class FancyTextTests {
     
     [Test]
     public void FancyTextSingleTokenNestedWithMultipleRichTextTagB() {
-        FancyText fancyText = new FancyText("[wave]<size=20%><i><color=#F1B82B>The Zinhos!</i></size>[!wave]</color></size>");
+        FancyText fancyText = new FancyText("[wave]<size=20%><i><color=#F1B82B>Socrates!</i></size>[!wave]</color></size>");
 
-        int expectedClosingTokenIndex = 11;
+        int expectedClosingTokenIndex = 9;
         
         Assert.AreEqual(expectedClosingTokenIndex, fancyText.GetAnnotationTokens()[1].GetStartCharIndex());
     }
