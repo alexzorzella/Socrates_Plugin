@@ -3,7 +3,7 @@
 public class Cameraperson : MonoBehaviour {
     static Cameraperson i;
 
-    public Cameraperson Get() {
+    public static Cameraperson Get() {
         return i;
     }
     

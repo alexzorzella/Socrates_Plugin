@@ -19,12 +19,64 @@ MonoBehaviour:
     width: 1920
     height: 1037
   m_ShowMode: 4
-  m_Title: Game
-  m_RootView: {fileID: 2}
+  m_Title: Test Runner
+  m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: TestRunnerWindow
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 576
+    width: 336
+    height: 405
+  m_MinSize: {x: 51, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
+  m_ActualView: {fileID: 15}
+  m_Panes:
+  - {fileID: 15}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &3
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 14}
+  - {fileID: 2}
+  m_Position:
+    serializedVersion: 2
+    x: 1584
+    y: 0
+    width: 336
+    height: 981
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 8096, y: 16192}
+  vertical: 1
+  controlID: 115
+  draggingID: 0
+--- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,9 +89,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 3}
   - {fileID: 5}
-  - {fileID: 4}
+  - {fileID: 7}
+  - {fileID: 6}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -52,7 +104,7 @@ MonoBehaviour:
   m_TopViewHeight: 36
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &3
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +126,7 @@ MonoBehaviour:
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &4
+--- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,7 +147,7 @@ MonoBehaviour:
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &5
+--- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 6}
+  - {fileID: 8}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -118,59 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 70
-  draggingID: 0
---- !u!114 &6
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 7}
-  - {fileID: 12}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1920
-    height: 981
-  m_MinSize: {x: 300, y: 100}
-  m_MaxSize: {x: 24288, y: 16192}
-  vertical: 0
-  controlID: 71
-  draggingID: 0
---- !u!114 &7
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 8}
-  - {fileID: 11}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1561
-    height: 981
-  m_MinSize: {x: 200, y: 100}
-  m_MaxSize: {x: 16192, y: 16192}
-  vertical: 1
-  controlID: 72
+  controlID: 113
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -186,19 +186,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children:
   - {fileID: 9}
-  - {fileID: 10}
+  - {fileID: 3}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1561
-    height: 824
+    width: 1920
+    height: 981
+  m_MinSize: {x: 300, y: 100}
+  m_MaxSize: {x: 24288, y: 16192}
+  vertical: 0
+  controlID: 114
+  draggingID: 0
+--- !u!114 &9
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 10}
+  - {fileID: 13}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1584
+    height: 981
+  m_MinSize: {x: 200, y: 100}
+  m_MaxSize: {x: 16192, y: 16192}
+  vertical: 1
+  controlID: 57
+  draggingID: 0
+--- !u!114 &10
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 11}
+  - {fileID: 12}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1584
+    height: 597
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 21
+  controlID: 47
   draggingID: 0
---- !u!114 &9
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,16 +267,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 243
-    height: 824
+    width: 258
+    height: 597
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 15}
+  m_ActualView: {fileID: 17}
   m_Panes:
-  - {fileID: 15}
+  - {fileID: 17}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &10
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,26 +286,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: GameView
+  m_Name: SceneView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 243
+    x: 258
     y: 0
-    width: 1318
-    height: 824
+    width: 1326
+    height: 597
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 18}
   m_Panes:
-  - {fileID: 16}
-  - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
-  m_Selected: 1
-  m_LastSelected: 0
---- !u!114 &11
+  - {fileID: 20}
+  - {fileID: 21}
+  m_Selected: 0
+  m_LastSelected: 1
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,18 +321,18 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 824
-    width: 1561
-    height: 157
+    y: 597
+    width: 1584
+    height: 384
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
-  m_ActualView: {fileID: 14}
+  m_ActualView: {fileID: 16}
   m_Panes:
-  - {fileID: 14}
-  - {fileID: 20}
+  - {fileID: 16}
+  - {fileID: 22}
   m_Selected: 0
   m_LastSelected: 1
---- !u!114 &12
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,25 +342,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1561
+    x: 0
     y: 0
-    width: 359
-    height: 981
-  m_MinSize: {x: 101, y: 126}
+    width: 336
+    height: 576
+  m_MinSize: {x: 276, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 22}
+  m_ActualView: {fileID: 23}
   m_Panes:
-  - {fileID: 21}
-  - {fileID: 22}
-  - {fileID: 13}
-  m_Selected: 1
-  m_LastSelected: 0
---- !u!114 &13
+  - {fileID: 23}
+  - {fileID: 24}
+  m_Selected: 0
+  m_LastSelected: 1
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,10 +381,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Test Runner\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1602
-    y: 87
-    width: 309
-    height: 939
+    x: 1
+    y: 600
+    width: 335
+    height: 379
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -346,22 +397,22 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 584
-    splitterInitialOffset: 389.33334
+    ID: 149
+    splitterInitialOffset: 408
     currentActiveSplitter: -1
     realSizes:
-    - 710
-    - 159
+    - 196
+    - 113
     relativeSizes:
-    - 0.8173077
-    - 0.18269229
+    - 0.6339755
+    - 0.3660245
     minSizes:
     - 32
     - 32
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 869
+    lastTotalSize: 309
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -369,11 +420,11 @@ MonoBehaviour:
     oldMinSizes: 
     oldMaxSizes: 
     oldSplitSize: 0
-  m_TestTypeToolbarIndex: 1
+  m_TestTypeToolbarIndex: 0
   m_TestListGUIs:
-  - m_Window: {fileID: 13}
+  - m_Window: {fileID: 15}
     runProgress:
-      RunGuid: 49e3bb25-79a4-4889-85e1-c4d8fb8301c1
+      RunGuid: 26ff0690-e04f-47aa-9887-c126847a2bf4
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -384,7 +435,7 @@ MonoBehaviour:
           categoryNames: []
           assemblyNames: []
         filters:
-        - testMode: 2
+        - testMode: 1
           testNames: []
           groupNames:
           - .*
@@ -401,16 +452,16 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 0.9999999
+      Progress: 1.0000001
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList:
-    - id: 1008
+    - id: 1000
       uniqueId: '[Socrates Plugin][suite]'
       name: Socrates Plugin
       fullName: Socrates Plugin
-      resultStatus: 2
-      duration: 0.0523609
+      resultStatus: 1
+      duration: 0.061066803
       messages: 
       output: 
       stacktrace: 
@@ -421,12 +472,12 @@ MonoBehaviour:
       categories: []
       parentId: 
       parentUniqueId: 
-    - id: 1027
-      uniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+    - id: 1033
+      uniqueId: '[EditMode][C:/Users/Public/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
       name: EditMode.dll
-      fullName: C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll
-      resultStatus: 2
-      duration: 0.0523609
+      fullName: C:/Users/Public/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll
+      resultStatus: 1
+      duration: 0.061066803
       messages: 
       output: 
       stacktrace: 
@@ -435,14 +486,14 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1008
+      parentId: 1038
       parentUniqueId: '[Socrates Plugin][suite]'
-    - id: 1009
+    - id: 1001
       uniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
       name: FancyTextTests
       fullName: FancyTextTests
       resultStatus: 1
-      duration: 0.04316
+      duration: 0.0573844
       messages: 
       output: 
       stacktrace: 
@@ -451,14 +502,14 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1027
-      parentUniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+      parentId: 1033
+      parentUniqueId: '[EditMode][C:/Users/Public/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
     - id: 1003
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulk]'
       name: _TestWrappedFancyTextBulk
       fullName: FancyTextTests._TestWrappedFancyTextBulk
       resultStatus: 1
-      duration: 0.0387359
+      duration: 0.0528787
       messages: 
       output: 
       stacktrace: 
@@ -475,7 +526,7 @@ MonoBehaviour:
       name: _TestWrappedFancyTextBulkNoAnnotations
       fullName: FancyTextTests._TestWrappedFancyTextBulkNoAnnotations
       resultStatus: 1
-      duration: 0.0004101
+      duration: 0.000348
       messages: 
       output: 
       stacktrace: 
@@ -492,7 +543,7 @@ MonoBehaviour:
       name: _TestWrappedFancyTextBulkSimpleStrings
       fullName: FancyTextTests._TestWrappedFancyTextBulkSimpleStrings
       resultStatus: 1
-      duration: 0.0018099
+      duration: 0.0020968
       messages: 
       output: 
       stacktrace: 
@@ -509,7 +560,7 @@ MonoBehaviour:
       name: FancyTextAverageCase
       fullName: FancyTextTests.FancyTextAverageCase
       resultStatus: 1
-      duration: 0.0002699
+      duration: 0.0002765
       messages: 
       output: 
       stacktrace: 
@@ -526,7 +577,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithMultipleRichTextTagB
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTagB
       resultStatus: 1
-      duration: 0.000197
+      duration: 0.0001967
       messages: 
       output: 
       stacktrace: 
@@ -543,7 +594,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithMultipleRichTextTags
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTags
       resultStatus: 1
-      duration: 0.0001956
+      duration: 0.0001785
       messages: 
       output: 
       stacktrace: 
@@ -560,7 +611,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTag
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTag
       resultStatus: 1
-      duration: 0.0002577
+      duration: 0.0002508
       messages: 
       output: 
       stacktrace: 
@@ -577,7 +628,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTagB
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagB
       resultStatus: 1
-      duration: 0.0002017
+      duration: 0.0001982
       messages: 
       output: 
       stacktrace: 
@@ -611,7 +662,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTagD
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagD
       resultStatus: 1
-      duration: 0.0001933
+      duration: 0.0001986
       messages: 
       output: 
       stacktrace: 
@@ -628,7 +679,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotations
       fullName: FancyTextTests.TestFancyTextNoAnnotations
       resultStatus: 1
-      duration: 0.0001538
+      duration: 0.0001387
       messages: 
       output: 
       stacktrace: 
@@ -645,7 +696,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotationsWithPunctutation
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithPunctutation
       resultStatus: 1
-      duration: 0.0002314
+      duration: 0.0001486
       messages: 
       output: 
       stacktrace: 
@@ -662,7 +713,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotationsWithRichTextTag
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTag
       resultStatus: 1
-      duration: 0.0001579
+      duration: 0.0001296
       messages: 
       output: 
       stacktrace: 
@@ -679,7 +730,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
       resultStatus: 1
-      duration: 0.0001689
+      duration: 0.0001678
       messages: 
       output: 
       stacktrace: 
@@ -691,12 +742,12 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
-    - id: 1024
-      uniqueId: 'EditMode.dll/[EditMode][TextMeshProTests][suite]'
-      name: TextMeshProTests
-      fullName: TextMeshProTests
-      resultStatus: 2
-      duration: 0.0092009
+    - id: 1016
+      uniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+      name: SocraTSVParseModeTests
+      fullName: SocraTSVParseModeTests
+      resultStatus: 1
+      duration: 0.0022361
       messages: 
       output: 
       stacktrace: 
@@ -705,60 +756,17 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1027
-      parentUniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
-    - id: 1017
-      uniqueId: 'EditMode.dll/TextMeshProTests/[EditMode][TextMeshProTests.TestTextInfoLength]'
-      name: TestTextInfoLength
-      fullName: TextMeshProTests.TestTextInfoLength
-      resultStatus: 2
-      duration: 0.0082791
-      messages: 'System.NullReferenceException : Object reference not set to an instance
-        of an object.'
-      output: 'You are trying to create a MonoBehaviour using the ''new'' keyword. 
-        This is not allowed.  MonoBehaviours can only be added using AddComponent().
-        Alternatively, your script can inherit from ScriptableObject or no base class
-        at all
-
-'
-      stacktrace: "  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException
-        (System.Object obj) [0x00018] in <25ce29052dfe4e49a635a42f7798806b>:0 \r\n 
-        at UnityEngine.Component.get_gameObject () [0x00006] in <25ce29052dfe4e49a635a42f7798806b>:0
-        \r\n  at UnityEngine.Component.GetComponentInParent (System.Type t, System.Boolean
-        includeInactive) [0x00001] in <25ce29052dfe4e49a635a42f7798806b>:0 \r\n 
-        at UnityEngine.Component.GetComponentInParent[T] () [0x00001] in <25ce29052dfe4e49a635a42f7798806b>:0
-        \r\n  at TMPro.TextMeshProUGUI.ForceMeshUpdate (System.Boolean ignoreActiveState,
-        System.Boolean forceTextReparsing) [0x0001f] in .\\Library\\PackageCache\\com.unity.ugui@aa507f3228f0\\Runtime\\TMP\\TextMeshProUGUI.cs:561
-        \r\n  at TextMeshProTests.TestTextInfoLength () [0x00013] in C:\\Users\\azorzella\\Documents\\GitHub\\Socrates_Plugin\\Assets\\Tests\\EditMode\\TextMeshProTests.cs:10
-        \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
-        at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
-        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
-        System.Globalization.CultureInfo culture) [0x0006a] in <152439c387994a8da523328132967f8d>:0 "
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1016
-      parentUniqueId: 'EditMode.dll/[EditMode][TextMeshProTests][suite]'
+      parentId: 1033
+      parentUniqueId: '[EditMode][C:/Users/Public/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
     - id: 1018
-      uniqueId: 'EditMode.dll/TextMeshProTests/[EditMode][TextMeshProTests.TestTextInfoLengthRichTextTags]'
-      name: TestTextInfoLengthRichTextTags
-      fullName: TextMeshProTests.TestTextInfoLengthRichTextTags
-      resultStatus: 2
-      duration: 0.0009218
-      messages: "  Expected: 0\r\n  But was:  8\r\n"
-      output: 'You are trying to create a MonoBehaviour using the ''new'' keyword. 
-        This is not allowed.  MonoBehaviours can only be added using AddComponent().
-        Alternatively, your script can inherit from ScriptableObject or no base class
-        at all
-
-'
-      stacktrace: 'at TextMeshProTests.TestTextInfoLengthRichTextTags () [0x00013]
-        in C:\Users\azorzella\Documents\GitHub\Socrates_Plugin\Assets\Tests\EditMode\TextMeshProTests.cs:18
-
-'
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeSkipLine]'
+      name: ParseModeSkipLine
+      fullName: SocraTSVParseModeTests.ParseModeSkipLine
+      resultStatus: 1
+      duration: 0.0012417
+      messages: 
+      output: 
+      stacktrace: 
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
@@ -766,45 +774,268 @@ MonoBehaviour:
       categories:
       - Uncategorized
       parentId: 1016
-      parentUniqueId: 'EditMode.dll/[EditMode][TextMeshProTests][suite]'
-    m_ResultText: "TestTextInfoLength (0.008s)\n---\nSystem.NullReferenceException
-      : Object reference not set to an instance of an object.\n---\n  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException
-      (System.Object obj) [0x00018] in <25ce29052dfe4e49a635a42f7798806b>:0 \r\n 
-      at UnityEngine.Component.get_gameObject () [0x00006] in <25ce29052dfe4e49a635a42f7798806b>:0
-      \r\n  at UnityEngine.Component.GetComponentInParent (System.Type t, System.Boolean
-      includeInactive) [0x00001] in <25ce29052dfe4e49a635a42f7798806b>:0 \r\n  at
-      UnityEngine.Component.GetComponentInParent[T] () [0x00001] in <25ce29052dfe4e49a635a42f7798806b>:0
-      \r\n  at TMPro.TextMeshProUGUI.ForceMeshUpdate (System.Boolean ignoreActiveState,
-      System.Boolean forceTextReparsing) [0x0001f] in <color=#40a0ff><a href=\".\\Library\\PackageCache\\com.unity.ugui@aa507f3228f0\\Runtime\\TMP\\TextMeshProUGUI.cs\"
-      line=\"561 \r\">Library\\PackageCache\\com.unity.ugui@aa507f3228f0\\Runtime\\TMP\\TextMeshProUGUI.cs:561
-      \r</a></color>\n  at TextMeshProTests.TestTextInfoLength () [0x00013] in <color=#40a0ff><a
-      href=\"C:\\Users\\azorzella\\Documents\\GitHub\\Socrates_Plugin\\Assets\\Tests\\EditMode\\TextMeshProTests.cs\"
-      line=\"10 \r\">Assets\\Tests\\EditMode\\TextMeshProTests.cs:10 \r</a></color>\n 
-      at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
-      at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
-      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
-      culture) [0x0006a] in <152439c387994a8da523328132967f8d>:0 \n---\nYou are trying
-      to create a MonoBehaviour using the 'new' keyword.  This is not allowed.  MonoBehaviours
-      can only be added using AddComponent(). Alternatively, your script can inherit
-      from ScriptableObject or no base class at all"
-    m_ResultStacktrace: "  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException
-      (System.Object obj) [0x00018] in <25ce29052dfe4e49a635a42f7798806b>:0 \r\n 
-      at UnityEngine.Component.get_gameObject () [0x00006] in <25ce29052dfe4e49a635a42f7798806b>:0
-      \r\n  at UnityEngine.Component.GetComponentInParent (System.Type t, System.Boolean
-      includeInactive) [0x00001] in <25ce29052dfe4e49a635a42f7798806b>:0 \r\n  at
-      UnityEngine.Component.GetComponentInParent[T] () [0x00001] in <25ce29052dfe4e49a635a42f7798806b>:0
-      \r\n  at TMPro.TextMeshProUGUI.ForceMeshUpdate (System.Boolean ignoreActiveState,
-      System.Boolean forceTextReparsing) [0x0001f] in .\\Library\\PackageCache\\com.unity.ugui@aa507f3228f0\\Runtime\\TMP\\TextMeshProUGUI.cs:561
-      \r\n  at TextMeshProTests.TestTextInfoLength () [0x00013] in C:\\Users\\azorzella\\Documents\\GitHub\\Socrates_Plugin\\Assets\\Tests\\EditMode\\TextMeshProTests.cs:10
-      \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n 
-      at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags
-      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
-      culture) [0x0006a] in <152439c387994a8da523328132967f8d>:0 "
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1017
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeSkipLineEmptyInput]'
+      name: ParseModeSkipLineEmptyInput
+      fullName: SocraTSVParseModeTests.ParseModeSkipLineEmptyInput
+      resultStatus: 1
+      duration: 0.000184
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1022
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellExpectedValues]'
+      name: ParseModeTagByCellExpectedValues
+      fullName: SocraTSVParseModeTests.ParseModeTagByCellExpectedValues
+      resultStatus: 1
+      duration: 0.0001538
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1023
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells]'
+      name: ParseModeTagByCellFutureproofCells
+      fullName: SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells
+      resultStatus: 1
+      duration: 0.0001352
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1024
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells]'
+      name: ParseModeTagByCellUnexpectedCells
+      fullName: SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells
+      resultStatus: 1
+      duration: 0.0001147
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1019
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinition]'
+      name: ParseModeTokenDefinition
+      fullName: SocraTSVParseModeTests.ParseModeTokenDefinition
+      resultStatus: 1
+      duration: 0.0001472
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1021
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells]'
+      name: ParseModeTokenDefinitionAndUnexpectedCells
+      fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells
+      resultStatus: 1
+      duration: 0.0001253
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1020
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized]'
+      name: ParseModeTokenDefinitionCapitalized
+      fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized
+      resultStatus: 1
+      duration: 0.0001342
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1025
+      uniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+      name: SocraTSVReplacementTests
+      fullName: SocraTSVReplacementTests
+      resultStatus: 1
+      duration: 0.0014463
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1033
+      parentUniqueId: '[EditMode][C:/Users/Public/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+    - id: 1029
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord]'
+      name: ReplaceTokenMultipleWithOneInsideWord
+      fullName: SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord
+      resultStatus: 1
+      duration: 0.0006495
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1026
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingle]'
+      name: ReplaceTokenSingle
+      fullName: SocraTSVReplacementTests.ReplaceTokenSingle
+      resultStatus: 1
+      duration: 0.0001661
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1027
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst]'
+      name: ReplaceTokenSingleRegularWordFirst
+      fullName: SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst
+      resultStatus: 1
+      duration: 0.0001346
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1028
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation]'
+      name: ReplaceTokenSingleRightBeforePunctuation
+      fullName: SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation
+      resultStatus: 1
+      duration: 0.0001201
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1032
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent]'
+      name: ReplaceTokensOnlyTokensManyAdjacent
+      fullName: SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent
+      resultStatus: 1
+      duration: 0.0001348
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1031
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensTwoAdjacent]'
+      name: ReplaceTokensTwoAdjacent
+      fullName: SocraTSVReplacementTests.ReplaceTokensTwoAdjacent
+      resultStatus: 1
+      duration: 0.0001187
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1030
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensTwoUnique]'
+      name: ReplaceTokensTwoUnique
+      fullName: SocraTSVReplacementTests.ReplaceTokensTwoUnique
+      resultStatus: 1
+      duration: 0.0001225
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    m_ResultText: Socrates Plugin (29 tests) (0.061s)
+    m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3167162b
-      m_LastClickedID: 722888497
-      m_ExpandedIDs: ea4c3e9c292fda467bed5c60ffffff7f
+      m_SelectedIDs: 292fda46
+      m_LastClickedID: 1188704041
+      m_ExpandedIDs: 9d775d95ea4c3e9c2f4b22a8863bbcec292fda467bed5c60ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -832,9 +1063,9 @@ MonoBehaviour:
       availableCategories:
       - Uncategorized
     m_SelectedOption: 0
-  - m_Window: {fileID: 13}
+  - m_Window: {fileID: 15}
     runProgress:
-      RunGuid: 49e3bb25-79a4-4889-85e1-c4d8fb8301c1
+      RunGuid: 26ff0690-e04f-47aa-9887-c126847a2bf4
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -845,7 +1076,7 @@ MonoBehaviour:
           categoryNames: []
           assemblyNames: []
         filters:
-        - testMode: 2
+        - testMode: 1
           testNames: []
           groupNames:
           - .*
@@ -862,7 +1093,7 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 0.9999999
+      Progress: 1.0000001
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList:
@@ -931,7 +1162,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 0}
     runProgress:
-      RunGuid: 49e3bb25-79a4-4889-85e1-c4d8fb8301c1
+      RunGuid: 26ff0690-e04f-47aa-9887-c126847a2bf4
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -942,7 +1173,7 @@ MonoBehaviour:
           categoryNames: []
           assemblyNames: []
         filters:
-        - testMode: 2
+        - testMode: 1
           testNames: []
           groupNames:
           - .*
@@ -959,7 +1190,7 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 0.9999999
+      Progress: 1.0000001
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList: []
@@ -996,7 +1227,7 @@ MonoBehaviour:
       selectedCategories: []
       availableCategories: []
     m_SelectedOption: 0
---- !u!114 &14
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1019,9 +1250,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 848
-    width: 1560
-    height: 131
+    y: 621
+    width: 1583
+    height: 358
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1044,7 +1275,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Scripts/State Machine
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1054,16 +1285,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Scripts/State Machine
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Public\Documents\Socrates_Plugin
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 113}
-    m_SelectedIDs: d4a00000
-    m_LastClickedID: 41172
-    m_ExpandedIDs: 000000004ca00000
+    scrollPos: {x: 0, y: 210}
+    m_SelectedIDs: 62a00000
+    m_LastClickedID: 41058
+    m_ExpandedIDs: 00000000cc9f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1080,7 +1311,7 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 11}
+      m_ClientGUIView: {fileID: 13}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -1092,7 +1323,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004ca00000
+    m_ExpandedIDs: 00000000cc9f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1138,7 +1369,7 @@ MonoBehaviour:
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
-      m_ClientGUIView: {fileID: 11}
+      m_ClientGUIView: {fileID: 13}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1150,7 +1381,7 @@ MonoBehaviour:
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 255.66669
---- !u!114 &15
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1174,8 +1405,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 24
-    width: 242
-    height: 798
+    width: 257
+    height: 571
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1192,7 +1423,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 08fbffff
+      m_ExpandedIDs: 5ef6ffff08fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1209,7 +1440,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 9}
+        m_ClientGUIView: {fileID: 11}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1217,7 +1448,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: ea9dbd39a661e45d6aadc5e089e0c1d0
---- !u!114 &16
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1239,10 +1470,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 217
-    y: 79
-    width: 1225
-    height: 749
+    x: 259
+    y: 24
+    width: 1324
+    height: 571
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1532,10 +1763,24 @@ MonoBehaviour:
       layout: 4
       size: {x: 0, y: 0}
       sizeOverridden: 0
+    - dockPosition: 0
+      containerId: Floating
+      displayed: 0
+      id: AINavigationOverlay
+      index: 0
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":true,"m_FloatingSnapOffset":{"x":-216.0009765625,"y":-300.0009765625},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":3,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      floating: 1
+      collapsed: 0
+      snapOffset: {x: -216.00098, y: -300.00098}
+      snapOffsetDelta: {x: 0, y: 0}
+      snapCorner: 3
+      layout: 4
+      size: {x: 0, y: 0}
+      sizeOverridden: 0
     - dockPosition: 1
       containerId: overlay-container--right
-      displayed: 1
-      id: AINavigationOverlay
+      displayed: 0
+      id: APV Overlay
       index: 11
       contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":48.0,"y":48.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
@@ -1549,22 +1794,8 @@ MonoBehaviour:
     - dockPosition: 1
       containerId: overlay-container--right
       displayed: 0
-      id: APV Overlay
-      index: 12
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":48.0,"y":48.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
-      floating: 0
-      collapsed: 0
-      snapOffset: {x: 48, y: 48}
-      snapOffsetDelta: {x: 0, y: 0}
-      snapCorner: 0
-      layout: 4
-      size: {x: 0, y: 0}
-      sizeOverridden: 0
-    - dockPosition: 1
-      containerId: overlay-container--right
-      displayed: 0
       id: Scene View/TrailRenderer
-      index: 13
+      index: 12
       contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":48.0,"y":48.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
@@ -1718,7 +1949,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       displayed: 0
       id: Scene View/Sprite Swap
-      index: 14
+      index: 13
       contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
@@ -1732,7 +1963,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       displayed: 0
       id: SceneView/CamerasOverlay
-      index: 15
+      index: 14
       contents: '{"m_Layout":4,"m_Collapsed":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
@@ -1769,9 +2000,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 2215.9922, y: 1233.5254, z: -7.3214126}
+    m_Target: {x: 1804.1307, y: 980.59174, z: -2.0375206}
     speed: 2
-    m_Value: {x: 2215.9922, y: 1233.5254, z: -7.3214126}
+    m_Value: {x: 1804.1307, y: 980.59174, z: -2.0375206}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1821,9 +2052,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1907.6028
+    m_Target: 1379.2125
     speed: 2
-    m_Value: 1907.6028
+    m_Value: 1379.2125
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1844,7 +2075,7 @@ MonoBehaviour:
   m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_Viewpoint:
-    m_SceneView: {fileID: 16}
+    m_SceneView: {fileID: 18}
     m_CameraOverscanSettings:
       m_Opacity: 50
       m_Scale: 1
@@ -1857,7 +2088,7 @@ MonoBehaviour:
     name: Contributors / Receivers
     section: Lighting
   m_ViewIsLockedToObject: 0
---- !u!114 &17
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1879,10 +2110,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 244
-    y: 24
-    width: 1316
-    height: 798
+    x: 258
+    y: 79
+    width: 1324
+    height: 571
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1927,7 +2158,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -1936,30 +2167,30 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1316
-      height: 777
-    m_Scale: {x: 0.34270832, y: 0.34270832}
-    m_Translation: {x: 658, y: 388.5}
+      width: 1324
+      height: 550
+    m_Scale: {x: 0.25462964, y: 0.25462964}
+    m_Translation: {x: 662, y: 275}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1920.0001
-      y: -1133.6171
-      width: 3840.0002
-      height: 2267.2341
+      x: -2599.8545
+      y: -1080
+      width: 5199.709
+      height: 2160
     m_MinimalGUI: 1
-  m_defaultScale: 0.34270832
-  m_LastWindowPixelSize: {x: 1316, y: 798}
+  m_defaultScale: 0.25462964
+  m_LastWindowPixelSize: {x: 1324, y: 571}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
   m_showToolbar: 1
---- !u!114 &18
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1996,7 +2227,7 @@ MonoBehaviour:
     m_SaveData: []
     m_ContainerData: []
     m_OverlaysVisible: 1
---- !u!114 &19
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2068,7 +2299,7 @@ MonoBehaviour:
   m_CurrentEditor: 1
   m_LayerEditor:
     m_SelectedLayerIndex: 0
---- !u!114 &20
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2108,7 +2339,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_LastSelectedObjectID: -46502
---- !u!114 &21
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2130,10 +2361,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1561
-    y: 79
-    width: 358
-    height: 955
+    x: 1
+    y: 24
+    width: 335
+    height: 550
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2158,7 +2389,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &22
+--- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2180,10 +2411,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Console\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1562
-    y: 24
-    width: 358
-    height: 955
+    x: 1584
+    y: 79
+    width: 335
+    height: 288
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
