@@ -7,7 +7,7 @@ name:{man}	content:So, {woman}, are you a fan of baked goods?	ref:bakery
 name:{woman}	content:Yeah, I like bakeries.									
 name:{man}	content:You a fan of the smell of [wave,2][gradient]freshly baked bread[!gradient][!wave],									
 name:{man}	content:or do you perfer the pastry section?									
-name:{woman}	content:Humm. <size=80%>It's hard to say.</size> [delay,0.5][!delay] I think that I'm more of a pastry lover.									
+name:{woman}	content:Humm. <size=80%>It's hard to say.</size>[delay,0.5][!delay] I think that I'm more of a pastry lover.									
 name:{woman}	content:What about you, {man}?									
 name:{waiter}	content:Hello, my name is {waiter}. I'll be assisting you this [gradient]beautiful afternoon[!gradient].									
 name:{waiter}	content:Are you <i>ready to order</i>?									
