@@ -9,12 +9,12 @@ name:{man}	content:You a fan of the smell of [wave,2][gradient]freshly baked bre
 name:{man}	content:or do you perfer the pastry section?									
 name:{woman}	content:Humm. <size=80%>It's hard to say.</size>[delay,0.5][!delay] I think that I'm more of a pastry lover.									
 name:{woman}	content:What about you, {man}?									
-name:{waiter}	content:Hello, my name is {waiter}. I'll be assisting you this [gradient]beautiful afternoon[!gradient].									
+name:{waiter}	content:Hello, my name is {waiter}. I'll be assisting you this [gradient]beautiful afternoon[!gradient].	event:panCamera(waiter)								
 name:{waiter}	content:Are you <i>ready to order</i>?									
 name:{man}	content:I think we need a few more minutes.									
 name:{woman}	content:Yeah.									
 name:{waiter}	content:Of course.									
-name:{woman}	content:Isn't that [shake,5]kind of strange?[!shake]	sound:dialogue_2								
+name:{woman}	content:Isn't that [shake,5]kind of strange?[!shake]	sound:dialogue_2	event:panCamera(table)							
 name:{man}	content:Yeah, now that you <i>[shake,5]mention it[!shake]</i>, something does feel off. [sound,dialogue_2]<size=70%>I can't put my finger on it, though.</size>[!sound]									
 name:{woman}	content:Since when do [wave,2]bakeries have <i>waiters</i>[!wave]?	next:realization								
 										
@@ -28,10 +28,10 @@ name	content	ref
 {man}	<size=70%>Thirty seconds.</size>									
 {man}	<size=120%>Waiter!</size> We're [gradient][wave,5]ready to order[!gradient][!wave].									
 {woman}	There he is!									
-{man}	<size=150%>[shake,5][gradient][wave,5]Showtime. {woman}, cover me![!shake][!gradient][!wave]									
-										
-										
-										
+{man}	<size=150%>[shake,5][gradient][wave,5]Showtime. {woman}, cover me![!shake][!gradient][!wave]	option:Duck,duck	option:Roll,roll	option:Run,escape						
+{woman}	Give me a moment!	duck	next:							
+{woman}	Be right there!	roll	next:							
+{woman}	We're getting <i>out of here</i>.	escape	next:							
 										
 										
 										
