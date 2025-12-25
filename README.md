@@ -9,6 +9,8 @@ Contributions to the Socrates Plugin are more than welcome! If you intend on wor
 
 ## Socrates: Dialogue Markdown Language
 
+![socrates_markdown_gif](https://github.com/user-attachments/assets/dcfd6983-0568-4d2a-9e58-141c66eae52e)
+
 Socrates is an open source dialogue markdown language. The entire suite of Socrates systems include
 
 1. Socrates Text: TextMeshPro based fancy text
@@ -16,6 +18,18 @@ Socrates is an open source dialogue markdown language. The entire suite of Socra
 3. SocraTSV: A parser that converts .tsv files written in Socrates Markdown to Socrates Dialogue
 
 Socrates Text and Socrates Dialogue both work as standalone systems, but they come bundled. SocraTSV is written specifically to convert Socrates Markdown to Socrates Dialogue, but can still be reworked to be compatible with another dialogue system.
+
+### Write Everything in TSV
+<img width="1268" height="347" alt="image" src="https://github.com/user-attachments/assets/715ab698-0fec-44da-b32b-d7f40fa76648" />
+
+### Tag Per Cell, Per Column, Or Do Both
+<img width="1398" height="373" alt="image" src="https://github.com/user-attachments/assets/aa065d97-6f75-4e9c-b1c3-5beeaea478f3" />
+
+### Use Variables
+<img width="231" height="106" alt="image" src="https://github.com/user-attachments/assets/730dcb2d-96ba-4d85-84ac-a579a21fe078" />
+
+### Customize Everything
+<img width="893" height="369" alt="socrates_annotation" src="https://github.com/user-attachments/assets/6222e6a7-b82b-4829-b71c-9a3e0ef079ff" />
 
 ## Included
 
