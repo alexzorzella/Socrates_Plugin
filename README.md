@@ -1,7 +1,7 @@
-<!-- <div align="center">
-<img src="https://github.com/user-attachments/assets/dcfd6983-0568-4d2a-9e58-141c66eae52e">
+<div align="center">
+<!-- <img src="https://github.com/user-attachments/assets/dcfd6983-0568-4d2a-9e58-141c66eae52e"> -->
 <h1>The Socrates Plugin</h1>  
-</div> -->
+</div>
 
 ### No Attribution Required
 This repository and its contents are protected by the GPL 3.0 License. If you don't know what that means and don't want to read the license, it means you're free to copy, distribute, and use this material in published commerial works without attribution.
