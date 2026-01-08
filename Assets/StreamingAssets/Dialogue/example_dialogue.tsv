@@ -1,9 +1,16 @@
+name	content									
+Alex	The [gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] makes it <i>simple</i> to write dialogue, directly in a .tsv file!	ref:bakery								
+Alex	When writing dialogue in the editor, there's [shake,3]a risk of data loss[!shake] and it's [shake,3]hard to see changes[!shake] in Git. <size=70%>It's also harder to navigate.</size>									
+Alex	[gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] allows for [wave,2]wavy text[!wave], [shake,2]shaky text[!shake], [gradient]rainbow text[!gradient], and [gradient][wave,2][shake,2]any number of those effects at the same time![!gradient][!wave][!shake]									
+Alex	It also supports <color=yellow>TextMeshPro rich text</color>, allowing you to write any way you like, <size=110%>[gradient][wave,3]stacking <b>Socrates Markdown</b> effects with <b>TextMeshPro rich text</b> effects![!wave][!gradient]</size>									
+										
+										
 token	value									
 man	Rahul									
 woman	Tiffany									
 waiter	Monet									
 										
-name:{man}	content:So, {woman}, are you a fan of baked goods?	ref:bakery								
+name:{man}	content:So, {woman}, are you a fan of baked goods?									
 name:{woman}	content:Yeah, I like bakeries.									
 name:{man}	content:You a fan of the smell of [wave,2][gradient]freshly baked bread[!gradient][!wave],									
 name:{man}	content:or do you perfer the pastry section?									

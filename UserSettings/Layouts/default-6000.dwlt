@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
-    y: 43
-    width: 1920
-    height: 1037
+    x: 1280
+    y: 42.666668
+    width: 1706.6667
+    height: 1024
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -40,9 +40,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 576
-    width: 336
-    height: 405
+    y: 803.3333
+    width: 251.33325
+    height: 164.66669
   m_MinSize: {x: 51, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 15}
@@ -67,14 +67,14 @@ MonoBehaviour:
   - {fileID: 2}
   m_Position:
     serializedVersion: 2
-    x: 1584
+    x: 1455.3334
     y: 0
-    width: 336
-    height: 981
+    width: 251.33325
+    height: 968
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 109
+  controlID: 125
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -96,8 +96,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1920
-    height: 1037
+    width: 1706.6666
+    height: 1024
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
@@ -121,7 +121,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1920
+    width: 1706.6666
     height: 36
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 1017
-    width: 1920
+    y: 1004
+    width: 1706.6666
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -165,12 +165,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 36
-    width: 1920
-    height: 981
+    width: 1706.6666
+    height: 968
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 44
+  controlID: 123
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -191,12 +191,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1920
-    height: 981
+    width: 1706.6666
+    height: 968
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 45
+  controlID: 124
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -217,8 +217,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1584
-    height: 981
+    width: 1455.3334
+    height: 968
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
@@ -243,8 +243,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1584
-    height: 709
+    width: 1455.3334
+    height: 666
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -267,8 +267,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 258
-    height: 709
+    width: 214.66667
+    height: 666
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 17}
@@ -286,25 +286,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 258
+    x: 214.66667
     y: 0
-    width: 1326
-    height: 709
+    width: 1240.6667
+    height: 666
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 18}
   - {fileID: 19}
   - {fileID: 20}
   - {fileID: 21}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -321,9 +321,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 709
-    width: 1584
-    height: 272
+    y: 666
+    width: 1455.3334
+    height: 302
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 16}
@@ -349,8 +349,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 336
-    height: 576
+    width: 251.33325
+    height: 803.3333
   m_MinSize: {x: 276, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 23}
@@ -381,10 +381,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Test Runner\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 600
-    width: 335
-    height: 379
+    x: 2735.3335
+    y: 882
+    width: 250.33325
+    height: 138.66669
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -397,12 +397,12 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 149
+    ID: 164
     splitterInitialOffset: 408
     currentActiveSplitter: -1
     realSizes:
-    - 196
-    - 113
+    - 36.666664
+    - 32
     relativeSizes:
     - 0.6339755
     - 0.3660245
@@ -412,7 +412,7 @@ MonoBehaviour:
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 309
+    lastTotalSize: 68.666664
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_TestListGUIs:
   - m_Window: {fileID: 15}
     runProgress:
-      RunGuid: 26ff0690-e04f-47aa-9887-c126847a2bf4
+      RunGuid: 4d0d71bc-a3e7-41a6-81aa-1eb3de52d97d
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -461,7 +461,7 @@ MonoBehaviour:
       name: Socrates Plugin
       fullName: Socrates Plugin
       resultStatus: 1
-      duration: 0.061066803
+      duration: 0.0645565
       messages: 
       output: 
       stacktrace: 
@@ -477,7 +477,7 @@ MonoBehaviour:
       name: EditMode.dll
       fullName: C:/Users/Public/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll
       resultStatus: 1
-      duration: 0.061066803
+      duration: 0.0645565
       messages: 
       output: 
       stacktrace: 
@@ -493,7 +493,7 @@ MonoBehaviour:
       name: FancyTextTests
       fullName: FancyTextTests
       resultStatus: 1
-      duration: 0.0573844
+      duration: 0.0611335
       messages: 
       output: 
       stacktrace: 
@@ -509,7 +509,7 @@ MonoBehaviour:
       name: _TestWrappedFancyTextBulk
       fullName: FancyTextTests._TestWrappedFancyTextBulk
       resultStatus: 1
-      duration: 0.0528787
+      duration: 0.0563724
       messages: 
       output: 
       stacktrace: 
@@ -526,7 +526,7 @@ MonoBehaviour:
       name: _TestWrappedFancyTextBulkNoAnnotations
       fullName: FancyTextTests._TestWrappedFancyTextBulkNoAnnotations
       resultStatus: 1
-      duration: 0.000348
+      duration: 0.0003681
       messages: 
       output: 
       stacktrace: 
@@ -543,7 +543,7 @@ MonoBehaviour:
       name: _TestWrappedFancyTextBulkSimpleStrings
       fullName: FancyTextTests._TestWrappedFancyTextBulkSimpleStrings
       resultStatus: 1
-      duration: 0.0020968
+      duration: 0.0025799
       messages: 
       output: 
       stacktrace: 
@@ -560,7 +560,7 @@ MonoBehaviour:
       name: FancyTextAverageCase
       fullName: FancyTextTests.FancyTextAverageCase
       resultStatus: 1
-      duration: 0.0002765
+      duration: 0.0002591
       messages: 
       output: 
       stacktrace: 
@@ -577,7 +577,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithMultipleRichTextTagB
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTagB
       resultStatus: 1
-      duration: 0.0001967
+      duration: 0.0001756
       messages: 
       output: 
       stacktrace: 
@@ -594,7 +594,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithMultipleRichTextTags
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTags
       resultStatus: 1
-      duration: 0.0001785
+      duration: 0.0001575
       messages: 
       output: 
       stacktrace: 
@@ -611,7 +611,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTag
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTag
       resultStatus: 1
-      duration: 0.0002508
+      duration: 0.0002312
       messages: 
       output: 
       stacktrace: 
@@ -628,7 +628,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTagB
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagB
       resultStatus: 1
-      duration: 0.0001982
+      duration: 0.0001674
       messages: 
       output: 
       stacktrace: 
@@ -645,7 +645,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTagC
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagC
       resultStatus: 1
-      duration: 0.0001769
+      duration: 0.000159
       messages: 
       output: 
       stacktrace: 
@@ -662,7 +662,7 @@ MonoBehaviour:
       name: FancyTextSingleTokenNestedWithRichTextTagD
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagD
       resultStatus: 1
-      duration: 0.0001986
+      duration: 0.0001719
       messages: 
       output: 
       stacktrace: 
@@ -679,7 +679,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotations
       fullName: FancyTextTests.TestFancyTextNoAnnotations
       resultStatus: 1
-      duration: 0.0001387
+      duration: 0.0001231
       messages: 
       output: 
       stacktrace: 
@@ -696,7 +696,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotationsWithPunctutation
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithPunctutation
       resultStatus: 1
-      duration: 0.0001486
+      duration: 0.000126
       messages: 
       output: 
       stacktrace: 
@@ -713,7 +713,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotationsWithRichTextTag
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTag
       resultStatus: 1
-      duration: 0.0001296
+      duration: 0.0001193
       messages: 
       output: 
       stacktrace: 
@@ -730,7 +730,7 @@ MonoBehaviour:
       name: TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
       resultStatus: 1
-      duration: 0.0001678
+      duration: 0.000123
       messages: 
       output: 
       stacktrace: 
@@ -747,7 +747,7 @@ MonoBehaviour:
       name: SocraTSVParseModeTests
       fullName: SocraTSVParseModeTests
       resultStatus: 1
-      duration: 0.0022361
+      duration: 0.0020126
       messages: 
       output: 
       stacktrace: 
@@ -763,7 +763,7 @@ MonoBehaviour:
       name: ParseModeSkipLine
       fullName: SocraTSVParseModeTests.ParseModeSkipLine
       resultStatus: 1
-      duration: 0.0012417
+      duration: 0.0012276
       messages: 
       output: 
       stacktrace: 
@@ -780,7 +780,7 @@ MonoBehaviour:
       name: ParseModeSkipLineEmptyInput
       fullName: SocraTSVParseModeTests.ParseModeSkipLineEmptyInput
       resultStatus: 1
-      duration: 0.000184
+      duration: 0.0001343
       messages: 
       output: 
       stacktrace: 
@@ -797,7 +797,7 @@ MonoBehaviour:
       name: ParseModeTagByCellExpectedValues
       fullName: SocraTSVParseModeTests.ParseModeTagByCellExpectedValues
       resultStatus: 1
-      duration: 0.0001538
+      duration: 0.0001394
       messages: 
       output: 
       stacktrace: 
@@ -814,7 +814,7 @@ MonoBehaviour:
       name: ParseModeTagByCellFutureproofCells
       fullName: SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells
       resultStatus: 1
-      duration: 0.0001352
+      duration: 0.0001102
       messages: 
       output: 
       stacktrace: 
@@ -831,7 +831,7 @@ MonoBehaviour:
       name: ParseModeTagByCellUnexpectedCells
       fullName: SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells
       resultStatus: 1
-      duration: 0.0001147
+      duration: 0.0001053
       messages: 
       output: 
       stacktrace: 
@@ -848,7 +848,7 @@ MonoBehaviour:
       name: ParseModeTokenDefinition
       fullName: SocraTSVParseModeTests.ParseModeTokenDefinition
       resultStatus: 1
-      duration: 0.0001472
+      duration: 0.000103
       messages: 
       output: 
       stacktrace: 
@@ -865,7 +865,7 @@ MonoBehaviour:
       name: ParseModeTokenDefinitionAndUnexpectedCells
       fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells
       resultStatus: 1
-      duration: 0.0001253
+      duration: 0.0000961
       messages: 
       output: 
       stacktrace: 
@@ -882,7 +882,7 @@ MonoBehaviour:
       name: ParseModeTokenDefinitionCapitalized
       fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized
       resultStatus: 1
-      duration: 0.0001342
+      duration: 0.0000967
       messages: 
       output: 
       stacktrace: 
@@ -899,7 +899,7 @@ MonoBehaviour:
       name: SocraTSVReplacementTests
       fullName: SocraTSVReplacementTests
       resultStatus: 1
-      duration: 0.0014463
+      duration: 0.0014104
       messages: 
       output: 
       stacktrace: 
@@ -915,7 +915,7 @@ MonoBehaviour:
       name: ReplaceTokenMultipleWithOneInsideWord
       fullName: SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord
       resultStatus: 1
-      duration: 0.0006495
+      duration: 0.0006459
       messages: 
       output: 
       stacktrace: 
@@ -932,7 +932,7 @@ MonoBehaviour:
       name: ReplaceTokenSingle
       fullName: SocraTSVReplacementTests.ReplaceTokenSingle
       resultStatus: 1
-      duration: 0.0001661
+      duration: 0.0001472
       messages: 
       output: 
       stacktrace: 
@@ -949,7 +949,7 @@ MonoBehaviour:
       name: ReplaceTokenSingleRegularWordFirst
       fullName: SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst
       resultStatus: 1
-      duration: 0.0001346
+      duration: 0.0001367
       messages: 
       output: 
       stacktrace: 
@@ -966,7 +966,7 @@ MonoBehaviour:
       name: ReplaceTokenSingleRightBeforePunctuation
       fullName: SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation
       resultStatus: 1
-      duration: 0.0001201
+      duration: 0.0001172
       messages: 
       output: 
       stacktrace: 
@@ -983,7 +983,7 @@ MonoBehaviour:
       name: ReplaceTokensOnlyTokensManyAdjacent
       fullName: SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent
       resultStatus: 1
-      duration: 0.0001348
+      duration: 0.000129
       messages: 
       output: 
       stacktrace: 
@@ -1000,7 +1000,7 @@ MonoBehaviour:
       name: ReplaceTokensTwoAdjacent
       fullName: SocraTSVReplacementTests.ReplaceTokensTwoAdjacent
       resultStatus: 1
-      duration: 0.0001187
+      duration: 0.0001133
       messages: 
       output: 
       stacktrace: 
@@ -1017,7 +1017,7 @@ MonoBehaviour:
       name: ReplaceTokensTwoUnique
       fullName: SocraTSVReplacementTests.ReplaceTokensTwoUnique
       resultStatus: 1
-      duration: 0.0001225
+      duration: 0.0001211
       messages: 
       output: 
       stacktrace: 
@@ -1029,7 +1029,7 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1025
       parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
-    m_ResultText: Socrates Plugin (29 tests) (0.061s)
+    m_ResultText: Socrates Plugin (29 tests) (0.065s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
@@ -1065,7 +1065,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 15}
     runProgress:
-      RunGuid: 26ff0690-e04f-47aa-9887-c126847a2bf4
+      RunGuid: 4d0d71bc-a3e7-41a6-81aa-1eb3de52d97d
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -1162,7 +1162,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 0}
     runProgress:
-      RunGuid: 26ff0690-e04f-47aa-9887-c126847a2bf4
+      RunGuid: 4d0d71bc-a3e7-41a6-81aa-1eb3de52d97d
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -1249,10 +1249,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 733
-    width: 1583
-    height: 246
+    x: 1280
+    y: 744.6667
+    width: 1454.3334
+    height: 276
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1275,7 +1275,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Camera
+    - Assets/Scripts/Socrates Dialogue/Resources
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1285,16 +1285,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Camera
+  - Assets/Scripts/Socrates Dialogue/Resources
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Public\Documents\Socrates_Plugin
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 44}
-    m_SelectedIDs: 66a00000
-    m_LastClickedID: 41062
-    m_ExpandedIDs: 00000000ce9f0000
+    scrollPos: {x: 0, y: 128}
+    m_SelectedIDs: 62a00000
+    m_LastClickedID: 41058
+    m_ExpandedIDs: 00000000c69f000056a0000064a0000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1323,7 +1323,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ce9f0000
+    m_ExpandedIDs: 00000000c69f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1403,10 +1403,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 24
-    width: 257
-    height: 683
+    x: 1280
+    y: 78.66667
+    width: 213.66667
+    height: 640
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1470,10 +1470,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 259
-    y: 24
-    width: 1324
-    height: 683
+    x: 1486.6666
+    y: 78.66667
+    width: 1199.3334
+    height: 714.6667
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2000,9 +2000,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 1804.1307, y: 980.59174, z: -2.0375206}
+    m_Target: {x: 1.653462, y: 0.04032832, z: -9.958379}
     speed: 2
-    m_Value: {x: 1804.1307, y: 980.59174, z: -2.0375206}
+    m_Value: {x: 1.653462, y: 0.04032832, z: -9.958379}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2052,9 +2052,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1379.2125
+    m_Target: 7.962473
     speed: 2
-    m_Value: 1379.2125
+    m_Value: 7.962473
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -2110,10 +2110,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 258
-    y: 79
-    width: 1324
-    height: 683
+    x: 1494.6666
+    y: 78.66667
+    width: 1238.6667
+    height: 640
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2146,10 +2146,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -1920
-    m_HBaseRangeMax: 1920
-    m_VBaseRangeMin: -1080
-    m_VBaseRangeMax: 1080
+    m_HBaseRangeMin: -1280
+    m_HBaseRangeMax: 1280
+    m_VBaseRangeMin: -720
+    m_VBaseRangeMax: 720
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -2158,7 +2158,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -2167,23 +2167,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1324
-      height: 662
-    m_Scale: {x: 0.30648148, y: 0.30648148}
-    m_Translation: {x: 662, y: 331}
+      width: 1238.6667
+      height: 619
+    m_Scale: {x: 0.42986107, y: 0.4298611}
+    m_Translation: {x: 619.3334, y: 309.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -2160
-      y: -1080
-      width: 4320
-      height: 2160
+      x: -1440.7756
+      y: -720
+      width: 2881.5513
+      height: 1440
     m_MinimalGUI: 1
-  m_defaultScale: 0.30648148
-  m_LastWindowPixelSize: {x: 1324, y: 683}
+  m_defaultScale: 0.4298611
+  m_LastWindowPixelSize: {x: 1858.0001, y: 960}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -2355,16 +2355,16 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Inspector
-    m_Image: {fileID: -2667387946076563598, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -440750813802333266, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 24
-    width: 335
-    height: 550
+    x: 2735.3335
+    y: 78.66667
+    width: 250.33325
+    height: 777.3333
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
