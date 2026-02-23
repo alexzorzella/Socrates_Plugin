@@ -3,7 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Screenshot : MonoBehaviour {
     void Update() {
-        if (Keyboard.current.leftCtrlKey.isPressed && Keyboard.current.cKey.wasPressedThisFrame) {
+        if (Keyboard.current.leftCtrlKey.isPressed && 
+            Keyboard.current.leftShiftKey.isPressed &&
+            Keyboard.current.cKey.wasPressedThisFrame) {
             string folderPath = "Assets/StreamingAssets/Screenshots/";
 
             if (!System.IO.Directory.Exists(folderPath)) {

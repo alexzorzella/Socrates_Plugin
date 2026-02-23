@@ -5,7 +5,7 @@ public class DescriptionWindow : EditorWindow {
     void OnGUI() {
         GUILayout.TextField(
             "Socrates Plugin\n" +
-            "(c) 2021-2025 Alex Zorzella in association with Luiz-Otàvio Zorzella, All Rights Reserved");
+            "For Socrates, from Alex Zorzella and 'Z' Zorzella. Please read the readme for more information.");
 
         Sprite socrates = ResourceLoader.LoadSprite("socrates");
 

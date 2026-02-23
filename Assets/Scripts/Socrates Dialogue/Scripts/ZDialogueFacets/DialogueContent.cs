@@ -10,7 +10,7 @@ namespace SocratesDialogue {
         }
 
         public override string ToString() {
-            return content;
+            return DialogueManifest.ReplaceTokensIn(content);
         }
     }
 }

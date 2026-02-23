@@ -19,6 +19,8 @@ public class GnaTransition : MonoBehaviour {
 		}
 	}
 
+	public static bool Transitioning;
+	
 	void Awake() {
 		Initialize();
 	}
@@ -38,8 +40,7 @@ public class GnaTransition : MonoBehaviour {
 	/// </summary>
 	/// <param name="sceneName"></param>
 	public static void LoadScene(string sceneName) {
-		Scene scene = SceneManager.GetSceneByName(sceneName);
-		i.LoadScene(scene);
+		i.LoadSceneByName(sceneName);
 	}
 
 	/// <summary>
@@ -47,40 +48,63 @@ public class GnaTransition : MonoBehaviour {
 	/// </summary>
 	/// <param name="sceneIndex"></param>
 	public static void LoadScene(int sceneIndex) {
-		Scene scene = SceneManager.GetSceneByBuildIndex(sceneIndex);
-		i.LoadScene(scene);
+		i.LoadSceneByIndex(sceneIndex);
 	}
 
 	/// <summary>
-	/// Loads a scene by scene object after fading to black.
+	/// Loads a scene by name after fading to black.
 	/// </summary>
-	/// <param name="scene"></param>
-	void LoadScene(Scene scene) {
-		PreTransition();
-
+	/// <param name="sceneName"></param>
+	void LoadSceneByName(string sceneName) {
+		Teardown();
+		
 		LeanTween.value(gameObject, 0, 1, transitionAnimationLength / 2F).setEase(LeanTweenType.easeOutQuad).
 			setOnUpdate((value) => { group.alpha = value; }).setOnComplete(
 				() => {
-					SceneManager.LoadScene(scene.name);
+					SceneManager.LoadScene(sceneName);
+					
+					Bootstrap();
+					
 					LeanTween.value(gameObject, 1, 0, transitionAnimationLength / 2F).
 						setEase(LeanTweenType.easeInQuad).
 						setOnUpdate((value) => { group.alpha = value; });
-					PostTransition();
+				});
+	}
+
+	/// <summary>
+	/// Loads a scene by index object after fading to black.
+	/// </summary>
+	/// <param name="sceneIndex"></param>
+	void LoadSceneByIndex(int sceneIndex) {
+		Teardown();
+		
+		LeanTween.value(gameObject, 0, 1, transitionAnimationLength / 2F).setEase(LeanTweenType.easeOutQuad).
+			setOnUpdate((value) => { group.alpha = value; }).setOnComplete(
+				() => {
+					SceneManager.LoadScene(sceneIndex);
+					
+					Bootstrap();
+					
+					LeanTween.value(gameObject, 1, 0, transitionAnimationLength / 2F).
+						setEase(LeanTweenType.easeInQuad).
+						setOnUpdate((value) => { group.alpha = value; });
 				});
 	}
 	
 	/// <summary>
 	/// Runs before the scene is transitioned.
 	/// </summary>
-	void PreTransition() {
+	void Teardown() {
 		GameManager.Instance().Teardown();
+		Transitioning = true;
 	}
 
 	/// <summary>
 	/// Runs after the scene is transitioned.
 	/// </summary>
-	void PostTransition() {
+	void Bootstrap() {
 		GameManager.Instance().Bootstrap();
+		Transitioning = false;
 	}
 	
 	/// <summary>

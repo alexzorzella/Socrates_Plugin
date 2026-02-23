@@ -15,8 +15,7 @@ namespace SocratesDialogue {
         public DialogueSection(List<ZDialogueFacet> facets) {
             this.facets = facets;
         }
-    
-    
+        
         public void AddFacet(ZDialogueFacet dialogueFacet) {
             facets.Add(dialogueFacet);
         }

@@ -19,12 +19,13 @@ public class ScottPhysics : MonoBehaviour {
 
         fHorizontalVelocity += moveDirection * speed;
 
-        if (Mathf.Abs(moveDirection) < 0.01F)
+        if (Mathf.Abs(moveDirection) < 0.01F) {
             fHorizontalVelocity *= Mathf.Pow(1f - dampenWhenStop, Time.deltaTime * 10f);
-        else if (Mathf.Sign(moveDirection) != Mathf.Sign(fHorizontalVelocity))
+        } else if (!Mathf.Approximately(Mathf.Sign(moveDirection), Mathf.Sign(fHorizontalVelocity))) {
             fHorizontalVelocity *= Mathf.Pow(1f - dampenWhenTurn, Time.deltaTime * 10f);
-        else
+        } else {
             fHorizontalVelocity *= Mathf.Pow(1f - dampenBasic, Time.deltaTime * 10f);
+        }
 
         rb.linearVelocity = new Vector2(fHorizontalVelocity, rb.linearVelocity.y);
     }
