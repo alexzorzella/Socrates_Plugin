@@ -4,7 +4,7 @@
 </div>
 
 ### No Attribution Required
-This repository and its contents are protected by the GPL 3.0 License. If you don't know what that means and don't want to read the license, it means you're free to copy, distribute, and use this material in published commercial works without attribution.
+This repository and its contents are protected by the MIT License. If you don't know what that means and don't want to read the license, it means you're free to copy, distribute, and use this material in published commercial works without attribution.
 
 ### Contributions (Use Unity 6000.0.58f2)
 
