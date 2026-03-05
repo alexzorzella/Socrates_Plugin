@@ -81,7 +81,10 @@ public class MultiAudioSource {
 	/// Plays the next audio clip in the rotation of loaded clips.
 	/// </summary>
 	public void PlayRoundRobin() {
-		sources[next].Play();
+		if (sources[next].enabled) {
+			sources[next].Play();
+		}
+
 		next = (next + 1) % sources.Length;
 	}
 	
@@ -89,7 +92,10 @@ public class MultiAudioSource {
 	/// Plays a random audio clip from the rotation loaded clips.
 	/// </summary>
 	public void PlayRandom() {
-		sources[next].Play();
+		if (sources[next].enabled) {
+			sources[next].Play();
+		}
+		
 		next = random.Next(0, sources.Length);
 	}
 	
