@@ -3,6 +3,10 @@
 <h1>The Socrates Plugin</h1>  
 </div>
 
+![Unity Version](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/alexzorzella/Socrates_Plugin/main/ProjectSettings/ProjectVersion.txt&query=m_EditorVersion&label=Unity&color=222c37&logo=unity)
+![Latest Release](https://img.shields.io/github/v/release/alexzorzella/Socrates_Plugin)
+![Issues](https://img.shields.io/github/issues/alexzorzella/Socrates_Plugin)<br>
+
 ### No Attribution Required
 This repository and its contents are protected by the MIT License. If you don't know what that means and don't want to read the license, it means you're free to copy, distribute, and use this material in published commercial works without attribution.
 
