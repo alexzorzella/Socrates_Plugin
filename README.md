@@ -7,6 +7,7 @@
 ![Latest Release](https://img.shields.io/github/v/release/alexzorzella/Socrates_Plugin)
 ![Issues](https://img.shields.io/github/issues/alexzorzella/Socrates_Plugin)
 ![GitHub License](https://img.shields.io/github/license/alexzorzella/Socrates_Plugin)
+![Static Badge](https://img.shields.io/badge/Alex%20Loves-Unit%20Testing-green?logo=githubactions&logoColor=white&labelColor=%23f0ab0c)
 <br>
 
 ### No Attribution Required
