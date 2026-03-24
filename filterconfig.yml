@@ -1,0 +1,4 @@
+apiRules:
+  - include: # The namespaces to generate
+      uidRegex: ^Assets\Scripts
+      type: Namespace
