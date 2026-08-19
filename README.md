@@ -10,6 +10,8 @@
 ![Static Badge](https://img.shields.io/badge/Alex%20Loves-Unit%20Testing-green?logo=githubactions&logoColor=white&labelColor=%23f0ab0c)
 <br>
 
+This repository is a collection of scripts that my dad and I have worked on for years. My of them started out as tutorial scripts, but have been expanded upon. The documented scripts are the best ones, and the standard here is well documented, tested code. The status of each system's documentation and test thoroughness is listed in the 'Included' section below. The goal is to have everything tested (if applicable) and documented. I prioritize refactoring, testing, and documenting more complicated systems before simpler ones. Systems like the basic camera movement and shake, inventory, and state machine are much shorter and are intended to use as baselines. Systems that are more complicated, like the Socrates Dialogue system (which is essentially three systems in one), come first. Feel free to take and expand on these scripts as you wish! Again, a lot of these scripts are meant to be used as a base to write something more specific.
+
 ### No Attribution Required
 This repository and its contents are protected by the MIT License. If you don't know what that means and don't want to read the license, it means you're free to copy, distribute, and use this material in published commercial works without attribution.
 
@@ -42,8 +44,6 @@ Socrates Text and Socrates Dialogue both work as standalone systems, but they co
 <img width="893" height="369" alt="socrates_annotation" src="https://github.com/user-attachments/assets/6222e6a7-b82b-4829-b71c-9a3e0ef079ff" />
 
 ## Included
-
-This repository is a colleciton of scripts that my dad and I have worked on for years. My of them started out as tutorial scripts, but have been expanded upon. The documented systems are the best ones. The standard here is documented, tested code. The status of each system's documentation and test thoroughness is listed below. The goal is to have everything tested (if applicable) and documented. I prioritize refactoring, testing, and documenting more complicated systems before simpler ones. Systems like the basic camera movement and shake, inventory, and state machine are much shorter and are intented to use as baselines or for very basic functionality. Systems that are more complicated, like the Socrates Dialogue system (which is essentially three systems in one) comes first. Feel free to take and expand on these scripts as you wish! Again, a lot of these scripts are meant to be used as a base to write something more specific.
 
 <i>Socrates Dialogue</i> (Fully documented and somewhat tested): A robust dialogue system that supports loading from .tsv. Includes text annotations including wavy text, shaky text, and delays during text scroll. Compatible with TextMeshPro rich text tags.
 
