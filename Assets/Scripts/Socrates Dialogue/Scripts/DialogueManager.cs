@@ -115,7 +115,7 @@ namespace SocratesDialogue {
         /// </summary>
         /// <param name="dialogueActionTime"></param>
         void TryInvokeCurrentSectionAction(DialogueActionTime dialogueActionTime) {
-            if (currentSection.HasFacet<DialogueAction>()) {
+            if (currentSection != null && currentSection.HasFacet<DialogueAction>()) {
                 DialogueAction action = currentSection.GetFacet<DialogueAction>();
 
                 if (action.GetDialogueActionTime() == dialogueActionTime) {
