@@ -119,7 +119,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
             foreach (var choice in choices) {
                 dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
                 DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
-                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.LeadsToRef(), moveTime, index);
+                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.GetNextSectionReference(), moveTime, index);
                 choiceObjects.Add(dialogueChoiceObject);
 
                 index++;

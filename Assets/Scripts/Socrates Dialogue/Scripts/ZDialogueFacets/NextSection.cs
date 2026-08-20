@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SocratesDialogue {
     public class NextSection : ZDialogueFacet {
         readonly string prompt;
-        readonly string reference;
+        readonly string leadsTo;
         DialogueSection next;
         
         static readonly Regex optionReader = new(@"^(.*),(.*)$");
@@ -13,12 +13,18 @@ namespace SocratesDialogue {
             var optionMatch = optionReader.Match(rawInput);
             
             if (!optionMatch.Success) {
-                reference = rawInput;
+                leadsTo = rawInput;
             } else if(optionMatch.Groups.Count == 3) {
                 prompt = optionMatch.Groups[1].Value;
-                reference = optionMatch.Groups[2].Value;
+                leadsTo = optionMatch.Groups[2].Value;
             }
 
+            TryCache();
+        }
+
+        public NextSection(string prompt, string leadsTo) {
+            this.prompt = prompt;
+            this.leadsTo = leadsTo;
             TryCache();
         }
         
@@ -29,22 +35,26 @@ namespace SocratesDialogue {
         void TryCache() {
             try {
                 if (next == null) {
-                    next = DialogueManifest.GetSectionByReference(reference);
+                    next = DialogueManifest.GetSectionByReference(leadsTo);
                 }
             }
             catch {
-                Debug.LogWarning($"Didn't find a dialogue section with reference {reference}.");
+                Debug.LogWarning($"Didn't find a dialogue section with reference {leadsTo}.");
             }
         }
+
+        public void SetNextSection(DialogueSection nextSection) {
+            next = nextSection;
+        }
         
-        public DialogueSection LeadsTo() {
+        public DialogueSection GetNextSection() {
             TryCache();
             
             return next;
         }
 
-        public string LeadsToRef() {
-            return reference;
+        public string GetNextSectionReference() {
+            return leadsTo;
         }
 
         public string Prompt() {

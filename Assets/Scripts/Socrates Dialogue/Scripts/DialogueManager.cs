@@ -166,7 +166,7 @@ namespace SocratesDialogue {
             } else if (nextSectionCount == 1) {
                 // Otherwise, if the current section is a Monologue (only one
                 // section next), cache it.
-                nextSection = currentSection.GetFacet<NextSection>().LeadsTo();
+                nextSection = currentSection.GetFacet<NextSection>().GetNextSection();
             }
             
             // If the next section is null, end the dialogue and return

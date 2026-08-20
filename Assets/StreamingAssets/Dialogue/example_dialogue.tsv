@@ -1,5 +1,5 @@
 name	content									
-Alex	The [gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] makes it <i>simple</i> to write dialogue, directly in a .tsv file!	ref:bakery								
+Alex	The [gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] makes it <i>simple</i> to write dialogue, directly in a .tsv file!									
 Alex	When writing dialogue in the editor, there's [shake,3]a risk of data loss[!shake] and it's [shake,3]hard to see changes[!shake] in Git. <size=70%>It's also harder to navigate.</size>									
 Alex	[gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] allows for [wave,2]wavy text[!wave], [shake,2]shaky text[!shake], [gradient]rainbow text[!gradient], and [gradient][wave,2][shake,2]any number of those effects at the same time![!gradient][!wave][!shake]									
 Alex	It also supports <color=yellow>TextMeshPro rich text</color>, allowing you to write any way you like, <size=110%>[gradient][wave,3]stacking <b>Socrates Markdown</b> effects with <b>TextMeshPro rich text</b> effects![!wave][!gradient]</size>									
@@ -34,24 +34,24 @@ name	content	ref
 {woman}	<size=50%>[shake,5]Aughhhhhhh![!shake] Don't make me regret this.</size>	sound:dialogue_2								
 {man}	<size=70%>Thirty seconds.</size>									
 {man}	<size=120%>Waiter!</size> We're [gradient][wave,5]ready to order[!gradient][!wave].									
-{woman}	There he is!									
+{woman}	There he is!	ref:bakery								
 {man}	<size=150%>[shake,5][gradient][wave,5]Showtime. {woman}, cover me![!shake][!gradient][!wave]	option:Duck,duck	option:Roll,roll	option:Run,escape						
 {woman}	Give me a moment!	duck	next:							
 {woman}	Be right there!	roll	next:							
 {woman}	We're getting <i>out of here</i>.	escape	next:							
 										
+				ref						
+Ott	You win!	condition:if(points < 10) { ott_taunt } else if(!player_won) { ott_says_lose }	next:	ott_says_win						
+Ott	You lose...		next:	ott_says_lose						
+Ott	Rolled like some oats, smoked like some fish		next:ott_says_lose	ott_taunt						
 										
+		cond:if((!false && true) || (true == true))=>redirect_to								
+		cond:if(gold > 10 && health > 20)=>win_very_well								
 										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
+		cond:bool=>redirect_to								
+			ref							
+Monkey	You have {bananas} bananas. I want them all.	cond:if(bananas < 14)=>monkey_does_not_care								
+			monkey_does_not_care							
 										
 										
 										
