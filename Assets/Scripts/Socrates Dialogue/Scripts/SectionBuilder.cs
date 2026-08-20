@@ -1,7 +1,8 @@
+using System;
 using SocratesDialogue;
 
 public class SectionBuilder {
-    DialogueSection section = new();
+    readonly DialogueSection section = new();
 
     public string GetReference(string fallback = "") {
         if (!section.HasFacet<DialogueReference>()) {
@@ -39,6 +40,11 @@ public class SectionBuilder {
     
     public SectionBuilder WithChoice(string prompt, string leadsTo) {
         section.AddFacet(new NextSection(prompt, leadsTo));
+        return this;
+    }
+
+    public SectionBuilder WithAction(Action action, DialogueAction.DialogueActionTime dialogueActionTime) {
+        section.AddFacet(new DialogueAction(action, dialogueActionTime));
         return this;
     }
     
