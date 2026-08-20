@@ -3,62 +3,69 @@ using UnityEngine;
 
 namespace SocratesDialogue {
     public class NextSection : ZDialogueFacet {
-        readonly string prompt;
-        readonly string leadsTo;
-        DialogueSection next;
+        readonly string choicePrompt;
+        string nextSectionRef;
+        DialogueSection nextSection;
         
         static readonly Regex optionReader = new(@"^(.*),(.*)$");
+        
+        public NextSection() { }
         
         public NextSection(string rawInput) {
             var optionMatch = optionReader.Match(rawInput);
             
             if (!optionMatch.Success) {
-                leadsTo = rawInput;
+                nextSectionRef = rawInput;
             } else if(optionMatch.Groups.Count == 3) {
-                prompt = optionMatch.Groups[1].Value;
-                leadsTo = optionMatch.Groups[2].Value;
+                choicePrompt = optionMatch.Groups[1].Value;
+                nextSectionRef = optionMatch.Groups[2].Value;
             }
 
             TryCache();
         }
-
-        public NextSection(string prompt, string leadsTo) {
-            this.prompt = prompt;
-            this.leadsTo = leadsTo;
+        
+        public NextSection(string choicePrompt, string nextSectionRef) {
+            this.choicePrompt = choicePrompt;
+            this.nextSectionRef = nextSectionRef;
             TryCache();
         }
-        
-        public NextSection(DialogueSection next) {
-            this.next = next;
+
+        public NextSection WithNextSectionRef(string nextSectionRef) {
+            this.nextSectionRef = nextSectionRef;
+            return this;
+        }
+            
+        public NextSection(DialogueSection nextSection) {
+            this.nextSection = nextSection;
         }
 
         void TryCache() {
             try {
-                if (next == null) {
-                    next = DialogueManifest.GetSectionByReference(leadsTo);
+                if (nextSection == null) {
+                    nextSection = DialogueManifest.GetSectionByReference(nextSectionRef);
                 }
             }
             catch {
-                Debug.LogWarning($"Didn't find a dialogue section with reference {leadsTo}.");
+                Debug.LogWarning($"Didn't find a dialogue section with reference {nextSectionRef}.");
             }
         }
 
         public void SetNextSection(DialogueSection nextSection) {
-            next = nextSection;
+            this.nextSection = nextSection;
         }
         
         public DialogueSection GetNextSection() {
             TryCache();
             
-            return next;
+            return nextSection;
         }
 
         public string GetNextSectionReference() {
-            return leadsTo;
+            return nextSectionRef;
         }
 
         public string Prompt() {
-            return prompt;
+            return choicePrompt;
         }
     }
 }

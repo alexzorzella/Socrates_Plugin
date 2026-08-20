@@ -37,6 +37,11 @@ public class SectionBuilder {
         section.AddFacet(new NextSection(nextSection));
         return this;
     }
+
+    public SectionBuilder WithNextSection(string nextSection) {
+        section.AddFacet(new NextSection().WithNextSectionRef(nextSection));
+        return this;
+    }
     
     public SectionBuilder WithChoice(string prompt, string leadsTo) {
         section.AddFacet(new NextSection(prompt, leadsTo));
@@ -46,6 +51,10 @@ public class SectionBuilder {
     public SectionBuilder WithAction(Action action, DialogueActionTime dialogueActionTime) {
         section.AddFacet(new DialogueAction(action, dialogueActionTime));
         return this;
+    }
+
+    public bool HasNextSection() {
+        return section.HasFacet<NextSection>();
     }
     
     public DialogueSection Build() {

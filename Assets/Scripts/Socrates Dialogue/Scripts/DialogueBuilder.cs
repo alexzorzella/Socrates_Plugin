@@ -5,18 +5,27 @@ using SocratesDialogue;
 public class DialogueBuilder {
     readonly Dictionary<string, SectionBuilder> sectionCache = new();
 
-    public DialogueBuilder(params SectionBuilder[] sectionBuilders) {
-        for (int i = 0; i < sectionBuilders.Length; i++) {
-            WithSection(sectionBuilders[i]);
-        }
-    }
-
     public DialogueBuilder WithSection(SectionBuilder section) {
         string reference = section.GetReference((sectionCache.Count - 1).ToString());
         sectionCache.Add(reference, section);
         return this;
     }
+    
+    public DialogueBuilder WithSequentialSections(params SectionBuilder[] sectionBuilders) {
+        for (int i = 0; i < sectionBuilders.Length; i++) {
+            SectionBuilder sectionBuilder = sectionBuilders[i];
+            
+            if (i < sectionBuilders.Length - 1) {
+                if (!sectionBuilder.HasNextSection())
+                    sectionBuilder.WithNextSection(sectionBuilders[i + 1].GetReference());
+            }
+            
+            WithSection(sectionBuilder);
+        }
 
+        return this;
+    }
+    
     public DialogueSection Build() {
         Dictionary<string, DialogueSection> manifest = new();
 
