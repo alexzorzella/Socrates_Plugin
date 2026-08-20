@@ -43,7 +43,7 @@ public class SectionBuilder {
         return this;
     }
 
-    public SectionBuilder WithAction(Action action, DialogueAction.DialogueActionTime dialogueActionTime) {
+    public SectionBuilder WithAction(Action action, DialogueActionTime dialogueActionTime) {
         section.AddFacet(new DialogueAction(action, dialogueActionTime));
         return this;
     }

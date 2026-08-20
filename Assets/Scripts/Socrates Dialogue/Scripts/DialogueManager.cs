@@ -111,12 +111,28 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
+        /// Invokes the current section's action if its dialogue action time matches the passed one.
+        /// </summary>
+        /// <param name="dialogueActionTime"></param>
+        void TryInvokeCurrentSectionAction(DialogueActionTime dialogueActionTime) {
+            if (currentSection.HasFacet<DialogueAction>()) {
+                DialogueAction action = currentSection.GetFacet<DialogueAction>();
+
+                if (action.GetDialogueActionTime() == dialogueActionTime) {
+                    action.Invoke();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Sets the current dialogue section to the new dialogue section, optionally notifying all
         /// listeners that the dialogue section has changed.
         /// </summary>
         /// <param name="section"></param>
         /// <param name="doNotNotify"></param>
         void SetCurrentSection(DialogueSection section, bool doNotNotify = false) {
+            TryInvokeCurrentSectionAction(DialogueActionTime.AFTER_DISPLAYING_TEXT);
+            
             currentSection = section;
 
             if (!doNotNotify) {
@@ -126,6 +142,8 @@ namespace SocratesDialogue {
             if (currentSection != null) {
                 DialogueEvent dialogueEvent = currentSection.GetFacet<DialogueEvent>();
 
+                TryInvokeCurrentSectionAction(DialogueActionTime.BEFORE_DISPLAYING_TEXT);
+                
                 if (dialogueEvent != null) {
                     NotifyDialogueEventListeners(dialogueEvent.GetTag(), dialogueEvent.GetParameters());
                 }

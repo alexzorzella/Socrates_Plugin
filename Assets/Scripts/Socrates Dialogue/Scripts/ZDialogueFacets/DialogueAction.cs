@@ -1,8 +1,9 @@
 using System;
 using SocratesDialogue;
 
+public enum DialogueActionTime { BEFORE_DISPLAYING_TEXT, AFTER_DISPLAYING_TEXT }
+
 public class DialogueAction : ZDialogueFacet {
-    public enum DialogueActionTime { BEFORE_DISPLAYING_TEXT, AFTER_DISPLAYING_TEXT }
 
     readonly Action action;
     readonly DialogueActionTime dialogueActionTime;
@@ -12,7 +13,11 @@ public class DialogueAction : ZDialogueFacet {
         this.dialogueActionTime = dialogueActionTime;
     }
 
-    public void Trigger() {
+    public DialogueActionTime GetDialogueActionTime() {
+        return dialogueActionTime;
+    }
+
+    public void Invoke() {
         action.Invoke();
     }
 }
