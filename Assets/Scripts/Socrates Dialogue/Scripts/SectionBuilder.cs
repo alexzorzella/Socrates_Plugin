@@ -43,7 +43,7 @@ public class SectionBuilder {
     bool hasNextSection;
 
     public SectionBuilder WithNextSection(string nextSection) {
-        facets.Add(new NextSection().WithNextSectionRef(nextSection));
+        facets.Add(new NextSection(nextSection));
         hasNextSection = true;
         return this;
     }

@@ -9,19 +9,21 @@ namespace SocratesDialogue {
         
         static readonly Regex optionReader = new(@"^(.*),(.*)$");
         
-        public NextSection() { }
+        // public NextSection(string rawInput) {
+        //     var optionMatch = optionReader.Match(rawInput);
+        //    
+        //     if (!optionMatch.Success) {
+        //         nextSectionRef = rawInput;
+        //     } else if(optionMatch.Groups.Count == 3) {
+        //         choicePrompt = optionMatch.Groups[1].Value;
+        //         nextSectionRef = optionMatch.Groups[2].Value;
+        //     }
+        //
+        //     TryCache();
+        // }
         
-        public NextSection(string rawInput) {
-            var optionMatch = optionReader.Match(rawInput);
-            
-            if (!optionMatch.Success) {
-                nextSectionRef = rawInput;
-            } else if(optionMatch.Groups.Count == 3) {
-                choicePrompt = optionMatch.Groups[1].Value;
-                nextSectionRef = optionMatch.Groups[2].Value;
-            }
-
-            TryCache();
+        public NextSection(string nextSectionRef) {
+            this.nextSectionRef = nextSectionRef;
         }
         
         public NextSection(string choicePrompt, string nextSectionRef) {
@@ -29,12 +31,7 @@ namespace SocratesDialogue {
             this.nextSectionRef = nextSectionRef;
             TryCache();
         }
-
-        public NextSection WithNextSectionRef(string nextSectionRef) {
-            this.nextSectionRef = nextSectionRef;
-            return this;
-        }
-            
+        
         public NextSection(DialogueSection nextSection) {
             this.nextSection = nextSection;
         }
