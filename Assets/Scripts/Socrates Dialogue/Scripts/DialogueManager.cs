@@ -92,7 +92,7 @@ namespace SocratesDialogue {
         }
         
         /// <summary>
-        /// Notifies all listeners that the current dialogue seciton has changed.
+        /// Notifies all listeners that the current dialogue section has changed.
         /// </summary>
         void NotifyOfSectionChange() {
             foreach (var listener in listeners) {
