@@ -7,9 +7,16 @@ public class SectionBuilder {
     public string GetReference(string fallback = "") {
         if (!section.HasFacet<DialogueReference>()) {
             section.AddFacet(new DialogueReference(fallback));
+            return fallback;
         }
 
-        return section.GetFacet<DialogueReference>().ToString();
+        DialogueReference dialogueReference = section.GetFacet<DialogueReference>();
+        if (string.IsNullOrEmpty(dialogueReference.GetReference())) {
+            dialogueReference.SetReference(fallback);
+            return fallback;
+        }
+
+        return dialogueReference.GetReference();
     }
     
     public SectionBuilder(string speaker, string content, string reference = "") {
@@ -48,7 +55,7 @@ public class SectionBuilder {
         return this;
     }
 
-    public SectionBuilder WithAction(Action action, DialogueActionTime dialogueActionTime) {
+    public SectionBuilder WithAction(Action action, DialogueActionTime dialogueActionTime = DialogueActionTime.AFTER_DISPLAYING_TEXT) {
         section.AddFacet(new DialogueAction(action, dialogueActionTime));
         return this;
     }

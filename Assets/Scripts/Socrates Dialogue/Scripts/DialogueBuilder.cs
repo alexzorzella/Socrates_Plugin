@@ -1,12 +1,19 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SocratesDialogue;
 
 public class DialogueBuilder {
     readonly Dictionary<string, SectionBuilder> sectionCache = new();
-
+    readonly Dictionary<string, DialogueSection> manifest = new();
+        
     public DialogueBuilder WithSection(SectionBuilder section) {
         string reference = section.GetReference((sectionCache.Count - 1).ToString());
+
+        if (sectionCache.ContainsKey(reference)) {
+            throw new Exception("");
+        }
+        
         sectionCache.Add(reference, section);
         return this;
     }
@@ -26,9 +33,7 @@ public class DialogueBuilder {
         return this;
     }
     
-    public DialogueSection Build() {
-        Dictionary<string, DialogueSection> manifest = new();
-
+    public void Build() {
         foreach (var entry in sectionCache) {
             manifest.Add(entry.Key, entry.Value.Build());
         }
@@ -45,7 +50,9 @@ public class DialogueBuilder {
                 }
             }
         }
+    }
 
-        return manifest.First().Value;
+    public DialogueSection GetSectionById(string key) {
+        return manifest.ContainsKey(key) ? manifest[key] : null;
     }
 }
