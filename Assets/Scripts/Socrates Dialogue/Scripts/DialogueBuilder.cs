@@ -17,8 +17,9 @@ public class DialogueBuilder {
             SectionBuilder sectionBuilder = sectionBuilders[i];
 
             if (i < sectionBuilders.Length - 1) {
-                if (!sectionBuilder.HasNextSection())
+                if (!sectionBuilder.HasNextSection()) {
                     sectionBuilder.WithNextSection(sectionBuilders[i + 1].GetOrSetReferenceIdToFallback());
+                }
             }
 
             WithSection(sectionBuilder);
