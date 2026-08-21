@@ -6,7 +6,9 @@ using SocratesDialogue;
 public class DialogueBuilder {
     readonly Dictionary<string, SectionBuilder> sectionCache = new();
     readonly Dictionary<string, DialogueSection> manifest = new();
-        
+
+    bool is_built = false;
+    
     public DialogueBuilder WithSection(SectionBuilder section) {
         string reference = section.GetReference((sectionCache.Count - 1).ToString());
         sectionCache.Add(reference, section);
@@ -45,9 +47,15 @@ public class DialogueBuilder {
                 }
             }
         }
+
+        is_built = true;
     }
 
     public DialogueSection GetSectionById(string key) {
+        if (!is_built) {
+            throw new Exception("You must build a DialogueBuilder before using its contents!");
+        }
+        
         return manifest.ContainsKey(key) ? manifest[key] : null;
     }
 }
