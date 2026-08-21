@@ -7,7 +7,7 @@ public class DialogueBuilder {
     readonly List<SectionBuilder> sectionBuilders = new();
     
     public DialogueBuilder WithSection(SectionBuilder section) {
-        section.GetOrSetReferenceIdToFallback(fallback: (sectionBuilders.Count - 1).ToString());
+        section.GetOrSetReferenceIdToFallback(fallback: $"section_{(sectionBuilders.Count - 1).ToString()}");
         sectionBuilders.Add(section);
         return this;
     }
