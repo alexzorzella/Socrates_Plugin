@@ -67,5 +67,9 @@ namespace SocratesDialogue {
         public string Prompt() {
             return choicePrompt;
         }
+
+        public override string ToString() {
+            return $"next: {nextSection}";
+        }
     }
 }

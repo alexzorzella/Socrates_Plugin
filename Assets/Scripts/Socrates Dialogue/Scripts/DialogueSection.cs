@@ -81,10 +81,10 @@ namespace SocratesDialogue {
         
         #if UNITY_EDITOR
         public override string ToString() {
-            string result = $"id: {referenceId}";
+            string result = $"id: {referenceId};";
 
             foreach (var facet in facets) {
-                result += $"{facet}; ";
+                result += $" '{facet}';";
             }
             
             return result;
