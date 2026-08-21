@@ -98,7 +98,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
         }
         
         ClearChoiceObjects();
-        Move(origin);
+        LeanTween.delayedCall(DialogueChoice.fadeInTime, () => { Move(origin); });
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
         ClearChoiceObjects();
         
         SetDialoguePanelVisible(false);
-        Move(origin);
+        LeanTween.delayedCall(DialogueChoice.fadeInTime, () => { Move(origin); });
     }
     
     /// <summary>

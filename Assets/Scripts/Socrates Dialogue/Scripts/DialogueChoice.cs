@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using SocratesDialogue;
+﻿using SocratesDialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +9,7 @@ public class DialogueChoice : MonoBehaviour, IPointerClickHandler {
     
     TextMeshProUGUI contentText;
 
-    const float fadeInTime = 0.3F;
+    public const float fadeInTime = 0.3F;
 
     CanvasGroup canvasGroup;
 
