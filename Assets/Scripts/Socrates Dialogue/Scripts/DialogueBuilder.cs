@@ -1,21 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using SocratesDialogue;
 
 public class DialogueBuilder {
     readonly Dictionary<string, SectionBuilder> sectionCache = new();
     readonly Dictionary<string, DialogueSection> manifest = new();
 
-    bool is_built = false;
+    bool hasBeenBaked = false;
     
     public DialogueBuilder WithSection(SectionBuilder section) {
+        if (hasBeenBaked) {
+            throw new Exception("You may not add sections to a baked DialogueBuilder!");
+        }
+        
         string reference = section.GetReference((sectionCache.Count - 1).ToString());
         sectionCache.Add(reference, section);
         return this;
     }
     
     public DialogueBuilder WithSequentialSections(params SectionBuilder[] sectionBuilders) {
+        if (hasBeenBaked) {
+            throw new Exception("You may not add sections to a baked DialogueBuilder!");
+        }
+        
         for (int i = 0; i < sectionBuilders.Length; i++) {
             SectionBuilder sectionBuilder = sectionBuilders[i];
             
@@ -30,7 +37,7 @@ public class DialogueBuilder {
         return this;
     }
     
-    public void Build() {
+    public void Bake() {
         foreach (var entry in sectionCache) {
             manifest.Add(entry.Key, entry.Value.Build());
         }
@@ -48,11 +55,11 @@ public class DialogueBuilder {
             }
         }
 
-        is_built = true;
+        hasBeenBaked = true;
     }
 
     public DialogueSection GetSectionById(string key) {
-        if (!is_built) {
+        if (!hasBeenBaked) {
             throw new Exception("You must build a DialogueBuilder before using its contents!");
         }
         
