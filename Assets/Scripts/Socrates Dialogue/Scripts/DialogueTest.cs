@@ -27,7 +27,7 @@ public class DialogueTest : MonoBehaviour {
                 WithChoice("A six pack, please", "b").
                 WithChoice("About the jar", "explain").
                 WithChoice("About the exit", "exit").
-                WithChoice("I'll be back", ""));
+                WithChoice("I'll be back"));
         
         builder.WithSection(new SectionBuilder(Namepedia.Clerk, "That'll be $5.94.", "b").
             WithNextSection(cents >= 594 ? "has" : "doesNotHave"));

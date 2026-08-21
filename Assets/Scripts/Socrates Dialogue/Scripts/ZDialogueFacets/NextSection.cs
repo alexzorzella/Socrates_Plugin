@@ -27,7 +27,10 @@ namespace SocratesDialogue {
         
         public NextSection(string choicePrompt, string nextSectionRef) {
             this.choicePrompt = choicePrompt;
-            this.nextSectionRef = nextSectionRef;
+
+            if (!string.IsNullOrEmpty(nextSectionRef)) {
+                this.nextSectionRef = nextSectionRef;
+            }
             // TryCache();
         }
         

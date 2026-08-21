@@ -50,7 +50,7 @@ namespace SocratesDialogue {
             return this;
         }
 
-        public SectionBuilder WithChoice(string prompt, string leadsTo) {
+        public SectionBuilder WithChoice(string prompt, string leadsTo = null) {
             facets.Add(new NextSection(prompt, leadsTo));
             return this;
         }
