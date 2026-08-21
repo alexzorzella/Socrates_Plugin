@@ -6,18 +6,18 @@ namespace SocratesDialogue {
         readonly List<SectionBuilder> sectionBuilders = new();
 
         public DialogueBuilder WithSection(SectionBuilder section) {
-            section.GetOrSetReferenceIdToFallback(fallback: $"section_{sectionBuilders.Count - 1}");
+            section.GetOrSetReferenceIdToFallback(fallback: $"section_{sectionBuilders.Count}");
             sectionBuilders.Add(section);
             return this;
         }
 
-        public DialogueBuilder WithSequentialSections(params SectionBuilder[] sectionBuilders) {
-            for (int i = 0; i < sectionBuilders.Length; i++) {
-                SectionBuilder sectionBuilder = sectionBuilders[i];
+        public DialogueBuilder WithSequentialSections(params SectionBuilder[] passedSectionBuilders) {
+            for (int i = 0; i < passedSectionBuilders.Length; i++) {
+                SectionBuilder sectionBuilder = passedSectionBuilders[i];
 
-                if (i < sectionBuilders.Length - 1) {
+                if (i < passedSectionBuilders.Length - 1) {
                     if (!sectionBuilder.HasNextSection()) {
-                        sectionBuilder.WithNextSection(sectionBuilders[i + 1].GetOrSetReferenceIdToFallback());
+                        sectionBuilder.WithNextSection(passedSectionBuilders[i + 1].GetOrSetReferenceIdToFallback($"section_{sectionBuilders.Count}"));
                     }
                 }
 
