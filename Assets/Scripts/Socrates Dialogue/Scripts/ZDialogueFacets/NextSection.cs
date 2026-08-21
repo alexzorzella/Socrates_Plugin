@@ -69,7 +69,7 @@ namespace SocratesDialogue {
         }
 
         public override string ToString() {
-            return $"next: {nextSection}";
+            return $"next (ref): {nextSectionRef}, (actual): {nextSection.GetReferenceId()}";
         }
     }
 }
