@@ -7,17 +7,17 @@ namespace SocratesDialogue {
 
 namespace SocratesDialogue {
     public class DialogueSection {
-        string referenceId;
+        readonly string referenceId;
         
-        public void SetReferenceId(string referenceId) { this.referenceId = referenceId; }
         public string GetReferenceId() { return referenceId; }
         
         readonly List<ZDialogueFacet> facets;
         
-        public DialogueSection(params ZDialogueFacet[] facets) : 
-            this(facets.ToList()) { }
+        public DialogueSection(string referenceId, params ZDialogueFacet[] facets) : 
+            this(referenceId, facets.ToList()) { }
     
-        public DialogueSection(List<ZDialogueFacet> facets) {
+        public DialogueSection(string referenceId, List<ZDialogueFacet> facets) {
+            this.referenceId = referenceId;
             this.facets = facets;
         }
         

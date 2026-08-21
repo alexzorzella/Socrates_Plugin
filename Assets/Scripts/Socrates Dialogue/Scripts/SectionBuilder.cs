@@ -1,65 +1,68 @@
 using System;
+using System.Collections.Generic;
 using SocratesDialogue;
 
 public class SectionBuilder {
     string referenceId = null;
-    readonly DialogueSection section = new();
+    readonly List<ZDialogueFacet> facets = new();
 
-    public string GetOrSetReferenceIdToFallback(string fallback = "") {
-        if (string.IsNullOrEmpty(section.GetReferenceId()) && !string.IsNullOrEmpty(fallback)) {
-            section.SetReferenceId(fallback);
-            return fallback;
+    public string GetOrSetReferenceIdToFallback(string fallback = null) {
+        if (referenceId == null && !string.IsNullOrEmpty(fallback)) {
+            referenceId = fallback;
         }
-        
-        return section.GetReferenceId();
+
+        return referenceId;
     }
     
-    public SectionBuilder(string speaker, string content, string reference = "") {
-        section.AddFacet(new DialogueSpeaker(speaker));
-        section.AddFacet(new DialogueContent(content));
-        if(!string.IsNullOrEmpty(reference)) { section.SetReferenceId(reference); }
+    public SectionBuilder(string speaker, string content, string reference = null) {
+        facets.Add(new DialogueSpeaker(speaker));
+        facets.Add(new DialogueContent(content));
+        if(!string.IsNullOrEmpty(reference)) { referenceId = reference; }
     }
 
     public SectionBuilder WithSoundbite(string soundName) {
-        section.AddFacet(new DialogueSoundbite(soundName));
+        facets.Add(new DialogueSoundbite(soundName));
         return this;
     }
     
     public SectionBuilder WithDialogueSound(string soundName) {
-        section.AddFacet(new DialogueSound(soundName));
+        facets.Add(new DialogueSound(soundName));
         return this;
     }
 
     public SectionBuilder WithDelay(float delay) {
-        section.AddFacet(new CharDelay(delay));
+        facets.Add(new CharDelay(delay));
         return this;
     }
        
     public SectionBuilder WithNextSection(DialogueSection nextSection) {
-        section.AddFacet(new NextSection(nextSection));
+        facets.Add(new NextSection(nextSection));
         return this;
     }
 
+    bool hasNextSection;
+
     public SectionBuilder WithNextSection(string nextSection) {
-        section.AddFacet(new NextSection().WithNextSectionRef(nextSection));
+        facets.Add(new NextSection().WithNextSectionRef(nextSection));
+        hasNextSection = true;
         return this;
     }
     
     public SectionBuilder WithChoice(string prompt, string leadsTo) {
-        section.AddFacet(new NextSection(prompt, leadsTo));
+        facets.Add(new NextSection(prompt, leadsTo));
         return this;
     }
 
     public SectionBuilder WithAction(Action action, DialogueActionTime dialogueActionTime = DialogueActionTime.AFTER_DISPLAYING_TEXT) {
-        section.AddFacet(new DialogueAction(action, dialogueActionTime));
+        facets.Add(new DialogueAction(action, dialogueActionTime));
         return this;
     }
 
     public bool HasNextSection() {
-        return section.HasFacet<NextSection>();
+        return hasNextSection;
     }
     
     public DialogueSection Build() {
-        return section;
+        return new DialogueSection(referenceId, facets);
     }
 }

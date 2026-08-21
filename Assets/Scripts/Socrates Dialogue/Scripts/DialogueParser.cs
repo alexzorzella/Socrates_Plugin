@@ -101,7 +101,7 @@ namespace SocratesDialogue {
                 facets = ParseFacetsFrom(line, columns);
 
                 // Create a new instance of a dialogue section passing the facets
-                DialogueSection newSection = new DialogueSection(facets);
+                DialogueSection newSection = new DialogueSection(i.ToString(), facets);
 
                 emptyLineCount = 0;
 
