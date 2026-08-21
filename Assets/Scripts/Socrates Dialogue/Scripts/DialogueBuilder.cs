@@ -9,11 +9,6 @@ public class DialogueBuilder {
         
     public DialogueBuilder WithSection(SectionBuilder section) {
         string reference = section.GetReference((sectionCache.Count - 1).ToString());
-
-        if (sectionCache.ContainsKey(reference)) {
-            throw new Exception("");
-        }
-        
         sectionCache.Add(reference, section);
         return this;
     }
