@@ -1,5 +1,3 @@
-using System;
-using PlasticGui;
 using SocratesDialogue;
 using UnityEngine;
 
@@ -84,9 +82,9 @@ public class DialogueTest : MonoBehaviour {
         
         builder.WithSection(new SectionBuilder(Namepedia.Clerk, "Have a nice day, there's your receipt.", "aDone"));
 
-        builder.Bake();
+        Dialogue dialogue = builder.Bake();
         
-        return builder.GetSectionById(done ? "aDone" : "a");
+        return dialogue.GetSectionById(done ? "aDone" : "a");
     }
 
     public Transform SpeakingIcon() {

@@ -105,17 +105,12 @@ namespace SocratesDialogue {
 
                 emptyLineCount = 0;
 
-                string uniqueReference = "";
-
-                // If the user explicitly points to the next section, use that reference
-                if (newSection.HasFacet<DialogueReference>()) {
-                    uniqueReference = newSection.GetFacet<DialogueReference>().ToString();
-                }
+                string reference = newSection.GetReferenceId();
 
                 // Added the unique reference to the manifest paired with the new section.
                 // If the unique reference is empty or whitespace, it'll generate a new,
                 // unique reference for it.
-                uniqueReference = DialogueManifest.AddEntry(uniqueReference, newSection);
+                reference = DialogueManifest.AddEntry(reference, newSection);
 
                 // If this isn't the first line of conversation,
                 if (results[currentConversationIndex].Count > 0) {
@@ -124,7 +119,7 @@ namespace SocratesDialogue {
                     // and the last section didn't have choices
                     if (lastSection.CountOfFacetType<NextSection>() <= 0) {
                         // the last dialogue section should lead to this one.
-                        lastSection.AddFacet(new NextSection(uniqueReference));
+                        lastSection.AddFacet(new NextSection(reference));
                     }
                 }
 
@@ -187,8 +182,8 @@ namespace SocratesDialogue {
             { "delay", passedValue => new CharDelay((string)passedValue) },
             { "event", passedValue => new DialogueEvent((string)passedValue) },
             { "soundbite", passedValue => new DialogueSoundbite((string)passedValue) },
-            { "ref", passedValue => new DialogueReference((string)passedValue) },
-            { "reference", passedValue => new DialogueReference((string)passedValue) }
+            // { "ref", passedValue => new DialogueReferenceDeprecated((string)passedValue) },
+            // { "reference", passedValue => new DialogueReferenceDeprecated((string)passedValue) }
         };
 
         /// <summary>

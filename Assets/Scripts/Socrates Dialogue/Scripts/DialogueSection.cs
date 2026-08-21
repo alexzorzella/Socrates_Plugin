@@ -7,6 +7,11 @@ namespace SocratesDialogue {
 
 namespace SocratesDialogue {
     public class DialogueSection {
+        string referenceId;
+        
+        public void SetReferenceId(string referenceId) { this.referenceId = referenceId; }
+        public string GetReferenceId() { return referenceId; }
+        
         readonly List<ZDialogueFacet> facets;
         
         public DialogueSection(params ZDialogueFacet[] facets) : 

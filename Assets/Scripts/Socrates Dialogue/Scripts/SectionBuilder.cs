@@ -2,27 +2,22 @@ using System;
 using SocratesDialogue;
 
 public class SectionBuilder {
+    string referenceId = null;
     readonly DialogueSection section = new();
 
-    public string GetReference(string fallback = "") {
-        if (!section.HasFacet<DialogueReference>()) {
-            section.AddFacet(new DialogueReference(fallback));
+    public string GetOrSetReferenceIdToFallback(string fallback = "") {
+        if (string.IsNullOrEmpty(section.GetReferenceId()) && !string.IsNullOrEmpty(fallback)) {
+            section.SetReferenceId(fallback);
             return fallback;
         }
-
-        DialogueReference dialogueReference = section.GetFacet<DialogueReference>();
-        if (string.IsNullOrEmpty(dialogueReference.GetReference())) {
-            dialogueReference.SetReference(fallback);
-            return fallback;
-        }
-
-        return dialogueReference.GetReference();
+        
+        return section.GetReferenceId();
     }
     
     public SectionBuilder(string speaker, string content, string reference = "") {
         section.AddFacet(new DialogueSpeaker(speaker));
         section.AddFacet(new DialogueContent(content));
-        if(!string.IsNullOrEmpty(reference)) { section.AddFacet(new DialogueReference(reference)); }
+        if(!string.IsNullOrEmpty(reference)) { section.SetReferenceId(reference); }
     }
 
     public SectionBuilder WithSoundbite(string soundName) {
