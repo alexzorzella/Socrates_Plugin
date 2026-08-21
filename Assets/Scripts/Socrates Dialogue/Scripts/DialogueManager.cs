@@ -155,6 +155,11 @@ namespace SocratesDialogue {
         /// dialogue section's content.
         /// </summary>
         public void ContinueConversation(string reference = "") {
+            if (reference == null) {
+                EndDialogue();
+                return;
+            }
+            
             int nextSectionCount = 0;
             
             // Count the number of choices. Monologues have one next section (no choices).
