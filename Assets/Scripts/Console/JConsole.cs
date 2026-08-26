@@ -45,7 +45,7 @@ public class JConsole : MonoBehaviour {
 
     readonly List<string> logs = new();
     readonly List<JConsoleLogListener> logListeners = new();
-
+    
     public void RegisterListener(JConsoleLogListener newListener) {
         logListeners.Add(newListener);
         newListener.RecieveBacklog(logs);
@@ -57,7 +57,7 @@ public class JConsole : MonoBehaviour {
         }
     }
     
-    public void LogSystemMessage(string message, string nonTruncatedMessage = "") {
+    public void DisplaySystemMessage(string message, string nonTruncatedMessage = "") {
         string prefix = message[0] == '[' ? " " : " [System] ";
         string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
         string formattedMessage = $"({DateTime.Now}){prefix}{finalMessage}";
@@ -67,16 +67,18 @@ public class JConsole : MonoBehaviour {
         logs.Add(formattedMessage);
         NotifyListeners(formattedMessage);
 
-        var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
-            .GetComponent<RectTransform>();
-        rect.SetParent(parentMessagesTo);
+        if (!suppressSystemMessages) {
+            var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
+                .GetComponent<RectTransform>();
+            rect.SetParent(parentMessagesTo);
 
-        rect.localPosition = Vector2.zero;
-        rect.localScale = Vector2.one;
+            rect.localPosition = Vector2.zero;
+            rect.localScale = Vector2.one;
 
-        rect.gameObject.GetComponent<SystemMessage>().SetText(message);
+            rect.gameObject.GetComponent<SystemMessage>().SetText(message);
 
-        UpdateCurrentMessages(1, rect.sizeDelta.y);
+            UpdateCurrentMessages(1, rect.sizeDelta.y);
+        }
     }
     
     public static JConsole i {
@@ -107,10 +109,7 @@ public class JConsole : MonoBehaviour {
         commands.Add(new HcCloseConsole());
         commands.Add(new HcForceQuit());
 
-        foreach (var command in commands) {
-            WriteLine($"Loaded <color=yellow>{command.Keyword()}</color>");
-            autocompleteCommands.Add(command.Keyword());
-        }
+        foreach (var command in commands) { autocompleteCommands.Add(command.Keyword()); }
         
         WriteLine($"Successfully loaded {commands.Count} commands");
 
