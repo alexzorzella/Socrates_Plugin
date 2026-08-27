@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StateMachine {
@@ -9,6 +10,12 @@ public class StateMachine {
 
     StateMachineState _currentState = null;
 
+    float speed;
+
+    public void SetSpeed(float speed) {
+        this.speed = speed;
+    }
+    
     /**
      * Keeps track of LeanTweens currently active so that
      * unnecessary cancellations do not occur on
@@ -106,14 +113,14 @@ public class StateMachine {
             return;
         }
 
-        _currentState = to; 
+        _currentState = to;
         NotifyListeners(from, to);
         
         // Debug.Log($"Set state to {_currentState.GetName()}");
         
         if (_currentState.TransitionsOnAnimationCompleted()) {
             // Debug.Log($"delayedCall to leanTween to occur after {_currentState.GetLength()} seconds");
-            var ltDescr = LeanTween.delayedCall(_currentState.GetLength(), () => {
+            var ltDescr = LeanTween.delayedCall(_currentState.GetLength() / speed, () => {
                 Handle(StateMachineEvent.ON_ANIMATION_COMPLETED);
             });
             leanTweensInProgress.Add(ltDescr.id);
@@ -134,6 +141,40 @@ public class StateMachine {
         return result;
     }
 
+    public void OnValueChanged(float newValue) {
+        speed = newValue;
+    }
+
+    public class Builder {
+        readonly string _name = "New State Machine";
+        readonly List<StateMachineState> _states = new();
+
+        public Builder(string name) {
+            _name = name;
+        }
+        
+        public Builder WithState(StateMachineState state) {
+            _states.Add(state);
+            
+            return this;
+        }
+
+        public Builder WithStates(List<StateMachineState> states) {
+            foreach(var state in states) { WithState(state); }
+            return this;
+        }
+
+        public Builder WithStates(params StateMachineState[] states) {
+            WithStates(states.ToList());
+            return this;
+        }
+        
+        public StateMachine Build() {
+            StateMachine finalStateMachine = new StateMachine(_name, _states);
+            return finalStateMachine;
+        }
+    }
+    
     public class ShellBuilder {
         string name = "State Machine Shell";
         List<StateMachineState> states = new();
@@ -153,7 +194,6 @@ public class StateMachine {
 
         public StateMachine Build() {
             StateMachine finalStateMachine = new StateMachine(name, states);
-            
             return finalStateMachine;
         }
     }
@@ -169,5 +209,9 @@ public class StateMachine {
                 }
             }
         }
+    }
+    
+    public StateMachineState CurrentState() {
+        return _currentState;
     }
 }
