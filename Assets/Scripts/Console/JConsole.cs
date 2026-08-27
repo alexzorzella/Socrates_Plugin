@@ -46,18 +46,27 @@ public class JConsole : MonoBehaviour {
     readonly List<string> logs = new();
     readonly List<JConsoleLogListener> logListeners = new();
 
+    string machineName = "vnix";
+    string username = "june";
+    
     public void RegisterListener(JConsoleLogListener newListener) {
         logListeners.Add(newListener);
-        newListener.RecieveBacklog(logs);
+        newListener.ReceiveBacklog(logs);
     }
 
-    public void NotifyListeners(string message) {
+    void NotifyListenersOfSystemMessage(string message) {
         foreach (var listener in logListeners) {
             listener.OnSystemMessageLogged(message);
         }
     }
     
-    public void LogSystemMessage(string message, string nonTruncatedMessage = "") {
+    void NotifyListenersOnWriteToConsole(string message) {
+        foreach (var listener in logListeners) {
+            listener.OnWriteToConsole(message);
+        }
+    }
+
+    public void DisplaySystemMessage(string message, string nonTruncatedMessage = "") {
         string prefix = message[0] == '[' ? " " : " [System] ";
         string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
         string formattedMessage = $"({DateTime.Now}){prefix}{finalMessage}";
@@ -65,18 +74,20 @@ public class JConsole : MonoBehaviour {
         WriteLine(formattedMessage);
         
         logs.Add(formattedMessage);
-        NotifyListeners(formattedMessage);
+        NotifyListenersOfSystemMessage(formattedMessage);
+        
+        if (!suppressSystemMessages) {
+            var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
+                .GetComponent<RectTransform>();
+            rect.SetParent(parentMessagesTo);
 
-        var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
-            .GetComponent<RectTransform>();
-        rect.SetParent(parentMessagesTo);
+            rect.localPosition = Vector2.zero;
+            rect.localScale = Vector2.one;
 
-        rect.localPosition = Vector2.zero;
-        rect.localScale = Vector2.one;
+            rect.gameObject.GetComponent<SystemMessage>().SetText(message);
 
-        rect.gameObject.GetComponent<SystemMessage>().SetText(message);
-
-        UpdateCurrentMessages(1, rect.sizeDelta.y);
+            UpdateCurrentMessages(1, rect.sizeDelta.y);
+        }
     }
     
     public static JConsole i {
@@ -107,16 +118,21 @@ public class JConsole : MonoBehaviour {
         commands.Add(new HcCloseConsole());
         commands.Add(new HcForceQuit());
 
-        foreach (var command in commands) {
-            WriteLine($"Loaded <color=yellow>{command.Keyword()}</color>");
-            autocompleteCommands.Add(command.Keyword());
-        }
+        foreach (var command in commands) { autocompleteCommands.Add(command.Keyword()); }
         
         WriteLine($"Successfully loaded {commands.Count} commands");
 
         canvasRect = GetComponent<RectTransform>();
 
         UpdateVisuals();
+        
+        machineName = Environment.MachineName;
+        username = Environment.UserName;
+        
+        ClearConsole();
+        // WriteLine("<color=#00E5FF>friday.jam</color> installed");
+        WriteLine("<color=#00E5FF>/help</color> for command list");
+        WriteLine("<color=yellow>Ctrl + Tab</color> to close console"); 
     }
 
     void Update() {
@@ -181,19 +197,32 @@ public class JConsole : MonoBehaviour {
 
         var sourceAutocompleteFrom = new List<string>();
 
-        var lastWordIndex = inputField.text.Split(' ').Length;
+        string[] commands = inputField.text.Split("&&");
 
-        if (lastWordIndex == 1)
+        if (commands.Length <= 0) {
+            return;
+        }
+        
+        var lastWordIndex = commands[^1].Split(' ').Length;
+
+        if (lastWordIndex == 1) {
             sourceAutocompleteFrom = autocompleteCommands;
-        else if (lastWordIndex == 2)
-            if (GetCurrentCommand() != null)
-                sourceAutocompleteFrom = GetCurrentCommand().AutocompleteOptions();
+        }
+        else if (lastWordIndex == 2) {
+            List<HCommand> currentCommands = GetCurrentCommands(inputField.text);
+            
+            if (currentCommands.Count > 0 && currentCommands[^1] != null) {
+                sourceAutocompleteFrom = currentCommands[^1].AutocompleteOptions();
+            }
+        }
 
         var autocompleteOptions = new List<string>();
 
-        foreach (var option in sourceAutocompleteFrom)
-            if (option.StartsWith(lastWord))
+        foreach (var option in sourceAutocompleteFrom) {
+            if (option.StartsWith(lastWord)) {
                 autocompleteOptions.Add(option);
+            }
+        }
 
         if (autocompleteOptions.Count <= 0) {
             autocompleteOptionsText.text = "";
@@ -221,7 +250,7 @@ public class JConsole : MonoBehaviour {
 
         var optionsPrompt = "";
 
-        if (autocompleteOptions.Count > 1)
+        if (autocompleteOptions.Count > 1) {
             for (var i = 0; i < autocompleteOptions.Count; i++) {
                 if (i == selectedAutocompleteOption) optionsPrompt += "<color=yellow>";
 
@@ -231,6 +260,7 @@ public class JConsole : MonoBehaviour {
 
                 if (i < autocompleteOptions.Count - 1) optionsPrompt += "\n";
             }
+        }
 
         autocompleteOptionsText.text = optionsPrompt;
 
@@ -255,7 +285,8 @@ public class JConsole : MonoBehaviour {
             var paddingSize = new Vector2(8, 8);
 
             autocompleteBackgroundRect.sizeDelta = textSize + paddingSize;
-        } else {
+        }
+        else {
             autocompleteBackgroundRect.sizeDelta = Vector2.zero;
         }
 
@@ -267,26 +298,31 @@ public class JConsole : MonoBehaviour {
             autocompleteOptions.Clear();
         }
 
-        if (Keyboard.current.leftShiftKey.wasPressedThisFrame)
-            if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+        if (Keyboard.current.leftShiftKey.wasPressedThisFrame) {
+            if (Keyboard.current.backspaceKey.wasPressedThisFrame) {
                 inputField.text = "";
+            }
+        }
     }
 
     void ScrollHistory() {
-        if (visible)
-            if (history.Count > 0 && selectedAutocompleteOption < 0)
+        if (visible) {
+            if (history.Count > 0 && selectedAutocompleteOption < 0) {
                 if (Keyboard.current.anyKey.wasPressedThisFrame) {
-                    if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+                    if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
                         ScrollHistoryBy(1);
-                    else if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+                    } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
                         ScrollHistoryBy(-1);
-                    else
+                    } else {
                         historyIndex = -1;
+                    }
                 }
+            }
+        }
     }
 
     void ScrollHistoryBy(int amount) {
-        IncrementWithOverflow.Run(historyIndex, history.Count, amount, out historyIndex);
+        historyIndex = IncrementWithOverflow.Run(historyIndex, history.Count, amount);
         inputField.text = history[historyIndex];
         inputField.caretPosition = history[historyIndex].Length;
     }
@@ -297,14 +333,18 @@ public class JConsole : MonoBehaviour {
             scrollViewport.sizeDelta = textSize;
         }
 
-        if (SlashKey() && !visible)
+        if (SlashKey() && !visible) {
             OpenConsole();
-        else if (Keyboard.current.leftCtrlKey.isPressed && Keyboard.current.tabKey.wasPressedThisFrame)
+        } else if (Keyboard.current.leftCtrlKey.isPressed && Keyboard.current.tabKey.wasPressedThisFrame) {
             CloseConsole();
-        else if (EscapeKey()) CloseConsole();
+        } else if (EscapeKey()) {
+            CloseConsole();
+        }
+
+        // Time.timeScale = visible ? 0 : 1;
 
         if (visible && ReturnKey()) TryCommand();
-    }
+    } 
 
     void OpenConsole() {
         visible = true;
@@ -346,37 +386,55 @@ public class JConsole : MonoBehaviour {
         return Keyboard.current.enterKey.wasPressedThisFrame;
     }
 
-    public HCommand GetCurrentCommand() {
-        var input = inputField.text;
+    List<HCommand> GetCurrentCommands(string rawInput) {
+        string[] separatedCommands = rawInput.Split("&&");
 
-        var split = input.Split(' ');
-        var selectedCommand = Array.Find(commands.ToArray(), c => commandPrefix + c.Keyword() == split[0]);
+        List<HCommand> result = new();
+        
+        foreach (string command in separatedCommands) {
+            string[] splitCommand = command.Trim().Split(' ');
+            HCommand selectedCommand = Array.Find(commands.ToArray(), c => commandPrefix + c.Keyword() == splitCommand[0]);
+            result.Add(selectedCommand);
+        }
 
-        return selectedCommand;
+        return result;
     }
 
-    public void TryCommand() {
-        var input = inputField.text;
+    public void SetCommandLineInputText(string newText) {
+        inputField.text = newText;
+    }
 
-        if (string.IsNullOrEmpty(inputField.text)) return;
+    public bool TryCommand(string overrideCommand = "") {
+        string commandInput = !string.IsNullOrWhiteSpace(overrideCommand) ? overrideCommand : inputField.text;
 
-        if (input[0] == commandPrefix) {
-            var selectedCommand = GetCurrentCommand();
+        if (string.IsNullOrWhiteSpace(commandInput)) {
+            return false;
+        }
 
-            history.Add(input);
+        if (commandInput[0] == commandPrefix) {
+            List<HCommand> commands = GetCurrentCommands(commandInput);
 
-            if (selectedCommand == null) {
+            history.Add(commandInput);
+
+            if (commands.Count <= 0) {
                 WriteLine("Command not recognized.");
                 ClearInputField();
-                return;
+                return false;
             }
 
-            WriteLine($"<color=yellow>{selectedCommand.CommandFunction(input.Split(' '))}</color>");
+            string[] commandInputs = commandInput.Split("&&");
+            
+            for (int i = 0; i < commands.Count; i++) {
+                string output = commands[i].CommandFunction(commandInputs[i].Trim().Split(' '));
+                WriteLine($"<color=yellow>{output}</color>");
+            }
         } else {
             WriteLine("Command not recognized.");
         }
 
         ClearInputField();
+
+        return true;
     }
 
     void ClearInputField() {
@@ -384,7 +442,7 @@ public class JConsole : MonoBehaviour {
         inputField.text = string.Empty;
         inputField.ActivateInputField();
     }
-    
+
     void SelectInputFieldAndSetText(string newContents) {
         inputField.Select();
         inputField.text = newContents;
@@ -392,6 +450,7 @@ public class JConsole : MonoBehaviour {
     }
 
     public void WriteLine(string add) {
-        commandOutputText.text += $"\n> {add}";
+        commandOutputText.text += $"\n<color=#00E5FF>{username}@{machineName}</color> <color=yellow>$</color> {add}";
+        NotifyListenersOnWriteToConsole(add);
     }
 }

@@ -185,7 +185,7 @@ public class InputManager : MonoBehaviour {
 			Destroy(ports[port].gameObject);
 			ports[port] = null; // Remove the controller from the list of ports (the port remains while the Input is set to null)
 
-			JConsole.i.LogSystemMessage($"{input} disconnected");
+			JConsole.i.DisplaySystemMessage($"{input} disconnected");
 			// Maybe this will lead to issues reconnecting it...
 
 			foreach (var handler in inputHandlers) {
@@ -366,7 +366,7 @@ public class InputManager : MonoBehaviour {
 
 	// Removes all connected controllers from the game
 	public void ClearControllers() {
-		JConsole.i.LogSystemMessage($"Clearing controllers...");
+		JConsole.i.DisplaySystemMessage($"Clearing controllers...");
 		// TODO: Humm...
 		AlexInput[] allInputs = FindObjectsOfType<AlexInput>();
 

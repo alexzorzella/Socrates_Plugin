@@ -35,7 +35,7 @@ public class AlexInput : MonoBehaviour {
 			deviceId = -2;
 		
 			#if UNITY_EDITOR
-				JConsole.i.LogSystemMessage("CPU input device added");
+				JConsole.i.DisplaySystemMessage("CPU input device added");
 			#endif
 			
 			return;
@@ -54,7 +54,7 @@ public class AlexInput : MonoBehaviour {
 
 		if (connectionSucessful) {
 			// JConsole.i.DisplaySystemMessage($"{gameObject.name} connected.");
-			JConsole.i.LogSystemMessage($"{GetDevice().displayName} connected");
+			JConsole.i.DisplaySystemMessage($"{GetDevice().displayName} connected");
 		}
 
 		transform.SetParent(inputManager.transform);
