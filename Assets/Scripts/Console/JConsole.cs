@@ -180,7 +180,6 @@ public class JConsole : MonoBehaviour {
         result = words[words.Length - 1];
 
         result = Regex.Replace(result, $"[{commandPrefix}]", "");
-        // result = Regex.Replace(result, "[^A-Za-z0-9_'+.?!]", "");
         
         return result;
     }
