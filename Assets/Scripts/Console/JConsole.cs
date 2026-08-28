@@ -395,7 +395,10 @@ public class JConsole : MonoBehaviour {
         foreach (string command in separatedCommands) {
             string[] splitCommand = command.Trim().Split(' ');
             HCommand selectedCommand = Array.Find(commands.ToArray(), c => commandPrefix + c.Keyword() == splitCommand[0]);
-            result.Add(selectedCommand);
+
+            if (selectedCommand != null) {
+                result.Add(selectedCommand);
+            }
         }
 
         return result;
@@ -418,7 +421,7 @@ public class JConsole : MonoBehaviour {
             history.Add(commandInput);
 
             if (commands.Count <= 0) {
-                WriteLine("Command not recognized.");
+                WriteLine("Command(s) not recognized.");
                 ClearInputField();
                 return false;
             }
