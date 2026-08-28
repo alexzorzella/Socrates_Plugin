@@ -83,13 +83,11 @@ public class IntroFunc : MonoBehaviour {
 
 		foreach (var s in sounds) {
 			PlayAudioSource(s);
-			// AudioManager.i.Play(s);
 		}
 	}
 
 	public void StopSound(string sound) {
 		StopAudioSource(sound);
-		// AudioManager.i.StopAllSources(sound, true);
 	}
 
 	public GameObject guts;
