@@ -15,6 +15,6 @@ public class HcCloseConsole : HCommand {
     }
 
     public string Keyword() {
-        return "console";
+        return "close";
     }
 }
