@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using SocratesDialogue;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -48,6 +47,8 @@ public class JConsole : MonoBehaviour {
 
     string machineName = "vnix";
     string username = "june";
+
+    bool pauseTimeWhenActive = false;
     
     public void RegisterListener(JConsoleLogListener newListener) {
         logListeners.Add(newListener);
@@ -298,7 +299,7 @@ public class JConsole : MonoBehaviour {
             selectedAutocompleteOption = -1;
             autocompleteOptions.Clear();
         }
-
+        
         if (Keyboard.current.leftShiftKey.wasPressedThisFrame) {
             if (Keyboard.current.backspaceKey.wasPressedThisFrame) {
                 inputField.text = "";
@@ -342,21 +343,25 @@ public class JConsole : MonoBehaviour {
             CloseConsole();
         }
 
-        // Time.timeScale = visible ? 0 : 1;
-
+        if (Keyboard.current.leftCtrlKey.isPressed && Keyboard.current.leftAltKey.isPressed && Keyboard.current.vKey.wasPressedThisFrame) {
+            bool didHideAll = DebugView.i.ShowAllIfAtLeastOneObjectInactiveOtherwiseHideAll();
+            DisplaySystemMessage("Debug view " + (didHideAll ? "off" : "on"));
+        }
+        
         if (visible && ReturnKey()) TryCommand();
     } 
 
     void OpenConsole() {
         visible = true;
         UpdateVisuals();
-        
+        if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
     public void CloseConsole() {
         visible = false;
         UpdateVisuals();
         SelectInputFieldAndSetText("/");
+        if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
     public void UpdateVisuals() {
