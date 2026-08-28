@@ -601,9 +601,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 4689807359579017076, guid: fcbcdc009d52e4b659a12795367c4cd9, type: 3}
+      value: {fileID: 4689807359579017076, guid: fcbcdc009d52e4b659a12795367c4cd9,
+        type: 3}
     - time: 3.7166667
-      value: {fileID: 2334507297335669914, guid: fcbcdc009d52e4b659a12795367c4cd9, type: 3}
+      value: {fileID: 2334507297335669914, guid: fcbcdc009d52e4b659a12795367c4cd9,
+        type: 3}
     attribute: m_Sprite
     path: gnat
     classID: 212
@@ -2647,7 +2649,7 @@ AnimationClip:
     messageOptions: 0
   - time: 7.983333
     functionName: LoadScene
-    data: CharacterSelect
+    data: Welcome
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
