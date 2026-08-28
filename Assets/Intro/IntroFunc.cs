@@ -11,7 +11,7 @@ public class IntroFunc : MonoBehaviour {
 	public float lerpSpeed = 5F;
 	public float lerpTime = 0;
 
-	readonly Dictionary<string, MultiAudioSource> audioSources = new Dictionary<string, MultiAudioSource>();
+	readonly Dictionary<string, MultiAudioSource> audioSources = new();
 
 	void PlayAudioSource(string soundName) {
 		if (!audioSources.ContainsKey(soundName)) {
