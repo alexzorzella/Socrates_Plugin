@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class JConsole : MonoBehaviour {
     static JConsole _i;
 
-    public static char commandPrefix = '/';
+    static readonly char commandPrefix = '/';
 
     public TextMeshProUGUI commandOutputText;
     public TMP_InputField inputField;
@@ -48,7 +48,7 @@ public class JConsole : MonoBehaviour {
     string machineName = "vnix";
     string username = "june";
 
-    bool pauseTimeWhenActive = false;
+    static readonly bool pauseTimeWhenActive = false;
     
     public void RegisterListener(JConsoleLogListener newListener) {
         logListeners.Add(newListener);
@@ -179,19 +179,29 @@ public class JConsole : MonoBehaviour {
 
         result = words[words.Length - 1];
 
-        result = Regex.Replace(result, "[^A-Za-z0-9_'+.?!]", "");
-
+        result = Regex.Replace(result, $"[{commandPrefix}]", "");
+        
         return result;
     }
 
+    void ClearAutocompleteOptions() {
+        autocompleteOptionsText.text = "";
+        autocompleteText.text = "";
+            
+        autocompleteBackgroundRect.sizeDelta = Vector2.zero;
+        selectedAutocompleteOption = -1;
+    }
+    
     void Autocomplete() {
         if (string.IsNullOrWhiteSpace(inputField.text)) {
-            autocompleteOptionsText.text = "";
+            ClearAutocompleteOptions();
             autocompleteText.text = "/";
+            
+            return;
+        }
 
-            autocompleteBackgroundRect.sizeDelta = Vector2.zero;
-
-            selectedAutocompleteOption = -1;
+        if (inputField.text[0] != commandPrefix) {
+            ClearAutocompleteOptions();
             return;
         }
 
@@ -243,7 +253,11 @@ public class JConsole : MonoBehaviour {
 
         var finalAutocomplete = "";
 
-        var selectedOption = autocompleteOptions[selectedAutocompleteOption];
+        string selectedOption = "";
+        
+        if(autocompleteOptions.Count > 0) {
+            selectedOption = autocompleteOptions[selectedAutocompleteOption];
+        }
 
         if (!string.IsNullOrWhiteSpace(selectedOption)) {
             finalAutocomplete = inputField.text;
