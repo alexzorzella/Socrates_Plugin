@@ -1,15 +1,11 @@
 using System.Collections.Generic;
     
 public class HcDebug : HCommand {
-    readonly List<string> options = new();
-
-    public HcDebug() {
-        options = DebugView.i.GetObjectNames();
-    }
+    readonly List<string> options = DebugView.i.GetObjectNames();
 
     public string CommandFunction(params string[] parameters) {
         if (parameters.Length < 2) {
-            return $"Please specify of the ({options.Count}) object name(s)";
+            return $"Please specify at least one of the {options.Count} object name(s)";
         }
 
         string result = "";

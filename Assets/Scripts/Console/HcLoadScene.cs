@@ -6,14 +6,19 @@ public class HcLoadScene : HCommand {
     readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
-        var sceneExists = SceneManager.GetSceneByName(parameters[1]) != null;
+        if (parameters.Length < 2) {
+            return "Please specify a scene name";
+        }
+        
+        bool sceneExists = SceneManager.GetSceneByName(parameters[1]) != null;
 
         if (sceneExists) {
             GnaTransition.LoadScene(parameters[1]);
             JConsole.i.CloseConsole();
+            return $"Loading {parameters[1]}...";
         }
 
-        return sceneExists ? $"Loading {parameters[1]}..." : $"{parameters[1]} doesn't exist.";
+        return $"{parameters[1]} doesn't exist.";
     }
 
     public string CommandHelp() {
@@ -28,8 +33,9 @@ public class HcLoadScene : HCommand {
         if (options.Count <= 0) {
             var sceneCount = SceneManager.sceneCountInBuildSettings;
 
-            for (var i = 0; i < sceneCount; i++)
+            for (var i = 0; i < sceneCount; i++) {
                 options.Add(Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)));
+            }
         }
 
         return options;

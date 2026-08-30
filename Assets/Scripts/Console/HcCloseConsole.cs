@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 
 public class HcCloseConsole : HCommand {
-    public List<string> AutocompleteOptions() {
-        return new List<string>();
-    }
-
     public string CommandFunction(params string[] parameters) {
         JConsole.i.CloseConsole();
         return "";
@@ -16,5 +12,9 @@ public class HcCloseConsole : HCommand {
 
     public string Keyword() {
         return "close";
+    }
+    
+    public List<string> AutocompleteOptions() {
+        return new List<string>();
     }
 }

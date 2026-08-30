@@ -8,16 +8,22 @@ public class HcMixerVolume : HCommand {
     }
 
     public string CommandFunction(params string[] parameters) {
-        var mixerGroup = Resources.Load<AudioMixerGroup>(parameters[1]);
+        if (parameters.Length < 2) {
+            return "Please specify the name of an audio mixer group";
+        }
+
+        string mixerName = parameters[1];
+        
+        var mixerGroup = Resources.Load<AudioMixerGroup>(mixerName);
 
         if (mixerGroup != null) {
             float vol;
             mixerGroup.audioMixer.GetFloat("Volume", out vol);
 
-            return $"{vol}";
+            return $"{mixerName} vol: {vol}";
         }
 
-        return $"There is no Audio Mixer Group named {parameters[1]}";
+        return $"There is no audio mixer group group named {mixerName}";
     }
 
     public string CommandHelp() {
