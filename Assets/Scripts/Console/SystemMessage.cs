@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SystemMessage : MonoBehaviour {
 	const float lifetime = 1.2F;

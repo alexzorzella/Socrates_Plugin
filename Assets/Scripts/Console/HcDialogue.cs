@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using SocratesDialogue;
 
 public class HcDialogue : HCommand {
-    List<string> options = null;
+    List<string> options;
     static readonly string testFromScript = "fromScript";
     static readonly string endConversation = ".endConversation";
 
     public string CommandFunction(params string[] parameters) {
         if (parameters.Length < 2) {
-            return "Please specify a dialogue to test...";
+            return "Please specify a dialogue reference ID";
         }
 
         string sectionReference = parameters[1];

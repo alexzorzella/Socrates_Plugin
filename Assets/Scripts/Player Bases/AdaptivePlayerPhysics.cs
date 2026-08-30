@@ -20,10 +20,6 @@ public class AdaptivePlayerPhysics : MonoBehaviour {
     public float dampenStopping = 5F;
     public float dampenTurning = 6F;
 
-    [Range(0f, 1f)] public float fHorizontalDampeningBasic;
-    [Range(0f, 1f)] public float fHorizontalDampeningWhenStopping;
-    [Range(0f, 1f)] public float fHorizontalDampeningWhenTurning;
-
     public Vector2 currentAddedVelocity = Vector2.zero;
     Animator anim;
 

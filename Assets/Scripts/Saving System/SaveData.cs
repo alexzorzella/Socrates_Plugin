@@ -11,7 +11,7 @@ public class SaveData {
     /// on initialization as the other fields will be populated later.
     /// </summary>
     /// <returns></returns>
-    public GameStats AsStats() {
+    public GameStats AsGameStats() {
         GameStats result = new();
 
         result.sfxVolume = sfxVolume;
