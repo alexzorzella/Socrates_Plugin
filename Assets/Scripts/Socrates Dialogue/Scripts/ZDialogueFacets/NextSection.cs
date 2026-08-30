@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace SocratesDialogue {
@@ -6,23 +7,17 @@ namespace SocratesDialogue {
         readonly string nextSectionRef;
         DialogueSection nextSection;
         
-        // static readonly Regex optionReader = new(@"^(.*),(.*)$");
-        //         
-        // public NextSection(string rawInput) {
-        //     var optionMatch = optionReader.Match(rawInput);
-        //    
-        //     if (!optionMatch.Success) {
-        //         nextSectionRef = rawInput;
-        //     } else if(optionMatch.Groups.Count == 3) {
-        //         choicePrompt = optionMatch.Groups[1].Value;
-        //         nextSectionRef = optionMatch.Groups[2].Value;
-        //     }
-        //
-        //     TryCache();
-        // }
-        
-        public NextSection(string nextSectionRef) {
-            this.nextSectionRef = nextSectionRef;
+        static readonly Regex optionReader = new(@"^(.*),(.*)$");
+                
+        public NextSection(string rawInput) {
+            var optionMatch = optionReader.Match(rawInput);
+           
+            if (!optionMatch.Success) {
+                nextSectionRef = rawInput;
+            } else if(optionMatch.Groups.Count == 3) {
+                choicePrompt = optionMatch.Groups[1].Value;
+                nextSectionRef = optionMatch.Groups[2].Value;
+            }
         }
         
         public NextSection(string choicePrompt, string nextSectionRef) {
@@ -31,7 +26,6 @@ namespace SocratesDialogue {
             if (!string.IsNullOrEmpty(nextSectionRef)) {
                 this.nextSectionRef = nextSectionRef;
             }
-            // TryCache();
         }
         
         public NextSection(DialogueSection nextSection) {

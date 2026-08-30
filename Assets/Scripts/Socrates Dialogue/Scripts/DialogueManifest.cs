@@ -25,6 +25,20 @@ public static class DialogueManifest {
     static Dictionary<string, DialogueSection> sectionsByReference;
     static readonly Dictionary<string, string> dialogueVariables = new();
 
+    public static List<string> GetSectionReferences() {
+        if (sectionsByReference == null) {
+            ParseFiles();
+        }
+        
+        List<string> result = new();
+
+        foreach (var keyValuePair in sectionsByReference) {
+            result.Add(keyValuePair.Key);
+        }
+
+        return result;
+    }
+    
     static int counter = 0;
     
     /// <summary>
@@ -59,7 +73,8 @@ public static class DialogueManifest {
             return sectionsByReference[reference];
         }
         
-        throw new NullReferenceException($"{reference} doesn't reference a dialogue section.");
+        Debug.LogWarning($"{reference} doesn't reference a dialogue section.");
+        return null;
     }
 
     /// <summary>

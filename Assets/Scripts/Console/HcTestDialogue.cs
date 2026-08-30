@@ -2,15 +2,36 @@ using System.Collections.Generic;
 using SocratesDialogue;
 
 public class HcTestDialogue : HCommand {
-    readonly List<string> options = new();
+    List<string> options = null;
+    static readonly string testFromScript = "fromScript";
 
     public string CommandFunction(params string[] parameters) {
-        // DialogueManager.i.StartDialogue(new DialogueTest().Dialogue());
-        DialogueManager.i.StartDialogue(DialogueManifest.GetSectionByReference("bakery"));
+        if (parameters.Length < 2) {
+            return "Please specify a dialogue to test...";
+        }
+
+        string sectionReference = parameters[1];
+
+        if (sectionReference == testFromScript) {
+            DialogueManager.i.StartDialogue(new DialogueTest().Dialogue());
+        } else {
+            DialogueSection section = DialogueManifest.GetSectionByReference(sectionReference);
+
+            if (section != null) {
+                DialogueManager.i.StartDialogue(section);
+            } else {
+                return $"No section called {sectionReference} found";
+            }
+        }
+        
         JConsole.i.visible = false;
         JConsole.i.UpdateVisuals();
 
-        return "Testing dialogue...";
+        string message = $"Starting dialogue at {sectionReference}...";
+        
+        JConsole.i.DisplaySystemMessage(message);
+        
+        return message;
     }
 
     public string Keyword() {
@@ -22,6 +43,11 @@ public class HcTestDialogue : HCommand {
     }
 
     public List<string> AutocompleteOptions() {
+        if (options == null) {
+            options = DialogueManifest.GetSectionReferences();
+            options.Add(testFromScript);
+        }
+
         return options;
     }
 }

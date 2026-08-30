@@ -256,6 +256,10 @@ public class JConsole : MonoBehaviour {
         string selectedOption = "";
         
         if(autocompleteOptions.Count > 0) {
+            if (selectedAutocompleteOption < 0 || selectedAutocompleteOption > autocompleteOptions.Count - 1) {
+                selectedAutocompleteOption = 0;
+            }
+            
             selectedOption = autocompleteOptions[selectedAutocompleteOption];
         }
 
