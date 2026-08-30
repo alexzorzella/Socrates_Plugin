@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
+using System.Threading;
 using SocratesDialogue;
 using UnityEngine;
 
@@ -29,7 +31,7 @@ public static class DialogueManifest {
     /// Returns a unique reference not present in the dialogue dictionary
     /// </summary>
     /// <returns></returns>
-    static string GetUniqueReference() {
+    public static string GetUniqueReference() {
         while (sectionsByReference.ContainsKey(counter.ToString())) {
             counter++;
         }
@@ -61,24 +63,26 @@ public static class DialogueManifest {
     }
 
     /// <summary>
-    /// Adds a dialogue section linked with a passed reference. If the reference is already present
-    /// in the dictionary, a new reference is generated and returned.
+    /// Adds a dialogue section linked with a passed reference. The passed referenceId uniqueReference
+    /// must be unique.
     /// </summary>
     /// <param name="uniqueReference"></param>
     /// <param name="current"></param>
     /// <returns></returns>
-    public static string AddEntry(string uniqueReference, DialogueSection current) {
-        if (sectionsByReference == null) {
-            ParseFiles();
-        }
+    public static void AddEntry(string uniqueReference, DialogueSection current) {
+        // if (sectionsByReference == null) {
+        //     ParseFiles();
+        // }
         
-        if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
-            uniqueReference = GetUniqueReference();
+        // if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
+        //     uniqueReference = GetUniqueReference();
+        // }
+
+        if (sectionsByReference.ContainsKey(uniqueReference)) {
+            throw new DuplicateNameException($"{uniqueReference} already is present in the dictionary of sections.");
         }
         
         sectionsByReference.Add(uniqueReference, current);
-
-        return uniqueReference;
     }
 
     /// <summary>

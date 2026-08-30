@@ -27,11 +27,13 @@ namespace SocratesDialogue {
             return this;
         }
 
-        public Dialogue Bake() {
-            List<DialogueSection> sections = new();
-
-            foreach (var entry in sectionBuilders) {
-                sections.Add(entry.Build());
+        public Dialogue Bake(List<DialogueSection> sections = null) {
+            if (sections == null) {
+                sections = new List<DialogueSection>();
+                
+                foreach (var entry in sectionBuilders) {
+                    sections.Add(entry.Build());
+                }
             }
 
             Dialogue dialogue = new Dialogue(sections);
