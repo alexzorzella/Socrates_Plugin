@@ -181,7 +181,7 @@ namespace SocratesDialogue {
             { "delay", passedValue => new CharDelay((string)passedValue) },
             { "event", passedValue => new DialogueEvent((string)passedValue) },
             { "soundbite", passedValue => new DialogueSoundbite((string)passedValue) },
-            // { "ref", passedValue => new DialogueReferenceDeprecated((string)passedValue) }
+            { "ref", null}
             // { "reference", passedValue => new DialogueReferenceDeprecated((string)passedValue) }
         };
 
@@ -223,7 +223,7 @@ namespace SocratesDialogue {
                 } else {
                     token = regexMatch.Groups[1].Value;
                     token = token.ToLower();
-
+                    
                     if (!tokenToFacet.ContainsKey(token)) {
                         Debug.LogWarning($"There is no token called '{token}'. Input '{entry}' couldn't be parsed.");
                         continue;
@@ -235,7 +235,7 @@ namespace SocratesDialogue {
                 if (string.IsNullOrWhiteSpace(token)) {
                     continue;
                 }
-
+                
                 if (token == "ref") {
                     referenceId = passedValue;
                     continue;

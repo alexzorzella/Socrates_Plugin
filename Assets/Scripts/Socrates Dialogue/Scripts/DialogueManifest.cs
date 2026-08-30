@@ -70,14 +70,6 @@ public static class DialogueManifest {
     /// <param name="current"></param>
     /// <returns></returns>
     public static void AddEntry(string uniqueReference, DialogueSection current) {
-        // if (sectionsByReference == null) {
-        //     ParseFiles();
-        // }
-        
-        // if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
-        //     uniqueReference = GetUniqueReference();
-        // }
-
         if (sectionsByReference.ContainsKey(uniqueReference)) {
             throw new DuplicateNameException($"{uniqueReference} already is present in the dictionary of sections.");
         }

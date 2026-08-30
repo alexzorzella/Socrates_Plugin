@@ -1,4 +1,9 @@
-name	content									
+name:Alex	content:What a beautiful day	ref:foo								
+										
+name	content	ref								
+Alex	What a beautiful day	bar								
+										
+Alex	content									
 Alex	The [gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] makes it <i>simple</i> to write dialogue, directly in a .tsv file!									
 Alex	When writing dialogue in the editor, there's [shake,3]a risk of data loss[!shake] and it's [shake,3]hard to see changes[!shake] in Git. <size=70%>It's also harder to navigate.</size>									
 Alex	[gradient][wave,4]Socrates Dialogue Markdown Language[!gradient][!wave] allows for [wave,2]wavy text[!wave], [shake,2]shaky text[!shake], [gradient]rainbow text[!gradient], and [gradient][wave,2][shake,2]any number of those effects at the same time![!gradient][!wave][!shake]									
@@ -10,7 +15,7 @@ man	Rahul
 woman	Tiffany									
 waiter	Monet									
 										
-name:{man}	content:So, {woman}, are you a fan of baked goods?									
+name:{man}	content:So, {woman}, are you a fan of baked goods?	ref:bakery								
 name:{woman}	content:Yeah, I like bakeries.									
 name:{man}	content:You a fan of the smell of [wave,2][gradient]freshly baked bread[!gradient][!wave],									
 name:{man}	content:or do you perfer the pastry section?									
@@ -34,7 +39,7 @@ name	content	ref
 {woman}	<size=50%>[shake,5]Aughhhhhhh![!shake] Don't make me regret this.</size>	sound:dialogue_2								
 {man}	<size=70%>Thirty seconds.</size>									
 {man}	<size=120%>Waiter!</size> We're [gradient][wave,5]ready to order[!gradient][!wave].									
-{woman}	There he is!	ref:bakery								
+{woman}	There he is!									
 {man}	<size=150%>[shake,5][gradient][wave,5]Showtime. {woman}, cover me![!shake][!gradient][!wave]	option:Duck,duck	option:Roll,roll	option:Run,escape						
 {woman}	Give me a moment!	duck	next:							
 {woman}	Be right there!	roll	next:							
