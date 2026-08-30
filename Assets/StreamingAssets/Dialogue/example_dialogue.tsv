@@ -45,18 +45,18 @@ name	content	ref
 {woman}	Be right there!	roll	next:							
 {woman}	We're getting <i>out of here</i>.	escape	next:							
 										
-				ref						
-Ott	You win!	condition:if(points < 10) { ott_taunt } else if(!player_won) { ott_says_lose }	next:	ott_says_win						
-Ott	You lose...		next:	ott_says_lose						
-Ott	Rolled like some oats, smoked like some fish		next:ott_says_lose	ott_taunt						
 										
-		cond:if((!false && true) || (true == true))=>redirect_to								
-		cond:if(gold > 10 && health > 20)=>win_very_well								
 										
-		cond:bool=>redirect_to								
-			ref							
-Monkey	You have {bananas} bananas. I want them all.	cond:if(bananas < 14)=>monkey_does_not_care								
-			monkey_does_not_care							
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
 										
 										
 										

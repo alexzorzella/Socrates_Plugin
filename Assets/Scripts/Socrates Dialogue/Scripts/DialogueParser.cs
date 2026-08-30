@@ -81,8 +81,8 @@ namespace SocratesDialogue {
                         }
 
                         // If the current conversation has lines, make a new one
-                        if (dialogueBuilder != null) {
-                            dialogueBuilder.Bake();
+                        if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
+                            results.Add(dialogueBuilder.Bake());
                             
                             currentConversationIndex++;
                             dialogueBuilder = new DialogueBuilder();
@@ -125,9 +125,12 @@ namespace SocratesDialogue {
                 // Add the new section to the current cached conversation
                 dialogueBuilder.WithSection(newSectionBuilder);
             }
+
+            if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
+                results.Add(dialogueBuilder.Bake());
+            }
             
-            Dialogue result = dialogueBuilder.Bake();
-            return result.GetFirstSection();
+            return results.Count > 0 ? results[0].GetFirstSection() : null;
         }
 
         /// <summary>
