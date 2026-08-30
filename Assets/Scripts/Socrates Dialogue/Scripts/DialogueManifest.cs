@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
+using System.Threading;
 using SocratesDialogue;
 using UnityEngine;
 
@@ -23,13 +25,34 @@ public static class DialogueManifest {
     static Dictionary<string, DialogueSection> sectionsByReference;
     static readonly Dictionary<string, string> dialogueVariables = new();
 
+    public static List<string> GetSectionReferences(bool excludeSectionsWithANumericalReference = false) {
+        if (sectionsByReference == null) {
+            ParseFiles();
+        }
+        
+        List<string> result = new();
+
+        foreach (var keyValuePair in sectionsByReference) {
+            string key = keyValuePair.Key;
+            int referenceIdAsInt = -1;
+
+            if (excludeSectionsWithANumericalReference && int.TryParse(keyValuePair.Key, out referenceIdAsInt)) {
+                continue;
+            }
+            
+            result.Add(key);
+        }
+
+        return result;
+    }
+    
     static int counter = 0;
     
     /// <summary>
     /// Returns a unique reference not present in the dialogue dictionary
     /// </summary>
     /// <returns></returns>
-    static string GetUniqueReference() {
+    public static string GetUniqueReference() {
         while (sectionsByReference.ContainsKey(counter.ToString())) {
             counter++;
         }
@@ -57,28 +80,23 @@ public static class DialogueManifest {
             return sectionsByReference[reference];
         }
         
-        throw new NullReferenceException($"{reference} doesn't reference a dialogue section.");
+        Debug.LogWarning($"{reference} doesn't reference a dialogue section.");
+        return null;
     }
 
     /// <summary>
-    /// Adds a dialogue section linked with a passed reference. If the reference is already present
-    /// in the dictionary, a new reference is generated and returned.
+    /// Adds a dialogue section linked with a passed reference. The passed referenceId uniqueReference
+    /// must be unique.
     /// </summary>
     /// <param name="uniqueReference"></param>
     /// <param name="current"></param>
     /// <returns></returns>
-    public static string AddEntry(string uniqueReference, DialogueSection current) {
-        if (sectionsByReference == null) {
-            ParseFiles();
-        }
-        
-        if (sectionsByReference.ContainsKey(uniqueReference) || string.IsNullOrEmpty(uniqueReference)) {
-            uniqueReference = GetUniqueReference();
+    public static void AddEntry(string uniqueReference, DialogueSection current) {
+        if (sectionsByReference.ContainsKey(uniqueReference)) {
+            throw new DuplicateNameException($"{uniqueReference} already is present in the dictionary of sections.");
         }
         
         sectionsByReference.Add(uniqueReference, current);
-
-        return uniqueReference;
     }
 
     /// <summary>

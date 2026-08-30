@@ -7,12 +7,17 @@ namespace SocratesDialogue {
 
 namespace SocratesDialogue {
     public class DialogueSection {
+        readonly string referenceId;
+        
+        public string GetReferenceId() { return referenceId; }
+        
         readonly List<ZDialogueFacet> facets;
         
-        public DialogueSection(params ZDialogueFacet[] facets) : 
-            this(facets.ToList()) { }
+        public DialogueSection(string referenceId, params ZDialogueFacet[] facets) : 
+            this(referenceId, facets.ToList()) { }
     
-        public DialogueSection(List<ZDialogueFacet> facets) {
+        public DialogueSection(string referenceId, List<ZDialogueFacet> facets) {
+            this.referenceId = referenceId;
             this.facets = facets;
         }
         
@@ -73,5 +78,17 @@ namespace SocratesDialogue {
             
             return result;
         }
+        
+        #if UNITY_EDITOR
+        public override string ToString() {
+            string result = $"id: {referenceId};";
+
+            foreach (var facet in facets) {
+                result += $" '{facet}';";
+            }
+            
+            return result;
+        }
+        #endif
     }
 }

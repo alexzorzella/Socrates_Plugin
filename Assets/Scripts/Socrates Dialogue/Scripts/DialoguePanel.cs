@@ -29,11 +29,15 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// Deletes the choice objects in the object cache as it clears the
     /// cache, one by one.
     /// </summary>
-    void ClearChoiceObjects() {
+    bool ClearChoiceObjects() {
+        bool clearing = choiceObjects.Count > 0;
+        
         while (choiceObjects.Count > 0) {
             choiceObjects[0].GetComponent<DialogueChoice>().Destroy();
             choiceObjects.RemoveAt(0);
         }
+        
+        return clearing;
     }
     
     void Awake() {
@@ -78,27 +82,28 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// <param name="newSection"></param>
     public void OnSectionChanged(DialogueSection newSection) {
         currentSection = newSection;
-        
+
         string name = newSection.GetFacet<DialogueSpeaker>().ToString();
         string content = newSection.GetFacet<DialogueContent>().ToString();
-        
+
         nameText.SetText(name);
         contentText.SetText(content, scroll: true, muted: false);
 
         string soundName =
-            newSection.GetFacet<DialogueSound>() != null ? 
-                newSection.GetFacet<DialogueSound>().ToString() : 
-                SocraticAnnotation.defaultSoundName;
-        
+            newSection.GetFacet<DialogueSound>() != null
+                ? newSection.GetFacet<DialogueSound>().ToString()
+                : SocraticAnnotation.defaultSoundName;
+
         contentText.SetDialogueSfx(soundName);
 
         if (newSection.GetFacet<DialogueSoundbite>() != null) {
             string soundbiteName = newSection.GetFacet<DialogueSoundbite>().ToString();
             contentText.PlaySoundbite(soundbiteName);
         }
-        
-        ClearChoiceObjects();
-        Move(origin);
+
+        if (ClearChoiceObjects()) {
+            LeanTween.delayedCall(DialogueChoice.fadeInTime, () => { Move(origin); });
+        }
     }
 
     /// <summary>
@@ -119,7 +124,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
             foreach (var choice in choices) {
                 dialogueChoiceObject = ResourceLoader.InstantiateObject("DialogueChoice", choiceParent);
                 DialogueChoice dialogueChoice = dialogueChoiceObject.GetComponent<DialogueChoice>();
-                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.LeadsToRef(), moveTime, index);
+                dialogueChoice.Initialize(dialogueManager, choice.Prompt(), choice.GetNextSectionReference(), moveTime, index);
                 choiceObjects.Add(dialogueChoiceObject);
 
                 index++;
@@ -157,10 +162,11 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// Hides the panel when the dialogue ends.
     /// </summary>
     public void OnDialogueEnded() {
-        ClearChoiceObjects();
+        if (ClearChoiceObjects()) {
+            LeanTween.delayedCall(DialogueChoice.fadeInTime, () => { Move(origin); });
+        }
         
         SetDialoguePanelVisible(false);
-        Move(origin);
     }
     
     /// <summary>

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SocratesDialogue {
     public class DialogueManager : MonoBehaviour {
@@ -93,7 +92,7 @@ namespace SocratesDialogue {
         }
         
         /// <summary>
-        /// Notifies all listeners that the current dialogue seciton has changed.
+        /// Notifies all listeners that the current dialogue section has changed.
         /// </summary>
         void NotifyOfSectionChange() {
             foreach (var listener in listeners) {
@@ -111,12 +110,30 @@ namespace SocratesDialogue {
         }
 
         /// <summary>
+        /// Invokes the current section's action if its dialogue action time matches the passed one.
+        /// </summary>
+        /// <param name="dialogueActionTime"></param>
+        void TryInvokeCurrentSectionAction(DialogueActionTime dialogueActionTime) {
+            if (currentSection != null && currentSection.HasFacet<DialogueAction>()) {
+                List<DialogueAction> actions = currentSection.GetFacets<DialogueAction>();
+
+                foreach (var action in actions) {
+                    if (action.GetDialogueActionTime() == dialogueActionTime) {
+                        action.Invoke();
+                    }
+                }
+            }
+        }
+        
+        /// <summary>
         /// Sets the current dialogue section to the new dialogue section, optionally notifying all
         /// listeners that the dialogue section has changed.
         /// </summary>
         /// <param name="section"></param>
         /// <param name="doNotNotify"></param>
         void SetCurrentSection(DialogueSection section, bool doNotNotify = false) {
+            TryInvokeCurrentSectionAction(DialogueActionTime.AFTER_DISPLAYING_TEXT);
+            
             currentSection = section;
 
             if (!doNotNotify) {
@@ -126,6 +143,8 @@ namespace SocratesDialogue {
             if (currentSection != null) {
                 DialogueEvent dialogueEvent = currentSection.GetFacet<DialogueEvent>();
 
+                TryInvokeCurrentSectionAction(DialogueActionTime.BEFORE_DISPLAYING_TEXT);
+                
                 if (dialogueEvent != null) {
                     NotifyDialogueEventListeners(dialogueEvent.GetTag(), dialogueEvent.GetParameters());
                 }
@@ -138,6 +157,11 @@ namespace SocratesDialogue {
         /// dialogue section's content.
         /// </summary>
         public void ContinueConversation(string reference = "") {
+            if (reference == null) {
+                EndDialogue();
+                return;
+            }
+            
             int nextSectionCount = 0;
             
             // Count the number of choices. Monologues have one next section (no choices).
@@ -158,7 +182,18 @@ namespace SocratesDialogue {
             // Cached the reference's associated dialogue section if one was passed
             if (!string.IsNullOrWhiteSpace(reference)) {
                 try {
-                    nextSection = DialogueManifest.GetSectionByReference(reference);
+                    List<NextSection> nextSections = currentSection.GetFacets<NextSection>();
+
+                    foreach (var section in nextSections) {
+                        if (section.GetNextSectionReference() == reference) {
+                            nextSection = section.GetNextSection();
+                            break;
+                        }
+                    }
+
+                    if (nextSection == null) {
+                        nextSection = DialogueManifest.GetSectionByReference(reference);
+                    }
                 } catch {
                     Debug.LogWarning($"Reference {reference} has no associated dialogue section.");
                     nextSection = null;
@@ -166,7 +201,7 @@ namespace SocratesDialogue {
             } else if (nextSectionCount == 1) {
                 // Otherwise, if the current section is a Monologue (only one
                 // section next), cache it.
-                nextSection = currentSection.GetFacet<NextSection>().LeadsTo();
+                nextSection = currentSection.GetFacet<NextSection>().GetNextSection();
             }
             
             // If the next section is null, end the dialogue and return

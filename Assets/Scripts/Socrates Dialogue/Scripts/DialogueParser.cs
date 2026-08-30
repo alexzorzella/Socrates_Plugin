@@ -98,24 +98,20 @@ namespace SocratesDialogue {
                         continue;
                 }
 
-                facets = ParseFacetsFrom(line, columns);
+                string referenceId = "";
+                facets = ParseFacetsFrom(line, columns, out referenceId);
 
+                if (string.IsNullOrWhiteSpace(referenceId)) { referenceId = DialogueManifest.GetUniqueReference(); }
+                
                 // Create a new instance of a dialogue section passing the facets
-                DialogueSection newSection = new DialogueSection(facets);
+                DialogueSection newSection = new DialogueSection(referenceId, facets);
 
                 emptyLineCount = 0;
-
-                string uniqueReference = "";
-
-                // If the user explicitly points to the next section, use that reference
-                if (newSection.HasFacet<DialogueReference>()) {
-                    uniqueReference = newSection.GetFacet<DialogueReference>().ToString();
-                }
-
+                
                 // Added the unique reference to the manifest paired with the new section.
                 // If the unique reference is empty or whitespace, it'll generate a new,
                 // unique reference for it.
-                uniqueReference = DialogueManifest.AddEntry(uniqueReference, newSection);
+                DialogueManifest.AddEntry(referenceId, newSection);
 
                 // If this isn't the first line of conversation,
                 if (results[currentConversationIndex].Count > 0) {
@@ -124,7 +120,7 @@ namespace SocratesDialogue {
                     // and the last section didn't have choices
                     if (lastSection.CountOfFacetType<NextSection>() <= 0) {
                         // the last dialogue section should lead to this one.
-                        lastSection.AddFacet(new NextSection(uniqueReference));
+                        lastSection.AddFacet(new NextSection(referenceId));
                     }
                 }
 
@@ -135,8 +131,6 @@ namespace SocratesDialogue {
             if (results.Count < 0 || results[0].Count < 0) {
                 return null;
             }
-
-            // Debug.Log($"Parsed {results.Count} conversation(s) from {filename}");
 
             return results[0][0];
         }
@@ -187,8 +181,8 @@ namespace SocratesDialogue {
             { "delay", passedValue => new CharDelay((string)passedValue) },
             { "event", passedValue => new DialogueEvent((string)passedValue) },
             { "soundbite", passedValue => new DialogueSoundbite((string)passedValue) },
-            { "ref", passedValue => new DialogueReference((string)passedValue) },
-            { "reference", passedValue => new DialogueReference((string)passedValue) }
+            { "ref", null}
+            // { "reference", passedValue => new DialogueReferenceDeprecated((string)passedValue) }
         };
 
         /// <summary>
@@ -198,9 +192,11 @@ namespace SocratesDialogue {
         /// </summary>
         /// <param name="line"></param>
         /// <param name="columns"></param>
+        /// <param name="referenceId"></param>
         /// <returns></returns>
-        static List<ZDialogueFacet> ParseFacetsFrom(string line, string[] columns) {
+        static List<ZDialogueFacet> ParseFacetsFrom(string line, string[] columns, out string referenceId) {
             List<ZDialogueFacet> results = new();
+            referenceId = "";
 
             string[] entries = line.Split('\t');
 
@@ -227,7 +223,7 @@ namespace SocratesDialogue {
                 } else {
                     token = regexMatch.Groups[1].Value;
                     token = token.ToLower();
-
+                    
                     if (!tokenToFacet.ContainsKey(token)) {
                         Debug.LogWarning($"There is no token called '{token}'. Input '{entry}' couldn't be parsed.");
                         continue;
@@ -239,11 +235,16 @@ namespace SocratesDialogue {
                 if (string.IsNullOrWhiteSpace(token)) {
                     continue;
                 }
-
+                
+                if (token == "ref") {
+                    referenceId = passedValue;
+                    continue;
+                }
+                
                 ZDialogueFacet facet = tokenToFacet[token](passedValue);
                 results.Add(facet);
             }
-
+            
             return results;
         }
     }

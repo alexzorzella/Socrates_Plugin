@@ -3,52 +3,66 @@ using UnityEngine;
 
 namespace SocratesDialogue {
     public class NextSection : ZDialogueFacet {
-        readonly string prompt;
-        readonly string reference;
-        DialogueSection next;
+        readonly string choicePrompt;
+        readonly string nextSectionRef;
+        DialogueSection nextSection;
         
         static readonly Regex optionReader = new(@"^(.*),(.*)$");
-        
+                
         public NextSection(string rawInput) {
             var optionMatch = optionReader.Match(rawInput);
-            
+           
             if (!optionMatch.Success) {
-                reference = rawInput;
+                nextSectionRef = rawInput;
             } else if(optionMatch.Groups.Count == 3) {
-                prompt = optionMatch.Groups[1].Value;
-                reference = optionMatch.Groups[2].Value;
+                choicePrompt = optionMatch.Groups[1].Value;
+                nextSectionRef = optionMatch.Groups[2].Value;
             }
-
-            TryCache();
         }
         
-        public NextSection(DialogueSection next) {
-            this.next = next;
+        public NextSection(string choicePrompt, string nextSectionRef) {
+            this.choicePrompt = choicePrompt;
+
+            if (!string.IsNullOrEmpty(nextSectionRef)) {
+                this.nextSectionRef = nextSectionRef;
+            }
+        }
+        
+        public NextSection(DialogueSection nextSection) {
+            this.nextSection = nextSection;
         }
 
         void TryCache() {
             try {
-                if (next == null) {
-                    next = DialogueManifest.GetSectionByReference(reference);
+                if (nextSection == null) {
+                    nextSection = DialogueManifest.GetSectionByReference(nextSectionRef);
                 }
             }
             catch {
-                Debug.LogWarning($"Didn't find a dialogue section with reference {reference}.");
+                Debug.LogWarning($"Didn't find a dialogue section with reference {nextSectionRef}.");
             }
         }
+
+        public void SetNextSection(DialogueSection nextSection) {
+            this.nextSection = nextSection;
+        }
         
-        public DialogueSection LeadsTo() {
+        public DialogueSection GetNextSection() {
             TryCache();
             
-            return next;
+            return nextSection;
         }
 
-        public string LeadsToRef() {
-            return reference;
+        public string GetNextSectionReference() {
+            return nextSectionRef;
         }
 
         public string Prompt() {
-            return prompt;
+            return choicePrompt;
+        }
+
+        public override string ToString() {
+            return $"next (ref): {nextSectionRef}, (actual {(nextSection == null ? "not " : "")}cached)";
         }
     }
 }
