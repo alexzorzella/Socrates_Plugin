@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 using SocratesDialogue;
 
-public class HcTestDialogue : HCommand {
+public class HcDebugDialogue : HCommand {
     List<string> options = null;
     static readonly string testFromScript = "fromScript";
 
@@ -36,11 +36,11 @@ public class HcTestDialogue : HCommand {
     }
 
     public string Keyword() {
-        return "testDialogue";
+        return "debugDialogue";
     }
 
     public string CommandHelp() {
-        return "Plays test dialogue";
+        return "Starts a dialogue with the passed referenceId";
     }
 
     public List<string> AutocompleteOptions() {
