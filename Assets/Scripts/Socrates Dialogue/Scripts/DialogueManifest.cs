@@ -91,7 +91,8 @@ public static class DialogueManifest {
     /// <returns></returns>
     public static void AddEntry(string uniqueReference, DialogueSection current) {
         if (sectionsByReference.ContainsKey(uniqueReference)) {
-            throw new DuplicateNameException($"{uniqueReference} already is present in the dictionary of sections.");
+            // Debug.LogWarning($"{uniqueReference} already is present in the dictionary of sections.");
+            return;
         }
         
         sectionsByReference.Add(uniqueReference, current);
