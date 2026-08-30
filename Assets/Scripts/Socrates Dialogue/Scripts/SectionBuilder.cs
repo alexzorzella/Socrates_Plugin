@@ -52,11 +52,8 @@ namespace SocratesDialogue {
             return this;
         }
 
-        bool hasNextSection;
-
         public SectionBuilder WithNextSection(string nextSection) {
             facets.Add(new NextSection(nextSection));
-            hasNextSection = true;
             return this;
         }
 
@@ -72,7 +69,13 @@ namespace SocratesDialogue {
         }
 
         public bool HasNextSection() {
-            return hasNextSection;
+            foreach (var facet in facets) {
+                if (typeof(NextSection).IsInstanceOfType(facet)) {
+                    return true;
+                }
+            }
+            
+            return false;
         }
 
         public DialogueSection Build() {
