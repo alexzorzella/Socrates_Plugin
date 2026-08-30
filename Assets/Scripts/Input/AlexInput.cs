@@ -1,22 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/**
- * Used by code at large to read input from a controller.
- */
+// Used by code at large to read input from a controller
 public class AlexInput : MonoBehaviour {
-	/**
-	 * Unity component that keeps track of a controller input.
-	 */
+	// Unity component that keeps track of a controller input
 	PlayerInput input;
 
-	/**
-	 * Unity-assigned identifier to a controller. 
-	 */
+	// Unity-assigned identifier to a controller
 	int deviceId;
 
 	// Input overriding
-	bool overrideInput = false;
+	bool overrideInput;
 
 	public void SetOverrideFlag() {
 		overrideInput = true;
@@ -50,10 +44,9 @@ public class AlexInput : MonoBehaviour {
 
 		gameObject.name = $"(Device {deviceId}) {GetDevice().displayName} Input";
 
-		bool connectionSucessful = inputManager.AddSource(this);
+		bool connectionSuccessful = inputManager.AddSource(this);
 
-		if (connectionSucessful) {
-			// JConsole.i.DisplaySystemMessage($"{gameObject.name} connected.");
+		if (connectionSuccessful) {
 			JConsole.i.DisplaySystemMessage($"{GetDevice().displayName} connected");
 		}
 
@@ -73,7 +66,7 @@ public class AlexInput : MonoBehaviour {
 		return deviceId;
 	}
 
-	private InputActionMap GetActionMap() {
+	InputActionMap GetActionMap() {
 		return input.actions.FindActionMap("Player");
 	}
 
@@ -90,7 +83,9 @@ public class AlexInput : MonoBehaviour {
 		}
 		
 		Vector2 cardinal = LeftStickRaw();
+		
 		// return new Vector2(Mathf.CeilToInt(cardinal.x), Mathf.CeilToInt(cardinal.y));
+		
 		float resultX = 0;
 		float resultY = 0;
 
@@ -151,50 +146,18 @@ public class AlexInput : MonoBehaviour {
 		}
 	}
 
-	public bool LightPunchPressed() {
-		return GetActionMap().FindAction("LPunch").IsPressed();
-	}
-
-	public bool MediumPunchPressed() {
-		return GetActionMap().FindAction("MPunch").IsPressed();
-	}
-
-	public bool HeavyPunchPressed() {
-		return GetActionMap().FindAction("HPunch").IsPressed();
-	}
-
-	public bool LightKickPressed() {
-		return GetActionMap().FindAction("LKick").IsPressed();
-	}	
-
-	public bool MediumKickPressed() {
-		return GetActionMap().FindAction("MKick").IsPressed();
-	}
-
-	public bool HeavyKickPressed() {
-		return GetActionMap().FindAction("HKick").IsPressed();
-	}
-
-	public bool PlusPressed() {
-		return GetActionMap().FindAction("Plus").IsPressed();
-	}
-
-	public bool ScreenshotPressed() {
-		return GetActionMap().FindAction("Screenshot").IsPressed();
-	}
-
-	public bool HomePressed() {
-		return GetActionMap().FindAction("Home").IsPressed();
-	}
-
-	public bool TauntPressed() {
-		return GetActionMap().FindAction("Taunt").IsPressed();
-	}
-
-	public bool RespectPressed() {
-		return GetActionMap().FindAction("Respect").IsPressed();
-	}
-
+	public bool LightPunchPressed() { return GetActionMap().FindAction("LPunch").IsPressed(); }
+	public bool MediumPunchPressed() { return GetActionMap().FindAction("MPunch").IsPressed(); }
+	public bool HeavyPunchPressed() { return GetActionMap().FindAction("HPunch").IsPressed(); }
+	public bool LightKickPressed() { return GetActionMap().FindAction("LKick").IsPressed(); }	
+	public bool MediumKickPressed() { return GetActionMap().FindAction("MKick").IsPressed(); }
+	public bool HeavyKickPressed() { return GetActionMap().FindAction("HKick").IsPressed(); }
+	public bool PlusPressed() { return GetActionMap().FindAction("Plus").IsPressed(); }
+	public bool ScreenshotPressed() { return GetActionMap().FindAction("Screenshot").IsPressed(); }
+	public bool HomePressed() { return GetActionMap().FindAction("Home").IsPressed(); }
+	public bool TauntPressed() { return GetActionMap().FindAction("Taunt").IsPressed(); }
+	public bool RespectPressed() { return GetActionMap().FindAction("Respect").IsPressed(); }
+	
 	public void Destroy() {
 		Destroy(gameObject);
 	}
