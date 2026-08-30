@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using SocratesDialogue;
 
 public class HcTestDialogue : HCommand {
@@ -44,7 +45,7 @@ public class HcTestDialogue : HCommand {
 
     public List<string> AutocompleteOptions() {
         if (options == null) {
-            options = DialogueManifest.GetSectionReferences();
+            options = DialogueManifest.GetSectionReferences(true);
             options.Add(testFromScript);
         }
 

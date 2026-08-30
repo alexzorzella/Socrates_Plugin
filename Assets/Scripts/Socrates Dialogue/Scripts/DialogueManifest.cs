@@ -25,7 +25,7 @@ public static class DialogueManifest {
     static Dictionary<string, DialogueSection> sectionsByReference;
     static readonly Dictionary<string, string> dialogueVariables = new();
 
-    public static List<string> GetSectionReferences() {
+    public static List<string> GetSectionReferences(bool excludeSectionsWithANumericalReference = false) {
         if (sectionsByReference == null) {
             ParseFiles();
         }
@@ -33,7 +33,14 @@ public static class DialogueManifest {
         List<string> result = new();
 
         foreach (var keyValuePair in sectionsByReference) {
-            result.Add(keyValuePair.Key);
+            string key = keyValuePair.Key;
+            int referenceIdAsInt = -1;
+
+            if (excludeSectionsWithANumericalReference && int.TryParse(keyValuePair.Key, out referenceIdAsInt)) {
+                continue;
+            }
+            
+            result.Add(key);
         }
 
         return result;
