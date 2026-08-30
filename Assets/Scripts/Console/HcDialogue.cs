@@ -14,8 +14,12 @@ public class HcDialogue : HCommand {
         string sectionReference = parameters[1];
 
         if (sectionReference == endConversation) {
-            DialogueManager.i.EndDialogue();
-            return "Ended conversation";
+            if (DialogueManager.i.Talking()) {
+                DialogueManager.i.EndDialogue();
+                return "Ended conversation";
+            }
+
+            return "No current conversation";
         }
         
         if (sectionReference == testFromScript) {
