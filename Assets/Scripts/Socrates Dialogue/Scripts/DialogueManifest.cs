@@ -89,7 +89,7 @@ public static class DialogueManifest {
     /// <param name="uniqueReference"></param>
     /// <param name="current"></param>
     /// <returns></returns>
-    public static void AddEntry(string uniqueReference, DialogueSection current) {
+    public static void TryAddEntry(string uniqueReference, DialogueSection current) {
         if (sectionsByReference.ContainsKey(uniqueReference)) {
             // Debug.LogWarning($"{uniqueReference} already is present in the dictionary of sections.");
             return;

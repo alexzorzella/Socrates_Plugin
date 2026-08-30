@@ -45,7 +45,7 @@ namespace SocratesDialogue {
             
             foreach (var entry in sectionBuilders) {
                 DialogueSection builtSection = entry.Build();
-                DialogueManifest.AddEntry(entry.GetOrSetReferenceIdToFallback(), builtSection);
+                DialogueManifest.TryAddEntry(entry.GetOrSetReferenceIdToFallback(), builtSection);
                 sections.Add(builtSection);
             }
 
