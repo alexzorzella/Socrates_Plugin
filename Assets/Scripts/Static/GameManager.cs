@@ -19,7 +19,7 @@ public class GameManager {
 		SaveData saveData = SaveSystem.LoadSave("save");
 
 		if (saveData != null) {
-			stats = saveData.AsStats();
+			stats = saveData.AsGameStats();
 		} else {
 			stats = new GameStats();
 		}
