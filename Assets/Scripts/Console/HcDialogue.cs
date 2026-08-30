@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using SocratesDialogue;
 
-public class HcDebugDialogue : HCommand {
+public class HcDialogue : HCommand {
     List<string> options = null;
     static readonly string testFromScript = "fromScript";
+    static readonly string endConversation = ".endConversation";
 
     public string CommandFunction(params string[] parameters) {
         if (parameters.Length < 2) {
@@ -12,6 +13,11 @@ public class HcDebugDialogue : HCommand {
 
         string sectionReference = parameters[1];
 
+        if (sectionReference == endConversation) {
+            DialogueManager.i.EndDialogue();
+            return "Ended conversation";
+        }
+        
         if (sectionReference == testFromScript) {
             DialogueManager.i.StartDialogue(new DialogueTest().Dialogue());
         } else {
@@ -35,7 +41,7 @@ public class HcDebugDialogue : HCommand {
     }
 
     public string Keyword() {
-        return "debugDialogue";
+        return "dialogue";
     }
 
     public string CommandHelp() {
@@ -46,6 +52,7 @@ public class HcDebugDialogue : HCommand {
         if (options == null) {
             options = DialogueManifest.GetSectionReferences(true);
             options.Add(testFromScript);
+            options.Add(endConversation);
         }
 
         return options;
