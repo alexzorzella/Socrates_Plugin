@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using System.Runtime.CompilerServices;
+using Codice.CM.Common.Merge;
 
 [assembly: InternalsVisibleTo("EditMode")]
 
@@ -25,7 +26,7 @@ namespace SocratesDialogue {
         /// <param name="filename"></param>
         /// <returns></returns>
         public static DialogueSection ParseFile(string filename) {
-            List<List<DialogueSection>> results = new();
+            List<Dialogue> results = new();
 
             var filepath = Path.Combine(Application.streamingAssetsPath, "Dialogue", $"{filename}.tsv");
 
@@ -40,9 +41,10 @@ namespace SocratesDialogue {
 
             int emptyLineCount = 0;
             int currentConversationIndex = 0;
-            results.Add(new List<DialogueSection>());
 
-            ParsingMode parsingMode = ParsingMode.SKIP_LINE;
+            DialogueBuilder dialogueBuilder = new();
+
+            ParsingMode currentParsingMode = ParsingMode.SKIP_LINE;
 
             string[] columns = Array.Empty<string>();
 
@@ -51,27 +53,26 @@ namespace SocratesDialogue {
                 string line = lines[i];
 
                 List<ZDialogueFacet> facets = new();
-
+                
                 if (ParsingModeFromLine(line) == ParsingMode.SKIP_LINE) {
-                    parsingMode = ParsingMode.SKIP_LINE;
+                    currentParsingMode = ParsingMode.SKIP_LINE;
                 }
 
-                switch (parsingMode) {
-                    case ParsingMode.TOKEN_DEF:
-                        string[] entries = line.Split('\t');
-                        DialogueManifest.AddDialogueVariable(entries[0], entries[1]);
-
-                        continue;
+                if (currentParsingMode == ParsingMode.TOKEN_DEF) {
+                    // This line defines a dialogue variable, so it adds
+                    // that value to the manifest and continues
+                    string[] entries = line.Split('\t');
+                    DialogueManifest.AddDialogueVariable(entries[0], entries[1]);
+                    continue;
                 }
 
-                parsingMode = ParsingModeFromLine(line);
+                currentParsingMode = ParsingModeFromLine(line);
 
-                switch (parsingMode) {
+                switch (currentParsingMode) {
                     // The line is empty and will be skipped
                     case ParsingMode.SKIP_LINE:
                         // The columns are cleared
                         columns = Array.Empty<string>();
-
                         emptyLineCount++;
 
                         // Break when encountering too many empty lines
@@ -80,9 +81,11 @@ namespace SocratesDialogue {
                         }
 
                         // If the current conversation has lines, make a new one
-                        if (results[currentConversationIndex].Count > 0) {
+                        if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
+                            results.Add(dialogueBuilder.Bake());
+                            
                             currentConversationIndex++;
-                            results.Add(new List<DialogueSection>());
+                            dialogueBuilder = new DialogueBuilder();
                         }
 
                         continue;
@@ -104,35 +107,30 @@ namespace SocratesDialogue {
                 if (string.IsNullOrWhiteSpace(referenceId)) { referenceId = DialogueManifest.GetUniqueReference(); }
                 
                 // Create a new instance of a dialogue section passing the facets
-                DialogueSection newSection = new DialogueSection(referenceId, facets);
+                SectionBuilder newSectionBuilder = new SectionBuilder(referenceId, facets);
 
                 emptyLineCount = 0;
                 
-                // Added the unique reference to the manifest paired with the new section.
-                // If the unique reference is empty or whitespace, it'll generate a new,
-                // unique reference for it.
-                DialogueManifest.AddEntry(referenceId, newSection);
-
                 // If this isn't the first line of conversation,
-                if (results[currentConversationIndex].Count > 0) {
-                    DialogueSection lastSection = results[currentConversationIndex].Last();
+                if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
+                    SectionBuilder lastSectionBuilder = dialogueBuilder.GetLastSectionBuilder();
 
                     // and the last section didn't have choices
-                    if (lastSection.CountOfFacetType<NextSection>() <= 0) {
+                    if (!lastSectionBuilder.HasNextSection()) {
                         // the last dialogue section should lead to this one.
-                        lastSection.AddFacet(new NextSection(referenceId));
+                        lastSectionBuilder.WithNextSection(referenceId);
                     }
                 }
 
                 // Add the new section to the current cached conversation
-                results[currentConversationIndex].Add(newSection);
+                dialogueBuilder.WithSection(newSectionBuilder);
             }
 
-            if (results.Count < 0 || results[0].Count < 0) {
-                return null;
+            if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
+                results.Add(dialogueBuilder.Bake());
             }
-
-            return results[0][0];
+            
+            return results.Count > 0 ? results[0].GetFirstSection() : null;
         }
 
         /// <summary>

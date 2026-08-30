@@ -223,7 +223,7 @@ namespace SocratesDialogue {
         /// <summary>
         /// Ends the current conversation and notifies all listeners.
         /// </summary>
-        void EndDialogue() {
+        public void EndDialogue() {
             SetCurrentSection(null, true);
             NotifyOfDialogueEnded();
         }

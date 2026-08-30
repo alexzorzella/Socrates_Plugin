@@ -14,6 +14,16 @@ namespace SocratesDialogue {
             return referenceId;
         }
 
+        /// <summary>
+        /// This constructor is meant to be called from the parser.
+        /// </summary>
+        /// <param name="referenceId"></param>
+        /// <param name="facets"></param>
+        public SectionBuilder(string referenceId, List<ZDialogueFacet> facets) {
+            this.referenceId = referenceId;
+            this.facets = facets;
+        }
+        
         public SectionBuilder(string speaker, string content, string reference = null) {
             facets.Add(new DialogueSpeaker(speaker));
             facets.Add(new DialogueContent(content));
@@ -42,11 +52,8 @@ namespace SocratesDialogue {
             return this;
         }
 
-        bool hasNextSection;
-
         public SectionBuilder WithNextSection(string nextSection) {
             facets.Add(new NextSection(nextSection));
-            hasNextSection = true;
             return this;
         }
 
@@ -62,7 +69,13 @@ namespace SocratesDialogue {
         }
 
         public bool HasNextSection() {
-            return hasNextSection;
+            foreach (var facet in facets) {
+                if (typeof(NextSection).IsInstanceOfType(facet)) {
+                    return true;
+                }
+            }
+            
+            return false;
         }
 
         public DialogueSection Build() {

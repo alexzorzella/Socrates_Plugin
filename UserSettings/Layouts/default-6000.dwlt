@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 257
-    y: 27
-    width: 1024
-    height: 768
+    x: 0
+    y: 43
+    width: 1920
+    height: 1037
   m_ShowMode: 4
-  m_Title: 
+  m_Title: Scene
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
-  m_Maximized: 0
+  m_Maximized: 1
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -40,9 +40,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 515
-    width: 165
-    height: 197
+    y: 710
+    width: 309
+    height: 271
   m_MinSize: {x: 51, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 15}
@@ -67,14 +67,14 @@ MonoBehaviour:
   - {fileID: 2}
   m_Position:
     serializedVersion: 2
-    x: 859
+    x: 1611
     y: 0
-    width: 165
-    height: 712
+    width: 309
+    height: 981
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 193
+  controlID: 130
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -96,8 +96,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1024
-    height: 768
+    width: 1920
+    height: 1037
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
@@ -121,7 +121,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1024
+    width: 1920
     height: 36
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 748
-    width: 1024
+    y: 1017
+    width: 1920
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -165,12 +165,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 36
-    width: 1024
-    height: 712
+    width: 1920
+    height: 981
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 191
+  controlID: 128
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -191,12 +191,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1024
-    height: 712
+    width: 1920
+    height: 981
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 192
+  controlID: 129
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -217,12 +217,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 859
-    height: 712
+    width: 1611
+    height: 981
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 135
+  controlID: 57
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -243,12 +243,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 859
-    height: 494
+    width: 1611
+    height: 699
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 136
+  controlID: 47
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -267,8 +267,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 122
-    height: 494
+    width: 313
+    height: 699
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 17}
@@ -291,10 +291,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 122
+    x: 313
     y: 0
-    width: 737
-    height: 494
+    width: 1298
+    height: 699
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 18}
@@ -321,9 +321,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 494
-    width: 859
-    height: 218
+    y: 699
+    width: 1611
+    height: 282
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 16}
@@ -349,8 +349,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 165
-    height: 515
+    width: 309
+    height: 710
   m_MinSize: {x: 101, y: 126}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 24}
@@ -382,9 +382,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1
-    y: 539
-    width: 164
-    height: 171
+    y: 734
+    width: 308
+    height: 245
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -397,12 +397,12 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 251
+    ID: 163
     splitterInitialOffset: 389.33334
     currentActiveSplitter: -1
     realSizes:
-    - 108
-    - 63
+    - 111
+    - 64
     relativeSizes:
     - 0.6339755
     - 0.3660245
@@ -412,7 +412,7 @@ MonoBehaviour:
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 171
+    lastTotalSize: 175
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -460,8 +460,8 @@ MonoBehaviour:
       uniqueId: '[Socrates Plugin][suite]'
       name: Socrates Plugin
       fullName: Socrates Plugin
-      resultStatus: 1
-      duration: 0.0645565
+      resultStatus: 0
+      duration: 0
       messages: 
       output: 
       stacktrace: 
@@ -472,7 +472,564 @@ MonoBehaviour:
       categories: []
       parentId: 
       parentUniqueId: 
-    m_ResultText: Socrates Plugin (0.065s)
+    - id: 1033
+      uniqueId: '[EditMode][C:/Users/alexz/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+      name: EditMode.dll
+      fullName: C:/Users/alexz/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[Socrates Plugin][suite]'
+    - id: 1001
+      uniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+      name: FancyTextTests
+      fullName: FancyTextTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1033
+      parentUniqueId: '[EditMode][C:/Users/alexz/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+    - id: 1003
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulk]'
+      name: _TestWrappedFancyTextBulk
+      fullName: FancyTextTests._TestWrappedFancyTextBulk
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1002
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulkNoAnnotations]'
+      name: _TestWrappedFancyTextBulkNoAnnotations
+      fullName: FancyTextTests._TestWrappedFancyTextBulkNoAnnotations
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1008
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulkSimpleStrings]'
+      name: _TestWrappedFancyTextBulkSimpleStrings
+      fullName: FancyTextTests._TestWrappedFancyTextBulkSimpleStrings
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1015
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextAverageCase]'
+      name: FancyTextAverageCase
+      fullName: FancyTextTests.FancyTextAverageCase
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1014
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTagB]'
+      name: FancyTextSingleTokenNestedWithMultipleRichTextTagB
+      fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTagB
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1012
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTags]'
+      name: FancyTextSingleTokenNestedWithMultipleRichTextTags
+      fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTags
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1009
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTag]'
+      name: FancyTextSingleTokenNestedWithRichTextTag
+      fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTag
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1010
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagB]'
+      name: FancyTextSingleTokenNestedWithRichTextTagB
+      fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagB
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1011
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagC]'
+      name: FancyTextSingleTokenNestedWithRichTextTagC
+      fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagC
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1013
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagD]'
+      name: FancyTextSingleTokenNestedWithRichTextTagD
+      fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagD
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1004
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotations]'
+      name: TestFancyTextNoAnnotations
+      fullName: FancyTextTests.TestFancyTextNoAnnotations
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1006
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotationsWithPunctutation]'
+      name: TestFancyTextNoAnnotationsWithPunctutation
+      fullName: FancyTextTests.TestFancyTextNoAnnotationsWithPunctutation
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1005
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTag]'
+      name: TestFancyTextNoAnnotationsWithRichTextTag
+      fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTag
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1007
+      uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation]'
+      name: TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
+      fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
+    - id: 1016
+      uniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+      name: SocraTSVParseModeTests
+      fullName: SocraTSVParseModeTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1033
+      parentUniqueId: '[EditMode][C:/Users/alexz/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+    - id: 1018
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeSkipLine]'
+      name: ParseModeSkipLine
+      fullName: SocraTSVParseModeTests.ParseModeSkipLine
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1017
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeSkipLineEmptyInput]'
+      name: ParseModeSkipLineEmptyInput
+      fullName: SocraTSVParseModeTests.ParseModeSkipLineEmptyInput
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1022
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellExpectedValues]'
+      name: ParseModeTagByCellExpectedValues
+      fullName: SocraTSVParseModeTests.ParseModeTagByCellExpectedValues
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1023
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells]'
+      name: ParseModeTagByCellFutureproofCells
+      fullName: SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1024
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells]'
+      name: ParseModeTagByCellUnexpectedCells
+      fullName: SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1019
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinition]'
+      name: ParseModeTokenDefinition
+      fullName: SocraTSVParseModeTests.ParseModeTokenDefinition
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1021
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells]'
+      name: ParseModeTokenDefinitionAndUnexpectedCells
+      fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1020
+      uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized]'
+      name: ParseModeTokenDefinitionCapitalized
+      fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+    - id: 1025
+      uniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+      name: SocraTSVReplacementTests
+      fullName: SocraTSVReplacementTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1033
+      parentUniqueId: '[EditMode][C:/Users/alexz/Documents/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+    - id: 1029
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord]'
+      name: ReplaceTokenMultipleWithOneInsideWord
+      fullName: SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1026
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingle]'
+      name: ReplaceTokenSingle
+      fullName: SocraTSVReplacementTests.ReplaceTokenSingle
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1027
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst]'
+      name: ReplaceTokenSingleRegularWordFirst
+      fullName: SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1028
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation]'
+      name: ReplaceTokenSingleRightBeforePunctuation
+      fullName: SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1032
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent]'
+      name: ReplaceTokensOnlyTokensManyAdjacent
+      fullName: SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1031
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensTwoAdjacent]'
+      name: ReplaceTokensTwoAdjacent
+      fullName: SocraTSVReplacementTests.ReplaceTokensTwoAdjacent
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    - id: 1030
+      uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensTwoUnique]'
+      name: ReplaceTokensTwoUnique
+      fullName: SocraTSVReplacementTests.ReplaceTokensTwoUnique
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1025
+      parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
+    m_ResultText: 
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
@@ -693,9 +1250,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 518
-    width: 858
-    height: 192
+    y: 723
+    width: 1610
+    height: 256
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -718,7 +1275,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/DebugView
+    - Assets/Scripts/Console/Resources
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -728,16 +1285,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/DebugView
+  - Assets/Scripts/Console/Resources
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\alexz\Documents\Socrates_Plugin
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 38}
-    m_SelectedIDs: f0a10000
-    m_LastClickedID: 41456
-    m_ExpandedIDs: 0000000036a0000038a00000
+    scrollPos: {x: 0, y: 260}
+    m_SelectedIDs: 68b80000
+    m_LastClickedID: 47208
+    m_ExpandedIDs: 00000000f69f0000f89f0000fa9f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -766,7 +1323,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000036a0000038a00000
+    m_ExpandedIDs: 00000000f69f0000f89f0000fa9f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -848,8 +1405,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 24
-    width: 121
-    height: 468
+    width: 312
+    height: 673
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -866,7 +1423,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 22f8ffff
+      m_ExpandedIDs: c0faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -913,10 +1470,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 123
+    x: 314
     y: 24
-    width: 735
-    height: 468
+    width: 1296
+    height: 673
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1445,7 +2002,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -0.72532475, y: 0.061075985, z: -0.056158673}
     speed: 2
-    m_Value: {x: 0.021688879, y: 0.2829821, z: -0.054101422}
+    m_Value: {x: -0.72532475, y: 0.061075985, z: -0.056158673}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1497,7 +2054,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 4.6832786
     speed: 2
-    m_Value: 4.4775524
+    m_Value: 4.6832786
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1553,10 +2110,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 344
-    y: 78.66667
-    width: 1884
-    height: 987.3333
+    x: 313
+    y: 79
+    width: 1296
+    height: 673
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1610,23 +2167,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1884
-      height: 966.3333
-    m_Scale: {x: 0.44737652, y: 0.44737652}
-    m_Translation: {x: 942, y: 483.16663}
+      width: 1296
+      height: 652
+    m_Scale: {x: 0.30185184, y: 0.30185184}
+    m_Translation: {x: 648, y: 326}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -2105.609
+      x: -2146.7485
       y: -1080
-      width: 4211.218
+      width: 4293.497
       height: 2160
     m_MinimalGUI: 1
-  m_defaultScale: 0.44737652
-  m_LastWindowPixelSize: {x: 1884, y: 987.3333}
+  m_defaultScale: 0.30185184
+  m_LastWindowPixelSize: {x: 1296, y: 673}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -1781,7 +2338,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 41338
+  m_LastSelectedObjectID: -1352
 --- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1804,10 +2361,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2218.6667
-    y: 78.66667
-    width: 340.33325
-    height: 945.3333
+    x: 1611
+    y: 79
+    width: 308
+    height: 684
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1856,8 +2413,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1
     y: 24
-    width: 164
-    height: 489
+    width: 308
+    height: 684
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0

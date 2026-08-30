@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using SocratesDialogue;
 
-public class HcTestDialogue : HCommand {
+public class HcDialogue : HCommand {
     List<string> options = null;
     static readonly string testFromScript = "fromScript";
+    static readonly string endConversation = ".endConversation";
 
     public string CommandFunction(params string[] parameters) {
         if (parameters.Length < 2) {
@@ -13,6 +13,15 @@ public class HcTestDialogue : HCommand {
 
         string sectionReference = parameters[1];
 
+        if (sectionReference == endConversation) {
+            if (DialogueManager.i.Talking()) {
+                DialogueManager.i.EndDialogue();
+                return "Ended conversation";
+            }
+
+            return "No current conversation";
+        }
+        
         if (sectionReference == testFromScript) {
             DialogueManager.i.StartDialogue(new DialogueTest().Dialogue());
         } else {
@@ -36,17 +45,18 @@ public class HcTestDialogue : HCommand {
     }
 
     public string Keyword() {
-        return "testDialogue";
+        return "dialogue";
     }
 
     public string CommandHelp() {
-        return "Plays test dialogue";
+        return "Starts a dialogue with the passed referenceId";
     }
 
     public List<string> AutocompleteOptions() {
         if (options == null) {
             options = DialogueManifest.GetSectionReferences(true);
             options.Add(testFromScript);
+            options.Add(endConversation);
         }
 
         return options;
