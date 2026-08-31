@@ -100,14 +100,26 @@ public class MultiAudioSource {
 	}
 	
 	/// <summary>
+	/// Returns true if at least one of the audio sources in the pool of sources is playing.
+	/// </summary>
+	/// <returns></returns>
+	public bool IsPlaying() {
+		foreach (var source in sources) {
+			if (source.isPlaying) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/// <summary>
 	/// Plays a random audio clip from the rotation of loaded clips
 	/// if none of the sources are currently playing.
 	/// </summary>
 	public void PlayOnlyIfDone() {
-		foreach (var source in sources) {
-			if (source.isPlaying) {
-				return;
-			}
+		if (IsPlaying()) {
+			return;
 		}
 		
 		PlayRandom();
