@@ -40,7 +40,7 @@ namespace SocratesDialogue {
             return WithSequentialSections(passedSectionBuilders.ToList());
         }
 
-        public Dialogue Bake() {
+        public Dialogue Build() {
             List<DialogueSection> sections = new List<DialogueSection>();
             
             foreach (var entry in sectionBuilders) {

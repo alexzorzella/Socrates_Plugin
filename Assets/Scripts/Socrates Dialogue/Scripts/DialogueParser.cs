@@ -82,7 +82,7 @@ namespace SocratesDialogue {
 
                         // If the current conversation has lines, make a new one
                         if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
-                            results.Add(dialogueBuilder.Bake());
+                            results.Add(dialogueBuilder.Build());
                             
                             currentConversationIndex++;
                             dialogueBuilder = new DialogueBuilder();
@@ -127,7 +127,7 @@ namespace SocratesDialogue {
             }
 
             if (dialogueBuilder.GetCurrentSectionBuilderCount() > 0) {
-                results.Add(dialogueBuilder.Bake());
+                results.Add(dialogueBuilder.Build());
             }
             
             return results.Count > 0 ? results[0].GetFirstSection() : null;
