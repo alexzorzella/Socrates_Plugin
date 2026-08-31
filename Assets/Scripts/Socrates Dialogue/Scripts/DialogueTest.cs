@@ -82,7 +82,7 @@ public class DialogueTest : MonoBehaviour {
         
         builder.WithSection(new SectionBuilder(Namepedia.Clerk, "Have a nice day, there's your receipt.", "aDone"));
 
-        Dialogue dialogue = builder.Bake();
+        Dialogue dialogue = builder.Build();
         
         return dialogue.GetSectionById(done ? "aDone" : "a");
     }
