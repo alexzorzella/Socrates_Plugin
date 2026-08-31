@@ -140,10 +140,14 @@ public class MultiAudioSource {
 	/// <param name="audioMixer"></param>
 	/// <param name="volume"></param>
 	/// <param name="pitch"></param>
+	/// <param name="spatialBlend"></param>
+	/// <param name="minDistance"></param>
+	/// <param name="maxDistance"></param>
+	/// <param name="dopplerLevel"></param>
 	/// <returns></returns>
 	/// <exception cref="ArgumentException"></exception>
 	public static MultiAudioSource FromResource(
-	  GameObject gameObject, string path, bool loop = false, string audioMixer = "SFX", float volume = 1F, float pitch = 1F) {
+	  GameObject gameObject, string path, bool loop = false, string audioMixer = "SFX", float volume = 1F, float pitch = 1F, float spatialBlend = 0, float minDistance = 0, float maxDistance = 0, float dopplerLevel = 1F) {
 		AudioClip clip = Resources.Load<AudioClip>(path);
 		if (clip == null) {
 			throw new ArgumentException("Resource not found: " + path);
@@ -159,6 +163,17 @@ public class MultiAudioSource {
 		audioSource.volume = volume;
 		audioSource.pitch = pitch;
 
+		if (spatialBlend > 0) {
+			if (minDistance > maxDistance) {
+				minDistance = maxDistance; 
+			}
+			
+			audioSource.spatialBlend = spatialBlend;
+			audioSource.minDistance = minDistance;
+			audioSource.maxDistance = maxDistance;
+			audioSource.dopplerLevel = dopplerLevel;
+		}
+		
 		return new MultiAudioSource(audioSource);
 	}
 
@@ -177,23 +192,40 @@ public class MultiAudioSource {
 	/// <param name="audioMixer"></param>
 	/// <param name="volume"></param>
 	/// <param name="pitch"></param>
+	/// <param name="spatialBlend"></param>
+	/// <param name="minDistance"></param>
+	/// <param name="maxDistance"></param>
+	/// <param name="dopplerLevel"></param>
 	/// <returns></returns>
 	/// <exception cref="ArgumentException"></exception>
 	public static MultiAudioSource FromResources(
-	  GameObject gameObject, string pathPrefix, int count, string audioMixer = "SFX", float volume = 1F, float pitch = 1F) {
+	  GameObject gameObject, string pathPrefix, int count, string audioMixer = "SFX", float volume = 1F, float pitch = 1F, float spatialBlend = 0, float minDistance = 0, float maxDistance = 0, float dopplerLevel = 1F) {
 		AudioSource[] audioSources = new AudioSource[count];
 
 		for (int i = 0; i < count; i++) {
 			AudioClip clip = Resources.Load<AudioClip>($"{pathPrefix}_{i}");
-			if (clip == null) {
-				throw new ArgumentException("Resource not found: " + pathPrefix + i);
-			}
-			audioSources[i] = gameObject.AddComponent<AudioSource>();
-			audioSources[i].clip = clip;
-			audioSources[i].outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
 			
-			audioSources[i].volume = volume;
-			audioSources[i].pitch = pitch;
+			if (clip == null) { throw new ArgumentException("Resource not found: " + pathPrefix + i); }
+
+			AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+			audioSources[i] = audioSource;
+			
+			audioSource.clip = clip;
+			audioSource.outputAudioMixerGroup = Resources.Load<AudioMixerGroup>(audioMixer);
+			
+			audioSource.volume = volume;
+			audioSource.pitch = pitch;
+			
+			if (spatialBlend > 0) {
+				if (minDistance > maxDistance) {
+					minDistance = maxDistance; 
+				}
+			
+				audioSource.spatialBlend = spatialBlend;
+				audioSource.minDistance = minDistance;
+				audioSource.maxDistance = maxDistance;
+				audioSource.dopplerLevel = dopplerLevel;
+			}
 		}
 
 		return new MultiAudioSource(audioSources);
