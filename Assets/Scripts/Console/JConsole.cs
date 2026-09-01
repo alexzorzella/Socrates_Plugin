@@ -179,7 +179,7 @@ public class JConsole : MonoBehaviour {
     }
 
     /// <summary>
-    /// Updates the system message count and
+    /// Updates the system message count and parent size
     /// </summary>
     /// <param name="alterBy"></param>
     /// <param name="sizeY"></param>
@@ -188,17 +188,39 @@ public class JConsole : MonoBehaviour {
         parentSystemMessagesTo.sizeDelta = new Vector2(parentSystemMessagesTo.sizeDelta.x, sizeY * currentMessages);
     }
 
-    void ScrollAutocomplete(int wrapAt) {
+    /// <summary>
+    /// Checks if the up or down arrow keys have been pressed, and then scrolls the currently selected autocomplete option
+    /// up or down
+    /// </summary>
+    /// <param name="autocompleteOptions"></param>
+    string ScrollAutocomplete(List<string> autocompleteOptions) {
         var scrollAmount = 0;
 
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
             scrollAmount = -1;
-        else if (Keyboard.current.downArrowKey.wasPressedThisFrame) scrollAmount = 1;
-
-        if (scrollAmount != 0) {
-            IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount, out selectedAutocompleteOption);
-            inputField.MoveToEndOfLine(false, true);
+        } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
+            scrollAmount = 1;
         }
+
+        if (autocompleteOptions.Count > 0) {
+            if (scrollAmount != 0) {
+                int wrapAt = autocompleteOptions.Count;
+                IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount, out selectedAutocompleteOption);
+                inputField.MoveToEndOfLine(false, true);
+            }
+
+            if (selectedAutocompleteOption < 0 || selectedAutocompleteOption > autocompleteOptions.Count - 1) {
+                selectedAutocompleteOption = 0;
+            }
+
+            return autocompleteOptions[selectedAutocompleteOption];
+        }
+
+        if (selectedAutocompleteOption > autocompleteOptions.Count - 1) {
+            selectedAutocompleteOption = 0;
+        }
+
+        return "";
     }
 
     string GetLastWord(string input) {
@@ -208,7 +230,7 @@ public class JConsole : MonoBehaviour {
 
         var words = input.Split(' ');
 
-        result = words[words.Length - 1];
+        result = words[^1];
 
         result = Regex.Replace(result, $"[{commandPrefix}]", "");
         
@@ -265,7 +287,7 @@ public class JConsole : MonoBehaviour {
             }
         }
 
-        var autocompleteOptions = new List<string>();
+        List<string> autocompleteOptions = new();
 
         foreach (var option in sourceAutocompleteFrom) {
             if (option.StartsWith(lastWord)) {
@@ -282,24 +304,16 @@ public class JConsole : MonoBehaviour {
             selectedAutocompleteOption = -1;
 
             return;
-        }
-
-        if (selectedAutocompleteOption < 0) selectedAutocompleteOption = 0;
-
-        ScrollAutocomplete(autocompleteOptions.Count);
-
-        var finalAutocomplete = "";
-
-        string selectedOption = "";
+        } 
         
-        if(autocompleteOptions.Count > 0) {
-            if (selectedAutocompleteOption < 0 || selectedAutocompleteOption > autocompleteOptions.Count - 1) {
-                selectedAutocompleteOption = 0;
-            }
-            
-            selectedOption = autocompleteOptions[selectedAutocompleteOption];
-        }
+        string selectedOption = ScrollAutocomplete(autocompleteOptions);
 
+        if (selectedOption == "") {
+            return;
+        }
+        
+        string finalAutocomplete = "";
+        
         if (!string.IsNullOrWhiteSpace(selectedOption)) {
             finalAutocomplete = inputField.text;
             finalAutocomplete += selectedOption.Substring(lastWord.Length, selectedOption.Length - lastWord.Length);
@@ -363,17 +377,13 @@ public class JConsole : MonoBehaviour {
     }
 
     void ScrollHistory() {
-        if (visible) {
-            if (history.Count > 0 && selectedAutocompleteOption < 0) {
-                if (Keyboard.current.anyKey.wasPressedThisFrame) {
-                    if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
-                        ScrollHistoryBy(1);
-                    } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
-                        ScrollHistoryBy(-1);
-                    } else {
-                        historyIndex = -1;
-                    }
-                }
+        if (visible && history.Count > 0 && selectedAutocompleteOption < 0 && Keyboard.current.anyKey.wasPressedThisFrame) {
+            if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
+                ScrollHistoryBy(1);
+            } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
+                ScrollHistoryBy(-1);
+            } else {
+                historyIndex = -1;
             }
         }
     }

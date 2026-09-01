@@ -72,7 +72,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: -0.000061035}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7472099347792689986
@@ -428,7 +428,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.00012207031}
+  m_AnchoredPosition: {x: 0, y: -0.00024414062}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7283600590438655880
@@ -698,7 +698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 217.4, y: 103.35}
+  m_AnchoredPosition: {x: 217.3999, y: 103.3501}
   m_SizeDelta: {x: 267.7732, y: 44.3569}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &6797915852863220959
@@ -1210,11 +1210,9 @@ MonoBehaviour:
   autocompleteBackgroundRect: {fileID: 7231849490706360055}
   selectedAutocompleteOption: 0
   terminalCanvasGroup: {fileID: 635786232945074087}
-  suppressSystemMessages: 0
   messagesCanvasGroup: {fileID: 4937575402157807909}
-  parentMessagesTo: {fileID: 7156002329286594806}
+  parentSystemMessagesTo: {fileID: 7156002329286594806}
   scrollViewport: {fileID: 8599837104574403830}
-  visible: 0
 --- !u!1 &6289257199542393709
 GameObject:
   m_ObjectHideFlags: 0
