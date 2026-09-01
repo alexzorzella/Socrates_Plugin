@@ -8,6 +8,7 @@
 ![Issues](https://img.shields.io/github/issues/alexzorzella/Socrates_Plugin)
 ![GitHub License](https://img.shields.io/github/license/alexzorzella/Socrates_Plugin)
 ![Static Badge](https://img.shields.io/badge/Alex%20Loves-Unit%20Testing-green?logo=githubactions&logoColor=white&labelColor=%23f0ab0c)
+![Static Badge](https://img.shields.io/badge/-Documentation-brightgreen?link=http%3A%2F%2Flocalhost%3A4321%2Fsocrates_plugin%2Fabout%2F)
 <br>
 
 This repository is a collection of scripts that my dad and I have worked on for years. My of them started out as tutorial scripts, but have been expanded upon. The documented scripts are the best ones, and the standard here is well documented, tested code. The status of each system's documentation and test thoroughness is listed in the 'Included' section below. The goal is to have everything tested (if applicable) and documented. I prioritize refactoring, testing, and documenting more complicated systems before simpler ones. Systems like the basic camera movement and shake, inventory, and state machine are much shorter and are intended to use as baselines. Systems that are more complicated, like the Socrates Dialogue system (which is essentially three systems in one), come first. Feel free to take and expand on these scripts as you wish! Again, a lot of these scripts are meant to be used as a base to write something more specific.
