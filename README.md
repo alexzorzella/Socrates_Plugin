@@ -8,7 +8,7 @@
 ![Issues](https://img.shields.io/github/issues/alexzorzella/Socrates_Plugin)
 ![GitHub License](https://img.shields.io/github/license/alexzorzella/Socrates_Plugin)
 ![Static Badge](https://img.shields.io/badge/Alex%20Loves-Unit%20Testing-green?logo=githubactions&logoColor=white&labelColor=%23f0ab0c)
-![Static Badge](https://img.shields.io/badge/-Documentation-brightgreen?link=http%3A%2F%2Flocalhost%3A4321%2Fsocrates_plugin%2Fabout%2F)
+![Static Badge](https://img.shields.io/badge/-Documentation-brightgreen?link=https%3A%2F%2Fguides.highqualitybackup.com%2Fsocrates_plugin%2Fabout%2F)
 <br>
 
 This repository is a collection of scripts that my dad and I have worked on for years. My of them started out as tutorial scripts, but have been expanded upon. The documented scripts are the best ones, and the standard here is well documented, tested code. The status of each system's documentation and test thoroughness is listed in the 'Included' section below. The goal is to have everything tested (if applicable) and documented. I prioritize refactoring, testing, and documenting more complicated systems before simpler ones. Systems like the basic camera movement and shake, inventory, and state machine are much shorter and are intended to use as baselines. Systems that are more complicated, like the Socrates Dialogue system (which is essentially three systems in one), come first. Feel free to take and expand on these scripts as you wish! Again, a lot of these scripts are meant to be used as a base to write something more specific.
@@ -18,7 +18,7 @@ This repository and its contents are protected by the MIT License. If you don't 
 
 ### Contributions (Use Unity 6000.0.58f2)
 
-Contributions to the Socrates Plugin are more than welcome! If you intend on working with the Socrates Plugin's source code please do so in Unity verison 6000.0.58f2, and make sure you're not commiting any editor caches! (These are folders like .idea/ or .vscode/. If you use another editor that isn't already in the .gitignore, make sure to add it to the .gitignore before making a pull request). The editor may be upgraded in the future.
+Contributions to the Socrates Plugin are more than welcome! If you intend on working with the Socrates Plugin's source code please do so in Unity version 6000.0.58f2, and make sure you're not commiting any editor caches! (These are folders like .idea/ or .vscode/. If you use another editor that isn't already in the .gitignore, make sure to add it to the .gitignore before making a pull request). The editor may be upgraded in the future.
 
 ## Socrates: Dialogue Markdown Language
 
