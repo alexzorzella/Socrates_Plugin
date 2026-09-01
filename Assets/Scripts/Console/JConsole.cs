@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class JConsole : MonoBehaviour {
     static JConsole _i;
@@ -23,7 +24,7 @@ public class JConsole : MonoBehaviour {
     public CanvasGroup terminalCanvasGroup;
 
     public CanvasGroup messagesCanvasGroup;
-    public RectTransform parentMessagesTo;
+    public RectTransform parentSystemMessagesTo;
 
     public RectTransform scrollViewport;
 
@@ -99,6 +100,10 @@ public class JConsole : MonoBehaviour {
         WriteLine("<color=yellow>Ctrl + Tab</color> to close console"); 
     }
 
+    /// <summary>
+    /// Sets the visibility of the console to the passed visibility.
+    /// </summary>
+    /// <param name="visible"></param>
     public void SetVisible(bool visible) {
         this.visible = visible;
         UpdateVisuals();
@@ -106,16 +111,24 @@ public class JConsole : MonoBehaviour {
 
     public bool IsVisible() { return visible; }
 
+    /// <summary>
+    /// Toggles whether system messages are suppressed and returns the new value.
+    /// </summary>
+    /// <returns></returns>
     public bool ToggleSuppressSystemMessages() {
         suppressSystemMessages = !suppressSystemMessages;
         return suppressSystemMessages;
     }
-    
+   
+    /// <summary>
+    /// Registers a JConsoleLogListener to the console.
+    /// </summary>
+    /// <param name="newListener"></param>
     public void RegisterListener(JConsoleLogListener newListener) {
         logListeners.Add(newListener);
         newListener.ReceiveBacklog(logs);
     }
-
+    
     void NotifyListenersOfSystemMessage(string message) {
         foreach (var listener in logListeners) {
             listener.OnSystemMessageLogged(message);
@@ -128,6 +141,12 @@ public class JConsole : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Displays the passed system message and prints the non-truncated message to the console.
+    /// If the no non-truncated message is passed, the original message is printed to the console.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="nonTruncatedMessage"></param>
     public void DisplaySystemMessage(string message, string nonTruncatedMessage = "") {
         string prefix = message[0] == '[' ? " " : " [System] ";
         string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
@@ -141,24 +160,32 @@ public class JConsole : MonoBehaviour {
         if (!suppressSystemMessages) {
             var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
                 .GetComponent<RectTransform>();
-            rect.SetParent(parentMessagesTo);
+            rect.SetParent(parentSystemMessagesTo);
 
             rect.localPosition = Vector2.zero;
             rect.localScale = Vector2.one;
 
             rect.gameObject.GetComponent<SystemMessage>().SetText(message);
 
-            UpdateCurrentMessages(1, rect.sizeDelta.y);
+            UpdateSystemMessageCount(1, rect.sizeDelta.y);
         }
     }
-    
+   
+    /// <summary>
+    /// Clears the console.
+    /// </summary>
     public void ClearConsole() {
         commandOutputText.text = "";
     }
 
-    public void UpdateCurrentMessages(int alterBy, float sizeY) {
+    /// <summary>
+    /// Updates the system message count and
+    /// </summary>
+    /// <param name="alterBy"></param>
+    /// <param name="sizeY"></param>
+    public void UpdateSystemMessageCount(int alterBy, float sizeY) {
         currentMessages += alterBy;
-        parentMessagesTo.sizeDelta = new Vector2(parentMessagesTo.sizeDelta.x, sizeY * currentMessages);
+        parentSystemMessagesTo.sizeDelta = new Vector2(parentSystemMessagesTo.sizeDelta.x, sizeY * currentMessages);
     }
 
     void ScrollAutocomplete(int wrapAt) {
