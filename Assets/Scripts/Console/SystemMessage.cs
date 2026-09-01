@@ -22,7 +22,7 @@ public class SystemMessage : MonoBehaviour {
 
 	public void Update() {
 		if (text.color.a <= 0) {
-			JConsole.i.UpdateCurrentMessages(-1, rect.sizeDelta.y);
+			JConsole.i.UpdateSystemMessageCount(-1, rect.sizeDelta.y);
 			Destroy(gameObject);
 		}
 

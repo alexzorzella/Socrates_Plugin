@@ -84,7 +84,7 @@ public class InputManager : MonoBehaviour {
 				// We add another entry to the dictionary pointing to
 				// the same spec as its dupe.
 
-				JConsole.i.WriteLine($"Device {deviceId} was detected as a duplicate, ignored.");
+				JConsole.i.Print($"Device {deviceId} was detected as a duplicate, ignored.");
 
 				// registeredGameControllers.Add(deviceId, controller.Value);
 

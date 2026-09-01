@@ -22,20 +22,20 @@ public class JConsole : MonoBehaviour {
 
     public CanvasGroup terminalCanvasGroup;
 
-    [HideInInspector] public bool suppressSystemMessages;
-
     public CanvasGroup messagesCanvasGroup;
-    public RectTransform parentMessagesTo;
+    public RectTransform parentSystemMessagesTo;
 
     public RectTransform scrollViewport;
-
-    [HideInInspector] public bool visible;
 
     readonly List<string> autocompleteCommands = new();
 
     RectTransform canvasRect;
 
-    [HideInInspector] public List<HCommand> commands = new();
+    bool suppressSystemMessages;
+    bool visible;
+    
+    readonly List<HCommand> commands = new();
+    public List<HCommand> GetCommands() { return commands; }
 
     int currentMessages;
 
@@ -49,47 +49,6 @@ public class JConsole : MonoBehaviour {
     string username = "june";
 
     static readonly bool pauseTimeWhenActive = false;
-    
-    public void RegisterListener(JConsoleLogListener newListener) {
-        logListeners.Add(newListener);
-        newListener.ReceiveBacklog(logs);
-    }
-
-    void NotifyListenersOfSystemMessage(string message) {
-        foreach (var listener in logListeners) {
-            listener.OnSystemMessageLogged(message);
-        }
-    }
-    
-    void NotifyListenersOnWriteToConsole(string message) {
-        foreach (var listener in logListeners) {
-            listener.OnWriteToConsole(message);
-        }
-    }
-
-    public void DisplaySystemMessage(string message, string nonTruncatedMessage = "") {
-        string prefix = message[0] == '[' ? " " : " [System] ";
-        string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
-        string formattedMessage = $"({DateTime.Now}){prefix}{finalMessage}";
-        
-        WriteLine(formattedMessage);
-        
-        logs.Add(formattedMessage);
-        NotifyListenersOfSystemMessage(formattedMessage);
-        
-        if (!suppressSystemMessages) {
-            var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
-                .GetComponent<RectTransform>();
-            rect.SetParent(parentMessagesTo);
-
-            rect.localPosition = Vector2.zero;
-            rect.localScale = Vector2.one;
-
-            rect.gameObject.GetComponent<SystemMessage>().SetText(message);
-
-            UpdateCurrentMessages(1, rect.sizeDelta.y);
-        }
-    }
     
     public static JConsole i {
         get {
@@ -105,7 +64,7 @@ public class JConsole : MonoBehaviour {
 
     void Start() {
         if (_i != null) {
-            if (_i != this) Destroy(gameObject);
+            if (_i != this) { Destroy(gameObject); }
         } else {
             _i = this;
             DontDestroyOnLoad(gameObject);
@@ -121,9 +80,11 @@ public class JConsole : MonoBehaviour {
         commands.Add(new HcCloseConsole());
         commands.Add(new HcForceQuit());
 
-        foreach (var command in commands) { autocompleteCommands.Add(command.Keyword()); }
+        foreach (var command in commands) {
+            autocompleteCommands.Add(command.Keyword());
+        }
         
-        WriteLine($"Successfully loaded {commands.Count} commands");
+        Print($"Successfully loaded {commands.Count} commands");
 
         canvasRect = GetComponent<RectTransform>();
 
@@ -133,42 +94,132 @@ public class JConsole : MonoBehaviour {
         username = Environment.UserName;
         
         ClearConsole();
-        // WriteLine("<color=#00E5FF>friday.jam</color> installed");
-        WriteLine("<color=#00E5FF>/help</color> for command list");
-        WriteLine("<color=yellow>Ctrl + Tab</color> to close console"); 
+        
+        Print("<color=#00E5FF>/help</color> for command list");
+        Print("<color=yellow>Ctrl + Tab</color> to close console"); 
     }
 
-    void Update() {
-        if (_i != null)
-            if (_i != this)
-                Destroy(gameObject);
-
-        Autocomplete();
-
-        ConsoleFunctionality();
-        ScrollHistory();
+    /// <summary>
+    /// Sets the visibility of the console to the passed visibility.
+    /// </summary>
+    /// <param name="visible"></param>
+    public void SetVisible(bool visible) {
+        this.visible = visible;
+        UpdateVisuals();
     }
 
+    public bool IsVisible() { return visible; }
+
+    /// <summary>
+    /// Toggles whether system messages are suppressed and returns the new value.
+    /// </summary>
+    /// <returns></returns>
+    public bool ToggleSuppressSystemMessages() {
+        suppressSystemMessages = !suppressSystemMessages;
+        return suppressSystemMessages;
+    }
+   
+    /// <summary>
+    /// Registers a JConsoleLogListener to the console.
+    /// </summary>
+    /// <param name="newListener"></param>
+    public void RegisterListener(JConsoleLogListener newListener) {
+        logListeners.Add(newListener);
+        newListener.ReceiveBacklog(logs);
+    }
+    
+    void NotifyListenersOfSystemMessage(string message) {
+        foreach (var listener in logListeners) {
+            listener.OnSystemMessageLogged(message);
+        }
+    }
+    
+    void NotifyListenersOnWriteToConsole(string message) {
+        foreach (var listener in logListeners) {
+            listener.OnWriteToConsole(message);
+        }
+    }
+
+    /// <summary>
+    /// Displays the passed system message and prints the non-truncated message to the console.
+    /// If the no non-truncated message is passed, the original message is printed to the console.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="nonTruncatedMessage"></param>
+    public void DisplaySystemMessage(string message, string nonTruncatedMessage = "") {
+        string prefix = message[0] == '[' ? " " : " [System] ";
+        string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
+        string formattedMessage = $"({DateTime.Now}){prefix}{finalMessage}";
+        
+        Print(formattedMessage);
+        
+        logs.Add(formattedMessage);
+        NotifyListenersOfSystemMessage(formattedMessage);
+        
+        if (!suppressSystemMessages) {
+            var rect = Instantiate(ResourceLoader.LoadObject("SystemMessage"), Vector2.zero, Quaternion.identity)
+                .GetComponent<RectTransform>();
+            rect.SetParent(parentSystemMessagesTo);
+
+            rect.localPosition = Vector2.zero;
+            rect.localScale = Vector2.one;
+
+            rect.gameObject.GetComponent<SystemMessage>().SetText(message);
+
+            UpdateSystemMessageCount(1, rect.sizeDelta.y);
+        }
+    }
+   
+    /// <summary>
+    /// Clears the console.
+    /// </summary>
     public void ClearConsole() {
         commandOutputText.text = "";
     }
 
-    public void UpdateCurrentMessages(int alterBy, float sizeY) {
+    /// <summary>
+    /// Updates the system message count and parent size
+    /// </summary>
+    /// <param name="alterBy"></param>
+    /// <param name="sizeY"></param>
+    public void UpdateSystemMessageCount(int alterBy, float sizeY) {
         currentMessages += alterBy;
-        parentMessagesTo.sizeDelta = new Vector2(parentMessagesTo.sizeDelta.x, sizeY * currentMessages);
+        parentSystemMessagesTo.sizeDelta = new Vector2(parentSystemMessagesTo.sizeDelta.x, sizeY * currentMessages);
     }
 
-    void ScrollAutocomplete(int wrapAt) {
+    /// <summary>
+    /// Checks if the up or down arrow keys have been pressed, and then scrolls the currently selected autocomplete option
+    /// up or down
+    /// </summary>
+    /// <param name="autocompleteOptions"></param>
+    string ScrollAutocomplete(List<string> autocompleteOptions) {
         var scrollAmount = 0;
 
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
             scrollAmount = -1;
-        else if (Keyboard.current.downArrowKey.wasPressedThisFrame) scrollAmount = 1;
-
-        if (scrollAmount != 0) {
-            IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount, out selectedAutocompleteOption);
-            inputField.MoveToEndOfLine(false, true);
+        } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
+            scrollAmount = 1;
         }
+
+        if (autocompleteOptions.Count > 0) {
+            if (scrollAmount != 0) {
+                int wrapAt = autocompleteOptions.Count;
+                IncrementWithOverflow.Run(selectedAutocompleteOption, wrapAt, scrollAmount, out selectedAutocompleteOption);
+                inputField.MoveToEndOfLine(false, true);
+            }
+
+            if (selectedAutocompleteOption < 0 || selectedAutocompleteOption > autocompleteOptions.Count - 1) {
+                selectedAutocompleteOption = 0;
+            }
+
+            return autocompleteOptions[selectedAutocompleteOption];
+        }
+
+        if (selectedAutocompleteOption > autocompleteOptions.Count - 1) {
+            selectedAutocompleteOption = 0;
+        }
+
+        return "";
     }
 
     string GetLastWord(string input) {
@@ -178,7 +229,7 @@ public class JConsole : MonoBehaviour {
 
         var words = input.Split(' ');
 
-        result = words[words.Length - 1];
+        result = words[^1];
 
         result = Regex.Replace(result, $"[{commandPrefix}]", "");
         
@@ -193,6 +244,12 @@ public class JConsole : MonoBehaviour {
         selectedAutocompleteOption = -1;
     }
     
+    void Update() {
+        Autocomplete();
+        ConsoleFunctionality();
+        ScrollHistory();
+    }
+
     void Autocomplete() {
         if (string.IsNullOrWhiteSpace(inputField.text)) {
             ClearAutocompleteOptions();
@@ -229,7 +286,7 @@ public class JConsole : MonoBehaviour {
             }
         }
 
-        var autocompleteOptions = new List<string>();
+        List<string> autocompleteOptions = new();
 
         foreach (var option in sourceAutocompleteFrom) {
             if (option.StartsWith(lastWord)) {
@@ -246,24 +303,16 @@ public class JConsole : MonoBehaviour {
             selectedAutocompleteOption = -1;
 
             return;
-        }
-
-        if (selectedAutocompleteOption < 0) selectedAutocompleteOption = 0;
-
-        ScrollAutocomplete(autocompleteOptions.Count);
-
-        var finalAutocomplete = "";
-
-        string selectedOption = "";
+        } 
         
-        if(autocompleteOptions.Count > 0) {
-            if (selectedAutocompleteOption < 0 || selectedAutocompleteOption > autocompleteOptions.Count - 1) {
-                selectedAutocompleteOption = 0;
-            }
-            
-            selectedOption = autocompleteOptions[selectedAutocompleteOption];
-        }
+        string selectedOption = ScrollAutocomplete(autocompleteOptions);
 
+        if (selectedOption == "") {
+            return;
+        }
+        
+        string finalAutocomplete = "";
+        
         if (!string.IsNullOrWhiteSpace(selectedOption)) {
             finalAutocomplete = inputField.text;
             finalAutocomplete += selectedOption.Substring(lastWord.Length, selectedOption.Length - lastWord.Length);
@@ -327,17 +376,13 @@ public class JConsole : MonoBehaviour {
     }
 
     void ScrollHistory() {
-        if (visible) {
-            if (history.Count > 0 && selectedAutocompleteOption < 0) {
-                if (Keyboard.current.anyKey.wasPressedThisFrame) {
-                    if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
-                        ScrollHistoryBy(1);
-                    } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
-                        ScrollHistoryBy(-1);
-                    } else {
-                        historyIndex = -1;
-                    }
-                }
+        if (visible && history.Count > 0 && selectedAutocompleteOption < 0 && Keyboard.current.anyKey.wasPressedThisFrame) {
+            if (Keyboard.current.upArrowKey.wasPressedThisFrame) {
+                ScrollHistoryBy(1);
+            } else if (Keyboard.current.downArrowKey.wasPressedThisFrame) {
+                ScrollHistoryBy(-1);
+            } else {
+                historyIndex = -1;
             }
         }
     }
@@ -369,20 +414,28 @@ public class JConsole : MonoBehaviour {
         
         if (visible && ReturnKey()) TryCommand();
     } 
-
-    void OpenConsole() {
-        visible = true;
-        UpdateVisuals();
+    
+    /// <summary>
+    /// Opens the console.
+    /// </summary>
+    public void OpenConsole() {
+        SetVisible(true);
         if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
+    /// <summary>
+    /// Closes the console.
+    /// </summary>
     public void CloseConsole() {
-        visible = false;
-        UpdateVisuals();
+        SetVisible(false);
         SelectInputFieldAndSetText("/");
         if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
+    /// <summary>
+    /// Updates the canvas groups to be opaque, be interactable, and to block raycasts
+    /// according to whether the console is visible or not.
+    /// </summary>
     public void UpdateVisuals() {
         terminalCanvasGroup.alpha = visible ? 1 : 0;
         terminalCanvasGroup.interactable = visible;
@@ -393,10 +446,6 @@ public class JConsole : MonoBehaviour {
         messagesCanvasGroup.blocksRaycasts = !visible;
 
         ClearInputField();
-    }
-
-    public static bool Open() {
-        return i.visible;
     }
 
     static bool SlashKey() {
@@ -428,11 +477,7 @@ public class JConsole : MonoBehaviour {
         return result;
     }
 
-    public void SetCommandLineInputText(string newText) {
-        inputField.text = newText;
-    }
-
-    public bool TryCommand(string overrideCommand = "") {
+    bool TryCommand(string overrideCommand = "") {
         string commandInput = !string.IsNullOrWhiteSpace(overrideCommand) ? overrideCommand : inputField.text;
 
         if (string.IsNullOrWhiteSpace(commandInput)) {
@@ -445,7 +490,7 @@ public class JConsole : MonoBehaviour {
             history.Add(commandInput);
 
             if (commands.Count <= 0) {
-                WriteLine("Command(s) not recognized.");
+                Print("Command(s) not recognized.");
                 ClearInputField();
                 return false;
             }
@@ -454,10 +499,10 @@ public class JConsole : MonoBehaviour {
             
             for (int i = 0; i < commands.Count; i++) {
                 string output = commands[i].CommandFunction(commandInputs[i].Trim().Split(' '));
-                WriteLine($"<color=yellow>{output}</color>");
+                Print($"<color=yellow>{output}</color>");
             }
         } else {
-            WriteLine("Command not recognized.");
+            Print("Command not recognized.");
         }
 
         ClearInputField();
@@ -477,8 +522,12 @@ public class JConsole : MonoBehaviour {
         inputField.ActivateInputField();
     }
 
-    public void WriteLine(string add) {
-        commandOutputText.text += $"\n<color=#00E5FF>{username}@{machineName}</color> <color=yellow>$</color> {add}";
-        NotifyListenersOnWriteToConsole(add);
+    /// <summary>
+    /// Prints a line to the console.
+    /// </summary>
+    /// <param name="content"></param>
+    public void Print(string content) {
+        commandOutputText.text += $"\n<color=#00E5FF>{username}@{machineName}</color> <color=yellow>$</color> {content}";
+        NotifyListenersOnWriteToConsole(content);
     }
 }

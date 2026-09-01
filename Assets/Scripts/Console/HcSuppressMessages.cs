@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 
 public class HcSuppressMessages : HCommand {
-    readonly List<string> options = new();
+    List<string> options = null; 
 
     public string CommandFunction(params string[] parameters) {
-        JConsole.i.suppressSystemMessages = !JConsole.i.suppressSystemMessages;
-
-        return "The system will now " + (JConsole.i.suppressSystemMessages ? "" : "not") + " suppress messages";
+        bool suppressSystemMessages = JConsole.i.ToggleSuppressSystemMessages();
+        return $"The system will now {(suppressSystemMessages ? "" : "not ")}suppress messages";
     }
 
     public string CommandHelp() {
@@ -18,8 +17,12 @@ public class HcSuppressMessages : HCommand {
     }
 
     public List<string> AutocompleteOptions() {
-        options.Add("true");
-        options.Add("false");
+        if (options == null) {
+            options = new() {
+                "true",
+                "false"
+            };
+        }
 
         return options;
     }
