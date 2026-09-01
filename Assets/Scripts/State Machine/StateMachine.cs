@@ -100,7 +100,7 @@ public class StateMachine {
     void SetState(StateMachineState from, StateMachineState to) {
         CancelAllLeanTweensInProgress();
         
-        StateMachineState onEntryResult = to.TryEntryState();
+        StateMachineState onEntryResult = to.TryEntryTransitions();
 
         if (onEntryResult != null) {
             string onEntryName = onEntryResult.GetName();

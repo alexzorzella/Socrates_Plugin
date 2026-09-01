@@ -25,7 +25,8 @@ public sealed class StateMachineState {
     }
     
     /// <summary>
-    /// Adds a transition to another state when a certain StateMachineEvent is handled.
+    /// Adds a transition to another state on handling the passed StateMachineEvent trigger. Throws an
+    /// InvalidOperationException if transition map already contains the passed trigger.
     /// </summary>
     /// <param name="trigger"></param>
     /// <param name="transitionsTo"></param>
@@ -38,10 +39,9 @@ public sealed class StateMachineState {
     }
 
     /// <summary>
-    /// Adds a skip transition to another state associated with a predicate that is re-evaluated on entry.
+    /// Adds a transition to another state associated with a predicate that is evaluated on entry.
     /// Many logical scenarios can lead to entering a state with a transition out of it that will never be
-    /// hit as the event that would have hit it already has occured. These predicates avoid these scenarios
-    /// and jump to these respective states.
+    /// hit as the event that would have hit it already has occurred.
     /// </summary>
     /// <param name="checkOnEntry"></param>
     /// <param name="transitionsTo"></param>
@@ -49,17 +49,19 @@ public sealed class StateMachineState {
         entryTransitions.Add(checkOnEntry, transitionsTo);
     }
 
-    public StateMachineState TryEntryState() {
-        StateMachineState result = null;
-        
+    /// <summary>
+    /// Invokes the predicate associated with each entry transition and returns the first one that succeeds or null
+    /// by default.
+    /// </summary>
+    /// <returns></returns>
+    public StateMachineState TryEntryTransitions() {
         foreach (var entry in entryTransitions) {
             if (entry.Key.Invoke(null)) {
-                result = entry.Value;
-                break;
+                return entry.Value;
             }
         }
 
-        return result;
+        return null;
     }
     
     public string GetName() { return name; }
@@ -67,14 +69,28 @@ public sealed class StateMachineState {
     public float GetLength() { return length; }
     public void SetLength(float clipLength) { length = clipLength; }
     
+    /// <summary>
+    /// Returns whether the state machine has the passed attribute.
+    /// </summary>
+    /// <param name="attribute"></param>
+    /// <returns></returns>
     public bool HasAttribute(StateAttribute attribute) {
         return attributes.Contains(attribute);
     }
     
+    /// <summary>
+    /// Returns the StateMachineState that this state transitions to on the passed trigger or null by default.
+    /// </summary>
+    /// <param name="trigger"></param>
+    /// <returns></returns>
     public StateMachineState Handle(StateMachineEvent trigger) {
         return transitions.GetValueOrDefault(trigger);
     }
 
+    /// <summary>
+    /// Returns whether this state has a transition ON_ANIMATION_COMPLETED.
+    /// </summary>
+    /// <returns></returns>
     public bool TransitionsOnAnimationCompleted() {
         return transitions.ContainsKey(StateMachineEvent.ON_ANIMATION_COMPLETED);
     }
