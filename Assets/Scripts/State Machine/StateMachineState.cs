@@ -1,5 +1,10 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
+
+public enum StateAttribute {
+    
+}
 
 public sealed class StateMachineState {
     readonly string name;
@@ -7,9 +12,16 @@ public sealed class StateMachineState {
     
     readonly Dictionary<StateMachineEvent, StateMachineState> transitions = new();
     readonly Dictionary<Predicate<object>, StateMachineState> entryTransitions = new();
+    readonly HashSet<StateAttribute> attributes = new();
     
-    public StateMachineState(string name) {
+    public StateMachineState(string name, params StateAttribute[] attributes) {
         this.name = name;
+        
+        foreach (var attribute in attributes) {
+            if (!this.attributes.Contains(attribute)) {
+                this.attributes.Add(attribute);
+            }
+        }
     }
     
     /// <summary>
@@ -50,8 +62,13 @@ public sealed class StateMachineState {
         return result;
     }
     
-    public string GetName() {
-        return name;
+    public string GetName() { return name; }
+    
+    public float GetLength() { return length; }
+    public void SetLength(float clipLength) { length = clipLength; }
+    
+    public bool HasAttribute(StateAttribute attribute) {
+        return attributes.Contains(attribute);
     }
     
     public StateMachineState Handle(StateMachineEvent trigger) {
@@ -62,15 +79,15 @@ public sealed class StateMachineState {
         return transitions.ContainsKey(StateMachineEvent.ON_ANIMATION_COMPLETED);
     }
 
-    public float GetLength() {
-        return length;
-    }
-
-    public void SetLength(float clipLength) {
-        length = clipLength;
-    }
-
     public override string ToString() {
-        return name;
+        string result = name;
+
+        result += $"\tAttributes:{(attributes.Count == 0 ? "None" : "")}";
+
+        foreach (var attribute in attributes) {
+            result += $"{attribute}{(attribute == attributes.Last() ? "," : "")}";
+        }
+        
+        return result;
     }
 }

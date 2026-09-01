@@ -127,7 +127,7 @@ public class StateMachine {
         }
     }
 
-    public string CurrentStateName() {
+    public string GetCurrentStateName() {
         return _currentState.GetName();
     }
 
@@ -139,10 +139,6 @@ public class StateMachine {
         }
 
         return result;
-    }
-
-    public void OnValueChanged(float newValue) {
-        speed = newValue;
     }
 
     public class Builder {
@@ -178,7 +174,7 @@ public class StateMachine {
     public class ShellBuilder {
         string name = "State Machine Shell";
         List<StateMachineState> states = new();
-
+        
         public ShellBuilder WithName(string name) {
             this.name = name;
             return this;
@@ -198,7 +194,7 @@ public class StateMachine {
         }
     }
     
-    public static class StateMachineUtility {
+    public static class Utility {
         public static void ImportLengthsFromRuntimeController(StateMachine stateMachine, RuntimeAnimatorController runtimeController) {
             foreach (var state in stateMachine.states) {
                 if (state.TransitionsOnAnimationCompleted()) {
