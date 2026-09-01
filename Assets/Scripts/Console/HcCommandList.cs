@@ -7,7 +7,7 @@ public class HcCommandList : HCommand {
         List<HCommand> commands = JConsole.i.GetCommands();
             
         foreach (var command in commands) {
-            JConsole.i.WriteLine($"{command.Keyword()} {command.CommandHelp()}");
+            JConsole.i.Print($"{command.Keyword()} {command.CommandHelp()}");
         }
 
         return $"Listed {commands.Count} commands.";

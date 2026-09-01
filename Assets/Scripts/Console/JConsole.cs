@@ -84,7 +84,7 @@ public class JConsole : MonoBehaviour {
             autocompleteCommands.Add(command.Keyword());
         }
         
-        WriteLine($"Successfully loaded {commands.Count} commands");
+        Print($"Successfully loaded {commands.Count} commands");
 
         canvasRect = GetComponent<RectTransform>();
 
@@ -95,8 +95,8 @@ public class JConsole : MonoBehaviour {
         
         ClearConsole();
         
-        WriteLine("<color=#00E5FF>/help</color> for command list");
-        WriteLine("<color=yellow>Ctrl + Tab</color> to close console"); 
+        Print("<color=#00E5FF>/help</color> for command list");
+        Print("<color=yellow>Ctrl + Tab</color> to close console"); 
     }
 
     /// <summary>
@@ -151,7 +151,7 @@ public class JConsole : MonoBehaviour {
         string finalMessage = string.IsNullOrEmpty(nonTruncatedMessage) ? message : nonTruncatedMessage;
         string formattedMessage = $"({DateTime.Now}){prefix}{finalMessage}";
         
-        WriteLine(formattedMessage);
+        Print(formattedMessage);
         
         logs.Add(formattedMessage);
         NotifyListenersOfSystemMessage(formattedMessage);
@@ -414,18 +414,28 @@ public class JConsole : MonoBehaviour {
         
         if (visible && ReturnKey()) TryCommand();
     } 
-
-    void OpenConsole() {
+    
+    /// <summary>
+    /// Opens the console.
+    /// </summary>
+    public void OpenConsole() {
         SetVisible(true);
         if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
+    /// <summary>
+    /// Closes the console.
+    /// </summary>
     public void CloseConsole() {
         SetVisible(false);
         SelectInputFieldAndSetText("/");
         if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
+    /// <summary>
+    /// Updates the canvas groups to be opaque, be interactable, and to block raycasts
+    /// according to whether the console is visible or not.
+    /// </summary>
     public void UpdateVisuals() {
         terminalCanvasGroup.alpha = visible ? 1 : 0;
         terminalCanvasGroup.interactable = visible;
@@ -467,10 +477,6 @@ public class JConsole : MonoBehaviour {
         return result;
     }
 
-    public void SetCommandLineInputText(string newText) {
-        inputField.text = newText;
-    }
-
     bool TryCommand(string overrideCommand = "") {
         string commandInput = !string.IsNullOrWhiteSpace(overrideCommand) ? overrideCommand : inputField.text;
 
@@ -484,7 +490,7 @@ public class JConsole : MonoBehaviour {
             history.Add(commandInput);
 
             if (commands.Count <= 0) {
-                WriteLine("Command(s) not recognized.");
+                Print("Command(s) not recognized.");
                 ClearInputField();
                 return false;
             }
@@ -493,10 +499,10 @@ public class JConsole : MonoBehaviour {
             
             for (int i = 0; i < commands.Count; i++) {
                 string output = commands[i].CommandFunction(commandInputs[i].Trim().Split(' '));
-                WriteLine($"<color=yellow>{output}</color>");
+                Print($"<color=yellow>{output}</color>");
             }
         } else {
-            WriteLine("Command not recognized.");
+            Print("Command not recognized.");
         }
 
         ClearInputField();
@@ -516,8 +522,12 @@ public class JConsole : MonoBehaviour {
         inputField.ActivateInputField();
     }
 
-    public void WriteLine(string add) {
-        commandOutputText.text += $"\n<color=#00E5FF>{username}@{machineName}</color> <color=yellow>$</color> {add}";
-        NotifyListenersOnWriteToConsole(add);
+    /// <summary>
+    /// Prints a line to the console.
+    /// </summary>
+    /// <param name="content"></param>
+    public void Print(string content) {
+        commandOutputText.text += $"\n<color=#00E5FF>{username}@{machineName}</color> <color=yellow>$</color> {content}";
+        NotifyListenersOnWriteToConsole(content);
     }
 }
