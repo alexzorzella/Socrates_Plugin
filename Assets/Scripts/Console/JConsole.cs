@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class JConsole : MonoBehaviour {
     static JConsole _i;
