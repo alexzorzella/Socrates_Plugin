@@ -34,7 +34,6 @@ public class JConsole : MonoBehaviour {
     bool suppressSystemMessages;
     bool visible;
     
-    
     readonly List<HCommand> commands = new();
     public List<HCommand> GetCommands() { return commands; }
 
