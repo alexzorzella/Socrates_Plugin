@@ -4,11 +4,13 @@ public class HcCommandList : HCommand {
     readonly List<string> options = new();
 
     public string CommandFunction(params string[] parameters) {
-        foreach (var command in JConsole.i.commands) {
+        List<HCommand> commands = JConsole.i.GetCommands();
+            
+        foreach (var command in commands) {
             JConsole.i.WriteLine($"{command.Keyword()} {command.CommandHelp()}");
         }
 
-        return $"Listed {JConsole.i.commands.Count} commands.";
+        return $"Listed {commands.Count} commands.";
     }
 
     public string CommandHelp() {

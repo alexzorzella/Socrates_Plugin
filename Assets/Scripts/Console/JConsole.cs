@@ -22,20 +22,21 @@ public class JConsole : MonoBehaviour {
 
     public CanvasGroup terminalCanvasGroup;
 
-    [HideInInspector] public bool suppressSystemMessages;
-
     public CanvasGroup messagesCanvasGroup;
     public RectTransform parentMessagesTo;
 
     public RectTransform scrollViewport;
 
-    [HideInInspector] public bool visible;
-
     readonly List<string> autocompleteCommands = new();
 
     RectTransform canvasRect;
 
-    [HideInInspector] public List<HCommand> commands = new();
+    bool suppressSystemMessages;
+    bool visible;
+    
+    
+    readonly List<HCommand> commands = new();
+    public List<HCommand> GetCommands() { return commands; }
 
     int currentMessages;
 
@@ -49,6 +50,67 @@ public class JConsole : MonoBehaviour {
     string username = "june";
 
     static readonly bool pauseTimeWhenActive = false;
+    
+    public static JConsole i {
+        get {
+            if (_i == null) {
+                var x = Resources.Load<JConsole>("JConsole");
+
+                _i = Instantiate(x);
+            }
+
+            return _i;
+        }
+    }
+
+    void Start() {
+        if (_i != null) {
+            if (_i != this) { Destroy(gameObject); }
+        } else {
+            _i = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        commands.Add(new HcCommandList());
+        commands.Add(new HcDebug());
+        commands.Add(new HcClearConsole());
+        commands.Add(new HcLoadScene());
+        commands.Add(new HcDialogue());
+        commands.Add(new HcMixerVolume());
+        commands.Add(new HcSuppressMessages());
+        commands.Add(new HcCloseConsole());
+        commands.Add(new HcForceQuit());
+
+        foreach (var command in commands) {
+            autocompleteCommands.Add(command.Keyword());
+        }
+        
+        WriteLine($"Successfully loaded {commands.Count} commands");
+
+        canvasRect = GetComponent<RectTransform>();
+
+        UpdateVisuals();
+        
+        machineName = Environment.MachineName;
+        username = Environment.UserName;
+        
+        ClearConsole();
+        
+        WriteLine("<color=#00E5FF>/help</color> for command list");
+        WriteLine("<color=yellow>Ctrl + Tab</color> to close console"); 
+    }
+
+    public void SetVisible(bool visible) {
+        this.visible = visible;
+        UpdateVisuals();
+    }
+
+    public bool IsVisible() { return visible; }
+
+    public bool ToggleSuppressSystemMessages() {
+        suppressSystemMessages = !suppressSystemMessages;
+        return suppressSystemMessages;
+    }
     
     public void RegisterListener(JConsoleLogListener newListener) {
         logListeners.Add(newListener);
@@ -91,64 +153,6 @@ public class JConsole : MonoBehaviour {
         }
     }
     
-    public static JConsole i {
-        get {
-            if (_i == null) {
-                var x = Resources.Load<JConsole>("JConsole");
-
-                _i = Instantiate(x);
-            }
-
-            return _i;
-        }
-    }
-
-    void Start() {
-        if (_i != null) {
-            if (_i != this) Destroy(gameObject);
-        } else {
-            _i = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        commands.Add(new HcCommandList());
-        commands.Add(new HcDebug());
-        commands.Add(new HcClearConsole());
-        commands.Add(new HcLoadScene());
-        commands.Add(new HcDialogue());
-        commands.Add(new HcMixerVolume());
-        commands.Add(new HcSuppressMessages());
-        commands.Add(new HcCloseConsole());
-        commands.Add(new HcForceQuit());
-
-        foreach (var command in commands) { autocompleteCommands.Add(command.Keyword()); }
-        
-        WriteLine($"Successfully loaded {commands.Count} commands");
-
-        canvasRect = GetComponent<RectTransform>();
-
-        UpdateVisuals();
-        
-        machineName = Environment.MachineName;
-        username = Environment.UserName;
-        
-        ClearConsole();
-        // WriteLine("<color=#00E5FF>friday.jam</color> installed");
-        WriteLine("<color=#00E5FF>/help</color> for command list");
-        WriteLine("<color=yellow>Ctrl + Tab</color> to close console"); 
-    }
-
-    void Update() {
-        if (_i != null)
-            if (_i != this)
-                Destroy(gameObject);
-
-        Autocomplete();
-
-        ConsoleFunctionality();
-        ScrollHistory();
-    }
-
     public void ClearConsole() {
         commandOutputText.text = "";
     }
@@ -193,6 +197,12 @@ public class JConsole : MonoBehaviour {
         selectedAutocompleteOption = -1;
     }
     
+    void Update() {
+        Autocomplete();
+        ConsoleFunctionality();
+        ScrollHistory();
+    }
+
     void Autocomplete() {
         if (string.IsNullOrWhiteSpace(inputField.text)) {
             ClearAutocompleteOptions();
@@ -371,14 +381,12 @@ public class JConsole : MonoBehaviour {
     } 
 
     void OpenConsole() {
-        visible = true;
-        UpdateVisuals();
+        SetVisible(true);
         if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
 
     public void CloseConsole() {
-        visible = false;
-        UpdateVisuals();
+        SetVisible(false);
         SelectInputFieldAndSetText("/");
         if (pauseTimeWhenActive) { Time.timeScale = visible ? 0 : 1; }
     }
@@ -393,10 +401,6 @@ public class JConsole : MonoBehaviour {
         messagesCanvasGroup.blocksRaycasts = !visible;
 
         ClearInputField();
-    }
-
-    public static bool Open() {
-        return i.visible;
     }
 
     static bool SlashKey() {
@@ -432,7 +436,7 @@ public class JConsole : MonoBehaviour {
         inputField.text = newText;
     }
 
-    public bool TryCommand(string overrideCommand = "") {
+    bool TryCommand(string overrideCommand = "") {
         string commandInput = !string.IsNullOrWhiteSpace(overrideCommand) ? overrideCommand : inputField.text;
 
         if (string.IsNullOrWhiteSpace(commandInput)) {

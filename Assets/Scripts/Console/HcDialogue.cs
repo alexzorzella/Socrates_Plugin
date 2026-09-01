@@ -34,7 +34,7 @@ public class HcDialogue : HCommand {
             }
         }
         
-        JConsole.i.visible = false;
+        JConsole.i.SetVisible(false);
         JConsole.i.UpdateVisuals();
 
         string message = $"Starting dialogue at {sectionReference}...";
