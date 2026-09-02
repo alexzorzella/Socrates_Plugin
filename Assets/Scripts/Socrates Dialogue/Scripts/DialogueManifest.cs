@@ -23,6 +23,12 @@ public static class DialogueManifest {
     static Dictionary<string, DialogueSection> sectionsByReference;
     static readonly Dictionary<string, string> dialogueVariables = new();
 
+    /// <summary>
+    /// Returns the list of referenceIds found in the map of referenceId to section, excluding sections
+    /// with a numerical referenceId if specified to do so.
+    /// </summary>
+    /// <param name="excludeSectionsWithANumericalReference"></param>
+    /// <returns></returns>
     public static List<string> GetSectionReferences(bool excludeSectionsWithANumericalReference = false) {
         if (sectionsByReference == null) {
             ParseFiles();
