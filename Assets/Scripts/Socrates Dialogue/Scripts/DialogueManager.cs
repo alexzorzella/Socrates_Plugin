@@ -162,13 +162,13 @@ namespace SocratesDialogue {
         /// the number of next sections and returns if there's no conversation going on or if a
         /// reference to the next section was passed and there is more than one choice in the current
         /// section. If a next dialogue section reference was passed, the corresponding next section
-        /// is cached. Otherwise, if this line just points to one next section, the next section
-        /// is set to that section. If the current dialogue has finished displaying, it
-        /// continues the dialogue, moving onto the next section. If it hasn't, it fully displays
-        /// the dialogue text content.
+        /// is cached from the choices in the current section. Otherwise, if this line just points to
+        /// one next section, the next section is set to that section. If the current dialogue has
+        /// finished displaying, it continues the dialogue, moving onto the next section. If it
+        /// hasn't, it fully displays the dialogue text content.
         /// </summary>
-        public void ContinueConversation(string nextSectionReference = "") {
-            if (nextSectionReference == null) {
+        public void ContinueConversation(string nextSectionOverrideReference = "") {
+            if (nextSectionOverrideReference == null) {
                 EndDialogue();
                 return;
             }
@@ -184,29 +184,29 @@ namespace SocratesDialogue {
             
             // Return if there's no conversation or if the current dialogue is a
             // branching dialogue and there was no choice passed.
-            if (!Talking() || (nextSectionCount > 1 && string.IsNullOrWhiteSpace(nextSectionReference))) {
+            if (!Talking() || (nextSectionCount > 1 && string.IsNullOrWhiteSpace(nextSectionOverrideReference))) {
                 return;
             }
 
             DialogueSection nextSection = null;
 
             // Cached the reference's associated dialogue section if one was passed
-            if (!string.IsNullOrWhiteSpace(nextSectionReference)) {
+            if (!string.IsNullOrWhiteSpace(nextSectionOverrideReference)) {
                 try {
                     List<NextSection> nextSections = currentSection.GetFacets<NextSection>();
 
                     foreach (var section in nextSections) {
-                        if (section.GetNextSectionReference() == nextSectionReference) {
+                        if (section.GetNextSectionReference() == nextSectionOverrideReference) {
                             nextSection = section.GetNextSection();
                             break;
                         }
                     }
 
                     if (nextSection == null) {
-                        nextSection = DialogueManifest.GetSectionByReference(nextSectionReference);
+                        nextSection = DialogueManifest.GetSectionByReference(nextSectionOverrideReference);
                     }
                 } catch {
-                    Debug.LogWarning($"Reference {nextSectionReference} has no associated dialogue section.");
+                    Debug.LogWarning($"Reference {nextSectionOverrideReference} has no associated dialogue section.");
                     nextSection = null;
                 }
             } else if (nextSectionCount == 1) {
