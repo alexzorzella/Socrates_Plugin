@@ -140,6 +140,12 @@ public class StateMachine {
     /// <returns></returns>
     public string GetCurrentStateName() { return currentState.GetName(); }
 
+    /// <summary>
+    /// Returns the current state.
+    /// </summary>
+    /// <returns></returns>
+    public StateMachineState CurrentState() { return currentState; }
+    
     void CancelAllLeanTweensInProgress() {
         foreach (var leanTweenId in leanTweensInProgress) {
             LeanTween.cancel(leanTweenId);
@@ -239,6 +245,13 @@ public class StateMachine {
     }
     
     public static class Utility {
+        /// <summary>
+        /// Iterates through the state machine's states. If the state transitions ON_ANIMATION_COMPLETED, it finds a
+        /// corresponding animation clip in the passed RuntimeAnimatorController. If a clip is found, the state's
+        /// length is set to that clip's time. Otherwise, it's set to float.MaxValue.
+        /// </summary>
+        /// <param name="stateMachine"></param>
+        /// <param name="runtimeController"></param>
         public static void ImportLengthsFromRuntimeController(StateMachine stateMachine, RuntimeAnimatorController runtimeController) {
             foreach (var state in stateMachine.states) {
                 if (state.TransitionsOnAnimationCompleted()) {
@@ -249,9 +262,5 @@ public class StateMachine {
                 }
             }
         }
-    }
-    
-    public StateMachineState CurrentState() {
-        return currentState;
     }
 }
