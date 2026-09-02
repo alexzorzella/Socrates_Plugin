@@ -165,22 +165,43 @@ public class StateMachine {
             _name = name;
         }
         
+        /// <summary>
+        /// Adds the passed state to the list of states.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public Builder WithState(StateMachineState state) {
             _states.Add(state);
             
             return this;
         }
-
+    
+        /// <summary>
+        /// Adds the passed list of states to the list of states
+        /// one at a time via WithState.
+        /// </summary>
+        /// <param name="states"></param>
+        /// <returns></returns>
         public Builder WithStates(List<StateMachineState> states) {
             foreach(var state in states) { WithState(state); }
             return this;
         }
 
+        /// <summary>
+        /// Adds the passed list of states to the list of states
+        /// one at a time by passing states.ToList() into WithStates.
+        /// </summary>
+        /// <param name="states"></param>
+        /// <returns></returns>
         public Builder WithStates(params StateMachineState[] states) {
             WithStates(states.ToList());
             return this;
         }
-        
+       
+        /// <summary>
+        /// Returns a StateMachine with the cached name and states.
+        /// </summary>
+        /// <returns></returns>
         public StateMachine Build() {
             StateMachine finalStateMachine = new StateMachine(_name, _states);
             return finalStateMachine;
