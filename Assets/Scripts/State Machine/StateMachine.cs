@@ -158,11 +158,11 @@ public class StateMachine {
     }
 
     public class Builder {
-        readonly string _name = "New State Machine";
-        readonly List<StateMachineState> _states = new();
+        readonly string name;
+        readonly List<StateMachineState> states = new();
 
         public Builder(string name) {
-            _name = name;
+            this.name = name;
         }
         
         /// <summary>
@@ -171,7 +171,7 @@ public class StateMachine {
         /// <param name="state"></param>
         /// <returns></returns>
         public Builder WithState(StateMachineState state) {
-            _states.Add(state);
+            states.Add(state);
             
             return this;
         }
@@ -203,18 +203,17 @@ public class StateMachine {
         /// </summary>
         /// <returns></returns>
         public StateMachine Build() {
-            StateMachine finalStateMachine = new StateMachine(_name, _states);
+            StateMachine finalStateMachine = new StateMachine(name, states);
             return finalStateMachine;
         }
     }
     
     public class ShellBuilder {
-        string name = "State Machine Shell";
-        List<StateMachineState> states = new();
+        readonly string name; 
+        readonly List<StateMachineState> states = new();
         
-        public ShellBuilder WithName(string name) {
+        public ShellBuilder(string name) {
             this.name = name;
-            return this;
         }
         
         public ShellBuilder WithStates(params string[] stateNames) {
