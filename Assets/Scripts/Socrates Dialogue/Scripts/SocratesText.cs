@@ -562,7 +562,7 @@ namespace SocratesDialogue {
             AnnotationToken token,
             Vector3[] vertexPositionsReadFrom,
             Vector3[] vertexPositionsWriteTo) {
-            float waveSpeed = token.ContainsDynamicValue()
+            float waveSpeed = token.HasDynamicValue()
                 ? token.GetDynamicValueAsFloat()
                 : SocraticAnnotation.i.waveSpeed;
 
@@ -629,11 +629,14 @@ namespace SocratesDialogue {
                 
                 Color32[] vertexColors = textComponent.textInfo.meshInfo[meshIndex].colors32;
 
+                string gradientName = token.HasDynamicValue() ? token.GetDynamicValue() : "";
+                Gradient gradient = DialogueGradients.i.GetGradient(gradientName);
+                if (gradient == null) { return; }
                 
-                Color colorL = DialogueGradients.i.rainbow.Evaluate(percentageL);
+                Color colorL = gradient.Evaluate(percentageL);
                 colorL = OverrideAlpha(colorL, false);
                 
-                Color colorR = DialogueGradients.i.rainbow.Evaluate(percentageR);
+                Color colorR = gradient.Evaluate(percentageR);
                 colorR = OverrideAlpha(colorR, false);
                 
                 for (int v = 0; v < 4; v++) {
