@@ -8,32 +8,27 @@ public class StateMachine {
     readonly List<StateMachineState> states = new();
     readonly List<StateMachineListener> listeners = new();
 
-    StateMachineState _currentState = null;
+    StateMachineState currentState;
 
     float speed;
-
-    public void SetSpeed(float speed) {
-        this.speed = speed;
-    }
     
-    /**
-     * Keeps track of LeanTweens currently active so that
-     * unnecessary cancellations do not occur on
-     * unpredictable state changes
-    */
+    // Keeps track of LeanTweens currently active so that
+    // unnecessary cancellations do not occur on
+    // unpredictable state changes
     readonly List<int> leanTweensInProgress = new();
 
-    StateMachine(string name, List<StateMachineState> states) : 
-        this(name, states.ToArray()) {
-    }
-
+    const int maximumSetStateDepth = 100;
+    
     StateMachine(string name, params StateMachineState[] states) {
         this.name = name;
-        
         AddStates(states);
-        
-        SetState(states[0], states[0]);
+
+        if (this.states.Count > 0) {
+            SetState(states[0], states[0]);
+        }
     }
+    
+    StateMachine(string name, List<StateMachineState> states) : this(name, states.ToArray()) { }
 
     /// <summary>
     /// Registers a listener to the state machine that reports a state change from a state 'from'
@@ -42,16 +37,29 @@ public class StateMachine {
     /// <param name="listener"></param>
     public void RegisterListener(StateMachineListener listener) {
         listeners.Add(listener);
-        listener.OnStateMachineStateChange(null, _currentState);
+        listener.OnStateMachineStateChange(null, currentState);
     }
     
     /// <summary>
-    /// Handles a state machine event.
+    /// Notifies all registered listeners of a state change from StateMachineState from to
+    /// StateMachineState to
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    void NotifyListeners(StateMachineState from, StateMachineState to) {
+        foreach (var listener in listeners) {
+            listener.OnStateMachineStateChange(from, to);
+        }
+    }
+    
+    /// <summary>
+    /// Handles a state machine event by checking if the current state
+    /// has a transition for the passed StateMachineEvent
     /// </summary>
     /// <param name="trigger"></param>
     public void Handle(StateMachineEvent trigger) {
-        StateMachineState from = _currentState;
-        StateMachineState to = _currentState.Handle(trigger);
+        StateMachineState from = currentState;
+        StateMachineState to = currentState.Handle(trigger);
         
         if (to != null) {
             SetState(from, to);
@@ -59,18 +67,54 @@ public class StateMachine {
     }
 
     /// <summary>
-    /// Jumps the current state to a state with the passed name. If the past name
-    /// is not a state in the list of states, the function logs a warning.
+    /// Sets the current state to StateMachineState to and notifies the subscribed listeners
+    /// of the state change. Entry transitions are handled recursively. To safeguard against
+    /// infinite transitions, the recursive call stack is limited to a maximum recursive depth.
+    /// 
+    /// If the final current state transitions when its animation is completed, a delayed
+    /// LeanTween call is made to handle an ON_ANIMATION_COMPLETED event after the animation's
+    /// runtime.
+    ///
+    /// Note: for transitions ON_ANIMATION_COMPLETED to work, the state machine's state times
+    /// must be populated. Use StateMachine.Utility.ImportLengthsFromRuntimeController to
+    /// automatically import times. Additionally, speed must reflect the animator's speed.
+    /// If the animator's speed is changed, the speed must be updated here.
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="depth"></param>
+    void SetState(StateMachineState from, StateMachineState to, int depth = 0) {
+        CancelAllLeanTweensInProgress();
+        
+        StateMachineState onEntryResult = to.TryEntryTransitions();
+        currentState = to;
+        NotifyListeners(from, to);
+
+        if (onEntryResult != null && depth < maximumSetStateDepth) {
+            SetState(to, onEntryResult, depth + 1 );
+            return;
+        }
+        
+        if (currentState.TransitionsOnAnimationCompleted()) {
+            var ltDescr = LeanTween.delayedCall(currentState.GetLength() / speed, () => {
+                Handle(StateMachineEvent.ON_ANIMATION_COMPLETED);
+            });
+            
+            leanTweensInProgress.Add(ltDescr.id);
+        }
+    }
+
+    /// <summary>
+    /// Jumps from the current state to a state with the passed name. If the passed name
+    /// is not a state in the list of states, nothing happens.
     /// </summary>
     /// <param name="stateName"></param>
     public void JumpTo(string stateName) {
-        StateMachineState from = _currentState;
+        StateMachineState from = currentState;
         StateMachineState to = states.Find(state => state.GetName() == stateName);
 
         if (to != null) {
             SetState(from, to);
-        } else {
-            Debug.LogWarning($"Error: {stateName} does not exist");
         }
     }
     
@@ -84,51 +128,29 @@ public class StateMachine {
         }
     }
 
-    void NotifyListeners(StateMachineState from, StateMachineState to) {
-        foreach (var listener in listeners) {
-            listener.OnStateMachineStateChange(from, to);
-        }
-    }
+    /// <summary>
+    /// Sets the speed that will be used for transitions ON_ANIMATION_COMPLETED.
+    /// </summary>
+    /// <param name="speed"></param>
+    public void SetSpeed(float speed) { this.speed = speed; } 
+   
+    /// <summary>
+    /// Returns the current state's name.
+    /// </summary>
+    /// <returns></returns>
+    public string GetCurrentStateName() { return currentState.GetName(); }
 
+    /// <summary>
+    /// Returns the current state.
+    /// </summary>
+    /// <returns></returns>
+    public StateMachineState CurrentState() { return currentState; }
+    
     void CancelAllLeanTweensInProgress() {
         foreach (var leanTweenId in leanTweensInProgress) {
             LeanTween.cancel(leanTweenId);
         }
         leanTweensInProgress.Clear();
-    }
-
-    void SetState(StateMachineState from, StateMachineState to) {
-        CancelAllLeanTweensInProgress();
-        
-        StateMachineState onEntryResult = to.TryEntryState();
-
-        if (onEntryResult != null) {
-            string onEntryName = onEntryResult.GetName();
-            // Debug.Log($"OnEntry found: {onEntryName}, calling SetState({onEntryName})");
-
-            _currentState = to;
-            NotifyListeners(from, to);
-
-            SetState(to, onEntryResult);
-            return;
-        }
-
-        _currentState = to;
-        NotifyListeners(from, to);
-        
-        // Debug.Log($"Set state to {_currentState.GetName()}");
-        
-        if (_currentState.TransitionsOnAnimationCompleted()) {
-            // Debug.Log($"delayedCall to leanTween to occur after {_currentState.GetLength()} seconds");
-            var ltDescr = LeanTween.delayedCall(_currentState.GetLength() / speed, () => {
-                Handle(StateMachineEvent.ON_ANIMATION_COMPLETED);
-            });
-            leanTweensInProgress.Add(ltDescr.id);
-        }
-    }
-
-    public string CurrentStateName() {
-        return _currentState.GetName();
     }
 
     public override string ToString() {
@@ -141,49 +163,70 @@ public class StateMachine {
         return result;
     }
 
-    public void OnValueChanged(float newValue) {
-        speed = newValue;
-    }
-
     public class Builder {
-        readonly string _name = "New State Machine";
-        readonly List<StateMachineState> _states = new();
+        readonly string name;
+        readonly List<StateMachineState> states = new();
 
         public Builder(string name) {
-            _name = name;
+            this.name = name;
         }
         
+        /// <summary>
+        /// Adds the passed state to the list of states.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public Builder WithState(StateMachineState state) {
-            _states.Add(state);
+            states.Add(state);
             
             return this;
         }
-
+    
+        /// <summary>
+        /// Adds the passed list of states to the list of states
+        /// one at a time via WithState.
+        /// </summary>
+        /// <param name="states"></param>
+        /// <returns></returns>
         public Builder WithStates(List<StateMachineState> states) {
             foreach(var state in states) { WithState(state); }
             return this;
         }
 
+        /// <summary>
+        /// Adds the passed list of states to the list of states
+        /// one at a time by passing states.ToList() into WithStates.
+        /// </summary>
+        /// <param name="states"></param>
+        /// <returns></returns>
         public Builder WithStates(params StateMachineState[] states) {
             WithStates(states.ToList());
             return this;
         }
-        
+       
+        /// <summary>
+        /// Returns a StateMachine with the cached name and states.
+        /// </summary>
+        /// <returns></returns>
         public StateMachine Build() {
-            StateMachine finalStateMachine = new StateMachine(_name, _states);
+            StateMachine finalStateMachine = new StateMachine(name, states);
             return finalStateMachine;
         }
     }
     
     public class ShellBuilder {
-        string name = "State Machine Shell";
-        List<StateMachineState> states = new();
-
-        public ShellBuilder WithName(string name) {
-            this.name = name;
-            return this;
-        }
+        readonly string name; 
+        readonly List<StateMachineState> states = new();
         
+        public ShellBuilder(string name) {
+            this.name = name;
+        }
+
+        /// <summary>
+        /// Adds a transitionless state with each of the passed names with no length.
+        /// </summary>
+        /// <param name="stateNames"></param>
+        /// <returns></returns>
         public ShellBuilder WithStates(params string[] stateNames) {
             foreach (var stateName in stateNames) {
                 states.Add(new StateMachineState(stateName));
@@ -191,14 +234,24 @@ public class StateMachine {
             
             return this;
         }
-
+        
+        /// <summary>
+        /// Returns a StateMachine with the cached name and states.
+        /// </summary>
         public StateMachine Build() {
             StateMachine finalStateMachine = new StateMachine(name, states);
             return finalStateMachine;
         }
     }
     
-    public static class StateMachineUtility {
+    public static class Utility {
+        /// <summary>
+        /// Iterates through the state machine's states. If the state transitions ON_ANIMATION_COMPLETED, it finds a
+        /// corresponding animation clip in the passed RuntimeAnimatorController. If a clip is found, the state's
+        /// length is set to that clip's time. Otherwise, it's set to float.MaxValue.
+        /// </summary>
+        /// <param name="stateMachine"></param>
+        /// <param name="runtimeController"></param>
         public static void ImportLengthsFromRuntimeController(StateMachine stateMachine, RuntimeAnimatorController runtimeController) {
             foreach (var state in stateMachine.states) {
                 if (state.TransitionsOnAnimationCompleted()) {
@@ -209,9 +262,5 @@ public class StateMachine {
                 }
             }
         }
-    }
-    
-    public StateMachineState CurrentState() {
-        return _currentState;
     }
 }
