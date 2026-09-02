@@ -24,13 +24,13 @@ namespace SocratesDialogue {
 
         /// <summary>
         /// Adds the passed SectionBuilder to the local list of SectionBuilder and returns the instance of
-        /// Builder.
+        /// DialogueBuilder.
         /// </summary>
-        /// <param name="section"></param>
+        /// <param name="sectionBuilder"></param>
         /// <returns></returns>
-        public DialogueBuilder WithSection(SectionBuilder section) {
-            section.GetOrSetReferenceIdToFallback(fallback: $"section_{sectionBuilders.Count}");
-            sectionBuilders.Add(section);
+        public DialogueBuilder WithSection(SectionBuilder sectionBuilder) {
+            sectionBuilder.GetOrSetReferenceIdToFallback(fallback: $"section_{sectionBuilders.Count}");
+            sectionBuilders.Add(sectionBuilder);
             return this;
         }
         
