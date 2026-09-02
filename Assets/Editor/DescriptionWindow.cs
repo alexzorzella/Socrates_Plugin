@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class DescriptionWindow : EditorWindow {
     void OnGUI() {
-        GUILayout.TextField(
-            "Socrates Plugin\n" +
-            "For Socrates, from Alex Zorzella and 'Z' Zorzella. Please read the readme for more information.");
-
+        GUILayout.Label("Socrates Plugin");
+        GUILayout.Label("For Socrates, from Alex Zorzella and 'Z' Zorzella.");
+        
+        if (GUILayout.Button("Documentation")) {
+            Application.OpenURL("https://guides.highqualitybackup.com/socrates_plugin/about/");
+        }
+        
         Sprite socrates = ResourceLoader.LoadSprite("socrates");
 
         if (socrates != null) {
