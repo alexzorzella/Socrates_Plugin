@@ -215,7 +215,12 @@ public class StateMachine {
         public ShellBuilder(string name) {
             this.name = name;
         }
-        
+
+        /// <summary>
+        /// Adds a transitionless state with each of the passed names with no length.
+        /// </summary>
+        /// <param name="stateNames"></param>
+        /// <returns></returns>
         public ShellBuilder WithStates(params string[] stateNames) {
             foreach (var stateName in stateNames) {
                 states.Add(new StateMachineState(stateName));
@@ -223,7 +228,10 @@ public class StateMachine {
             
             return this;
         }
-
+        
+        /// <summary>
+        /// Returns a StateMachine with the cached name and states.
+        /// </summary>
         public StateMachine Build() {
             StateMachine finalStateMachine = new StateMachine(name, states);
             return finalStateMachine;
