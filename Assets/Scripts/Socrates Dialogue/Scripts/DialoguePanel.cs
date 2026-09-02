@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using PlasticGui.WorkspaceWindow.QueryViews.Changesets;
 using SocratesDialogue;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListener {
