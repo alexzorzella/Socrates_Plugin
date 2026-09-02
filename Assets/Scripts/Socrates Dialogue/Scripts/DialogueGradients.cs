@@ -4,6 +4,9 @@ using UnityEngine;
 
 /// <summary>
 /// A self-instantiating singleton object that stores the gradients used by the dialogue system.
+/// To add more gradients to the collection of available gradients, make a publicly facing gradient
+/// and add it in Initialize (or make one in the Initialize function itself, but in this instance
+/// the Unity editor provides a window that makes it easy to edit the gradient.)
 /// </summary>
 public class DialogueGradients : MonoBehaviour {
     static DialogueGradients _i;
@@ -36,7 +39,7 @@ public class DialogueGradients : MonoBehaviour {
     /// Returns the gradient listed in the dictionary with the passed name.
     /// If the passed name has no gradient listed, the first gradient in the
     /// dictionary is returned. If there are no gradients in the dictionary,
-    /// the function returns null;
+    /// the function returns null.
     /// </summary>
     /// <param name="gradientName"></param>
     /// <returns></returns>
