@@ -105,6 +105,17 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     }
 
     /// <summary>
+    /// Hides the panel when the dialogue ends.
+    /// </summary>
+    public void OnDialogueEnded() {
+        if (ClearChoiceObjects()) {
+            LeanTween.delayedCall(DialogueChoice.fadeInTime, () => { Move(origin); });
+        }
+        
+        SetDialoguePanelVisible(false);
+    }
+    
+    /// <summary>
     /// Runs whenever the current dialogue section's content is fully displayed for the first time.
     /// </summary>
     public void OnFullyDisplayed() {
@@ -154,17 +165,6 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
     /// <returns></returns>
     public bool OnStandby() {
         return contentText.TextHasBeenDisplayed();
-    }
-    
-    /// <summary>
-    /// Hides the panel when the dialogue ends.
-    /// </summary>
-    public void OnDialogueEnded() {
-        if (ClearChoiceObjects()) {
-            LeanTween.delayedCall(DialogueChoice.fadeInTime, () => { Move(origin); });
-        }
-        
-        SetDialoguePanelVisible(false);
     }
     
     /// <summary>
