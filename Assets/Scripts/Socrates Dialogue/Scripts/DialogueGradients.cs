@@ -3,9 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// A self-instantiating singleton object that stores the gradients used
-/// by the dialogue system. In the future, multiple gradients will be
-/// supported.
+/// A self-instantiating singleton object that stores the gradients used by the dialogue system.
 /// </summary>
 public class DialogueGradients : MonoBehaviour {
     static DialogueGradients _i;
@@ -35,10 +33,10 @@ public class DialogueGradients : MonoBehaviour {
     }
     
     /// <summary>
-    /// Returns the graident listed in the dictionary with the passed name.
+    /// Returns the gradient listed in the dictionary with the passed name.
     /// If the passed name has no gradient listed, the first gradient in the
-    /// dicitonary is returned. If there are no gradients in the dictionary,
-    /// the funciton returns null;
+    /// dictionary is returned. If there are no gradients in the dictionary,
+    /// the function returns null;
     /// </summary>
     /// <param name="gradientName"></param>
     /// <returns></returns>
