@@ -64,33 +64,3 @@ Socrates Markdown works with [TextMeshPro Rich Text](https://docs.unity3d.com/Pa
 
 ### Customize Everything
 <img width="893" height="369" alt="socrates_annotation" src="https://github.com/user-attachments/assets/6222e6a7-b82b-4829-b71c-9a3e0ef079ff" />
-
-## Included
-
-<i>Socrates Dialogue</i> (Fully documented and somewhat tested): A robust dialogue system that supports loading from .tsv. Includes text annotations including wavy text, shaky text, and delays during text scroll. Compatible with TextMeshPro rich text tags.
-
-<i>Audio Management</i> (Fully documented): MultiAudioSource is streamlined to make it easy to load and play audio files directly from your files.
-
-<i>ResourceLoader</i> (Fully documented): Streamlines loading objects, sprites, animators, and more directly from your files.
-
-<i>GnaTransition</i> (Fully documented): Streamlines transitioning scenes while running bootstrap and teardown code if necessary.
-
-<i>Save System</i> (Fully documented): A non-encrypted saving binary for saving and loading game states.
-
-<i>State Machine</i> (Somewhat documented): A custom state machine framework.
-
-<i>GameManager</i> (Somewhat documented): A static singleton instance to manage the game state.
-
-<i>Camera Movement and Shake</i> (No documentation): Basic camera movement and shake.
-
-<i>JConsole</i> (No documentation): A command console designed to make testing, debugging, and demoing eaiser.
-
-<i>Input System</i> (No documentation): Use the new input system to manage multiple controllers and local multiplayer.
-
-<i>Inventory</i> (No documentation): A basic inventory system.
-
-<i>AlexLang</i> (No documentation): Quick .tsv based localization. This is not as robust as many other localization packages out there, but it gets the job done.
-
-<i>Physics</i> (No documentation): A couple of physics bases to work off of.
-
-<i>Practicality</i> (No documentation): Various scripts to make your life easier, including (but not limited to) a script to automatically update the build version on build (found in Assets/Editor) and increment with overflow.
