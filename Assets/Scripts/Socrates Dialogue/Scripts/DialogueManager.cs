@@ -45,6 +45,12 @@ namespace SocratesDialogue {
             listeners.Add(newListener);
         }
 
+        /// <summary>
+        /// Registers the passed listener to be notified when events of the passed tag are notified.
+        /// If no tag is specified, the listener will be notified of all dialogue events.
+        /// </summary>
+        /// <param name="newListener"></param>
+        /// <param name="eventTag"></param>
         public void RegisterEventListener(DialogueEventListener newListener, string eventTag = "") {
             if (!eventListeners.ContainsKey(eventTag)) {
                 eventListeners.Add(eventTag, new List<DialogueEventListener>());
