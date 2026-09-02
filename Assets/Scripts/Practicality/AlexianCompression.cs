@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class AleixanCompression {
+public static class AlexianCompression {
     const int compressTo = 42;
 
     public enum AlexianCompressionMode {
