@@ -6,20 +6,41 @@ namespace SocratesDialogue {
     public class DialogueBuilder {
         readonly List<SectionBuilder> sectionBuilders = new();
 
+        /// <summary>
+        /// Returns the current number of section builders in the local list of SectionBuilder.
+        /// </summary>
+        /// <returns></returns>
         public int GetCurrentSectionBuilderCount() {
             return sectionBuilders.Count;
         }
 
+        /// <summary>
+        /// Returns the last SectionBuilder in the local list of SectionBuilder.
+        /// </summary>
+        /// <returns></returns>
         public SectionBuilder GetLastSectionBuilder() {
             return sectionBuilders.Last();
         }
 
+        /// <summary>
+        /// Adds the passed SectionBuilder to the local list of SectionBuilder and returns the instance of
+        /// Builder.
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
         public DialogueBuilder WithSection(SectionBuilder section) {
             section.GetOrSetReferenceIdToFallback(fallback: $"section_{sectionBuilders.Count}");
             sectionBuilders.Add(section);
             return this;
         }
-
+        
+        /// <summary>
+        /// Adds each SectionBuilder in the passed list of SectionBuilder to the local list of SectionBuilder. Every
+        /// section except for the last section gets a NextSection with the next SectionBuilder's referenceId. This
+        /// makes it so that long, sequential strings of lines don't have to be manually linked together.
+        /// </summary>
+        /// <param name="passedSectionBuilders"></param>
+        /// <returns></returns>
         public DialogueBuilder WithSequentialSections(List<SectionBuilder> passedSectionBuilders) {
             for (int i = 0; i < passedSectionBuilders.Count; i++) {
                 SectionBuilder sectionBuilder = passedSectionBuilders[i];
@@ -36,10 +57,23 @@ namespace SocratesDialogue {
             return this;
         }
 
+        /// <summary>
+        /// An overload for WithSequentialSections that accepts the SectionBuilders as params so that
+        /// a new list doesn't have to be manually made every time the function is called.
+        /// </summary>
+        /// <param name="passedSectionBuilders"></param>
+        /// <returns></returns>
         public DialogueBuilder WithSequentialSections(params SectionBuilder[] passedSectionBuilders) {
             return WithSequentialSections(passedSectionBuilders.ToList());
         }
 
+        /// <summary>
+        /// Iterates through the local list of SectionBuilder and builds each one. Each built DialogueSection
+        /// is passed to the DialogueManifest to be potentially added to the map of DialogueSection by reference.
+        /// Each NextSection is then linked to the DialogueSections they're pointing to. These facets are
+        /// linked here to support circular dependencies. The resulting Dialogue is returned.
+        /// </summary>
+        /// <returns></returns>
         public Dialogue Build() {
             List<DialogueSection> sections = new List<DialogueSection>();
             
