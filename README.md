@@ -16,9 +16,9 @@ This repository is a collection of scripts that my dad and I have worked on for 
 ### No Attribution Required
 This repository and its contents are protected by the MIT License. If you don't know what that means and don't want to read the license, it means you're free to copy, distribute, and use this material in published commercial works without attribution.
 
-### Contributions (Use Unity 6000.0.58f2)
+### Contributions (Use Unity 6000.3.23f1)
 
-Contributions to the Socrates Plugin are more than welcome! If you intend on working with the Socrates Plugin's source code please do so in Unity version 6000.0.58f2, and make sure you're not commiting any editor caches! (These are folders like .idea/ or .vscode/. If you use another editor that isn't already in the .gitignore, make sure to add it to the .gitignore before making a pull request). The editor may be upgraded in the future.
+Contributions to the Socrates Plugin are more than welcome! If you intend on working with the Socrates Plugin's source code please do so in Unity version 6000.3.23f1, and make sure you're not commiting any editor caches! (These are folders like .idea/ or .vscode/. If you use another editor that isn't already in the .gitignore, make sure to add it to the .gitignore before making a pull request). The editor may be upgraded in the future.
 
 ## Socrates: Dialogue Markdown Language
 
