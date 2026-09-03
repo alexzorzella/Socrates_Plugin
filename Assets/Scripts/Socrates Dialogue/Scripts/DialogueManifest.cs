@@ -68,9 +68,10 @@ public static class DialogueManifest {
     }
     
     /// <summary>
-    /// Returns a dialogue section with the passed reference if one exist.
-    /// Makes sure that the dialogues have been parsed. If they haven't,
-    /// it parses them before doing anything
+    /// Returns a dialogue section mapped to the passed reference after making sure
+    /// that the dialogue files have been parsed. If they haven't, it parses them
+    /// before trying to return a section. If the passed reference isn't in the
+    /// dictionary mapping references to dialogue sections, nothing is returned.
     /// </summary>
     /// <param name="reference"></param>
     /// <returns></returns>
