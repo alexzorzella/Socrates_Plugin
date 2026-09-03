@@ -43,7 +43,7 @@ namespace SocratesDialogue {
         /// Returns whether the annotation has a dynamic value cached.
         /// </summary>
         /// <returns></returns>
-        public bool ContainsDynamicValue() {
+        public bool HasDynamicValue() {
             return !string.IsNullOrEmpty(passedValue);
         }
 

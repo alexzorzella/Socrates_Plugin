@@ -23,6 +23,12 @@ public static class DialogueManifest {
     static Dictionary<string, DialogueSection> sectionsByReference;
     static readonly Dictionary<string, string> dialogueVariables = new();
 
+    /// <summary>
+    /// Returns the list of referenceIds found in the map of referenceId to section, excluding sections
+    /// with a numerical referenceId if specified to do so.
+    /// </summary>
+    /// <param name="excludeSectionsWithANumericalReference"></param>
+    /// <returns></returns>
     public static List<string> GetSectionReferences(bool excludeSectionsWithANumericalReference = false) {
         if (sectionsByReference == null) {
             ParseFiles();
@@ -62,9 +68,10 @@ public static class DialogueManifest {
     }
     
     /// <summary>
-    /// Returns a dialogue section with the passed reference if one exist.
-    /// Makes sure that the dialogues have been parsed. If they haven't,
-    /// it parses them before doing anything
+    /// Returns a dialogue section mapped to the passed reference after making sure
+    /// that the dialogue files have been parsed. If they haven't, it parses them
+    /// before trying to return a section. If the passed reference isn't in the
+    /// dictionary mapping references to dialogue sections, nothing is returned.
     /// </summary>
     /// <param name="reference"></param>
     /// <returns></returns>
