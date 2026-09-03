@@ -487,11 +487,7 @@ namespace SocratesDialogue {
         /// <param name="textInfo"></param>
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
-        void ApplyRichTextShake(
-            TMP_TextInfo textInfo,
-            AnnotationToken token,
-            Vector3[] vertexPositionsReadFrom,
-            Vector3[] vertexPositionsWriteTo) {
+        void ApplyRichTextShake(TMP_TextInfo textInfo, AnnotationToken token, Vector3[] vertexPositionsReadFrom, Vector3[] vertexPositionsWriteTo) {
             VertexAnim[] vertexAnim = new VertexAnim[1024];
 
             for (int i = 0; i < 1024; i++) {
@@ -557,11 +553,7 @@ namespace SocratesDialogue {
         /// <param name="vertexPositionsReadFrom"></param>
         /// <param name="token"></param>
         /// <param name="vertexPositionsWriteTo"></param>
-        void ApplyRichTextWave(
-            TMP_TextInfo textInfo,
-            AnnotationToken token,
-            Vector3[] vertexPositionsReadFrom,
-            Vector3[] vertexPositionsWriteTo) {
+        void ApplyRichTextWave(TMP_TextInfo textInfo, AnnotationToken token, Vector3[] vertexPositionsReadFrom, Vector3[] vertexPositionsWriteTo) {
             float waveSpeed = token.HasDynamicValue()
                 ? token.GetDynamicValueAsFloat()
                 : SocraticAnnotation.i.waveSpeed;
@@ -600,10 +592,7 @@ namespace SocratesDialogue {
         /// <param name="textComponent"></param>
         /// <param name="token"></param>
         /// <param name="totalVisibleCharacters"></param>
-        void ApplyRichTextGradient(
-            TextMeshProUGUI textComponent,
-            AnnotationToken token,
-            int totalVisibleCharacters) {
+        void ApplyRichTextGradient(TextMeshProUGUI textComponent, AnnotationToken token, int totalVisibleCharacters) {
             TMP_TextInfo textInfo = textComponent.textInfo;
             
             float xOffset =  Mathf.Abs(textInfo.characterInfo[0].bottomLeft.x);
