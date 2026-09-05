@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+/// From the CodeMonkey tutorial: https://www.youtube.com/watch?v=YUIohCXt_pc 
 public class ScreenspaceTooltip : MonoBehaviour {
     static ScreenspaceTooltip _i;
 
