@@ -1,28 +1,41 @@
 using UnityEngine;
 
-public static class AlexianCompression {
+public static class AlexCompression {
     const int compressTo = 42;
 
-    public enum AlexianCompressionMode {
+    public enum CompressionType {
         SMOOTH,
         QUICK
     }
 
-    public static Vector2 ProportionalSize(float width, float height, float targetSize, bool anchorWidth = true) {
-        Vector2 result = Vector2.zero;
+    /// <summary>
+    /// Returns the original vector2 scaled by the targetSize, anchored on the passed axis
+    /// </summary>
+    /// <param name="originalSize"></param>
+    /// <param name="targetSize"></param>
+    /// <param name="anchorWidth"></param>
+    /// <returns></returns>
+    public static Vector2 ProportionalSize(Vector2 originalSize, float targetSize, bool anchorWidth = true) {
+        Vector2 result;
 
         if (anchorWidth) {
-            result = new Vector2(targetSize, (height / width) * targetSize);
-        }
-        else {
-            result = new Vector2((width / height) * targetSize, targetSize);
+            result = new Vector2(targetSize, (originalSize.y / originalSize.x) * targetSize);
+        } else {
+            result = new Vector2((originalSize.x / originalSize.y) * targetSize, targetSize);
         }
 
         return result;
     }
 
-    public static Sprite CompressSprite(string name,
-        AlexianCompressionMode compressionMode = AlexianCompressionMode.SMOOTH) {
+    /// <summary>
+    /// Returns a compressed version of the sprite with the passed name found in a /Resources/ folder.
+    /// Smooth compression will average the color of neighboring pixels while quick compression will
+    /// use the color of the pixels from a grid.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="compressionMode"></param>
+    /// <returns></returns>
+    public static Sprite CompressSprite(string name, CompressionType compressionMode = CompressionType.SMOOTH) {
         Sprite toCompress = ResourceLoader.LoadSprite(name);
 
         if (toCompress == null) {
@@ -36,11 +49,10 @@ public static class AlexianCompression {
         int targetWidth = compressTo;
         int targetHeight = compressTo;
 
-        /*
-        actualWidth     targetWidth
-        -----------  =  ------------
-        actualHeight    targetHeight
-        */
+        // actualWidth     targetWidth
+        // -----------  =  ------------
+        // actualHeight    targetHeight
+            
         if (horizontal) {
             targetWidth = (int)(compressTo * (actualWidth / actualHeight));
         }
@@ -64,7 +76,7 @@ public static class AlexianCompression {
             for (int y = 0; y < targetHeight; y++) {
                 Color finalColor = new Color();
 
-                if (compressionMode == AlexianCompressionMode.SMOOTH) {
+                if (compressionMode == CompressionType.SMOOTH) {
                     float finalR = 0;
                     float finalG = 0;
                     float finalB = 0;

@@ -2,6 +2,7 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+// Adapted from the Brackeys tutorial: https://www.youtube.com/watch?v=XOjd_qU2Ido 
 public static class SaveSystem {
     /// <summary>
     /// Returns a persistent data path given the filename and subfolder.

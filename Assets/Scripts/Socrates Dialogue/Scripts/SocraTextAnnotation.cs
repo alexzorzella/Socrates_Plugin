@@ -2,17 +2,17 @@
 using UnityEngine;
 
 namespace SocratesDialogue {
-    public class SocraticAnnotation : MonoBehaviour {
-        static SocraticAnnotation _i;
+    public class SocraTextAnnotation : MonoBehaviour {
+        static SocraTextAnnotation _i;
 
         void Start() {
             DontDestroyOnLoad(gameObject);
         }
 	
-        public static SocraticAnnotation i {
+        public static SocraTextAnnotation i {
             get {
                 if (_i == null) {
-                    SocraticAnnotation x = Resources.Load<SocraticAnnotation>("SocraticAnnotation");
+                    SocraTextAnnotation x = Resources.Load<SocraTextAnnotation>("SocraticAnnotation");
 
                     _i = Instantiate(x);
                 }

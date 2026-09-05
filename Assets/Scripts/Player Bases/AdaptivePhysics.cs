@@ -140,7 +140,7 @@ public class AdaptivePhysics : MonoBehaviour {
 
         if (moveInput > 0) {
             if (rb.linearVelocity.x < speed) {
-                if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
+                if (!Mathf.Approximately(Mathf.Sign(moveInput), Mathf.Sign(fHorizontalVelocity)))
                     fHorizontalVelocity += speed * dampenTurning * Time.deltaTime;
                 else
                     fHorizontalVelocity += speed * dampenMoving * Time.deltaTime;
@@ -148,7 +148,7 @@ public class AdaptivePhysics : MonoBehaviour {
         }
         else if (moveInput < 0) {
             if (rb.linearVelocity.x > -speed) {
-                if (Mathf.Sign(moveInput) != Mathf.Sign(fHorizontalVelocity))
+                if (!Mathf.Approximately(Mathf.Sign(moveInput), Mathf.Sign(fHorizontalVelocity)))
                     fHorizontalVelocity -= speed * dampenTurning * Time.deltaTime;
                 else
                     fHorizontalVelocity -= speed * dampenMoving * Time.deltaTime;

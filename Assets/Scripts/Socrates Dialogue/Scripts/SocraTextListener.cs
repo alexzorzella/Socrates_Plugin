@@ -1,5 +1,5 @@
 namespace SocratesDialogue {
-    public interface SocratesTextListener {
+    public interface SocraTextListener {
         void OnFullyDisplayed();
     }
 }

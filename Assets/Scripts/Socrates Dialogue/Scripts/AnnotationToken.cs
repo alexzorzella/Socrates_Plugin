@@ -1,7 +1,7 @@
 namespace SocratesDialogue {
     public class AnnotationToken {
         readonly string passedValue;
-        readonly SocraticAnnotation.RichTextType richTextType;
+        readonly SocraTextAnnotation.RichTextType richTextType;
         readonly bool isOpener;
 
         int startCharIndex;
@@ -13,7 +13,7 @@ namespace SocratesDialogue {
             string passedValue,
             int startCharIndex,
             int endCharIndex,
-            SocraticAnnotation.RichTextType richTextType,
+            SocraTextAnnotation.RichTextType richTextType,
             bool isOpener) {
             this.passedValue = passedValue;
             this.startCharIndex = startCharIndex;
@@ -71,7 +71,7 @@ namespace SocratesDialogue {
         
         public AnnotationToken GetLinkedToken() { return linkedToken; }
         public bool IsOpener() { return isOpener; }
-        public SocraticAnnotation.RichTextType GetRichTextType() { return richTextType; }
+        public SocraTextAnnotation.RichTextType GetRichTextType() { return richTextType; }
 
         public bool HasExecutedAction() { return hasExecutedAction; }
         public void ExecuteAction() { hasExecutedAction = true; }
@@ -80,7 +80,7 @@ namespace SocratesDialogue {
             string passedValue = "";
             int startCharIndex = -1;
             int endCharIndex = -1;
-            SocraticAnnotation.RichTextType richTextType;
+            SocraTextAnnotation.RichTextType richTextType;
             bool isOpener = true;
 
             public Builder WithPassedValue(string passedValue) {
@@ -103,7 +103,7 @@ namespace SocratesDialogue {
                 return this;
             }
             
-            public Builder WithRichTextType(SocraticAnnotation.RichTextType richTextType) {
+            public Builder WithRichTextType(SocraTextAnnotation.RichTextType richTextType) {
                 this.richTextType = richTextType;
                 return this;
             }
