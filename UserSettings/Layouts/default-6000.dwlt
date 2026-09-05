@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1397.3334
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -40,9 +40,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 969.3333
+    y: 777.3333
     width: 412
-    height: 372.00006
+    height: 564.00006
   m_MinSize: {x: 51, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 16}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 112
+  controlID: 117
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 110
+  controlID: 44
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 111
+  controlID: 45
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -244,7 +244,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 2148
-    height: 900.6667
+    height: 640.6667
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -267,8 +267,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 304.66666
-    height: 900.6667
+    width: 350
+    height: 640.6667
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 18}
@@ -291,10 +291,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 304.66666
+    x: 350
     y: 0
-    width: 1843.3334
-    height: 900.6667
+    width: 1798
+    height: 640.6667
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 19}
@@ -321,9 +321,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 900.6667
+    y: 640.6667
     width: 2148
-    height: 440.6667
+    height: 700.6667
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 17}
@@ -350,7 +350,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 412
-    height: 969.3333
+    height: 777.3333
   m_MinSize: {x: 276, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 24}
@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 42.666668
     width: 2560
     height: 36
   m_SerializedDataModeController:
@@ -647,10 +647,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Test Runner\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 993.3333
+    x: 2148
+    y: 856
     width: 411
-    height: 346.00006
+    height: 538.00006
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -669,8 +669,8 @@ MonoBehaviour:
     splitterInitialOffset: 389.33334
     currentActiveSplitter: -1
     realSizes:
-    - 174
-    - 100.666664
+    - 296.66666
+    - 171.33334
     relativeSizes:
     - 0.6339755
     - 0.3660245
@@ -680,7 +680,7 @@ MonoBehaviour:
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 274.66666
+    lastTotalSize: 468
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_TestListGUIs:
   - m_Window: {fileID: 16}
     runProgress:
-      RunGuid: 4d0d71bc-a3e7-41a6-81aa-1eb3de52d97d
+      RunGuid: e4fe6520-9a47-42b7-a64d-cc05e937faae
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -704,9 +704,9 @@ MonoBehaviour:
           assemblyNames: []
         filters:
         - testMode: 1
-          testNames: []
-          groupNames:
-          - .*
+          testNames:
+          - PracticalityTests
+          groupNames: []
           categoryNames: []
           assemblyNames: []
         runSynchronously: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 1.0000001
+      Progress: 1
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList:
@@ -728,8 +728,8 @@ MonoBehaviour:
       uniqueId: '[Socrates Plugin][suite]'
       name: Socrates Plugin
       fullName: Socrates Plugin
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0636093
       messages: 
       output: 
       stacktrace: 
@@ -740,12 +740,12 @@ MonoBehaviour:
       categories: []
       parentId: 
       parentUniqueId: 
-    - id: 1033
+    - id: 1046
       uniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
       name: EditMode.dll
       fullName: C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0636093
       messages: 
       output: 
       stacktrace: 
@@ -760,8 +760,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
       name: FancyTextTests
       fullName: FancyTextTests
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0473597
       messages: 
       output: 
       stacktrace: 
@@ -770,14 +770,14 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1033
+      parentId: 1046
       parentUniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
     - id: 1003
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulk]'
       name: _TestWrappedFancyTextBulk
       fullName: FancyTextTests._TestWrappedFancyTextBulk
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0412625
       messages: 
       output: 
       stacktrace: 
@@ -793,8 +793,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulkNoAnnotations]'
       name: _TestWrappedFancyTextBulkNoAnnotations
       fullName: FancyTextTests._TestWrappedFancyTextBulkNoAnnotations
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0005121
       messages: 
       output: 
       stacktrace: 
@@ -810,8 +810,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests._TestWrappedFancyTextBulkSimpleStrings]'
       name: _TestWrappedFancyTextBulkSimpleStrings
       fullName: FancyTextTests._TestWrappedFancyTextBulkSimpleStrings
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0029102
       messages: 
       output: 
       stacktrace: 
@@ -827,8 +827,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextAverageCase]'
       name: FancyTextAverageCase
       fullName: FancyTextTests.FancyTextAverageCase
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0004034
       messages: 
       output: 
       stacktrace: 
@@ -844,8 +844,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTagB]'
       name: FancyTextSingleTokenNestedWithMultipleRichTextTagB
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTagB
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0002199
       messages: 
       output: 
       stacktrace: 
@@ -861,8 +861,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTags]'
       name: FancyTextSingleTokenNestedWithMultipleRichTextTags
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithMultipleRichTextTags
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0002009
       messages: 
       output: 
       stacktrace: 
@@ -878,8 +878,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTag]'
       name: FancyTextSingleTokenNestedWithRichTextTag
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTag
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.000496
       messages: 
       output: 
       stacktrace: 
@@ -895,8 +895,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagB]'
       name: FancyTextSingleTokenNestedWithRichTextTagB
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagB
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.000218
       messages: 
       output: 
       stacktrace: 
@@ -912,8 +912,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagC]'
       name: FancyTextSingleTokenNestedWithRichTextTagC
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagC
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001846
       messages: 
       output: 
       stacktrace: 
@@ -929,8 +929,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagD]'
       name: FancyTextSingleTokenNestedWithRichTextTagD
       fullName: FancyTextTests.FancyTextSingleTokenNestedWithRichTextTagD
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0002079
       messages: 
       output: 
       stacktrace: 
@@ -946,8 +946,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotations]'
       name: TestFancyTextNoAnnotations
       fullName: FancyTextTests.TestFancyTextNoAnnotations
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001565
       messages: 
       output: 
       stacktrace: 
@@ -963,8 +963,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotationsWithPunctutation]'
       name: TestFancyTextNoAnnotationsWithPunctutation
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithPunctutation
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.000246
       messages: 
       output: 
       stacktrace: 
@@ -980,8 +980,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTag]'
       name: TestFancyTextNoAnnotationsWithRichTextTag
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTag
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001631
       messages: 
       output: 
       stacktrace: 
@@ -997,8 +997,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/FancyTextTests/[EditMode][FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation]'
       name: TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
       fullName: FancyTextTests.TestFancyTextNoAnnotationsWithRichTextTagWithPunctuation
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001786
       messages: 
       output: 
       stacktrace: 
@@ -1011,11 +1011,11 @@ MonoBehaviour:
       parentId: 1001
       parentUniqueId: 'EditMode.dll/[EditMode][FancyTextTests][suite]'
     - id: 1016
-      uniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
-      name: SocraTSVParseModeTests
-      fullName: SocraTSVParseModeTests
-      resultStatus: 0
-      duration: 0
+      uniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+      name: PracticalityTests
+      fullName: PracticalityTests
+      resultStatus: 1
+      duration: 0.011541201
       messages: 
       output: 
       stacktrace: 
@@ -1024,14 +1024,234 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1033
+      parentId: 1046
+      parentUniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
+    - id: 1026
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_FourItemsMinus]'
+      name: TestIncrementWithOverflow_FourItemsMinus
+      fullName: PracticalityTests.TestIncrementWithOverflow_FourItemsMinus
+      resultStatus: 1
+      duration: 0.0102016
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1025
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_FourItemsPlus]'
+      name: TestIncrementWithOverflow_FourItemsPlus
+      fullName: PracticalityTests.TestIncrementWithOverflow_FourItemsPlus
+      resultStatus: 1
+      duration: 0.0001444
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1018
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_OneItemMinus]'
+      name: TestIncrementWithOverflow_OneItemMinus
+      fullName: PracticalityTests.TestIncrementWithOverflow_OneItemMinus
+      resultStatus: 1
+      duration: 0.0001215
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1017
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_OneItemPlus]'
+      name: TestIncrementWithOverflow_OneItemPlus
+      fullName: PracticalityTests.TestIncrementWithOverflow_OneItemPlus
+      resultStatus: 1
+      duration: 0.0001106
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1018
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_OneItemPlusLoopManyTimesOver]'
+      name: TestIncrementWithOverflow_OneItemPlusLoopManyTimesOver
+      fullName: PracticalityTests.TestIncrementWithOverflow_OneItemPlusLoopManyTimesOver
+      resultStatus: 1
+      duration: 0.0001675
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1022
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_ThreeItemsMinus]'
+      name: TestIncrementWithOverflow_ThreeItemsMinus
+      fullName: PracticalityTests.TestIncrementWithOverflow_ThreeItemsMinus
+      resultStatus: 1
+      duration: 0.0001092
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1024
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_ThreeItemsMinus_Wrapping]'
+      name: TestIncrementWithOverflow_ThreeItemsMinus_Wrapping
+      fullName: PracticalityTests.TestIncrementWithOverflow_ThreeItemsMinus_Wrapping
+      resultStatus: 1
+      duration: 0.0001074
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1021
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_ThreeItemsPlus]'
+      name: TestIncrementWithOverflow_ThreeItemsPlus
+      fullName: PracticalityTests.TestIncrementWithOverflow_ThreeItemsPlus
+      resultStatus: 1
+      duration: 0.0001069
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1023
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_ThreeItemsPlus_Wrapping]'
+      name: TestIncrementWithOverflow_ThreeItemsPlus_Wrapping
+      fullName: PracticalityTests.TestIncrementWithOverflow_ThreeItemsPlus_Wrapping
+      resultStatus: 1
+      duration: 0.0001015
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1020
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_TwoItemsMinus]'
+      name: TestIncrementWithOverflow_TwoItemsMinus
+      fullName: PracticalityTests.TestIncrementWithOverflow_TwoItemsMinus
+      resultStatus: 1
+      duration: 0.0001
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1019
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_TwoItemsPlus]'
+      name: TestIncrementWithOverflow_TwoItemsPlus
+      fullName: PracticalityTests.TestIncrementWithOverflow_TwoItemsPlus
+      resultStatus: 1
+      duration: 0.0001039
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1021
+      uniqueId: 'EditMode.dll/PracticalityTests/[EditMode][PracticalityTests.TestIncrementWithOverflow_TwoItemsPlusLoopManyTimesOver]'
+      name: TestIncrementWithOverflow_TwoItemsPlusLoopManyTimesOver
+      fullName: PracticalityTests.TestIncrementWithOverflow_TwoItemsPlusLoopManyTimesOver
+      resultStatus: 1
+      duration: 0.0001667
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: 'EditMode.dll/[EditMode][PracticalityTests][suite]'
+    - id: 1029
+      uniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
+      name: SocraTSVParseModeTests
+      fullName: SocraTSVParseModeTests
+      resultStatus: 1
+      duration: 0.0029592
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1046
       parentUniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
     - id: 1018
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeSkipLine]'
       name: ParseModeSkipLine
       fullName: SocraTSVParseModeTests.ParseModeSkipLine
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0019005
       messages: 
       output: 
       stacktrace: 
@@ -1047,8 +1267,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeSkipLineEmptyInput]'
       name: ParseModeSkipLineEmptyInput
       fullName: SocraTSVParseModeTests.ParseModeSkipLineEmptyInput
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.000196
       messages: 
       output: 
       stacktrace: 
@@ -1064,8 +1284,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellExpectedValues]'
       name: ParseModeTagByCellExpectedValues
       fullName: SocraTSVParseModeTests.ParseModeTagByCellExpectedValues
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001909
       messages: 
       output: 
       stacktrace: 
@@ -1081,8 +1301,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells]'
       name: ParseModeTagByCellFutureproofCells
       fullName: SocraTSVParseModeTests.ParseModeTagByCellFutureproofCells
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001385
       messages: 
       output: 
       stacktrace: 
@@ -1098,8 +1318,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells]'
       name: ParseModeTagByCellUnexpectedCells
       fullName: SocraTSVParseModeTests.ParseModeTagByCellUnexpectedCells
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.000137
       messages: 
       output: 
       stacktrace: 
@@ -1115,8 +1335,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinition]'
       name: ParseModeTokenDefinition
       fullName: SocraTSVParseModeTests.ParseModeTokenDefinition
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.00013
       messages: 
       output: 
       stacktrace: 
@@ -1132,8 +1352,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells]'
       name: ParseModeTokenDefinitionAndUnexpectedCells
       fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionAndUnexpectedCells
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001339
       messages: 
       output: 
       stacktrace: 
@@ -1149,8 +1369,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVParseModeTests/[EditMode][SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized]'
       name: ParseModeTokenDefinitionCapitalized
       fullName: SocraTSVParseModeTests.ParseModeTokenDefinitionCapitalized
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001324
       messages: 
       output: 
       stacktrace: 
@@ -1162,12 +1382,12 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1016
       parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVParseModeTests][suite]'
-    - id: 1025
+    - id: 1038
       uniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
       name: SocraTSVReplacementTests
       fullName: SocraTSVReplacementTests
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0017492
       messages: 
       output: 
       stacktrace: 
@@ -1176,14 +1396,14 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1033
+      parentId: 1046
       parentUniqueId: '[EditMode][C:/Users/azorzella/Documents/GitHub/Socrates_Plugin/Library/ScriptAssemblies/EditMode.dll][suite]'
     - id: 1029
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord]'
       name: ReplaceTokenMultipleWithOneInsideWord
       fullName: SocraTSVReplacementTests.ReplaceTokenMultipleWithOneInsideWord
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0007347
       messages: 
       output: 
       stacktrace: 
@@ -1199,8 +1419,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingle]'
       name: ReplaceTokenSingle
       fullName: SocraTSVReplacementTests.ReplaceTokenSingle
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001908
       messages: 
       output: 
       stacktrace: 
@@ -1216,8 +1436,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst]'
       name: ReplaceTokenSingleRegularWordFirst
       fullName: SocraTSVReplacementTests.ReplaceTokenSingleRegularWordFirst
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001568
       messages: 
       output: 
       stacktrace: 
@@ -1233,8 +1453,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation]'
       name: ReplaceTokenSingleRightBeforePunctuation
       fullName: SocraTSVReplacementTests.ReplaceTokenSingleRightBeforePunctuation
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001476
       messages: 
       output: 
       stacktrace: 
@@ -1250,8 +1470,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent]'
       name: ReplaceTokensOnlyTokensManyAdjacent
       fullName: SocraTSVReplacementTests.ReplaceTokensOnlyTokensManyAdjacent
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001798
       messages: 
       output: 
       stacktrace: 
@@ -1267,8 +1487,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensTwoAdjacent]'
       name: ReplaceTokensTwoAdjacent
       fullName: SocraTSVReplacementTests.ReplaceTokensTwoAdjacent
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001806
       messages: 
       output: 
       stacktrace: 
@@ -1284,8 +1504,8 @@ MonoBehaviour:
       uniqueId: 'EditMode.dll/SocraTSVReplacementTests/[EditMode][SocraTSVReplacementTests.ReplaceTokensTwoUnique]'
       name: ReplaceTokensTwoUnique
       fullName: SocraTSVReplacementTests.ReplaceTokensTwoUnique
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0001589
       messages: 
       output: 
       stacktrace: 
@@ -1297,13 +1517,13 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1025
       parentUniqueId: 'EditMode.dll/[EditMode][SocraTSVReplacementTests][suite]'
-    m_ResultText: 
+    m_ResultText: PracticalityTests (12 tests) (0.012s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 292fda46
-      m_LastClickedID: 1188704041
-      m_ExpandedIDs: 9d775d95ea4c3e9c2f4b22a8863bbcec292fda467bed5c60ffffff7f
+      m_SelectedIDs: 6b58c827
+      m_LastClickedID: 667441259
+      m_ExpandedIDs: 9d775d95ea4c3e9c2f4b22a8863bbcec6b58c827292fda467bed5c60ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1333,7 +1553,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 16}
     runProgress:
-      RunGuid: 4d0d71bc-a3e7-41a6-81aa-1eb3de52d97d
+      RunGuid: e4fe6520-9a47-42b7-a64d-cc05e937faae
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -1345,9 +1565,9 @@ MonoBehaviour:
           assemblyNames: []
         filters:
         - testMode: 1
-          testNames: []
-          groupNames:
-          - .*
+          testNames:
+          - PracticalityTests
+          groupNames: []
           categoryNames: []
           assemblyNames: []
         runSynchronously: 0
@@ -1361,7 +1581,7 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 1.0000001
+      Progress: 1
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList:
@@ -1430,7 +1650,7 @@ MonoBehaviour:
     m_SelectedOption: 0
   - m_Window: {fileID: 0}
     runProgress:
-      RunGuid: 4d0d71bc-a3e7-41a6-81aa-1eb3de52d97d
+      RunGuid: e4fe6520-9a47-42b7-a64d-cc05e937faae
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -1442,9 +1662,9 @@ MonoBehaviour:
           assemblyNames: []
         filters:
         - testMode: 1
-          testNames: []
-          groupNames:
-          - .*
+          testNames:
+          - PracticalityTests
+          groupNames: []
           categoryNames: []
           assemblyNames: []
         runSynchronously: 0
@@ -1458,7 +1678,7 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 1.0000001
+      Progress: 1
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList: []
@@ -1518,9 +1738,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 924.6667
+    y: 719.3334
     width: 2147
-    height: 414.6667
+    height: 674.6667
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1545,7 +1765,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Console
+    - Assets/Tests/EditMode
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1555,7 +1775,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Console
+  - Assets/Tests/EditMode
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\azorzella\Documents\GitHub\Socrates_Plugin
   m_LockTracker:
@@ -1563,12 +1783,15 @@ MonoBehaviour:
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: []
+    m_SelectedIDs:
+    - m_Data: 45940
     m_LastClickedID:
-      m_Data: 0
+      m_Data: 45940
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 45658
+    - m_Data: 45792
+    - m_Data: 1000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1630,7 +1853,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: []
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1684,9 +1907,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 24
-    width: 303.66666
-    height: 874.6667
+    y: 78.66667
+    width: 349
+    height: 614.6667
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1706,7 +1929,21 @@ MonoBehaviour:
       m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
-      m_ExpandedIDs: []
+      m_ExpandedIDs:
+      - m_Data: -16360
+      - m_Data: -14684
+      - m_Data: -13832
+      - m_Data: -13362
+      - m_Data: -12078
+      - m_Data: -11594
+      - m_Data: -10710
+      - m_Data: -9852
+      - m_Data: -8860
+      - m_Data: -7968
+      - m_Data: -7492
+      - m_Data: -6622
+      - m_Data: -5698
+      - m_Data: -1384
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1754,10 +1991,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 305.66666
-    y: 24
-    width: 1841.3334
-    height: 874.6667
+    x: 350
+    y: 78.66667
+    width: 1796
+    height: 614.6667
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1814,11 +2051,11 @@ MonoBehaviour:
       displayed: 0
       id: unity-search-toolbar
       index: 1
-      contents: '{"m_Layout":1,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":-24.0,"y":0.0},"m_FloatingSnapCorner":1,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":1,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":1,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: -24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 1
       layout: 1
       size: {x: 0, y: 0}
@@ -1828,11 +2065,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Open Tile Palette
       index: 3
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -1842,11 +2079,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Tilemap Focus
       index: 4
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -1884,11 +2121,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Light Settings
       index: 1
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -1912,11 +2149,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Cloth Constraints
       index: 4
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -1926,11 +2163,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Cloth Collisions
       index: 5
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -1982,11 +2219,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Occlusion Culling
       index: 6
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -1996,11 +2233,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Physics Debugger
       index: 7
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2010,11 +2247,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Scene Visibility
       index: 8
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2024,11 +2261,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Particles
       index: 9
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2108,11 +2345,11 @@ MonoBehaviour:
       displayed: 0
       id: Brush Attributes
       index: 0
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2136,11 +2373,11 @@ MonoBehaviour:
       displayed: 0
       id: Terrain Tools
       index: 0
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2150,11 +2387,11 @@ MonoBehaviour:
       displayed: 0
       id: Brush Masks
       index: 1
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2164,11 +2401,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Lighting Visualization Colors
       index: 0
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2192,11 +2429,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Tile Palette Clipboard
       index: 0
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2206,11 +2443,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/PBR Validation Settings
       index: 2
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2220,11 +2457,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Tile Palette Brush Pick
       index: 3
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2234,11 +2471,11 @@ MonoBehaviour:
       displayed: 0
       id: Scene View/Sprite Swap
       index: 13
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2248,11 +2485,11 @@ MonoBehaviour:
       displayed: 0
       id: SceneView/CamerasOverlay
       index: 14
-      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":24.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: 24, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 4
       size: {x: 0, y: 0}
@@ -2316,7 +2553,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0.1735073, y: 0.40164986, z: -0.064449884}
     speed: 2
-    m_Value: {x: -0.49392754, y: -0.15893683, z: -0.05555072}
+    m_Value: {x: 0.1735073, y: 0.40164986, z: -0.064449884}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2368,7 +2605,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 5.5123916
     speed: 2
-    m_Value: 4.6224785
+    m_Value: 5.5123916
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -2424,10 +2661,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 305.33334
+    x: 350
     y: 78.66667
-    width: 1840.6666
-    height: 876
+    width: 1796
+    height: 614.6667
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2462,10 +2699,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -1920
-    m_HBaseRangeMax: 1920
-    m_VBaseRangeMin: -1080
-    m_VBaseRangeMax: 1080
+    m_HBaseRangeMin: -1280
+    m_HBaseRangeMax: 1280
+    m_VBaseRangeMin: -720
+    m_VBaseRangeMax: 720
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -2483,23 +2720,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1840.6666
-      height: 855
-    m_Scale: {x: 0.39583334, y: 0.39583334}
-    m_Translation: {x: 920.3333, y: 427.5}
+      width: 1796
+      height: 593.6667
+    m_Scale: {x: 0.41226852, y: 0.41226852}
+    m_Translation: {x: 898, y: 296.83334}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -2325.0525
-      y: -1080
-      width: 4650.105
-      height: 2160
+      x: -2178.1921
+      y: -720
+      width: 4356.3843
+      height: 1440
     m_MinimalGUI: 1
-  m_defaultScale: 0.39583334
-  m_LastWindowPixelSize: {x: 1840.6666, y: 876}
+  m_defaultScale: 0.41226852
+  m_LastWindowPixelSize: {x: 2694, y: 922}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -2682,10 +2919,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 24
+    x: 2148
+    y: 78.66667
     width: 411
-    height: 943.3333
+    height: 751.3333
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
