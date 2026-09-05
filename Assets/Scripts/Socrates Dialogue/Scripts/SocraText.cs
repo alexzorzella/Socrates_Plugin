@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SocratesDialogue {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class SocratesText : MonoBehaviour {
+    public class SocraText : MonoBehaviour {
         FancyText fancyText;
 
         TextMeshProUGUI textComponent;
@@ -26,14 +26,14 @@ namespace SocratesDialogue {
 
         bool onStandby;
 
-        readonly List<SocratesTextListener> listeners = new();
+        readonly List<SocraTextListener> listeners = new();
 
         /// <summary>
         /// Registers a SocratesTextListener to listen for notifications
         /// whenever this SocratesText finishes displaying its contents.
         /// </summary>
         /// <param name="newListener"></param>
-        public void RegisterListener(SocratesTextListener newListener) {
+        public void RegisterListener(SocraTextListener newListener) {
             listeners.Add(newListener);
         }
 
@@ -223,14 +223,14 @@ namespace SocratesDialogue {
                 }
 
                 // Reset the current delay
-                currentBetweenCharacterDelay = SocraticAnnotation.i.displayDelayPerChar;
+                currentBetweenCharacterDelay = SocraTextAnnotation.i.displayDelayPerChar;
 
                 // Executed unexecuted delays
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
-                    SocraticAnnotation.RichTextType richTextType = parse.GetRichTextType();
+                    SocraTextAnnotation.RichTextType richTextType = parse.GetRichTextType();
 
-                    bool isDelay = richTextType == SocraticAnnotation.RichTextType.DELAY;
-                    bool isSoundChange = richTextType == SocraticAnnotation.RichTextType.SOUND;
+                    bool isDelay = richTextType == SocraTextAnnotation.RichTextType.DELAY;
+                    bool isSoundChange = richTextType == SocraTextAnnotation.RichTextType.SOUND;
 
                     if (isDelay || isSoundChange) {
                         bool isUnexecutedAction =
@@ -392,7 +392,7 @@ namespace SocratesDialogue {
             if (fancyText.GetAnnotationTokens() != null) {
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     if (parse.IsOpener()) {
-                        if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.SHAKE) {
+                        if (parse.GetRichTextType() == SocraTextAnnotation.RichTextType.SHAKE) {
                             ApplyRichTextShake(textInfo, parse, vertexPositions, newVertexPositions);
                         }
                     }
@@ -400,10 +400,10 @@ namespace SocratesDialogue {
 
                 foreach (var parse in fancyText.GetAnnotationTokens()) {
                     if (parse.IsOpener()) {
-                        if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.WAVE) {
+                        if (parse.GetRichTextType() == SocraTextAnnotation.RichTextType.WAVE) {
                             ApplyRichTextWave(textInfo, parse, vertexPositions, newVertexPositions);
                         }
-                        else if (parse.GetRichTextType() == SocraticAnnotation.RichTextType.GRADIENT) {
+                        else if (parse.GetRichTextType() == SocraTextAnnotation.RichTextType.GRADIENT) {
                             ApplyRichTextGradient(textComponent, parse, counter);
                         }
                     }
@@ -556,7 +556,7 @@ namespace SocratesDialogue {
         void ApplyRichTextWave(TMP_TextInfo textInfo, AnnotationToken token, Vector3[] vertexPositionsReadFrom, Vector3[] vertexPositionsWriteTo) {
             float waveSpeed = token.HasDynamicValue()
                 ? token.GetDynamicValueAsFloat()
-                : SocraticAnnotation.i.waveSpeed;
+                : SocraTextAnnotation.i.waveSpeed;
 
             for (int i = token.GetStartCharIndex(); i < token.GetLinkedToken().GetStartCharIndex(); i++) {
                 int vertexIndex = textInfo.characterInfo[i].vertexIndex;
@@ -571,12 +571,12 @@ namespace SocratesDialogue {
 
                 float leftOffsetY = Mathf.Sin(
                     Time.timeSinceLevelLoad * waveSpeed +
-                    leftVerticesXPos * SocraticAnnotation.i.waveFreqMultiplier) * SocraticAnnotation.i.waveAmplitude;
+                    leftVerticesXPos * SocraTextAnnotation.i.waveFreqMultiplier) * SocraTextAnnotation.i.waveAmplitude;
 
-                float rightOffsetY = SocraticAnnotation.i.waveWarpTextVertices
+                float rightOffsetY = SocraTextAnnotation.i.waveWarpTextVertices
                     ? Mathf.Sin(Time.timeSinceLevelLoad * waveSpeed +
-                                rightVerticesXPos * SocraticAnnotation.i.waveFreqMultiplier) *
-                      SocraticAnnotation.i.waveAmplitude
+                                rightVerticesXPos * SocraTextAnnotation.i.waveFreqMultiplier) *
+                      SocraTextAnnotation.i.waveAmplitude
                     : leftOffsetY;
 
                 for (int v = 0; v < 4; v++) {
@@ -607,12 +607,12 @@ namespace SocratesDialogue {
                     continue;
                 }
 
-                float timeOffset = Time.timeSinceLevelLoad * SocraticAnnotation.i.gradientSpeed;
+                float timeOffset = Time.timeSinceLevelLoad * SocraTextAnnotation.i.gradientSpeed;
                 float lX = charInfo.bottomLeft.x;
                 float rX = charInfo.bottomRight.x;
                 
-                float percentageL = (timeOffset + lX / SocraticAnnotation.i.gradientWidth + xOffset) % 1;
-                float percentageR = (timeOffset + rX / SocraticAnnotation.i.gradientWidth + xOffset) % 1;
+                float percentageL = (timeOffset + lX / SocraTextAnnotation.i.gradientWidth + xOffset) % 1;
+                float percentageR = (timeOffset + rX / SocraTextAnnotation.i.gradientWidth + xOffset) % 1;
                 
                 int meshIndex = textComponent.textInfo.characterInfo[i].materialReferenceIndex;
                 

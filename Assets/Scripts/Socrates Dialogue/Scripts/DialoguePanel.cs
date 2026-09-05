@@ -3,15 +3,15 @@ using SocratesDialogue;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListener {
+public class DialoguePanel : MonoBehaviour, DialogueListener, SocraTextListener {
     DialogueManager dialogueManager;
     DialogueSection currentSection;
     
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
 
-    public SocratesText nameText;
-    public SocratesText contentText;
+    public SocraText nameText;
+    public SocraText contentText;
     
     public const float fadeTime = 0.15F;
     const float moveTime = 0.5F;
@@ -90,7 +90,7 @@ public class DialoguePanel : MonoBehaviour, DialogueListener, SocratesTextListen
         string soundName =
             newSection.GetFacet<DialogueSound>() != null
                 ? newSection.GetFacet<DialogueSound>().ToString()
-                : SocraticAnnotation.defaultSoundName;
+                : SocraTextAnnotation.defaultSoundName;
 
         contentText.SetDialogueSfx(soundName);
 
