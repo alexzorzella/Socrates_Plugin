@@ -1,4 +1,5 @@
 using System;
+using System.Security;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -97,6 +98,29 @@ public class MultiAudioSource {
 		}
 		
 		next = random.Next(0, sources.Length);
+	}
+
+	/// <summary>
+	/// Plays the audio with a random pitch between the passed min and max pitches.
+	/// </summary>
+	/// <param name="min"></param>
+	/// <param name="max"></param>
+	public void PlayRandomPitch(float min = 0.8F, float max = 1.2F) {
+		RandomizePitch(min, max);
+		PlayRandom();
+	}
+
+	/// <summary>
+	/// Randomizes the pitch of the next source to be played between the passed min and max, ensuring that
+	/// the min and max are compatible.
+	/// </summary>
+	/// <param name="min"></param>
+	/// <param name="max"></param>
+	void RandomizePitch(float min = 0.8F, float max = 1.2F) {
+		min = Mathf.Min(min, max);
+		max = Mathf.Max(min, max);
+		
+		sources[next].pitch = UnityEngine.Random.Range(min, max);
 	}
 	
 	/// <summary>
