@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e0f23c1392a575648b943c1a9fa9f770
+guid: d88e34a4caf116549b037558b87a1042
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5882970715518188899
-    second: FluffballDayBottom_0
+      213: -2767326025230792104
+    second: FluffballDay4k 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FluffballDayBottom_0
+      name: FluffballDay4k 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 4096
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36dbc7a42b284a150800000000000000
-      internalID: 5882970715518188899
+      spriteID: 85acc6854ab7899d0800000000000000
+      internalID: -2767326025230792104
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FluffballDayBottom_0: 5882970715518188899
+      FluffballDay4k 1_0: -2767326025230792104
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
