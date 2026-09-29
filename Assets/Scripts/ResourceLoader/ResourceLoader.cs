@@ -83,27 +83,42 @@ public class ResourceLoader : MonoBehaviour {
 
 		return Instantiate(loadedObject, position, rotation, parent);
 	}
+	
+    /// <summary>
+    ///     Returns an object of type T named filename found in any Resources folder. If specified,
+    ///     the function will look into a subfolder. Multiple subfolders are supported. A slash is
+    ///     not required for the deepest folder.
+    /// </summary>
+    /// <param name="filename"></param>
+    /// <param name="subfolder"></param>
+    /// <returns></returns>
+    public static T LoadFile<T>(string filename, string subfolder = "") where T : Object {
+        string path = SafePath(filename, subfolder);
 
-	/// <summary>
-	/// Returns an object of type T named filename found in any Resources folder. If specified,
-	/// the function will look into a subfolder. Multiple subfolders are supported. A slash is
-	/// not required for the deepest folder.
-	/// </summary>
-	/// <param name="filename"></param>
-	/// <param name="subfolder"></param>
-	/// <returns></returns>
-	public T LoadFile<T>(string filename, string subfolder = "") where T : Object {
-		string path = SafePath(filename, subfolder);
-		
-		T result = Resources.Load<T>(path);
+        T result = Resources.Load<T>(path);
 
-		if (result == null) {
-			Debug.Log($"No file found at {path}.");
-			return null;
-		}
+        if (result == null) {
+            Debug.Log($"No file found at {path}.");
+            return null;
+        }
 
-		return result;
-	}
+        return result;
+    }
+
+    /// <summary>
+    ///     Returns a collection of objects of type T found in any Resources folder.
+    /// </summary>
+    /// <returns></returns>
+    public static T[] LoadFiles<T>() where T : Object {
+        T[] result = Resources.LoadAll<T>("");
+
+        if (result == null) {
+            Debug.Log($"No file(s) of type {nameof(T)} found in Resources.");
+            return null;
+        }
+
+        return result;
+    }
 	
 	/// <summary>
 	/// Returns an Aseprite file named filename found in any Resources folder. If specified, the function
