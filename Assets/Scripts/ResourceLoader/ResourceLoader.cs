@@ -189,32 +189,27 @@ public class ResourceLoader : MonoBehaviour {
 
 		return null;
 	}
+	
+    /// <summary>
+    /// Returns an array containing the subtextures of the sprite with the passed filename in
+    /// Resources/{subfolder}.
+    /// TODO: Add to documentation
+    /// </summary>
+    /// <param name="filename"></param>
+    /// <param name="subfolder"></param>
+    /// <returns></returns>
+    public static Sprite[] LoadSpriteSubtextures(string filename, string subfolder = "") {
+        string path = SafePath(filename, subfolder);
+        Sprite[] sprites = Resources.LoadAll<Sprite>(path);
+        
+        if (sprites == null) {
+            Debug.LogWarning($"No parent sprite found at {path}.");
+            return Array.Empty<Sprite>();
+        }
 
-	/// <summary>
-	/// Returns the first subtexture Sprite whose parent Sprite is named mainTexture found
-	/// in any Resources folder. If specified, the function will look into a subfolder.
-	/// Multiple subfolders are supported. A slash is not required for the deepest folder.
-	/// </summary>
-	/// <param name="mainTexture"></param>
-	/// <param name="subfolder"></param>
-	/// <returns></returns>
-	public static Sprite LoadFirstSprite(string mainTexture, string subfolder = "") {
-		string path = SafePath(mainTexture, subfolder);
-		
-		Sprite[] sprites = Resources.LoadAll<Sprite>(path);
-
-		if (sprites != null) {
-			if (sprites.Length > 0) {
-				Sprite sprite = sprites[0];
-				return sprite;
-			}
-		}
-
-		Debug.LogError($"No subtexture was found at {path}.");
-		
-		return null;
-	}
-
+        return sprites;
+    }
+    
 	/// <summary>
 	/// Returns a random subtexture Sprite whose parent Sprite is named mainTexture found
 	/// in any Resources folder. If specified, the function will look into a subfolder.
@@ -240,5 +235,26 @@ public class ResourceLoader : MonoBehaviour {
 		return null;
 	}
 
+	/// <summary>
+	/// Loads the RuntimeAnimatorController with the passed name
+	/// TODO: Add to documentation
+	/// </summary>
+	/// <param name="animatorName"></param>
+	/// <returns></returns>
+	public RuntimeAnimatorController LoadAnimatorController(string animatorName) {
+		RuntimeAnimatorController result = Resources.Load<RuntimeAnimatorController>(animatorName);
+
+		if (result == null) {
+			// The animator called transparent is an edge case
+			if (animatorName != "transparent") {
+				Debug.Log($"RuntimeAnimatorController '{animatorName}' doesn't exist.");
+			}
+			
+			return null;
+		}
+
+		return result;
+	}
+	
 	//Have a nice day.
 }

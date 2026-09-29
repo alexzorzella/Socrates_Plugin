@@ -7,6 +7,41 @@ public class GameManager {
 	GameStats stats;
 	public EventManager eventManager;
 
+	static readonly float timeScale = 1F;
+	float timeOffset;
+	float lastPausedAtTime;
+	
+	bool paused;
+
+	static float RealtimeSinceLevelLoad() {
+		return Time.timeSinceLevelLoad;
+	}
+	
+	public float TimeSinceLevelLoad() {
+		if (paused) {
+			return lastPausedAtTime;
+		}
+
+		return RealtimeSinceLevelLoad() - timeOffset;
+	}
+	
+	public void SetPaused(bool paused) {
+		this.paused = paused;
+		UpdatePause();
+	}
+
+	public void TogglePaused() {
+		SetPaused(!paused); 
+	}
+	
+	void UpdatePause() {
+		if (paused) {
+			lastPausedAtTime = RealtimeSinceLevelLoad();
+		} else {
+			timeOffset += RealtimeSinceLevelLoad() - lastPausedAtTime;
+		}
+	}
+	
 	public static GameManager Instance() {
 		if (pInstance == null) {
 			pInstance = new GameManager();
