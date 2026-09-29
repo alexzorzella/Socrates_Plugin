@@ -107,6 +107,7 @@ public class ResourceLoader : MonoBehaviour {
 
     /// <summary>
     ///     Returns a collection of objects of type T found in any Resources folder.
+    ///		TODO: Add to documentation
     /// </summary>
     /// <returns></returns>
     public static T[] LoadFiles<T>() where T : Object {
