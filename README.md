@@ -1,6 +1,5 @@
 <div align="center">
-<!-- <img src="https://github.com/user-attachments/assets/dcfd6983-0568-4d2a-9e58-141c66eae52e"> -->
-<h1>The Socrates Plugin</h1>  
+<img width="500" height="" alt="Socrates Plugin Logo" src="https://github.com/alexzorzella/Socrates_Plugin/blob/main/socrates_plugin_logo.png?raw=true" />
 </div>
 
 ![Unity Version](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/alexzorzella/Socrates_Plugin/main/ProjectSettings/ProjectVersion.txt&query=m_EditorVersion&label=Unity&color=222c37&logo=unity)
